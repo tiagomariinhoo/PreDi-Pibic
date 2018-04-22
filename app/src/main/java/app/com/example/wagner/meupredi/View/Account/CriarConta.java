@@ -194,7 +194,7 @@ public class CriarConta extends AppCompatActivity {
 
                         Log.d("Idade Criar Conta: ", String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - ano));
                         //configuracao padrao de usuario
-                        Paciente paciente = new Paciente (0, nomeCompleto, senhaCadastro, emailCadastro, "", IdadeAux, 0 , 0, 0);
+                        Paciente paciente = new Paciente (0, nomeCompleto, senhaCadastro, emailCadastro, "", IdadeAux, 0 , 0, 0, -1);
 
                         //verifica opcao de sexo selecionada
                         String selected = sexo.getSelectedItem().toString();
@@ -210,9 +210,6 @@ public class CriarConta extends AppCompatActivity {
                         GregorianCalendar calendar = new GregorianCalendar();
                         int dia = calendar.get(GregorianCalendar.DAY_OF_YEAR);
 
-                        paciente.setDia(dia);
-                        paciente.setDiaTotal(-1);
-                        paciente.setDiaInicio(-1);
                         paciente.set_exTotal(0);
 
                         //DEBUG: imprime todos os dados do paciente
@@ -231,8 +228,6 @@ public class CriarConta extends AppCompatActivity {
                         Log.d("GlicoseJejum : ", String.valueOf(paciente.get_glicosejejum()));
                         Log.d("Glicose75g : ", String.valueOf(paciente.get_glicose75g()));
                         Log.d("Colesterol : ", String.valueOf(paciente.get_colesterol()));
-                        Log.d("Dia atual : " , String.valueOf(paciente.getDia()));
-                        Log.d("Dia inicio : " , String.valueOf(paciente.getDiaInicio()));
 
                         String msg = controllerPaciente.addPaciente(paciente);
                         ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());

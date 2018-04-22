@@ -19,7 +19,7 @@ import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
 import app.com.example.wagner.meupredi.Controller.ControllerPeso;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Application.Perfil;
+import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
 
 /**
  * Created by Pichau on 08/04/2017.
@@ -77,7 +77,7 @@ public class PosLogin extends AppCompatActivity {
 
 
 
-            Intent intent = new Intent(PosLogin.this, MenuPrincipal.class);
+            Intent intent = new Intent(PosLogin.this, Perfil.class);
             intent.putExtra("Paciente", paciente);
             startActivity(intent);
         }

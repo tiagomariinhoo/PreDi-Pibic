@@ -1,4 +1,4 @@
-package app.com.example.wagner.meupredi.View.Application;
+package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.app.ActivityGroup;
 import android.app.NotificationManager;
@@ -21,6 +21,10 @@ import app.com.example.wagner.meupredi.Controller.ControllerAgenda;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
+import app.com.example.wagner.meupredi.View.Application.PopPerfil;
+import app.com.example.wagner.meupredi.View.Application.TabCorpo;
+import app.com.example.wagner.meupredi.View.Application.TabEvolucao;
+import app.com.example.wagner.meupredi.View.Application.TabTaxas;
 
 import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
 

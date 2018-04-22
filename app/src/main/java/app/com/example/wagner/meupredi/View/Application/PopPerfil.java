@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.Consultas;
 
 /**
  * Created by leandro on 06/03/18.
@@ -51,8 +52,8 @@ public class PopPerfil extends Activity{
         academia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chamadaAcademia = new Intent(PopPerfil.this, Exercicios.class);
-                startActivity(chamadaAcademia);
+                //Intent chamadaAcademia = new Intent(PopPerfil.this, Exercicios.class);
+               // startActivity(chamadaAcademia);
             }
         });
 

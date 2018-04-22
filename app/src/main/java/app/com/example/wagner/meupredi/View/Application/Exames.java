@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Account.MenuPrincipal;
 
 /**
  * Created by LeandroDias1 on 18/04/2017.
@@ -39,10 +38,10 @@ public class Exames extends Fragment{
         chamadaLipidograma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Paciente paciente = ((MenuPrincipal)getActivity()).pegarPacienteMenu();
+               // Paciente paciente = ((MenuPrincipal)getActivity()).pegarPacienteMenu();
 
                 Intent novoExame = new Intent(getActivity(), TelaExameLipidograma.class);
-                novoExame.putExtra("Paciente", paciente);
+              //  novoExame.putExtra("Paciente", paciente);
                 startActivity(novoExame);
             }
         });
@@ -51,10 +50,10 @@ public class Exames extends Fragment{
         chamadaHemograma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Paciente paciente = ((MenuPrincipal)getActivity()).pegarPacienteMenu();
+               // Paciente paciente = ((MenuPrincipal)getActivity()).pegarPacienteMenu();
 
                 Intent novoExame = new Intent(getActivity(), TelaExameHemograma.class);
-                novoExame.putExtra("Paciente", paciente);
+               // novoExame.putExtra("Paciente", paciente);
                 startActivity(novoExame);
             }
         });

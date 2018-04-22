@@ -25,41 +25,27 @@
         <activity android:name=".View.Account.CriarConta" />
         <activity android:name=".View.Account.PosLogin" />
         <activity android:name=".View.Account.EsqueceuSenha" />
-        <activity android:name=".View.Application.cadastroExame" />
-        <activity android:name=".View.Application.Graphics" />
-        <activity
-            android:name=".View.Application.Ginasio">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".View.Application.Desempenho">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".View.Application.NovoExercicio">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".View.Application.Taxas"
+        <activity android:name=".View.Application.MainViews.Taxas"
             android:label="Taxas"/>
         <activity
-            android:name=".View.Application.Peso"
+            android:name=".View.Application.MainViews.Peso"
             android:label="@string/title_activity_peso" />
         <activity
-            android:name=".View.Application.Dados"
+            android:name=".View.Application.MainViews.Dados"
             android:label="Dados de registro" />
         <activity
             android:name=".View.Account.MenuPrincipal"
             android:label="@string/title_activity_menu_principal" />
         <activity android:name=".View.Application.TelaExameLipidograma" />
         <activity android:name=".View.Application.TelaExameHemograma" />
-        <activity android:name=".View.Application.Perfil" />
-        <activity android:name=".View.Application.Consultas" />
+        <activity android:name=".View.Application.MainViews.Perfil" />
+        <activity android:name=".View.Application.MainViews.Consultas" />
         <activity android:name=".View.Application.TabCorpo" />
         <activity android:name=".View.Application.TabTaxas" />
         <activity android:name=".View.Application.TabEvolucao" />

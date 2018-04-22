@@ -1,4 +1,4 @@
-package app.com.example.wagner.meupredi.View.Application;
+package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +25,6 @@ import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
 import app.com.example.wagner.meupredi.Controller.ControllerPeso;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Account.MenuPrincipal;
 
 /**
  * Created by Tiago on 27/06/2017.
@@ -129,7 +128,7 @@ public class Peso extends AppCompatActivity{
 
                         Toast.makeText(getApplicationContext(),"Peso atualizado com sucesso!",Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(Peso.this, MenuPrincipal.class);
+                        Intent intent = new Intent(Peso.this, Perfil.class);
                         intent.putExtra("Paciente", paciente);
                         finish();
                         startActivity(intent);

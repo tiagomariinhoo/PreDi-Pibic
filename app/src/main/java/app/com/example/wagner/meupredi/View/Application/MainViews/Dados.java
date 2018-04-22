@@ -1,4 +1,4 @@
-package app.com.example.wagner.meupredi.View.Application;
+package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.content.Context;
 import android.content.res.Configuration;

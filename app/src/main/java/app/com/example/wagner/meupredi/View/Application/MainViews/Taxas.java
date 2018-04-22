@@ -1,4 +1,4 @@
-package app.com.example.wagner.meupredi.View.Application;
+package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,6 @@ import app.com.example.wagner.meupredi.Controller.ControllerExames;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Account.MenuPrincipal;
 
 /**
  * Created by LeandroDias1 on 25/07/2017.

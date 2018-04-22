@@ -6,7 +6,7 @@
     android:background="@drawable/gradiente_plano_de_fundo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.com.example.wagner.meupredi.View.Application.Dados">
+    tools:context="app.com.example.wagner.meupredi.View.Application.MainViews.Dados">
 
     <TextView
         android:id="@+id/text_nome_dados"

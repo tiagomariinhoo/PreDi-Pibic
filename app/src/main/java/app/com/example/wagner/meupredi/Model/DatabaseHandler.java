@@ -7,18 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.AgendaClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.ExameClass;
-import app.com.example.wagner.meupredi.Model.ModelClass.ExercicioClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.HemogramaClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.LipidogramaClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
@@ -48,9 +43,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_CIRCUNFERENCIA = "circunferencia";
     private static final String KEY_ALTURA = "altura";
     private static final String KEY_IMC = "imc";
-    private static final String KEY_DIA = "diaAtual";
-    private static final String KEY_DIA_INICIO = "diaInicio";
-    private static final String KEY_SEM_MAX = "semMax";
+    private static final String KEY_ULTIMADICA = "ultimaDica";
 
     // ---------- TABLE PESOS ----------
     // BANCO DE PESOS (LINKADO AO BANCO DE PACIENTES POR ID)
@@ -74,17 +67,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_COLESTEROL = "colesterol";
     private static final String KEY_DATA_EXAME = "dataExame";
     private static final String KEY_PAC2 = "pac2";
-
-    // ---------- TABLE EXERCICIOS ----------
-    //TABLE EXERCICIOS
-    private static final String TABLE_EXERCICIOS = "exercicios";
-
-    //COLUNAS DOS EXERCICIOS
-    private static final String KEY_ID_EXERCICIO = "idExercicio";
-    private static final String KEY_TEMPO = "tempo";
-    private static final String KEY_NOME_EXERCICIO = "nomeExercicio";
-    private static final String KEY_DATA_EXERCICIO = "dataExercicio";
-    private static final String KEY_PAC3 = "pac3";
 
     // ---------- TABLE LIPIDOGRAMA ----------
     //TABLE LIPIDOGRAMA
@@ -127,7 +109,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
        // KEY_PAC -> Chave estrangeira da tabela PESOS
-        // KEY_PAC2 -> Chave estrangeira da tabela EXAMES
+       // KEY_PAC2 -> Chave estrangeira da tabela EXAMES
        // KEY_PAC3 -> Chave estrangeira da tebal EXERCICIOS
        //   Todas referenciando a tabela paciente.
 
@@ -151,8 +133,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_CIRCUNFERENCIA + " REAL,"
                 + KEY_ALTURA + " REAL,"
                 + KEY_IMC + " REAL,"
-                + KEY_DIA + " INTEGER,"
-                + KEY_DIA_INICIO + " INTEGER"
+                + KEY_ULTIMADICA + " INTEGER"
                 + ")";
         db.execSQL(CREATE_PACIENTES_TABLE);
 
@@ -177,17 +158,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_PAC2 + " INTEGER,"
                 + " FOREIGN KEY("+KEY_PAC2+") REFERENCES "+TABLE_PACIENTES+"("+KEY_ID+"));";
         db.execSQL(CREATE_EXAMES_TABLE);
-
-        String CREATE_EXERCICIOS_TABLE = "CREATE TABLE IF NOT EXISTS "
-                + TABLE_EXERCICIOS
-                + "("
-                + KEY_ID_EXERCICIO + " INTEGER PRIMARY KEY,"
-                + KEY_NOME_EXERCICIO + " TEXT,"
-                + KEY_TEMPO + " INTEGER,"
-                + KEY_DATA_EXERCICIO + " INTEGER,"
-                + KEY_PAC3 + " INTEGER,"
-                + " FOREIGN KEY ("+KEY_PAC3+") REFERENCES "+TABLE_PACIENTES+"("+KEY_ID+"));";
-        db.execSQL(CREATE_EXERCICIOS_TABLE);
 
         String CREATE_LIPIDOGRAMA_TABLE = "CREATE TABLE IF NOT EXISTS "
                 + TABLE_LIPIDOGRAMA
@@ -239,7 +209,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PACIENTES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PESOS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXAMES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCICIOS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIPIDOGRAMA);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HEMOGRAMA);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_AGENDA);
@@ -270,35 +239,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    public String modelAddExercicio(int tempo, String exercicio, Paciente paciente) {
-        int idPaciente = paciente.get_id();
-        GregorianCalendar calendar = new GregorianCalendar();
-        int dia =  calendar.get(GregorianCalendar.DAY_OF_YEAR);
-
-        Log.d("Dia do ano : ", String.valueOf(dia));
-        Log.d("Tempo do exercicio : ", String.valueOf(tempo));
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        Log.d("Adicionando : " , "Exercicio");
-
-        values.put(KEY_TEMPO, tempo);
-        values.put(KEY_DATA_EXERCICIO, dia);
-        values.put(KEY_NOME_EXERCICIO, exercicio);
-        values.put(KEY_PAC3, idPaciente);
-
-        long retorno;
-        retorno = db.insert(TABLE_EXERCICIOS, null, values);
-
-        if(retorno == -1){
-            return "Erro ao inserir o registro do exercício!";
-        } else {
-            return "Exercicio inserido com sucesso!";
-        }
-    }
-
     public ArrayList<AgendaClass> modelGetAllAgendas (Paciente paciente){
         ArrayList<AgendaClass> agendaList = new ArrayList<>();
         int idPaciente = paciente.get_id();
@@ -323,55 +263,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         return agendaList;
-    }
-
-    public ArrayList<ExercicioClass> modelGetAllExercicios (Paciente paciente) throws ParseException {
-        ArrayList<ExercicioClass> exList = new ArrayList<>();
-        int idPaciente = paciente.get_id();
-        Log.d("DB ","entrei");
-
-        String selectQuery = "SELECT * FROM " + TABLE_EXERCICIOS;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if(cursor.moveToFirst()){
-            do{
-                if(Integer.parseInt(cursor.getString(4))==idPaciente) {
-                    ExercicioClass exClass = new ExercicioClass();
-                    exClass.setNome(cursor.getString(1));
-                    exClass.setTempo(Integer.parseInt(cursor.getString(2)));
-                    exClass.setData(Integer.parseInt(cursor.getString(3)));
-                    exClass.setIdPaciente(Integer.parseInt(cursor.getString(4)));
-                exList.add(exClass);
-                }
-            }while(cursor.moveToNext());
-        }
-
-        return exList;
-    }
-
-    public boolean verificarData(Paciente paciente){
-        GregorianCalendar calendar = new GregorianCalendar();
-        int dia = calendar.get(GregorianCalendar.DAY_OF_YEAR);
-
-        Log.d("Dia inicio do paciente (paciente.getDiaInicio()) : ", String.valueOf(paciente.getDiaInicio()));
-        Log.d("Dia atual do paciente (paciente.getDia()) : ", String.valueOf(paciente.getDia()));
-        Log.d("Dia atual (DAY_OF_YEAR) : ", String.valueOf(dia));
-
-        if(paciente.getDia()!= dia){ //Se for diferente é porque o dia já passou, então :
-
-            if(dia - paciente.getDiaInicio() >= 7){ //Fechou a semana ou já passou da semana, verificar se ele atingiu a meta total
-                //Criar metodo para verificar se atingiu a meta?
-            }
-            paciente.setDiaTotal(dia - paciente.getDiaInicio());
-            paciente.setDia(dia);
-
-           // paciente.setDiaTotal -> o calculo vai ser : o dia do ano que foi pego hoje - o dia do ano que o paciente começou o exercicio
-
-        }
-
-    return true;
     }
 
     public String modelAddExame (ExameClass exame){
@@ -485,8 +376,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_CIRCUNFERENCIA, paciente.get_circunferencia());
         values.put(KEY_ALTURA, paciente.get_altura());
         values.put(KEY_IMC, paciente.get_imc());
-        values.put(KEY_DIA, paciente.getDia());
-        values.put(KEY_DIA_INICIO, paciente.getDiaInicio());
+        values.put(KEY_ULTIMADICA, paciente.getUltimaDica());
 
         long retorno;
         retorno = db.insert(TABLE_PACIENTES, null, values);
@@ -524,8 +414,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 paciente.set_circunferencia(Double.parseDouble(cursor.getString(7)));
                 paciente.set_altura(Double.parseDouble(cursor.getString(8)));
                 paciente.set_imc(Double.parseDouble(cursor.getString(9)));
-                paciente.setDia(Integer.parseInt(cursor.getString(10)));
-                paciente.setDiaInicio(Integer.parseInt(cursor.getString(11)));
+                paciente.set_ultimadica(Integer.parseInt(cursor.getString(10)));
 
                 //pega seu ultimo peso registrado
                 paciente.set_peso(modelGetPeso(paciente));
@@ -615,8 +504,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     paciente.set_circunferencia(Double.parseDouble(cursor.getString(7)));
                     paciente.set_altura(Double.parseDouble(cursor.getString(8)));
                     paciente.set_imc(Double.parseDouble(cursor.getString(9)));
-                    paciente.setDia(Integer.parseInt(cursor.getString(10)));
-                    paciente.setDiaInicio(Integer.parseInt(cursor.getString(11)));
+                    paciente.set_ultimadica(Integer.parseInt(cursor.getString(10)));
 
                     //DEBUG
                     Log.d("Infos do banco: ", "verificarLogin");
@@ -634,8 +522,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Log.d("GlicoseJejum : ", String.valueOf(paciente.get_glicosejejum()));
                     Log.d("Glicose75g : ", String.valueOf(paciente.get_glicose75g()));
                     Log.d("Colesterol : ", String.valueOf(paciente.get_colesterol()));
-                    Log.d("Dia atual : " , String.valueOf(paciente.getDia()));
-                    Log.d("Dia inicio : " , String.valueOf(paciente.getDiaInicio()));
 
                     //se encontrou o paciente correto, retorna objeto
                     return paciente;
@@ -696,6 +582,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_CIRCUNFERENCIA, paciente.get_circunferencia());
         values.put(KEY_ALTURA, paciente.get_altura());
         values.put(KEY_IMC, paciente.get_imc());
+        values.put(KEY_ULTIMADICA, paciente.getUltimaDica());
 
         return db.update(this.TABLE_PACIENTES, values, where, null) > 0;
     }

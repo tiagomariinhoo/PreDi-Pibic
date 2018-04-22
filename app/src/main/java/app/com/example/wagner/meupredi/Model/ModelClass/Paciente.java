@@ -22,9 +22,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
             int _idade;
             int _exTotal; //Total atual
             int _exMax; //Meta da semana
-            int dia;
-            int diaInicio;
-            int diaTotal;
+            int ultimaDica;
             double _circunferencia;
             double _peso;
             double _altura;
@@ -41,7 +39,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
 
             }
 
-            public Paciente(int id, String nome, String senha, String email, String sexo, int idade, double circunferencia, double peso, double altura) {
+            public Paciente(int id, String nome, String senha, String email, String sexo, int idade, double circunferencia, double peso, double altura, int ultimaDica) {
 
                 //valores com -1 serão setados ou calculados após o cadastro inicial
                 this._id = id;
@@ -61,13 +59,21 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this._lipidograma = -1;
                 this._hemograma = -1;
                 this._tireoide = -1;
-
+                this.ultimaDica = ultimaDica;
             }
 
             public void getInfo(){
                 Log.d("Get info: ", get_nome());
                 Log.d("Nome: ", get_nome());
                 Log.d("Peso: ", String.valueOf(get_peso()));
+            }
+
+            public int getUltimaDica() {
+                return ultimaDica;
+            }
+
+            public void set_ultimadica(int ultimaDica) {
+                this.ultimaDica = ultimaDica;
             }
 
             public int get_id() {
@@ -220,30 +226,6 @@ public class Paciente extends AppCompatActivity implements Serializable {
 
             public void set_exTotal(int _exTotal) {
                 this._exTotal = _exTotal;
-            }
-
-            public int getDia() {
-                return dia;
-            }
-
-            public void setDia(int dia) {
-                this.dia = dia;
-            }
-
-            public int getDiaInicio() {
-                return diaInicio;
-            }
-
-            public void setDiaInicio(int diaInicio) {
-                this.diaInicio = diaInicio;
-            }
-
-            public int getDiaTotal() {
-                return diaTotal;
-            }
-
-            public void setDiaTotal(int diaTotal) {
-                this.diaTotal = diaTotal;
             }
 
             public int get_exMax() {

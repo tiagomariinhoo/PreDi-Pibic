@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.Peso;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
 

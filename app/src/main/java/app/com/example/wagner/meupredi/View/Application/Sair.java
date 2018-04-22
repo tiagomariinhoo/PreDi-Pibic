@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Account.MenuPrincipal;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 
 /**
@@ -49,10 +48,10 @@ public class Sair extends Fragment  implements View.OnClickListener {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getActivity(), MenuPrincipal.class);
-                paciente = ((MenuPrincipal)getActivity()).pegarPacienteMenu();
-                intent.putExtra("Paciente", paciente);
-                startActivity(intent);
+              //  Intent intent = new Intent(getActivity(), MenuPrincipal.class);
+             //   paciente = ((MenuPrincipal)getActivity()).pegarPacienteMenu();
+              //  intent.putExtra("Paciente", paciente);
+              //  startActivity(intent);
             }
         });
 
