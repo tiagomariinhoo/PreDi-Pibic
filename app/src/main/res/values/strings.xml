@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MeuPreDi</string>
+    <string name="title_activity_cadastro">Cadastro</string>
+    <string name="title_activity_edicao">Edicao</string>
+    <string name="title_activity_status">Status</string>
+    <string name="acitivity_criar_conta">CRIAR NOVA CONTA</string>
+    <string name="activity_pos_login">      Falta pouco para você utilizar o nosso aplicativo. Por favor, preencha os dados de registro:</string>
+    <string name="title_activity_peso">Monitore seu peso</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="title_activity_menu_principal">MenuPrincipal</string>
+
+    <string name="mgdl">md/ld</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Configurações</string>
+
+</resources>

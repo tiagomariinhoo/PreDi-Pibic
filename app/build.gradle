@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '27.0.3'
+    defaultConfig {
+        applicationId "app.com.example.wagner.meupredi"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+dependencies {
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+}
+
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:25.2.0'
+    testCompile 'junit:junit:4.12'
+    // Biblioteca adicionada
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
+    compile 'com.github.Vatican-Cameos:CarouselPicker:v1.0'
+    compile 'com.github.sundeepk:compact-calendar-view:2.0.3-beta'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    compile 'com.michaelmuenzer.android:ScrollableNumberPicker:0.2.2'
+}
+
+android {
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE.txt' // picks the JavaMail license file
+    }
+}
+
+repositories {
+    jcenter()
+    maven {
+        url "https://maven.java.net/content/groups/public/"
+    }
+}
+
+dependencies {
+    compile 'com.sun.mail:android-mail:1.5.5'
+    compile 'com.sun.mail:android-activation:1.5.5'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+}
+dependencies {
+    compile 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
+    compile 'com.android.support.constraint:constraint-layout:+'
+}

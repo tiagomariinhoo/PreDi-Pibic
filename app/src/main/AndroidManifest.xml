@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.com.example.wagner.meupredi">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_coracao"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Model.TelaLogin">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".View.Account.TelaLoginSplash" />
+        <activity android:name=".View.Account.TelaLogin" />
+        <activity android:name=".View.Account.CriarConta" />
+        <activity android:name=".View.Account.PosLogin" />
+        <activity android:name=".View.Account.EsqueceuSenha" />
+        <activity android:name=".View.Application.cadastroExame" />
+        <activity android:name=".View.Application.Graphics" />
+        <activity
+            android:name=".View.Application.Ginasio">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".View.Application.Desempenho">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".View.Application.NovoExercicio">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".View.Application.Taxas"
+            android:label="Taxas"/>
+        <activity
+            android:name=".View.Application.Peso"
+            android:label="@string/title_activity_peso" />
+        <activity
+            android:name=".View.Application.Dados"
+            android:label="Dados de registro" />
+        <activity
+            android:name=".View.Account.MenuPrincipal"
+            android:label="@string/title_activity_menu_principal" />
+        <activity android:name=".View.Application.TelaExameLipidograma" />
+        <activity android:name=".View.Application.TelaExameHemograma" />
+        <activity android:name=".View.Application.Perfil" />
+        <activity android:name=".View.Application.Consultas" />
+        <activity android:name=".View.Application.TabCorpo" />
+        <activity android:name=".View.Application.TabTaxas" />
+        <activity android:name=".View.Application.TabEvolucao" />
+        <activity android:name=".View.Application.PopPerfil"
+            android:theme="@style/AppTheme.CustomTheme"
+            />
+        <activity android:name=".View.Application.TabelaImc"
+            android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".View.Application.PesoIdeal"
+            android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".View.Application.tabelaPredi" />
+        <activity android:name=".View.Application.NumberPickerPeso" />
+        <activity android:name=".View.Application.Dicas"
+            android:theme="@style/AppTheme.CustomTheme"/>
+
+    </application>
+
+</manifest>

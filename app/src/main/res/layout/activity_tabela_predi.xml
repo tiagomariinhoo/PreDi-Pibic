@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    android:background="@color/colorBranco">
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="Taxas"
+            android:background="@color/colorBarraTituloRoxa"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBranco"
+            android:textStyle="bold" />
+
+        <TextView
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="Valores"
+            android:background="@color/colorBarraTituloRoxa"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBranco"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Glicemia em Jejum"
+            android:textAlignment="center"
+            android:padding="3dip" />
+        <TextView
+            android:text="entre 100 e 125 mg/dl"
+            android:gravity="right"
+            android:textAlignment="center"
+            android:padding="3dip" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="TOTG"
+            android:textAlignment="center"
+            android:padding="3dip" />
+        <TextView
+            android:text="entre 140 e 199 mg/dl"
+            android:gravity="right"
+            android:textAlignment="center"
+            android:padding="3dip" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="HbA1c"
+            android:textAlignment="center"
+            android:padding="3dip" />
+        <TextView
+            android:text="entre 5,7 e 6,4 % "
+            android:gravity="right"
+            android:textAlignment="center"
+            android:padding="3dip" />
+    </TableRow>
+
+</TableLayout>

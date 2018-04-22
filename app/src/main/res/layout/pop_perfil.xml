@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente_branco">
+
+    <TextView
+        android:id="@+id/text_pop_consultas"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/gradiente_roxo"
+        android:gravity="center_vertical"
+        android:text="CONSULTAS"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/text_pop_dicas"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text_pop_academia"
+        android:background="@drawable/gradiente_melon"
+        android:gravity="center_vertical"
+        android:text="DICAS"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/text_pop_academia"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/text_pop_consultas"
+        android:background="@drawable/gradiente_cooper"
+        android:gravity="center_vertical"
+        android:text="ACADEMIA"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agende ou veja suas consultas marcadas"
+        android:textAlignment="center"
+        android:paddingBottom="8dp"
+        android:textColor="@color/colorBranco"
+        android:layout_above="@+id/text_pop_academia"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text_pop_consultas"
+        android:background="@mipmap/ic_marcador_livro"
+        app:srcCompat="@mipmap/ic_marcador_livro" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/ic_marcador_livro"
+        app:srcCompat="@mipmap/ic_marcador_livro" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text_pop_academia"
+        android:background="@mipmap/ic_marcador_livro"
+        app:srcCompat="@mipmap/ic_marcador_livro" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mexa-se e atinga suas metas!"
+        android:textColor="@color/colorBranco"
+        android:paddingBottom="8dp"
+        android:textAlignment="center"
+        android:layout_above="@+id/text_pop_dicas"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descubra algumas maneiras de se alcançar um estilo de vida mais saudável"
+        android:textAlignment="center"
+        android:paddingBottom="8dp"
+        android:textColor="@color/colorBranco"
+        android:layout_alignBottom="@+id/text_pop_dicas"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_lampada"
+        app:srcCompat="@mipmap/ic_lampada"
+        android:layout_below="@+id/text_pop_academia"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/text_pop_consultas"
+        android:background="@mipmap/ic_academia"
+        android:tint="#fff"
+        app:srcCompat="@mipmap/ic_academia" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/ic_consultas_check"
+        app:srcCompat="@mipmap/ic_consultas_check" />
+
+</RelativeLayout>

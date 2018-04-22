@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="300dp"
+    android:background="@color/colorBranco">
+
+    <TextView
+        android:id="@+id/text_tab_corpo_atualizar_peso"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:background="#d2dae2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_peso_atual"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_peso_atual" />
+
+    <TextView
+        android:id="@+id/text_tab_corpo_atualizar2_peso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Atualize seu Peso"
+        android:textColor="#3c40c6"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_peso_atual"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.521" />
+
+    <TextView
+        android:id="@+id/text_tab_corpo_peso_atual"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gradiente_verde"
+        android:gravity="center_vertical"
+        android:text="85,10 "
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_tab_corpo_tabela_imc"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:background="#d2dae2"
+        android:text=""
+        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_imc_atual"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_imc_atual"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="IMC"
+        android:textColor="#000"
+        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_imc_atual"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_imc_atual"
+        app:layout_constraintHorizontal_bias="0.502" />
+
+    <TextView
+        android:id="@+id/text_tab_corpo_peso_ultima_medicao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Ultima medição: 07/04/2018"
+        app:layout_constraintLeft_toLeftOf="@+id/text_tab_corpo_atualizar2_peso"
+        app:layout_constraintRight_toRightOf="@+id/text_tab_corpo_atualizar2_peso"
+        app:layout_constraintTop_toBottomOf="@+id/text_tab_corpo_atualizar2_peso" />
+
+    <TextView
+        android:id="@+id/text_tab_corpo_imc_atual"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gradiente_cinza"
+        android:gravity="center_vertical"
+        android:text="29,94"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_tab_corpo_peso_atual" />
+
+    <TextView
+        android:id="@+id/text_chamada_info_imc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Informativo sobre IMC"
+        android:textColor="#575fcf"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_tab_corpo_tabela_imc" />
+
+    <TextView
+        android:id="@+id/text_tab_corpo_status_imc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:text="Sobrepeso"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_imc_atual"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+    <TextView
+        android:id="@+id/text_qual_meu_peso_ideal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Qual é meu peso ideal?"
+        android:textColor="#575fcf"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_tab_corpo_imc_atual" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:text="kg"
+        android:textColor="@color/colorBranco"
+        android:textSize="12sp"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintLeft_toLeftOf="@+id/text_tab_corpo_peso_atual"
+        app:layout_constraintRight_toRightOf="@+id/text_tab_corpo_peso_atual"
+        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_peso_atual" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:text="kg / m²"
+        android:textColor="@color/colorBranco"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@+id/text_tab_corpo_imc_atual"
+        app:layout_constraintRight_toRightOf="@+id/text_tab_corpo_imc_atual"
+        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_imc_atual" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/gradiente_plano_de_fundo">
+
+    <TextView
+        android:id="@+id/textView_data_tela_consulta"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:background="@color/colorBranco"
+        android:padding="8dp"
+        android:text=""
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_faixa_nova_consulta"
+        android:layout_marginTop="-7dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginRight="8dp" />
+
+    <Button
+        android:id="@+id/btn_data_consulta_marcada"
+        android:layout_width="78dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@mipmap/ic_marcar_data_consulta"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_nome_nova_consulta"
+        app:layout_constraintRight_toLeftOf="@+id/btn_horario_consulta_marcada"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btn_horario_consulta_marcada"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@mipmap/ic_horario_marcar_consulta"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/btn_data_consulta_marcada"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_data_consulta_marcada"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <ImageView
+        android:id="@+id/imageView_fundo_branco_lista_consultas_marcadas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/gradiente_branco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView_faixa_consultas_marcadas"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="top|start"
+        android:text="  Consultas Marcadas (0)"
+        android:background="@color/colorBranco"
+        android:textAllCaps="true"
+        android:textColor="#000"
+        android:textSize="18sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2" />
+
+
+    <EditText
+        android:id="@+id/editText_nome_nova_consulta"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borda_curvada_branca"
+        android:ems="10"
+        android:hint="Título da Consulta"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintDimensionRatio=""
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_faixa_nova_consulta" />
+
+    <TextView
+        android:id="@+id/textView_nome_card_nova_consulta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteY="202dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textView_faixa_consultas_marcadas"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:text="~ Consultas Marcadas ~"
+        android:background="#575fcf"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorBranco"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView24"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+    <TextView
+        android:id="@+id/textView_faixa_nova_consulta"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="#575fcf"
+        android:gravity="center_vertical"
+        android:text="~ Nova Consulta ~"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginRight="8dp" />
+
+    <ImageView
+        android:id="@+id/btn_agendar_nova_consulta"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:visibility="visible"
+        android:background="@mipmap/ic_adicionar_nova_consulta"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/textView_data_tela_consulta"
+        app:layout_constraintTop_toBottomOf="@+id/textView_horario_card_nova_consulta"
+        />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_fundo_branco_lista_consultas_marcadas"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView_faixa_consultas_marcadas">
+
+        <ListView
+            android:id="@+id/lista_consultas_marcadas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"></ListView>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:text="Data"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_data_consulta_marcada"
+        app:layout_constraintRight_toRightOf="@+id/btn_data_consulta_marcada"
+        app:layout_constraintTop_toBottomOf="@+id/btn_data_consulta_marcada"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Horário"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_horario_consulta_marcada"
+        app:layout_constraintRight_toRightOf="@+id/btn_horario_consulta_marcada"
+        app:layout_constraintTop_toBottomOf="@+id/btn_horario_consulta_marcada"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/textView_data_card_nova_consulta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="dd/mm/aaaa"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@+id/btn_horario_consulta_marcada"
+        app:layout_constraintRight_toRightOf="@+id/textView_data_tela_consulta"
+        app:layout_constraintTop_toTopOf="@+id/btn_horario_consulta_marcada"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/textView_horario_card_nova_consulta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:fontFamily="sans-serif"
+        android:text="00:00"
+        app:layout_constraintLeft_toLeftOf="@+id/textView_data_card_nova_consulta"
+        app:layout_constraintRight_toRightOf="@+id/textView_data_card_nova_consulta"
+        app:layout_constraintTop_toBottomOf="@+id/textView_data_card_nova_consulta"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <ImageView
+        android:id="@+id/imageView_editar_consultas"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@mipmap/ic_editar_bola"
+        android:visibility="visible"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        android:layout_marginBottom="8dp" />
+
+</android.support.constraint.ConstraintLayout>

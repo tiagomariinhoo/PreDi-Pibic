@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente_azul">
+
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/ic_water"
+        app:srcCompat="@drawable/ic_water" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="ÁGUA"
+        android:textColor="@color/colorBranco"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/imageView18"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView44"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Quantos copos de água você já bebeu hoje?"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text=" Uma pessoa de 45kg deve tomar em média
+        1,5 litros de água (7-8 copos/dia)
+        e uma pessoa de 80kg deve tomar cerca de
+        2,8 litros de água (14 copos/dia)."
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:layout_below="@+id/textView45"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

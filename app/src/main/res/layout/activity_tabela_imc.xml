@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBranco">
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/borda_retangular_preta"
+        android:gravity="center_vertical"
+        android:text="Classificação"
+        android:textAlignment="center"
+        android:textColor="#34495e"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/text_tabela_imc_peso_normal"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text_tabela_imc_abaixo_peso"
+        android:background="@drawable/borda_retangular_preta"
+        android:gravity="center_vertical"
+        android:text="Peso normal"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/text_tabela_imc_abaixo_peso"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text_tabela_imc_muitoabaixo_peso"
+        android:background="@drawable/borda_retangular_preta"
+        android:gravity="center_vertical"
+        android:text="Abaixo do Peso"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/text_tabela_imc_muitoabaixo_peso"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView32"
+        android:background="@drawable/borda_retangular_preta"
+        android:gravity="center_vertical"
+        android:text="Muito abaixo do Peso"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/borda_retangular_preta"
+        android:gravity="center_vertical"
+        android:text="IMC"
+        android:textAlignment="center"
+        android:textColor="#34495e"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/text_tabela_imc_peso_normal"
+        android:layout_toEndOf="@+id/text_tabela_imc_peso_normal" />
+
+    <TextView
+        android:id="@+id/text_tabela_imc_acima_peso"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/text_tabela_imc_peso_normal"
+        android:layout_toLeftOf="@+id/textView29"
+        android:layout_toStartOf="@+id/textView29"
+        android:text="Acima do Peso"
+        android:textAlignment="center"
+        android:background="@drawable/borda_retangular_preta"
+        android:gravity="center_vertical"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_imc_obesidade_i"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/text_tabela_imc_acima_peso"
+        android:layout_alignRight="@+id/text_tabela_imc_acima_peso"
+        android:layout_below="@+id/text_tabela_imc_acima_peso"
+        android:background="@drawable/borda_retangular_preta"
+        android:gravity="center_vertical"
+        android:text="Obesidade Grau I"
+        android:textAlignment="center"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_imc_obesidade_ii"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/text_tabela_imc_obesidade_i"
+        android:layout_alignStart="@+id/text_tabela_imc_obesidade_i"
+        android:layout_below="@+id/text_tabela_imc_obesidade_i"
+        android:text="Obesidade Grau II"
+        android:background="@drawable/borda_retangular_preta"
+        android:gravity="center_vertical"
+        android:textAlignment="center"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_imc_obesidade_iii"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@+id/text_tabela_imc_obesidade_i"
+        android:layout_alignRight="@+id/text_tabela_imc_obesidade_i"
+        android:layout_below="@+id/text_tabela_imc_obesidade_ii"
+        android:text="Obesidade Grau III"
+        android:background="@drawable/borda_retangular_preta"
+        android:gravity="center_vertical"
+        android:textAlignment="center"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_imc_valor_muitoabaixo_peso"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView32"
+        android:layout_toRightOf="@+id/text_tabela_imc_muitoabaixo_peso"
+        android:text="16 a 16,9 kg/m²"
+        android:background="@drawable/borda_retangular_preta"
+        android:textAlignment="center"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_valor_imc_abaixo_peso"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/text_tabela_imc_abaixo_peso"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/text_tabela_imc_abaixo_peso"
+        android:text="17 a 18,4 kg/m²"
+        android:background="@drawable/borda_retangular_preta"
+        android:textAlignment="center"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_valor_imc_peso_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_above="@+id/text_tabela_imc_acima_peso"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/text_tabela_imc_peso_normal"
+        android:text="18,5 a 24,9 kg/m²"
+        android:background="@drawable/borda_retangular_preta"
+        android:textAlignment="center"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_valor_imc_acima_peso"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_above="@+id/text_tabela_imc_obesidade_i"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/text_tabela_imc_acima_peso"
+        android:text="	25 a 29,9 kg/m²"
+        android:textAlignment="center"
+        android:background="@drawable/borda_retangular_preta"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_valor_imc_obesidade_i"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_above="@+id/text_tabela_imc_obesidade_ii"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/text_tabela_imc_obesidade_i"
+        android:text="30 a 34,9 kg/m²"
+        android:textAlignment="center"
+        android:background="@drawable/borda_retangular_preta"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_valor_imc_obesidade_ii"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_above="@+id/text_tabela_imc_obesidade_iii"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/text_tabela_imc_obesidade_ii"
+        android:text="35 a 40 kg/m²"
+        android:textAlignment="center"
+        android:background="@drawable/borda_retangular_preta"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/text_tabela_valor_imc_obesidade_iii"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/text_tabela_imc_obesidade_iii"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/text_tabela_imc_obesidade_iii"
+        android:text="maior que 40 kg/m²"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:gravity="center_vertical"
+        android:background="@drawable/borda_retangular_preta"
+        android:textColor="#000" />
+
+</RelativeLayout>
