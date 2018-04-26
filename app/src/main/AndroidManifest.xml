@@ -39,13 +39,12 @@
         <activity
             android:name=".View.Application.MainViews.Dados"
             android:label="Dados de registro" />
-        <activity
-            android:name=".View.Account.MenuPrincipal"
-            android:label="@string/title_activity_menu_principal" />
+
         <activity android:name=".View.Application.TelaExameLipidograma" />
         <activity android:name=".View.Application.TelaExameHemograma" />
         <activity android:name=".View.Application.MainViews.Perfil" />
-        <activity android:name=".View.Application.MainViews.Consultas" />
+        <activity android:name=".View.Application.MainViews.Consultas"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".View.Application.TabCorpo" />
         <activity android:name=".View.Application.TabTaxas" />
         <activity android:name=".View.Application.TabEvolucao" />

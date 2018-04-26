@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text_consulta_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/gradiente_branco"
+        android:gravity="center_vertical"
+        android:text="TESTE"
+        android:paddingLeft="16dp"
+        android:textAlignment="textStart"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/text_consulta_data_item"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/borda_curvada_vermelho"
+        android:gravity="start"
+        android:text="25/04"
+        android:textColor="@color/colorBranco"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/text_consulta_horario_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/text_consulta_item"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:text="00:00"
+        android:textColor="@color/colorBranco"
+        android:textSize="14dp" />
+
+</RelativeLayout>

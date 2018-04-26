@@ -39,6 +39,7 @@ public class TelaExameHemograma  extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exame_hemograma);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         hemoglobina_exame_hemograma = (EditText) findViewById(R.id.edit_hemoglobina_exame_hemograma);

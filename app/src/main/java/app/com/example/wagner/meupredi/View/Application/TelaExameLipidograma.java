@@ -35,6 +35,7 @@ public class TelaExameLipidograma extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exame_lipidograma);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         dataLipidograma = (EditText) findViewById(R.id.edit_data_exame_lipidograma);
