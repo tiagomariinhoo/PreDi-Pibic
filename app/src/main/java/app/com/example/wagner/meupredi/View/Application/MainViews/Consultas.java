@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -38,12 +40,11 @@ public class Consultas extends Activity {
 
     private DateFormat formatacaoData = DateFormat.getDateInstance();
     private Calendar dataTime = Calendar.getInstance();
-    private TextView btnMarcarData, btnMarcarHorario;
+    private TextView btnMarcarData, btnMarcarHorario, contadorConsultas;
     private ImageView agendarNovaConsulta;
     private EditText nomeNovaConsulta;
     private AlertDialog.Builder alertaNovaConsulta;
-    private String date = "-", time = "-", nome = "-", shortDate = "-", shortTime = "-";
-    private String diaEscolhido = "", mesEscolhido = "", anoEscolhido = "";
+    private String date = "-", time = "-", nome = "-", shortDate = "-", shortTime = "-",  diaEscolhido = "", mesEscolhido = "", anoEscolhido = "";
     private Paciente paciente;
     ArrayList<AgendaClass> agendaList = new ArrayList<>();
 
@@ -53,41 +54,28 @@ public class Consultas extends Activity {
     private ArrayAdapter<String> adapter;
     private String[] items = {};
 
-    private ArrayList<String> arraylistDatas;
-    private ArrayAdapter<String> adapterD;
-    private String[] itemsDatas = {};
-
-    private ArrayList<String> arraylistHorarios;
-    private ArrayAdapter<String> adapterH;
-    private String[] itemsHoras = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
+        paciente = (Paciente) getIntent().getExtras().get("Paciente");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultas);
-
         // Função abaixo impede que o teclado seja chamado para o edit text quando a tela abrir
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         nomeNovaConsulta = (EditText) findViewById(R.id.editText_nome_nova_consulta);
         btnMarcarData = (TextView) findViewById(R.id.btn_data_consulta_marcada);
         btnMarcarHorario = (TextView) findViewById(R.id.btn_horario_consulta_marcada);
+        contadorConsultas = (TextView) findViewById(R.id.text_contador_consultas);
         agendarNovaConsulta = (ImageView) findViewById(R.id.btn_agendar_nova_consulta);
         listaDeConsultas = (ListView) findViewById(R.id.lista_consultas);
 
         arraylist = new ArrayList<>(Arrays.asList(items));
-        arraylistDatas = new ArrayList<>(Arrays.asList(itemsDatas));
-        arraylistHorarios = new ArrayList<>(Arrays.asList(itemsHoras));
 
         adapter = new ArrayAdapter<String>(this, R.layout.lista_consultas_item, R.id.text_consulta_item, arraylist);
-        adapterD = new ArrayAdapter<String>(this, R.layout.lista_consultas_item, R.id.text_consulta_data_item, arraylistDatas);
-        adapterH = new ArrayAdapter<String>(this, R.layout.lista_consultas_item, R.id.text_consulta_horario_item, arraylistHorarios);
 
         listaDeConsultas.setAdapter(adapter);
-        listaDeConsultas.setAdapter(adapterD);
-        listaDeConsultas.setAdapter(adapterH);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         nome = "";
@@ -95,9 +83,9 @@ public class Consultas extends Activity {
             @Override
             public void onClick(View v) {
                 nome = nomeNovaConsulta.getText().toString();
-                nomeNovaConsulta.setText("Hospital/Clínica");
-                btnMarcarData.setText("dd/mm/aaaa");
-                btnMarcarHorario.setText("00:00");
+                nomeNovaConsulta.setHint("Hospital/Clínica");
+                btnMarcarData.setHint("dd/mm/aaaa");
+                btnMarcarHorario.setHint("00:00");
 
                 alertaNovaConsulta = new AlertDialog.Builder( Consultas.this );
 
@@ -123,13 +111,9 @@ public class Consultas extends Activity {
                                 Toast.makeText(Consultas.this, "Nova consulta agendada!", Toast.LENGTH_SHORT).show();
                                 // FAZER FUNÇÃO DE ADICIONAR NOVA CONSULTA EM LISTA DE CONSULTAS MARCADAS
 
-                                arraylist.add(nome);
-                                arraylistDatas.add(shortDate);
-                                arraylistHorarios.add(shortTime);
+                                arraylist.add(nome+" - "+shortDate+" - "+shortTime);
 
                                 adapter.notifyDataSetChanged();
-                                adapterD.notifyDataSetChanged();
-                                adapterH.notifyDataSetChanged();
 
                                 Log.d("NOME DO PACIENTE : " , paciente.get_nome());
                                 try {
@@ -152,6 +136,8 @@ public class Consultas extends Activity {
             }
         });
 
+        contadorConsultas.setText("Consultas ("+arraylist.size()+")");
+
         btnMarcarData .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +151,8 @@ public class Consultas extends Activity {
                 updateTime();
             }
         });
+
+
 
     }
 
@@ -233,5 +221,28 @@ public class Consultas extends Activity {
             btnMarcarHorario.setText(horaEscolhida + ":" + minutosEscolhidos);
         }
     };
+
+    public class AdapterCursosPersonalizado extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return null;
+        }
+    }
 
 }
