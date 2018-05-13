@@ -97,6 +97,7 @@ public class ControllerAgenda {
 
     private Date getDateFromString(String s){
         try{
+            Log.d("String antes: ",s);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             Date date = sdf.parse(s);
             return date;
@@ -121,7 +122,7 @@ public class ControllerAgenda {
 
         Log.d("EventNotify : ", paciente.get_nome());
         for(int i=0;i<consultas.size();i++){
-            Log.d("Consulta : ", consultas.get(i).getTitulo());
+            Log.d("Consulta2 : ", consultas.get(i).getTitulo());
             Log.d("Data", consultas.get(i).getDate());
         }
 
@@ -133,23 +134,38 @@ public class ControllerAgenda {
 
         Log.d("Check array Date ", "xd");
 
-        for(int i=0;i<datas.size();i++){
-            Log.d("Date : ", datas.get(i).toString());
+        Log.d("Datas size: ", String.valueOf(datas.size()));
+        if(datas.size() != 0){
+               for(int i=0;i<datas.size();i++){
+                   if(datas.get(i)!=null){
+                       Log.d("Date : ", datas.get(i).toString());
+                   }
+               }
         }
 
         Date prox = new Date();
         Date aux = new Date();
         boolean at = false;
 
+        long auxi = 1291291121;
+        prox.setTime(Long.MAX_VALUE);
         for(int i=0;i<datas.size();i++){
-            long auxi = datas.get(i).getTime() - aux.getTime();
+            if(datas.get(i) != null){
 
-            Log.d("Resultado dif Notify : ", Long.toString(auxi));
-
-            if(datas.get(i).getTime() - aux.getTime() > 0){
-                prox = datas.get(i);
-                at = true;
-                break;
+                Log.d("Resultado dif Notify : ", Long.toString(auxi));
+                Log.d("Tempo atual : ", String.valueOf(datas.get(i).getTime()));
+                Log.d("Tempo hoje : ", String.valueOf(aux.getTime()));
+                Log.d("Prox : ", String.valueOf(prox.getTime()));
+                Long numb = datas.get(i).getTime() - aux.getTime();
+                Log.d("Subt : ", String.valueOf(numb));
+                if(numb > 0){
+                    if(datas.get(i).getTime() < prox.getTime()){
+                        //auxi = datas.get(i).getTime();
+                        prox = datas.get(i);
+                        at = true;
+                    }
+                    //break;
+                }
             }
         }
 
@@ -157,15 +173,19 @@ public class ControllerAgenda {
         Log.d("Prox: ", prox.toString());
 
         try{
+            Log.d("Dias", " antes");
             if(at == true){
-                long diff = prox.getTime() - aux.getTime();
-                float days = (diff / (1000*60*60*24));
+                float days = (prox.getTime() - aux.getTime()) / (1000*60*60*24);
                 Log.d("Days Notify: ", Float.toString(days));
                 if(days <= 7){
+                    Log.d("Proximo!", "Proximo");
                     return prox;
+                } else {
+                    Log.d("NAO FOI!", " NAO FOI!");
                 }
             }
         } catch(Exception e){
+            Log.d("Erro!", " Calculo dos dias!");
             e.printStackTrace();
         }
 

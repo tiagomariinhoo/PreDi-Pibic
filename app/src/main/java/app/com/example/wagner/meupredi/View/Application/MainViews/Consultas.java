@@ -71,9 +71,11 @@ public class Consultas extends Activity {
         agendarNovaConsulta = (ImageView) findViewById(R.id.btn_agendar_nova_consulta);
         listaDeConsultas = (ListView) findViewById(R.id.lista_consultas);
 
-        arraylist = new ArrayList<>(Arrays.asList(items));
 
-        adapter = new ArrayAdapter<String>(this, R.layout.lista_consultas_item, R.id.text_consulta_item, arraylist);
+        ControllerAgenda controllerAgenda = new ControllerAgenda(Consultas.this);
+
+        //arraylist = new ArrayList<>(Arrays.asList(items));
+        adapter = new ArrayAdapter<String>(this, R.layout.lista_consultas_item, R.id.text_consulta_item, adapterList(controllerAgenda));
 
         listaDeConsultas.setAdapter(adapter);
 
@@ -84,7 +86,7 @@ public class Consultas extends Activity {
             public void onClick(View v) {
                 nome = nomeNovaConsulta.getText().toString();
                 nomeNovaConsulta.setHint("Hospital/Clínica");
-                btnMarcarData.setHint("dd/mm/aaaa");
+                btnMarcarData.setHint("yyyy/MM/dd");
                 btnMarcarHorario.setHint("00:00");
 
                 alertaNovaConsulta = new AlertDialog.Builder( Consultas.this );
@@ -111,7 +113,10 @@ public class Consultas extends Activity {
                                 Toast.makeText(Consultas.this, "Nova consulta agendada!", Toast.LENGTH_SHORT).show();
                                 // FAZER FUNÇÃO DE ADICIONAR NOVA CONSULTA EM LISTA DE CONSULTAS MARCADAS
 
-                                arraylist.add(nome+" - "+shortDate+" - "+shortTime);
+                                //arraylist.add(nome+" - "+shortDate+" - "+shortTime);
+                                AgendaClass agendaClass = new AgendaClass(nome, nome, anoEscolhido + "/" + mesEscolhido + "/" + diaEscolhido, shortTime);
+                                ControllerAgenda controllerAgenda = new ControllerAgenda(Consultas.this);
+                                controllerAgenda.adicionarEvento(paciente, agendaClass);
 
                                 adapter.notifyDataSetChanged();
 
@@ -136,7 +141,7 @@ public class Consultas extends Activity {
             }
         });
 
-        contadorConsultas.setText("Consultas ("+arraylist.size()+")");
+        contadorConsultas.setText("Consultas ("+adapterList(controllerAgenda).size()+")");
 
         btnMarcarData .setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +159,15 @@ public class Consultas extends Activity {
 
 
 
+    }
+
+    private ArrayList<String> adapterList(ControllerAgenda controllerAgenda){
+        agendaList = controllerAgenda.getAllEventos(paciente);
+        ArrayList<String> agendaList2 = new ArrayList<>(Arrays.asList(items));
+        for(AgendaClass agenda : agendaList){
+            agendaList2.add(agenda.getTitulo() + " - " + agenda.getDate() + " - " + agenda.getTime());
+        }
+        return agendaList2;
     }
 
     private void updateData(){
