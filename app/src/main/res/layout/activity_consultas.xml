@@ -163,53 +163,29 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@mipmap/ic_adicionar_rosa"
+        app:layout_constraintBottom_toTopOf="@+id/lista_consultas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView52"
+        app:layout_constraintTop_toBottomOf="@+id/btn_horario_consulta_marcada"
         app:srcCompat="@mipmap/ic_adicionar_rosa" />
 
-    <TextView
-        android:id="@+id/textView52"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Pressione o botão + para adicionar"
-        android:textColor="@color/colorBranco"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/text_contador_consultas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_horario_consulta_marcada"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView_data_card_nova_consulta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/text_consultas_tipo_exame"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="-"
-        android:textSize="10sp"
+        android:backgroundTint="@android:color/white"
+        android:gravity="center_vertical"
+        android:hint="Exame de Glicemia, TTG, ..."
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textColorHint="@color/colorBranco"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView52" />
-
-    <TextView
-        android:id="@+id/textView_horario_card_nova_consulta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="-"
-        android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/textView_data_card_nova_consulta"
-        app:layout_constraintTop_toBottomOf="@+id/textView52" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_horario_consulta_marcada" />
 
     <ListView
         android:isScrollContainer="false"

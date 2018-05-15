@@ -53,7 +53,6 @@ public class Perfil extends ActivityGroup {
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
-
         controllerAgenda = new ControllerAgenda(getApplicationContext());
         try{
             controllerAgenda.getAllEventos(paciente);

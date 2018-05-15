@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -42,9 +43,9 @@ public class Consultas extends Activity {
     private Calendar dataTime = Calendar.getInstance();
     private TextView btnMarcarData, btnMarcarHorario, contadorConsultas;
     private ImageView agendarNovaConsulta;
-    private EditText nomeNovaConsulta;
+    private EditText nomeNovaConsulta, tipoNovaConsulta;
     private AlertDialog.Builder alertaNovaConsulta;
-    private String date = "-", time = "-", nome = "-", shortDate = "-", shortTime = "-",  diaEscolhido = "", mesEscolhido = "", anoEscolhido = "";
+    private String date = "-", time = "-", nome = "-", shortDate = "-", shortTime = "-",  diaEscolhido = "", mesEscolhido = "", anoEscolhido = "", tipoExame = "";
     private Paciente paciente;
     ArrayList<AgendaClass> agendaList = new ArrayList<>();
 
@@ -65,6 +66,7 @@ public class Consultas extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         nomeNovaConsulta = (EditText) findViewById(R.id.editText_nome_nova_consulta);
+        tipoNovaConsulta = (EditText) findViewById(R.id.text_consultas_tipo_exame);
         btnMarcarData = (TextView) findViewById(R.id.btn_data_consulta_marcada);
         btnMarcarHorario = (TextView) findViewById(R.id.btn_horario_consulta_marcada);
         contadorConsultas = (TextView) findViewById(R.id.text_contador_consultas);
@@ -85,9 +87,11 @@ public class Consultas extends Activity {
             @Override
             public void onClick(View v) {
                 nome = nomeNovaConsulta.getText().toString();
+                tipoExame = tipoNovaConsulta.getText().toString();
                 nomeNovaConsulta.setHint("Hospital/Clínica");
                 btnMarcarData.setHint("yyyy/MM/dd");
                 btnMarcarHorario.setHint("00:00");
+                tipoNovaConsulta.setHint("Exame de Glicemia, TTG, ...");
 
                 alertaNovaConsulta = new AlertDialog.Builder( Consultas.this );
 
@@ -114,11 +118,15 @@ public class Consultas extends Activity {
                                 // FAZER FUNÇÃO DE ADICIONAR NOVA CONSULTA EM LISTA DE CONSULTAS MARCADAS
 
                                 //arraylist.add(nome+" - "+shortDate+" - "+shortTime);
-                                AgendaClass agendaClass = new AgendaClass(nome, nome, anoEscolhido + "/" + mesEscolhido + "/" + diaEscolhido, shortTime);
+                                AgendaClass agendaClass = new AgendaClass(tipoExame, nome, anoEscolhido + "/" + mesEscolhido + "/" + diaEscolhido, shortTime);
                                 ControllerAgenda controllerAgenda = new ControllerAgenda(Consultas.this);
                                 controllerAgenda.adicionarEvento(paciente, agendaClass);
 
                                 adapter.notifyDataSetChanged();
+
+                                Intent intent = new Intent(Consultas.this, Perfil.class);
+                                intent.putExtra("Paciente", paciente);
+                                startActivity(intent);
 
                                 Log.d("NOME DO PACIENTE : " , paciente.get_nome());
                                 try {
@@ -157,15 +165,13 @@ public class Consultas extends Activity {
             }
         });
 
-
-
     }
 
     private ArrayList<String> adapterList(ControllerAgenda controllerAgenda){
         agendaList = controllerAgenda.getAllEventos(paciente);
         ArrayList<String> agendaList2 = new ArrayList<>(Arrays.asList(items));
         for(AgendaClass agenda : agendaList){
-            agendaList2.add(agenda.getTitulo() + " - " + agenda.getDate() + " - " + agenda.getTime());
+            agendaList2.add(agenda.getTitulo() + " - " + agenda.getDate() + " - " + agenda.getTime() + " - " + agenda.getLocal());
         }
         return agendaList2;
     }
