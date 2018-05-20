@@ -7,6 +7,29 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
+    <ImageView
+        android:id="@+id/notify_perfil_btm"
+        android:layout_width="47dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/ic_notificacoes_planet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_notificacoes_planet" />
+
+    <ImageView
+        android:id="@+id/image_alerta_notificacoes_perfil"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:background="@mipmap/ic_alerta_rosa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/notify_perfil_btm"
+        app:srcCompat="@mipmap/ic_alerta_rosa" />
+
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="250dp"
@@ -71,7 +94,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="Amanda Felix"
+        android:text="Nome Usuário"
         android:textColor="@color/colorBranco"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -93,15 +116,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/notify_perfil_btm"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@mipmap/ic_notificacoes"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/image_perfil_dados"
@@ -129,6 +144,8 @@
         app:layout_constraintBottom_toTopOf="@+id/image_perfil_coracao"
         app:layout_constraintLeft_toLeftOf="@+id/image_perfil_coracao"
         app:layout_constraintRight_toRightOf="@+id/image_perfil_coracao" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

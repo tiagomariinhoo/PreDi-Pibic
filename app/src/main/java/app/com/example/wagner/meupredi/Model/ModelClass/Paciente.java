@@ -30,6 +30,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
             double _hba1c;
             double _glicosejejum;
             double _glicose75g;
+             double _hemoglobinaglicolisada;
             double _colesterol;
             double _lipidograma; // Não está sendo usado
             double _hemograma; // Não está sendo usado
@@ -178,6 +179,14 @@ public class Paciente extends AppCompatActivity implements Serializable {
 
             public void set_glicosejejum(double _glicosejejum) {
                 this._glicosejejum = _glicosejejum;
+            }
+
+            public double get_hemoglobinaglicolisada() {
+                return _hemoglobinaglicolisada;
+            }
+
+            public void set_hemoglobinaglicolisada(double _hemoglobinaglicolisada) {
+                this._hemoglobinaglicolisada = _hemoglobinaglicolisada;
             }
 
             public double get_glicose75g() {

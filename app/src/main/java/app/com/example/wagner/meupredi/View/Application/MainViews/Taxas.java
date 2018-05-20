@@ -32,7 +32,7 @@ public class Taxas  extends AppCompatActivity {
 
     Paciente paciente;
     TextView  glicoseJejum, glicose75, hemoglobinaGlicolisada;
-    EditText novaGlicose75, novaGlicoseJejum, novoColesterol;
+    EditText novaGlicose75, novaGlicoseJejum, novaHemoglobinaGlicolisada;
     Button atualizarTaxas;
 
     FragmentTransaction transaction;
@@ -40,8 +40,6 @@ public class Taxas  extends AppCompatActivity {
 
     Class fragmentClasse = null;
     private Fragment MyFragment;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +72,8 @@ public class Taxas  extends AppCompatActivity {
         novaGlicoseJejum.setRawInputType(Configuration.KEYBOARD_QWERTY);
         novaGlicose75 = (EditText) findViewById(R.id.edit_glicose75g_taxas);
         novaGlicose75.setRawInputType(Configuration.KEYBOARD_QWERTY);
-        novoColesterol = (EditText) findViewById(R.id.edit_hemoglobina_glicolisada_taxas);
-        novoColesterol.setRawInputType(Configuration.KEYBOARD_QWERTY);
+        novaHemoglobinaGlicolisada = (EditText) findViewById(R.id.edit_hemoglobina_glicolisada_taxas);
+        novaHemoglobinaGlicolisada.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
         findViewById(R.id.tela_taxas).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +82,7 @@ public class Taxas  extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(novaGlicose75.getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(novaGlicoseJejum.getWindowToken(), 0);
-                    imm.hideSoftInputFromWindow(novoColesterol.getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(novaHemoglobinaGlicolisada.getWindowToken(), 0);
                 }
             }
         });
@@ -132,23 +130,23 @@ public class Taxas  extends AppCompatActivity {
                     paciente.set_glicose75g(0);
                 }
 
-                if(novoColesterol.getText().toString().length() != 0) {
+                if(novaHemoglobinaGlicolisada.getText().toString().length() != 0) {
 
-                    String novoC = novoColesterol.getText().toString();
+                    String novaHG = novaHemoglobinaGlicolisada.getText().toString();
 
-                    novoC = novoC.replace(',', '.');
-                    Double colesterolAtualizado = Double.parseDouble(novoC);
-                    String colesterolFormatado = String.format(Locale.ENGLISH, "%.2f", colesterolAtualizado);
-                    Double colesterolDoPaciente = Double.parseDouble(colesterolFormatado);
+                    novaHG = novaHG.replace(',', '.');
+                    Double hgAtualizada = Double.parseDouble(novaHG);
+                    String hgFormatada = String.format(Locale.ENGLISH, "%.2f", hgAtualizada);
+                    Double hgDoPaciente = Double.parseDouble(hgFormatada);
 
-                    hemoglobinaGlicolisada.setText(String.valueOf(colesterolDoPaciente) + " mg/dL");
+                    hemoglobinaGlicolisada.setText(String.valueOf(hgDoPaciente) + " mg/dL");
 
-                    Log.d("Col : ", hemoglobinaGlicolisada.getText().toString());
+                    Log.d("HG : ", hemoglobinaGlicolisada.getText().toString());
 
-                    paciente.set_colesterol(colesterolDoPaciente);
+                    paciente.set_hemoglobinaglicolisada(hgDoPaciente);
 
                 } else {
-                    paciente.set_colesterol(0);
+                    paciente.set_hemoglobinaglicolisada(0);
                 }
 
                 //atualiza dados no banco de taxas e nos dados do paciente
@@ -160,7 +158,7 @@ public class Taxas  extends AppCompatActivity {
                 paciente.calculo_diabetes(getApplicationContext());
                 novaGlicoseJejum.setText("");
                 novaGlicose75.setText("");
-                novoColesterol.setText("");
+                novaHemoglobinaGlicolisada.setText("");
 
                 Intent intent = new Intent(Taxas.this, Perfil.class);
                 intent.putExtra("Paciente", paciente);

@@ -49,23 +49,19 @@ public class Peso extends AppCompatActivity{
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
-        //peso = (TextView) findViewById(R.id.text_pesoAtual_valor_peso);
-        //peso.setText(String.valueOf(paciente.get_peso()) + " kg");
+
+        //pega novo peso digitado pelo usuario
+        novoPeso = (EditText) findViewById(R.id.text_registrar_valor_peso);
+
+        Double peso_atual = paciente.get_peso();
+        novoPeso.setText(peso_atual+"");
 
         //TODO: criar calculo de meta
         //TODO: criar atributo de meta para guardar o peso que o paciente devera alcancar
 
         //meta = (TextView) findViewById(R.id.text_meta_valor_peso);
-
-        //pega novo peso digitado pelo usuario
-        novoPeso = (TextView) findViewById(R.id.text_registrar_valor_peso);
-
-        Double peso_atual = paciente.get_peso();
-        novoPeso.setText(peso_atual+"");
 
         novoPeso.setRawInputType(Configuration.KEYBOARD_QWERTY);
 

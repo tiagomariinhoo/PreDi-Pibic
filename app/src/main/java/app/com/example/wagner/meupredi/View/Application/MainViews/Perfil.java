@@ -35,8 +35,7 @@ import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
 @Deprecated
 public class Perfil extends ActivityGroup {
 
-    private ImageView coracao, configuracoes;
-    private Button notificacoes;
+    private ImageView coracao, configuracoes, notificacoes, iconeAlerta;
     private ControllerAgenda controllerAgenda;
     //private MenuPrincipal menuPrincipal;
     private Paciente paciente;
@@ -49,7 +48,15 @@ public class Perfil extends ActivityGroup {
 
         coracao = (ImageView) findViewById(R.id.image_perfil_coracao);
         configuracoes = (ImageView) findViewById(R.id.image_perfil_dados);
-        notificacoes = (Button) findViewById(R.id.notify_perfil_btm);
+        notificacoes = (ImageView) findViewById(R.id.notify_perfil_btm);
+        iconeAlerta = (ImageView) findViewById(R.id.image_alerta_notificacoes_perfil);
+
+        /*
+        *Difference between INVISIBLE and GONE.
+        * INVISIBLE - The widget will be invisible but space for the widget will be show.
+        * GONE - Both space and widget is invisible.
+         */
+        iconeAlerta.setVisibility(View.GONE);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
@@ -65,7 +72,6 @@ public class Perfil extends ActivityGroup {
             getNotify(notifyDate);
         }
 
-
         configuracoes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +80,6 @@ public class Perfil extends ActivityGroup {
                 startActivity(intent);
             }
         });
-
 
         coracao.setOnClickListener(new View.OnClickListener() {
             @Override

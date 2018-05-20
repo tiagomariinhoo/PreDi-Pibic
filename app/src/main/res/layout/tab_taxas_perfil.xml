@@ -49,13 +49,13 @@
 
             <TextView
                 android:id="@+id/text_valor_hemoglobina_glicolisada_atual"
-                android:layout_width="104dp"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/text_hemoglicada_perfil"
                 android:background="@color/colorBranco"
                 android:gravity="center_vertical"
-                android:text="-- %"
+                android:text="-- mg/dL"
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorBackground"
                 android:textStyle="bold" />
@@ -75,14 +75,14 @@
 
             <TextView
                 android:id="@+id/text_valor_glicose_jejum_atual"
-                android:layout_width="104dp"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:background="@color/colorBranco"
                 android:gravity="center_vertical"
                 android:paddingTop="0dp"
-                android:text="-- %"
+                android:text="-- mg/dL"
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorBackground"
                 android:textStyle="bold" />
@@ -102,18 +102,18 @@
 
             <TextView
                 android:id="@+id/text_valor_glicose_75g_atual"
-                android:layout_width="104dp"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:background="@color/colorBranco"
                 android:gravity="center_vertical"
                 android:paddingTop="0dp"
-                android:text="-- mg/dl"
+                android:text="-- mg/dL"
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorBackground"
-                android:textStyle="bold"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

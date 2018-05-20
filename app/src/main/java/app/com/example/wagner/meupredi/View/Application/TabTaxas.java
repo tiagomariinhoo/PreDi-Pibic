@@ -18,7 +18,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
 
 public class TabTaxas extends Activity {
 
-    private TextView chamadaAtualizarTaxas;
+    private TextView chamadaAtualizarTaxas, valor_glicoseJejum, valor_glicose75g , valor_hemoglobina_glicolisada;
     private Paciente paciente;
 
     @Override
@@ -29,6 +29,18 @@ public class TabTaxas extends Activity {
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         chamadaAtualizarTaxas = (TextView) findViewById(R.id.btn_atualizar_taxas);
+        valor_hemoglobina_glicolisada = (TextView) findViewById(R.id.text_valor_hemoglobina_glicolisada_atual);
+        valor_glicoseJejum = (TextView) findViewById(R.id.text_valor_glicose_jejum_atual);
+        valor_glicose75g = (TextView) findViewById(R.id.text_valor_glicose_75g_atual);
+
+        Double hg = paciente.get_hemoglobinaglicolisada();
+        valor_hemoglobina_glicolisada.setText(hg.toString()+" mg/dL");
+
+        Double gl75 = paciente.get_glicose75g();
+        valor_glicose75g.setText(gl75.toString()+" mg/dL");
+
+        Double jejum = paciente.get_glicosejejum();
+        valor_glicoseJejum.setText(jejum.toString()+" mg/dL");
 
         chamadaAtualizarTaxas.setOnClickListener(new View.OnClickListener() {
             @Override
