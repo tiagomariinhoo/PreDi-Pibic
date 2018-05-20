@@ -286,35 +286,4 @@
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <TextView
-        android:id="@+id/textView39"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorBranco"
-        android:gravity="center_vertical"
-        android:textAlignment="center"
-        android:text="  Lembre-se que o ideal é que sua Glicemia de Jejum esteja abaixo de 100 mg/dl !"
-        app:layout_constraintBottom_toTopOf="@+id/btn_atualizar_taxas"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_hemoglobina_glicolisada_taxas"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
-
-    <TextView
-        android:id="@+id/textView40"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Atenção!"
-        android:textColor="@color/colorBranco"
-        app:layout_constraintBottom_toTopOf="@+id/textView39"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
 </android.support.constraint.ConstraintLayout>

@@ -18,7 +18,7 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.Consultas;
 
 public class PopPerfil extends Activity{
 
-    private TextView consultas, academia, dicas;
+    private TextView consultas, dicas;
     private Paciente paciente;
 
     @Override
@@ -34,10 +34,9 @@ public class PopPerfil extends Activity{
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) ( width*.8), (int) (height*.75));
+        getWindow().setLayout((int) ( width*.8), (int) (height*.50));
 
         consultas = (TextView) findViewById(R.id.text_pop_consultas);
-        academia = (TextView) findViewById(R.id.text_pop_academia);
         dicas = (TextView) findViewById(R.id.text_pop_dicas);
 
         consultas.setOnClickListener(new View.OnClickListener() {
@@ -49,14 +48,6 @@ public class PopPerfil extends Activity{
             }
         });
 
-        academia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent chamadaAcademia = new Intent(PopPerfil.this, Exercicios.class);
-               // startActivity(chamadaAcademia);
-            }
-        });
-
         dicas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +55,5 @@ public class PopPerfil extends Activity{
                 startActivity(chamadaDicas);
             }
         });
-
-
     }
 }
