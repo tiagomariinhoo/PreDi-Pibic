@@ -116,8 +116,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
     <ImageView
         android:id="@+id/image_perfil_dados"
         android:layout_width="50dp"
@@ -144,8 +142,5 @@
         app:layout_constraintBottom_toTopOf="@+id/image_perfil_coracao"
         app:layout_constraintLeft_toLeftOf="@+id/image_perfil_coracao"
         app:layout_constraintRight_toRightOf="@+id/image_perfil_coracao" />
-
-
-
 
 </android.support.constraint.ConstraintLayout>
