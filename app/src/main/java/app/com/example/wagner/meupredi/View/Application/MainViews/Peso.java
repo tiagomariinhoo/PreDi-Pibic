@@ -32,6 +32,7 @@ import app.com.example.wagner.meupredi.R;
 
 public class Peso extends AppCompatActivity{
 
+    TextView peso;
     EditText novoCirc, novoPeso;
     Button atualizarPeso;
     Paciente paciente;
@@ -152,8 +153,7 @@ public class Peso extends AppCompatActivity{
                         Toast.makeText(getApplicationContext(),"Peso inválido!",Toast.LENGTH_SHORT).show();
                     }
 
-                    novoPeso.setHint("");
-                    novoCirc.setHint("");
+                    novoPeso.setText("");
 
                     try {
                         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
