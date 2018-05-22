@@ -3,9 +3,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion '27.0.3'
+    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "app.com.example.wagner.meupredi"
-        minSdkVersion 16
+        minSdkVersion 24
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -16,6 +17,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -41,6 +46,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.2.0'
+    compile 'org.apache.commons:commons-lang3:3.6'
     testCompile 'junit:junit:4.12'
     // Biblioteca adicionada
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
