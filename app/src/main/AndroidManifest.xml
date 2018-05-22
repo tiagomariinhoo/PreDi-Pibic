@@ -60,7 +60,9 @@
         <activity android:name=".View.Application.Dicas"
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.MainViews.GraficosPeso" />
-        <activity android:name=".View.Application.PopNotific" />
+        <activity android:name=".View.Application.PopNotific"
+            android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".View.Application.Sair" />
 
     </application>
 

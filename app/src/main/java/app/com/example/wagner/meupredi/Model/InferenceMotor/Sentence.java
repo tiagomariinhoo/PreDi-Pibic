@@ -1,4 +1,6 @@
 package app.com.example.wagner.meupredi.Model.InferenceMotor;
+import android.annotation.SuppressLint;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +34,7 @@ public class Sentence {
         //conclusions = conclusions.stream().map(String::trim).collect(Collectors.toList());
     }
 
+    @SuppressLint("NewApi")
     public List<Triple<String, String, Double>> validateCondition(Triple<String, String, Double> cond) {
         conditions.remove(cond);
         if(conditions.isEmpty()) {

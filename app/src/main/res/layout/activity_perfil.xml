@@ -118,15 +118,13 @@
 
     <ImageView
         android:id="@+id/image_perfil_dados"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@mipmap/ic_dados"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toStartOf="@+id/image_sair_perfil"
         app:layout_constraintLeft_toRightOf="@+id/textView26"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_dados" />
 
@@ -142,5 +140,16 @@
         app:layout_constraintBottom_toTopOf="@+id/image_perfil_coracao"
         app:layout_constraintLeft_toLeftOf="@+id/image_perfil_coracao"
         app:layout_constraintRight_toRightOf="@+id/image_perfil_coracao" />
+
+    <ImageView
+        android:id="@+id/image_sair_perfil"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/ic_sair_conta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_sair_conta" />
 
 </android.support.constraint.ConstraintLayout>

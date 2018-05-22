@@ -25,7 +25,7 @@
 
     <Button
         android:id="@+id/btn_sair_sim_fragment"
-        android:layout_width="0dp"
+        android:layout_width="344dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"

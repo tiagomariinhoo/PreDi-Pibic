@@ -23,11 +23,13 @@ import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
 import app.com.example.wagner.meupredi.View.Application.PopPerfil;
+import app.com.example.wagner.meupredi.View.Application.Sair;
 import app.com.example.wagner.meupredi.View.Application.TabCorpo;
 import app.com.example.wagner.meupredi.View.Application.TabEvolucao;
 import app.com.example.wagner.meupredi.View.Application.TabTaxas;
 
 import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
+
 
 /**
  * Created by LeandroDias1 on 18/04/2017.
@@ -36,7 +38,7 @@ import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
 @Deprecated
 public class Perfil extends ActivityGroup {
 
-    private ImageView coracao, configuracoes, notificacoes, iconeAlerta;
+    private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair;
     private ControllerAgenda controllerAgenda;
     //private MenuPrincipal menuPrincipal;
     private Paciente paciente;
@@ -51,6 +53,7 @@ public class Perfil extends ActivityGroup {
         configuracoes = (ImageView) findViewById(R.id.image_perfil_dados);
         notificacoes = (ImageView) findViewById(R.id.notify_perfil_btm);
         iconeAlerta = (ImageView) findViewById(R.id.image_alerta_notificacoes_perfil);
+        iconeSair = (ImageView) findViewById(R.id.image_sair_perfil);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
@@ -88,6 +91,15 @@ public class Perfil extends ActivityGroup {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Perfil.this, Dados.class);
+                intent.putExtra("Paciente", paciente);
+                startActivity(intent);
+            }
+        });
+
+        iconeSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Perfil.this, Sair.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
