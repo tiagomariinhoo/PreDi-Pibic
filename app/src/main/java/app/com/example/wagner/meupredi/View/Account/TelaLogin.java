@@ -102,7 +102,6 @@ public class TelaLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent abreCriarConta = new Intent(TelaLogin.this, CriarConta.class);
-                finish();
                 startActivity(abreCriarConta);
             }
         });

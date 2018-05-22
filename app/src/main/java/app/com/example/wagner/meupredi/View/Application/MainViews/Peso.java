@@ -129,7 +129,8 @@ public class Peso extends AppCompatActivity{
 
                         Intent intent = new Intent(Peso.this, Perfil.class);
                         intent.putExtra("Paciente", paciente);
-                        finish();
+                        //finish();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
 
                     } else {

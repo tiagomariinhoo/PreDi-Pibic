@@ -126,6 +126,7 @@ public class Consultas extends Activity {
 
                                 Intent intent = new Intent(Consultas.this, Perfil.class);
                                 intent.putExtra("Paciente", paciente);
+                                finish();
                                 startActivity(intent);
 
                                 Log.d("NOME DO PACIENTE : " , paciente.get_nome());

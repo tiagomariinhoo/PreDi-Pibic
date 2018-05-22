@@ -1,0 +1,12 @@
+SE idade >= 45 ENTAO testeGlicêmico
+SE testeGlicêmico E glicemiaJejum >= 100 E glicemiaJejum <= 125 ENTAO ttg
+SE testeGlicêmico E glicemiaJejum > 125 ENTAO dm2
+SE ttg E glicemia2h < 140 ENTAO gja
+SE ttg E glicemia2h >= 140 E glicemia2h <= 199 ENTAO tdg
+SE ttg E glicemia2h >= 200 ENTAO dm2
+SE gja OU tdg ENTAO mev E PreDiabetes
+SE mev ENTAO verificaMetas
+SE verificaMetas E alcançouMetas ENTAO "Acompanhamento a cada 6 meses!"
+SE verificaMetas E ~alcançouMetas ENTAO "Reforçar a mudança no estilo de vida!"
+SE PreDiabetes ENTAO "PreDiabetes, mudança no estilo de vida!"
+SE dm2 ENTAO "Diagnóstico de Diabetes!"

@@ -79,6 +79,7 @@ public class PosLogin extends AppCompatActivity {
 
             Intent intent = new Intent(PosLogin.this, Perfil.class);
             intent.putExtra("Paciente", paciente);
+            finish();
             startActivity(intent);
         }
 

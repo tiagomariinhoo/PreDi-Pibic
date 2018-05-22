@@ -1,10 +1,17 @@
 package app.com.example.wagner.meupredi.Model.InferenceMotor;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,8 +22,9 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Triple;
 
-public class Motor {
-    static final String filepath = "rules.txt";
+public class Motor extends Activity {
+
+    static String filepath;
     static final String auxFilepath = "aux.txt";
     static Scanner scan = new Scanner(System.in);
     static boolean concDisplay = false;
@@ -26,13 +34,23 @@ public class Motor {
     static Set<Triple<String, String, Double>> histConclusions = new HashSet<>();
     static String history;
     static VariableMap vm;
+    static Context context;
 
-    public static void setMap(VariableMap vm) {
-        Motor.vm = vm;
+    public static void setMap(VariableMap vmm, Context contextt) {
+        Log.d("Size Sent : ", String.valueOf(sentences.size()));
+        Log.d("Size atoms : ", String.valueOf(atoms.size()));
+        Log.d("Size conc : ", String.valueOf(conclusions.size()));
+        sentences = new ArrayList<>();
+        atoms = new ArrayList<>();
+        conclusions = new HashSet<>();
+        histConclusions = new HashSet<>();
+        vm = vmm;
+        context = contextt;
     }
 
-    public static void listRules() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filepath));
+    public void listRules() throws IOException {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("rules")));
         String line = reader.readLine();
         int i = 1;
         System.out.println("Rules: ");
@@ -46,7 +64,7 @@ public class Motor {
     }
 
     public static void readDatabase() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filepath));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("rules")));
         String line = reader.readLine();
         Set<Triple<String, String, Double>> auxAtoms = new HashSet<>();
         while(line != null) {
@@ -65,7 +83,7 @@ public class Motor {
         reader.close();
     }
 
-    public static void addRule() throws IOException {
+    public void addRule() throws IOException {
         BufferedWriter output = new BufferedWriter(new FileWriter(filepath, true));
         System.out.println("Rule Format: SE ... ENTAO ...");
         System.out.print("New Rule: ");
@@ -77,7 +95,7 @@ public class Motor {
         output.write(line+System.lineSeparator());
         output.close();
     }
-    public static void deleteRule() throws IOException {
+    public void deleteRule() throws IOException {
         listRules();
         System.out.print("Select rule to be removed: ");
         int lineToRemove = scan.nextInt();
@@ -100,19 +118,22 @@ public class Motor {
     }
 
     //TOP-DOWN
-    public static void askQuestions() {
+    public static String askQuestions() {
         //vm.printMap();
         for(int i = 0; i < atoms.size(); i++) {
             Triple<String, String, Double> cond = atoms.get(i);
-            //DEBUG System.out.println("NEW");
-            //DEBUG System.out.println(cond.getLeft()+" "+ cond.getMiddle()+" "+ cond.getRight());
+           // Log.d("Teste new", "NEW");
+          //  Log.d("Teste2 Questions: ", cond.getLeft()+" "+ cond.getMiddle()+" "+ cond.getRight());
+            //qSystem.out.println("NEW");
+            //System.out.println(cond.getLeft()+" "+ cond.getMiddle()+" "+ cond.getRight());
             if(vm.checkTriple(cond)) {
                 //DEBUG System.out.println("TRUE");
                 checkTrue(cond);
             }
         }
-        if(conclusions.isEmpty()) System.out.println("No conclusions could be taken");
-        else printConclusion(conclusions);
+        if(conclusions.isEmpty()) return "No conclusions could be taken";
+
+        return printConclusion(conclusions);
     }
 
     public static void removeQuestions(Triple<String, String, Double> cond) {
@@ -147,15 +168,17 @@ public class Motor {
         }
     }
 
-    private static void printConclusion(Collection<String> aux) {
+    private static String printConclusion(Collection<String> aux) {
         String sep = "";
         for(String c : aux) {
             if(c.matches("\"(.*)\"")) {
-                System.out.print(sep + c);
-                sep = " E ";
+                //System.out.print(sep + c);
+                return (sep + c);
+                //sep = " E ";
             }
         }
         System.out.println();
+        return "";
     }
 
     private static String getHistory(Collection<String> aux) {
@@ -168,7 +191,7 @@ public class Motor {
         return result+"\n";
     }
 
-    public static void printList(List<String> list) {
+    public void printList(List<String> list) {
         list.forEach(a -> System.out.println(a));
     }
 }

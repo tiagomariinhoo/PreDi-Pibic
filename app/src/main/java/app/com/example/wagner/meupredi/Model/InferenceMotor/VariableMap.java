@@ -1,10 +1,13 @@
 package app.com.example.wagner.meupredi.Model.InferenceMotor;
+import android.app.Activity;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.tuple.Triple;
 
-public class VariableMap {
+public class VariableMap extends Activity {
     //(idade, >=, 20)
     List<Triple<String, String, Double>> triples; // rules
     Map<String, Double> userTable; // User values
