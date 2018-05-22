@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBranco">
 
-    <ListView
-        android:isScrollContainer="false"
-        android:id="@+id/lista_consultas"
+    <TextView
+        android:id="@+id/textView30"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp">
-    </ListView>
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:textColor="@color/colorBackground"
+        android:gravity="center_vertical"
+        android:text="Relatório" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/text_pop_notific_relatorio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBackground"
+        android:textSize="18dp"
+        android:padding="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView30"
+        android:text="TextView" />
+
+</RelativeLayout>
