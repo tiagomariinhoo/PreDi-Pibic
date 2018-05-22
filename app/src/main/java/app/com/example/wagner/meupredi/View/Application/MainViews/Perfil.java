@@ -21,6 +21,7 @@ import app.com.example.wagner.meupredi.Controller.ControllerAgenda;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
+import app.com.example.wagner.meupredi.View.Application.PopNotific;
 import app.com.example.wagner.meupredi.View.Application.PopPerfil;
 import app.com.example.wagner.meupredi.View.Application.TabCorpo;
 import app.com.example.wagner.meupredi.View.Application.TabEvolucao;
@@ -51,14 +52,25 @@ public class Perfil extends ActivityGroup {
         notificacoes = (ImageView) findViewById(R.id.notify_perfil_btm);
         iconeAlerta = (ImageView) findViewById(R.id.image_alerta_notificacoes_perfil);
 
+        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+
         /*
         *Difference between INVISIBLE and GONE.
         * INVISIBLE - The widget will be invisible but space for the widget will be show.
         * GONE - Both space and widget is invisible.
          */
-        iconeAlerta.setVisibility(View.GONE);
-
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        iconeAlerta.setVisibility(View.VISIBLE);
+        int AlertaFlag = 1;
+        if (AlertaFlag == 1){
+            notificacoes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Perfil.this, PopNotific.class);
+                    intent.putExtra("Paciente", paciente);
+                    startActivity(intent);
+                }
+            });
+        }
 
         controllerAgenda = new ControllerAgenda(getApplicationContext());
         try{

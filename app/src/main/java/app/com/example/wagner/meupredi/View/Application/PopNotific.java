@@ -12,7 +12,7 @@ import app.com.example.wagner.meupredi.R;
 
 public class PopNotific extends Activity {
 
-    private ListView listaDeNotificacoes;
+    private TextView relatorio;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +27,11 @@ public class PopNotific extends Activity {
         int height = dm.heightPixels;
 
         getWindow().setLayout((int) ( width*.8), (int) (height*.50));
+
+        relatorio = (TextView) findViewById(R.id.text_pop_notific_relatorio);
+
+        String S = "Baibe Baibe do BiruLeibe?\nBaibe Baibe do BiruLeibe?\nBaibe Baibe do BiruLeibe?";
+        relatorio.setText(S);
 
     }
 }
