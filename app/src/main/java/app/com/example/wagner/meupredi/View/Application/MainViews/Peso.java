@@ -32,7 +32,8 @@ import app.com.example.wagner.meupredi.R;
 
 public class Peso extends AppCompatActivity{
 
-    TextView peso, novoPeso;
+    TextView peso;
+    EditText novoCirc, novoPeso;
     Button atualizarPeso;
     Paciente paciente;
     BarChart barChart;
@@ -54,9 +55,12 @@ public class Peso extends AppCompatActivity{
 
         //pega novo peso digitado pelo usuario
         novoPeso = (EditText) findViewById(R.id.text_registrar_valor_peso);
+        novoCirc = (EditText) findViewById(R.id.text_registrar_valor_circunferencia);
 
         Double peso_atual = paciente.get_peso();
-        novoPeso.setText(peso_atual+"");
+        Double circu_atual = paciente.get_circunferencia();
+        novoPeso.setHint(peso_atual+"");
+        novoCirc.setHint(circu_atual+"");
 
         //TODO: criar calculo de meta
         //TODO: criar atributo de meta para guardar o peso que o paciente devera alcancar
@@ -64,6 +68,7 @@ public class Peso extends AppCompatActivity{
         //meta = (TextView) findViewById(R.id.text_meta_valor_peso);
 
         novoPeso.setRawInputType(Configuration.KEYBOARD_QWERTY);
+        novoCirc.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
         findViewById(R.id.tela_peso).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +88,7 @@ public class Peso extends AppCompatActivity{
 
                 //pega string do peso e verifica tamanho
                 String pesoAtual = novoPeso.getText().toString();
+                String circu_atual = novoCirc.getText().toString();
 
                 if(pesoAtual.length() == 0) {
                     Toast.makeText(getApplicationContext(),"Preencha o campo correspondente!",Toast.LENGTH_SHORT).show();
@@ -90,21 +96,31 @@ public class Peso extends AppCompatActivity{
 
                     //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a uma casa decimal)
                     pesoAtual = pesoAtual.replace(',', '.');
+                    circu_atual = pesoAtual.replace(',', '.');
+
                     Double pesoAtualizado = Double.parseDouble(pesoAtual);
+                    Double circAtualizado = Double.parseDouble(circu_atual);
+
                     String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
                     Double pesoDoPaciente = Double.parseDouble(pesoFormatado);
+
+                    String circuFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
+                    Double circuDoPaciente =  Double.parseDouble(circuFormatado);
 
                     if(pesoDoPaciente > 0) {
                         //atualiza valor na tela
                         if(pesoDoPaciente == null){
-                            peso.setText(String.valueOf(0));
+                            novoPeso.setText(String.valueOf(0));
                         } else {
-
                            //  peso.setText(String.valueOf(pesoDoPaciente) + " kg");
                         }
 
                         //atualiza peso no objeto
                         paciente.set_peso(pesoDoPaciente);
+
+                        if (circuDoPaciente > 0){
+                            paciente.set_circunferencia(circuDoPaciente);
+                        }
 
                         //recalcula imc
                         if(paciente.get_peso() > 0 && paciente.get_altura() > 0) {

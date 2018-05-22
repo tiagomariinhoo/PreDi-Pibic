@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/gradiente_plano_de_fundo"
     android:id="@+id/tela_peso"
     android:layout_width="match_parent"
@@ -31,7 +32,7 @@
         android:layout_marginTop="0dp"
         android:ems="10"
         android:gravity="center_vertical"
-        android:hint="  , "
+        android:selectAllOnFocus="true"
         android:backgroundTint="@android:color/white"
         android:inputType="numberDecimal"
         android:textAlignment="center"
@@ -39,7 +40,7 @@
         android:textColorHint="@color/colorBranco"
         android:textSize="70sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView41" />
+        app:layout_constraintTop_toBottomOf="@+id/text_ultima_medicao_tela_peso" />
 
     <TextView
         android:id="@+id/textView21"
@@ -59,20 +60,18 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintVertical_bias="1.0" />
 
-
     <Button
         android:id="@+id/btn_atualizar_peso"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/borda_curvada_verde"
         android:text="ATUALIZAR"
         android:textColor="@color/colorBranco"
         android:textSize="14dp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_registrar_peso" />
@@ -112,24 +111,23 @@
         android:id="@+id/text_registrar_valor_circunferencia"
         android:layout_width="80dp"
         android:layout_height="35dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:ems="10"
-        android:hint=" ,   cm"
         android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:selectAllOnFocus="true"
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
         android:textColorHint="@color/colorBranco"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_registrar_valor_peso"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/textView"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/text_ultima_medicao_tela_peso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Junho, 14, 2018"
@@ -180,6 +178,22 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView11"
         app:layout_constraintRight_toLeftOf="@+id/imageView11"
         app:layout_constraintTop_toTopOf="@+id/imageView11" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="cm"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintBottom_toBottomOf="@+id/text_registrar_valor_circunferencia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/text_registrar_valor_circunferencia"
+        app:layout_constraintTop_toTopOf="@+id/text_registrar_valor_circunferencia" />
 
 
 </android.support.constraint.ConstraintLayout>
