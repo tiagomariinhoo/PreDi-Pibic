@@ -14,7 +14,16 @@ public class ExameClass {
     double glicose75g;
     double glicoseJejum;
     double colesterol;
+    double hemoglobinaGlico;
     Date dataExame;
+
+    public double getHemoglobinaGlico() {
+        return hemoglobinaGlico;
+    }
+
+    public void setHemoglobinaGlico(double hemoglobinaGlico) {
+        this.hemoglobinaGlico = hemoglobinaGlico;
+    }
 
     public int getId() {
         return id;

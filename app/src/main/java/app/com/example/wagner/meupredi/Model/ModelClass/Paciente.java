@@ -30,7 +30,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
             double _hba1c;
             double _glicosejejum;
             double _glicose75g;
-             double _hemoglobinaglicolisada;
+            double _hemoglobinaglicolisada;
             double _colesterol;
             double _lipidograma; // Não está sendo usado
             double _hemograma; // Não está sendo usado
