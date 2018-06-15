@@ -46,7 +46,7 @@ public class GraphTest extends Activity {
         nChart.setScaleEnabled(false);
 
         ArrayList<Entry> yValues = new ArrayList<>();
-
+/*
         yValues.add(new Entry(0, 60f));
         yValues.add(new Entry(1, 50f));
         yValues.add(new Entry(2, 70f));
@@ -66,7 +66,7 @@ public class GraphTest extends Activity {
 
         LineData data = new LineData(dataSets);
         nChart.setData(data);
-
+*/
 
     }
 }

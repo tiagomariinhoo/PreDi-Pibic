@@ -98,11 +98,11 @@ public class Peso extends AppCompatActivity{
                     pesoAtual = pesoAtual.replace(',', '.');
                     circu_atual = pesoAtual.replace(',', '.');
 
-                    Double pesoAtualizado = Double.parseDouble(pesoAtual);
+                    Float pesoAtualizado = Float.parseFloat(pesoAtual);
                     Double circAtualizado = Double.parseDouble(circu_atual);
 
                     String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
-                    Double pesoDoPaciente = Double.parseDouble(pesoFormatado);
+                    Float pesoDoPaciente = Float.parseFloat(pesoFormatado);
 
                     String circuFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
                     Double circuDoPaciente =  Double.parseDouble(circuFormatado);
@@ -117,6 +117,7 @@ public class Peso extends AppCompatActivity{
 
                         //atualiza peso no objeto
                         paciente.set_peso(pesoDoPaciente);
+                        paciente.set_pesos(pesoDoPaciente);
 
                         if (circuDoPaciente > 0){
                             paciente.set_circunferencia(circuDoPaciente);
@@ -124,7 +125,6 @@ public class Peso extends AppCompatActivity{
 
                         //recalcula imc
                         if(paciente.get_peso() > 0 && paciente.get_altura() > 0) {
-
                             double imc = (paciente.get_peso()/(paciente.get_altura()*paciente.get_altura()));
                             String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
                             imc = Double.parseDouble(imcFormatado);
