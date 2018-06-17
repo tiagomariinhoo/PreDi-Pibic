@@ -25,6 +25,9 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 
+import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
+import app.com.example.wagner.meupredi.Controller.ControllerPeso;
+import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 
@@ -107,14 +110,20 @@ public class GraficosPeso extends AppCompatActivity implements OnChartGestureLis
 
     }
 
-    private ArrayList<String> setXAxisValues(){
+    private ArrayList<String> setXAxisValues(int tam){
         ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("10");
-        xVals.add("20");
-        xVals.add("30");
-        xVals.add("30.5");
-        xVals.add("40");
-
+        int i = 0;
+        for (i = 0; i < tam; i++){
+            xVals.add("x");
+        }
+        /*
+        xVals.add("x");
+        xVals.add("x");
+        xVals.add("x");
+        xVals.add("x");
+        xVals.add("x");
+        xVals.add("x");
+*/
         return xVals;
     }
 
@@ -124,31 +133,34 @@ public class GraficosPeso extends AppCompatActivity implements OnChartGestureLis
 
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
-        ArrayList<Float> p = paciente.get_pesos();
-        int i = 0;
-        if (p.size() > 0) {
+        ControllerPeso pesoController = new ControllerPeso(getApplicationContext());
+        ArrayList<Float> pesos = pesoController.getAllPesos(paciente);
 
-            for (i = 0; i < p.size(); i++) ;
-            {
-                yVals.add(new Entry(p.get(i), i+1));
-            }
-        }
-        else {
-
-            yVals.add(new Entry(60, 0));
-            yVals.add(new Entry(48, 1));
-            yVals.add(new Entry(70.5f, 2));
-            yVals.add(new Entry(100, 3));
-            yVals.add(new Entry(180.9f, 4));
+        int i;
+        for(i = 0; i < pesos.size(); i++){
+            float valor = pesos.get(i);
+            yVals.add(new Entry(valor, i));
         }
 
+        Log.i("Peso", "END, tamanho do array: " + pesos.size());
+        Log.i("Peso", "END, 3: " + pesos.get(0));
+        Log.i("Peso", "END, 2: " + pesos.get(1));
+        Log.i("Peso", "END, 1: " + pesos.get(2));
+/*
+        yVals.add(new Entry(60, 0));
+        yVals.add(new Entry(48, 1));
+        yVals.add(new Entry(70.5f, 2));
+        yVals.add(new Entry(100, 3));
+        yVals.add(new Entry(180.9f, 4));
+*/
         return yVals;
     }
 
     private void setData() {
-        ArrayList<String> xVals = setXAxisValues();
 
         ArrayList<Entry> yVals = setYAxisValues();
+
+        ArrayList<String> xVals = setXAxisValues(yVals.size());
 
         LineDataSet set1;
 
