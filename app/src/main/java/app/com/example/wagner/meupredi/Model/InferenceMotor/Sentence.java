@@ -1,4 +1,6 @@
 package app.com.example.wagner.meupredi.Model.InferenceMotor;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,24 +20,36 @@ public class Sentence {
 
         cond = cond.replace("(", "").replace(")", "");
         wholeCondition = (cond.trim());
-        List<String> aux = Arrays.asList(cond.split("E"));
-        aux = aux.stream().map(String::trim).collect(Collectors.toList());
-        aux.forEach(a -> addCond(a));
+        String aux[] = cond.split("E");
+        for(int i = 0; i < aux.length; i++){
+            aux[i] = aux[i].trim();
+            addCond(aux[i]);
+        }
+        //aux = aux.stream().map(String::trim).collect(Collectors.toList());
+        //aux.forEach(a -> addCond(a));
         //conditions = conditions.stream().map(String::trim).collect(Collectors.toList());
         //conditions.forEach(c -> addToVM(c));
         //conditions = conditions.stream().map(c -> removeOp(c)).collect(Collectors.toList());
 
         concl = concl.replace("(", "").replace(")", "");
-        aux = Arrays.asList(concl.split("E"));
-        aux = aux.stream().map(String::trim).collect(Collectors.toList());
-        aux.forEach(a -> addConcl(a));
+        aux = concl.split("E");
+        for(int i = 0; i < aux.length; i++){
+            aux[i] = aux[i].trim();
+            addConcl(aux[i]);
+        }
+        //aux = aux.stream().map(String::trim).collect(Collectors.toList());
+        //aux.forEach(a -> addConcl(a));
         //conclusions = conclusions.stream().map(String::trim).collect(Collectors.toList());
     }
 
     public List<Triple<String, String, Double>> validateCondition(Triple<String, String, Double> cond) {
         conditions.remove(cond);
         if(conditions.isEmpty()) {
-            conclusions.forEach(c -> vm.addUserInfo(c));
+            for(int i = 0; i < conclusions.size(); i++){
+                Log.d("Conclusion : ", conclusions.get(i).getLeft() + conclusions.get(i).getMiddle() + conclusions.get(i).getRight());
+                vm.addUserInfo(conclusions.get(i));
+            }
+            //conclusions.forEach(c -> vm.addUserInfo(c));
             return conclusions;
         }
         else return null;

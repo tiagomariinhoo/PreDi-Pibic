@@ -17,7 +17,6 @@ public class PesoIdeal extends Activity  {
     Double emagrecer = 0.00;
 
     String perder_ganhar = "perder";
-
     String condicao = "acima";
 
     String PesoIdeal = "De acordo com a sua altura e idade, o seu peso ideal está entre 53kg e 71 kg.";

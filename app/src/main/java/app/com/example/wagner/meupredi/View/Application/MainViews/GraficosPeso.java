@@ -142,10 +142,10 @@ public class GraficosPeso extends AppCompatActivity implements OnChartGestureLis
             yVals.add(new Entry(valor, i));
         }
 
-        Log.i("Peso", "END, tamanho do array: " + pesos.size());
-        Log.i("Peso", "END, 3: " + pesos.get(0));
-        Log.i("Peso", "END, 2: " + pesos.get(1));
-        Log.i("Peso", "END, 1: " + pesos.get(2));
+        //Log.i("Peso", "END, tamanho do array: " + pesos.size());
+        //Log.i("Peso", "END, 3: " + pesos.get(0));
+        //Log.i("Peso", "END, 2: " + pesos.get(1));
+        //Log.i("Peso", "END, 1: " + pesos.get(2));
 /*
         yVals.add(new Entry(60, 0));
         yVals.add(new Entry(48, 1));

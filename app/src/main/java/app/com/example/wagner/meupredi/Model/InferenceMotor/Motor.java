@@ -39,7 +39,7 @@ public class Motor extends Activity {
     public static void setMap(VariableMap vmm, Context contextt) {
         Log.d("Size Sent : ", String.valueOf(sentences.size()));
         Log.d("Size atoms : ", String.valueOf(atoms.size()));
-        Log.d("Size conc : ", String.valueOf(conclusions.size()));
+        Log.d("Size concl : ", String.valueOf(conclusions.size()));
         sentences = new ArrayList<>();
         atoms = new ArrayList<>();
         conclusions = new HashSet<>();
@@ -126,11 +126,14 @@ public class Motor extends Activity {
           //  Log.d("Teste2 Questions: ", cond.getLeft()+" "+ cond.getMiddle()+" "+ cond.getRight());
             //qSystem.out.println("NEW");
             //System.out.println(cond.getLeft()+" "+ cond.getMiddle()+" "+ cond.getRight());
+            Log.d("Sent : ", cond.getLeft() + cond.getMiddle() + cond.getRight());
             if(vm.checkTriple(cond)) {
+                Log.d("True : ", cond.getLeft() + cond.getMiddle() + cond.getRight());
                 //DEBUG System.out.println("TRUE");
                 checkTrue(cond);
             }
         }
+
         if(conclusions.isEmpty()) return "No conclusions could be taken";
 
         return printConclusion(conclusions);
@@ -154,16 +157,24 @@ public class Motor extends Activity {
             List<Triple<String, String, Double>> concl = sent.validateCondition(cond);
             if(concl != null) {
                 List<String> aux = new ArrayList<>();
+
+                for(int k = 0; k < concl.size(); k++){
+                    if(histConclusions.add(concl.get(k))) aux.add(concl.get(k).getLeft());
+                    if(concl.get(k).getLeft().matches("\"(.*)\"")) conclusions.add(concl.get(k).getLeft());
+                }/*
                 concl.forEach(f -> {
                     if(histConclusions.add(f)) aux.add(f.getLeft());
                     if(f.getLeft().matches("\"(.*)\"")) conclusions.add(f.getLeft());
-                });
+                });*/
 
                 history += sent.getWholeCondition()+" => "+getHistory(aux);
 
                 sentences.remove(sent);
                 atoms.removeAll(histConclusions);
-                concl.forEach(j -> checkTrue(j));
+                for(int k = 0; k < concl.size(); k++){
+                  checkTrue(concl.get(k));
+                }
+                //concl.forEach(j -> checkTrue(j));
             }
         }
     }
@@ -192,6 +203,9 @@ public class Motor extends Activity {
     }
 
     public void printList(List<String> list) {
-        list.forEach(a -> System.out.println(a));
+        for(int k = 0; k < list.size(); k++){
+            System.out.println(list.get(k));
+        }
+        //list.forEach(a -> System.out.println(a));
     }
 }

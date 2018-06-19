@@ -11,11 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:textAlignment="center"
-        android:textSize="24dp"
-        android:textColor="@color/colorBackground"
+        android:background="@drawable/gradiente_azul"
         android:gravity="center_vertical"
-        android:text="Relatório" />
+        android:text="Relatório"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/colorBranco"
+        android:textSize="24dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/text_pop_notific_relatorio"
@@ -23,6 +26,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorBackground"
         android:textSize="18dp"
+        android:textAlignment="center"
         android:padding="8dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView30"
