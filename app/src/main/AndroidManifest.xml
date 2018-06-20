@@ -58,7 +58,9 @@
         <activity android:name=".View.Application.NumberPickerPeso" />
         <activity android:name=".View.Application.Dicas"
             android:theme="@style/AppTheme.CustomTheme"/>
-        <activity android:name=".View.Application.MainViews.GraficosPeso" />
+        <activity android:name=".View.Application.MainViews.GraficosPeso"
+            android:theme="@style/AppTheme.CustomTheme"
+            />
         <activity android:name=".View.Application.PopNotific"
             android:theme="@style/AppTheme.CustomTheme"
             />

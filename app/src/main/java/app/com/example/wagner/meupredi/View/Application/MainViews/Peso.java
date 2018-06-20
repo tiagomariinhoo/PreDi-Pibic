@@ -182,7 +182,7 @@ public class Peso extends AppCompatActivity{
             meta.setText(String.valueOf('-'));
         }*/
 
-        barChart = (BarChart) findViewById(R.id.bargraph_peso);
+        /*barChart = (BarChart) findViewById(R.id.bargraph_peso);
         //DatabaseHandler db = new DatabaseHandler (getApplicationContext());
         ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
 
@@ -204,7 +204,7 @@ public class Peso extends AppCompatActivity{
         }
 
         barDataSet.setColor(Color.rgb(255, 182, 193));
-
+*/
     }
 
     @Override
