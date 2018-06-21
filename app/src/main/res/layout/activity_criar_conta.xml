@@ -10,7 +10,6 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 
-
     <TextView
         android:id="@+id/text_nome_completo"
         android:layout_width="wrap_content"
@@ -217,12 +216,11 @@ Faça todo esforço valer a pena!"
 
     <TextView
         android:id="@+id/text_idade_criar"
-        android:layout_width="150dp"
+        android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Data de Nascimento"
         android:textColor="@color/colorBackground"
@@ -231,26 +229,24 @@ Faça todo esforço valer a pena!"
         app:layout_constraintLeft_toRightOf="@+id/text_sexo_criar"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_endereco_email"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/edit_idade_criar"
-        android:layout_width="140dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="0dp"
         android:ems="10"
         android:hint="dd/mm/aaaa"
-        android:maxLength="8"
         android:inputType="textPersonName"
+        android:textAlignment="center"
         android:nextFocusDown="@+id/edit_senha_cadastro"
         android:textColor="@color/colorBackground"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/text_idade_criar"
-        app:layout_constraintTop_toTopOf="@+id/text_idade_criar"
         app:layout_constraintBottom_toBottomOf="@+id/text_idade_criar"
-        app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintRight_toRightOf="@+id/text_idade_criar" />
+        app:layout_constraintLeft_toLeftOf="@+id/text_idade_criar"
+        app:layout_constraintRight_toRightOf="@+id/text_idade_criar"
+        app:layout_constraintTop_toTopOf="@+id/text_idade_criar"
+        app:layout_constraintVertical_bias="1.0" />
 
 
     <Button

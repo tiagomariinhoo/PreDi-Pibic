@@ -162,5 +162,25 @@
         app:layout_constraintStart_toEndOf="@+id/text_registrar_valor_circunferencia"
         app:layout_constraintTop_toTopOf="@+id/text_registrar_valor_circunferencia" />
 
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/gradiente_branco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_atualizar_peso">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/linechart_peso">
+        </com.github.mikephil.charting.charts.LineChart>
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
