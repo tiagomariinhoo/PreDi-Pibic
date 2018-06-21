@@ -66,7 +66,7 @@ public class Taxas  extends AppCompatActivity {
         glicose75.setText(String.valueOf(paciente.get_glicose75g()) + " mg/dL");
 
         hemoglobinaGlicolisada = (TextView) findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
-        hemoglobinaGlicolisada.setText(String.valueOf(paciente.get_colesterol()) + " mg/dL");
+        hemoglobinaGlicolisada.setText(String.valueOf(paciente.get_hemoglobinaglicolisada()) + " %");
 
         novaGlicoseJejum = (EditText) findViewById(R.id.edit_glicoseJejum_taxas);
         novaGlicoseJejum.setRawInputType(Configuration.KEYBOARD_QWERTY);

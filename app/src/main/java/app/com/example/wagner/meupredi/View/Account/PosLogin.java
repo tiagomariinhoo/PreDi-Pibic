@@ -75,8 +75,6 @@ public class PosLogin extends AppCompatActivity {
         //se o usuario ja fez o cadastro dos dados, pula esta tela
         if(paciente.get_peso() > 0 && paciente.get_altura() > 0 && paciente.get_circunferencia() > 0) {
 
-
-
             Intent intent = new Intent(PosLogin.this, Perfil.class);
             intent.putExtra("Paciente", paciente);
             finish();
@@ -138,8 +136,9 @@ public class PosLogin extends AppCompatActivity {
                     double pesoAtualizado = Double.parseDouble(pesoCadastro);
                     Log.d("Peso atualizado : " , String.valueOf(pesoAtualizado));
                     String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
-                    double pesoDoPaciente = Double.parseDouble(pesoFormatado);
+                    float pesoDoPaciente = Float.parseFloat(pesoFormatado);
                     paciente.set_peso(pesoDoPaciente);
+                    paciente.set_pesos(pesoDoPaciente);
 
                 } if (circunferenciaCadastro.length()==0){
                     paciente.set_circunferencia(-1);

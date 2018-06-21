@@ -37,7 +37,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
         informativoIMC = (TextView) findViewById(R.id.text_chamada_info_imc);
         pesoIdeal = (TextView) findViewById(R.id.text_qual_meu_peso_ideal);
 
-        pesoAtual.setText(String.valueOf(paciente.get_peso()));
+        pesoAtual.setText(String.format("%.2f", paciente.get_peso()));
         imcAtual.setText(String.valueOf(paciente.get_imc()));
 
         pesoAtual.setOnClickListener(new View.OnClickListener() {

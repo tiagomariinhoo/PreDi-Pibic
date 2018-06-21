@@ -70,44 +70,4 @@ public class VariableMap extends Activity {
         }
         return false;
     }
-	/*
-	public Boolean checkVariable(String name) {
-		//System.out.println(name);
-		if(stringValue.containsKey(name)) {
-			if(userTable.containsKey(name)) {
-				double tableVal = stringValue.get(name);
-				double userVal = userTable.get(name);
-				System.out.println(tableVal+" "+stringOperation.get(name)+" "+userVal);
-				switch(stringOperation.get(name)) {
-					case "==":
-						if(userVal == tableVal) return true;
-						break;
-					case ">=":
-						if(userVal >= tableVal) return true;
-						break;
-					case "<=":
-						if(userVal <= tableVal) return true;
-						break;
-					case ">":
-						if(userVal > tableVal) return true;
-						break;
-					case "<":
-						if(userVal < tableVal) return true;
-						break;
-					case "!=":
-						if(userVal != tableVal) return true;
-						break;
-					case "":
-						if(userVal == 1.0) return true;
-						break;
-				}
-				return false;
-			} else {
-				return false;
-			}
-		}
-		return null;
-	}
-	*/
-
 }

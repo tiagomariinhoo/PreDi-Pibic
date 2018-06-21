@@ -5,6 +5,7 @@
         import android.util.Log;
         import android.widget.Toast;
         import java.io.Serializable;
+        import java.util.ArrayList;
 
         /**
  * Created by wagne on 31/03/2017.
@@ -13,7 +14,6 @@
 public class Paciente extends AppCompatActivity implements Serializable {
 
             int _id;
-
             String _nome;
             String _senha;
             String _email;
@@ -30,14 +30,21 @@ public class Paciente extends AppCompatActivity implements Serializable {
             double _hba1c;
             double _glicosejejum;
             double _glicose75g;
-             double _hemoglobinaglicolisada;
+            double _hemoglobinaglicolisada;
             double _colesterol;
             double _lipidograma; // Não está sendo usado
             double _hemograma; // Não está sendo usado
             double _tireoide;
+            ArrayList<Float> _pesos = new ArrayList<Float>();
 
+            public ArrayList<Float> get_pesos() {
+                return _pesos;
+            }
+
+            public void set_pesos(float p) {
+                this._pesos.add(p);
+            }
             public Paciente() {
-
             }
 
             public Paciente(int id, String nome, String senha, String email, String sexo, int idade, double circunferencia, double peso, double altura, int ultimaDica) {

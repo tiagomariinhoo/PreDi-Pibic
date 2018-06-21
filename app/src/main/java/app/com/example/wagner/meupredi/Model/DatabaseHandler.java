@@ -24,8 +24,8 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Banco";
+    private static final int DATABASE_VERSION = 4;
+    private static final String DATABASE_NAME = "BancoUpd";
 
 
     // ---------- TABLE PACIENTES ----------
@@ -67,6 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_COLESTEROL = "colesterol";
     private static final String KEY_DATA_EXAME = "dataExame";
     private static final String KEY_PAC2 = "pac2";
+    private static final String KEY_HEMOGLOBINAGLICO = "hemoglobinaglico";
 
     // ---------- TABLE LIPIDOGRAMA ----------
     //TABLE LIPIDOGRAMA
@@ -156,6 +157,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_COLESTEROL + " REAL,"
                 + KEY_DATA_EXAME + " DATETIME,"
                 + KEY_PAC2 + " INTEGER,"
+                + KEY_HEMOGLOBINAGLICO + " REAL,"
                 + " FOREIGN KEY("+KEY_PAC2+") REFERENCES "+TABLE_PACIENTES+"("+KEY_ID+"));";
         db.execSQL(CREATE_EXAMES_TABLE);
 
@@ -279,6 +281,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_GLICOSEJEJUM, exame.getGlicoseJejum());
         values.put(KEY_COLESTEROL, exame.getColesterol());
         values.put(KEY_DATA_EXAME, String.valueOf(exame.getDataExame()));
+        values.put(KEY_HEMOGLOBINAGLICO, exame.getHemoglobinaGlico());
         values.put(KEY_PAC2, exame.getIdPac());
 
         long retorno;
@@ -443,9 +446,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 exame.setId(Integer.parseInt(cursor.getString(0)));
                 exame.setGlicose75g(Double.parseDouble(cursor.getString(1)));
                 exame.setGlicoseJejum(Double.parseDouble(cursor.getString(2)));
-                exame.setColesterol(Double.parseDouble(cursor.getString(3)));
                 exame.setDataExame(cursor.getString(4));
                 exame.setIdPac(Integer.parseInt(cursor.getString(5)));
+                exame.setHemoglobinaGlico(Double.parseDouble(cursor.getString(6)));
                 exameList.add(exame);
             }while(cursor.moveToNext());
         }
@@ -680,9 +683,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values = new ContentValues();
         values.put(KEY_GLICOSE75G, paciente.get_glicose75g());
         values.put(KEY_GLICOSEJEJUM, paciente.get_glicosejejum());
+        values.put(KEY_PAC2, paciente.get_id());
+        values.put(KEY_HEMOGLOBINAGLICO, paciente.get_hemoglobinaglicolisada());
         values.put(KEY_COLESTEROL, paciente.get_colesterol());
         values.put(KEY_DATA_EXAME, dateString);
-        values.put(KEY_PAC2, paciente.get_id());
 
         //insere dados no banco de pesos
         long retorno;
@@ -703,8 +707,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
         //procura o peso pelo id do paciente
+        Log.d("Pegando ultimas taxas", " <<");
         if(cursor.moveToFirst()){
             do{
+                Log.d("Pegou ultimas", " Taxas!");
                 if(cursor.getString(5).equals(String.valueOf(paciente.get_id()))) {
                     if(Double.parseDouble(cursor.getString(1)) != 0.0) {
                         paciente.set_glicose75g(Double.parseDouble(cursor.getString(1)));
@@ -720,13 +726,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         paciente.set_colesterol(Double.parseDouble(cursor.getString(3)));
                         Log.d("Colesterol : ", String.valueOf(paciente.get_colesterol()));
                     }
+
+                    if(cursor.getString(6)!=null) {
+                        if(Double.parseDouble(cursor.getString(6)) != 0.0){
+                            paciente.set_hemoglobinaglicolisada(Double.parseDouble(cursor.getString(6)));
+                            Log.d("Hemoglobina Glico: ", String.valueOf(paciente.get_hemoglobinaglicolisada()));
+                        }
+                    }
                 }
             } while(cursor.moveToNext());
         }
 
         Log.d("G75 : ", String.valueOf(paciente.get_glicose75g()));
         Log.d("GJejum : ", String.valueOf(paciente.get_glicosejejum()));
-        Log.d("Co : ", String.valueOf(paciente.get_colesterol()));
+        Log.d("HemoglobinaGlico : ", String.valueOf(paciente.get_hemoglobinaglicolisada()));
 
         //retorna paciente com ultimas taxas cadastradas pelo usuario
         return paciente;

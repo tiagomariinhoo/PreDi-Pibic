@@ -7,7 +7,7 @@ android {
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "app.com.example.wagner.meupredi"
-        minSdkVersion 24
+        minSdkVersion 23
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -53,7 +53,7 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
     compile 'com.github.Vatican-Cameos:CarouselPicker:v1.0'
     compile 'com.github.sundeepk:compact-calendar-view:2.0.3-beta'
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
     compile 'com.michaelmuenzer.android:ScrollableNumberPicker:0.2.2'
 }
 
