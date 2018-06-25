@@ -29,7 +29,7 @@ public class TabEvolucao extends Activity {
         setContentView(tab_evolucao_perfil);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
-
+/*
         graficopeso = (Button) findViewById(R.id.btn_tab_evolucao_peso);
 
         graficopeso.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +40,6 @@ public class TabEvolucao extends Activity {
                 startActivity(intent);
             }
         });
-
+*/
     }
 }
