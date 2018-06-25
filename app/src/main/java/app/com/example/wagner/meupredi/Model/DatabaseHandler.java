@@ -1,5 +1,6 @@
 package app.com.example.wagner.meupredi.Model;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -226,7 +227,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TITULO_AGENDA, agenda.getTitulo());
-        values.put(KEY_LUGAR_AGENDA, "Teste");
+        values.put(KEY_LUGAR_AGENDA, agenda.getLocal());
         values.put(KEY_DATA_AGENDA, agenda.getDate());
         values.put(KEY_TIME_AGENDA, agenda.getTime());
         values.put(KEY_PAC6_AGENDA, paciente.get_id());
@@ -668,6 +669,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //metodo chamado na classe Taxas para atualizar medicoes do paciente no banco
+    @SuppressLint("LongLogTag")
     public void modelAtualizarTaxas(Paciente paciente){
 
         //pega data atual

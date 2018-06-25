@@ -30,7 +30,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_peso_atual" />
 
-
     <TextView
         android:id="@+id/text_tab_corpo_atualizar2_peso"
         android:layout_width="wrap_content"

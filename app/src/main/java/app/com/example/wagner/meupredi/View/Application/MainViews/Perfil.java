@@ -24,8 +24,8 @@ import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
 import app.com.example.wagner.meupredi.View.Application.PopPerfil;
 import app.com.example.wagner.meupredi.View.Application.Sair;
+import app.com.example.wagner.meupredi.View.Application.TabConsultas;
 import app.com.example.wagner.meupredi.View.Application.TabCorpo;
-import app.com.example.wagner.meupredi.View.Application.TabEvolucao;
 import app.com.example.wagner.meupredi.View.Application.TabTaxas;
 
 import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
@@ -137,11 +137,11 @@ public class Perfil extends ActivityGroup {
 
         descritor = abas.newTabSpec("aba3");
 
-        intent = new Intent(this, TabEvolucao.class);
+        intent = new Intent(this, TabConsultas.class);
         intent.putExtra("Paciente", paciente);
 
         descritor.setContent(intent);
-        descritor.setIndicator("EVOLUÇÃO");
+        descritor.setIndicator("CONSULTAS");
         abas.addTab(descritor);
 
     }

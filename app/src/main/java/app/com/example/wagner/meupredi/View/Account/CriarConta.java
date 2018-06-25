@@ -43,7 +43,7 @@ public class CriarConta extends AppCompatActivity {
     private TextView data;
     private DatePickerDialog.OnDateSetListener dataNascimento;
     private int ano, dia, mes;
-    private int IdadeAux;
+    private int idadeAux;
     private Calendar calendario;
     TextView cancelar;
 
@@ -118,7 +118,13 @@ public class CriarConta extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
                 String dataNasc = dayOfMonth + "/" + month + "/" + year;
-                IdadeAux = Calendar.getInstance().get(Calendar.YEAR) - year;
+                idadeAux = Calendar.getInstance().get(Calendar.YEAR) - year;
+                Calendar calendarioAtual = Calendar.getInstance();
+                if (calendarioAtual.get(Calendar.MONTH) > month
+                    || (calendarioAtual.get(Calendar.MONTH)) == month
+                    && calendarioAtual.get(Calendar.DAY_OF_MONTH) > dayOfMonth) {
+                    idadeAux--;
+                }
                 data.setText(dataNasc);
             }
         };
@@ -184,7 +190,7 @@ public class CriarConta extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Insira um nome válido!", Toast.LENGTH_SHORT).show();
                     } else if(emailCadastro.length() == 0) {
                         Toast.makeText(getApplicationContext(), "Insira um email válido!", Toast.LENGTH_SHORT).show();
-                    } else if(dataCadastro.length() == 0 || dataCadastro.length()!= 8){
+                    } else if(dataCadastro.length() == 0){
                         data.setText("");
                         Toast.makeText(getApplicationContext(), "Data em formato inválido! Por favor, digite no formato ddmmaaaa.", Toast.LENGTH_SHORT).show();
                     } else if(senhaCadastro.length() == 0) {
@@ -194,7 +200,7 @@ public class CriarConta extends AppCompatActivity {
 
                         Log.d("Idade Criar Conta: ", String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - ano));
                         //configuracao padrao de usuario
-                        Paciente paciente = new Paciente (0, nomeCompleto, senhaCadastro, emailCadastro, "", IdadeAux, 0 , 0, 0, -1);
+                        Paciente paciente = new Paciente (0, nomeCompleto, senhaCadastro, emailCadastro, "", idadeAux, 0 , 0, 0, -1);
 
                         //verifica opcao de sexo selecionada
                         String selected = sexo.getSelectedItem().toString();

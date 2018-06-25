@@ -49,12 +49,9 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         OnChartValueSelectedListener {
 
     private LineChart mChart;
-    TextView peso;
     EditText novoCirc, novoPeso;
     Button atualizarPeso;
     Paciente paciente;
-    ArrayList<Float> pesos;
-    ArrayList<BarEntry> barEntries = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

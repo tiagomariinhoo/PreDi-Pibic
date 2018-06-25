@@ -46,8 +46,8 @@
         <activity android:name=".View.Application.MainViews.Consultas"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".View.Application.TabCorpo" />
+        <activity android:name=".View.Application.TabConsultas" />
         <activity android:name=".View.Application.TabTaxas" />
-        <activity android:name=".View.Application.TabEvolucao" />
         <activity android:name=".View.Application.PopPerfil"
             android:theme="@style/AppTheme.CustomTheme"
             />
@@ -63,6 +63,7 @@
         <activity android:name=".View.Application.PopNotific"
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.Sair" />
+
 
     </application>
 

@@ -55,7 +55,6 @@ public class Consultas extends Activity {
     private ArrayAdapter<String> adapter;
     private String[] items = {};
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -72,7 +71,6 @@ public class Consultas extends Activity {
         contadorConsultas = (TextView) findViewById(R.id.text_contador_consultas);
         agendarNovaConsulta = (ImageView) findViewById(R.id.btn_agendar_nova_consulta);
         listaDeConsultas = (ListView) findViewById(R.id.lista_consultas);
-
 
         ControllerAgenda controllerAgenda = new ControllerAgenda(Consultas.this);
 
