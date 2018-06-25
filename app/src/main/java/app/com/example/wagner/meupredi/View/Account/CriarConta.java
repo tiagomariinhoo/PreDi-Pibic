@@ -117,8 +117,9 @@ public class CriarConta extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
+                String dataNasc = dayOfMonth + "/" + month + "/" + year;
                 IdadeAux = Calendar.getInstance().get(Calendar.YEAR) - year;
-                data.setText(dayOfMonth + "/" + month + "/" + year);
+                data.setText(dataNasc);
             }
         };
 

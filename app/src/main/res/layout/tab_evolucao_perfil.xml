@@ -2,29 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="300dp"
+    android:padding="8dp"
     android:background="@color/colorBranco">
 
-    <Button
-        android:id="@+id/btn_tab_evolucao_peso"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_alignLeft="@+id/btn_tab_evolucao_exercicios"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/btn_tab_evolucao_exercicios"
-        android:layout_marginTop="12dp"
-        android:text="Peso"
+    <TextView
+        android:id="@+id/tab_evolucao_consultas"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/gradiente_azul"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Consultas"
         android:textAlignment="center"
-        android:textSize="18sp" />
+        android:textColor="@color/colorBranco"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btn_tab_evolucao_exercicios"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/btn_tab_evolucao_peso"
+    <ListView
+        android:id="@+id/lista_consultas"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:text="Exercicios"
-        android:textAlignment="center"
-        android:textSize="18sp" />
+        android:layout_marginBottom="21dp"
+        android:isScrollContainer="false"
+        android:padding="8dp"
+        android:paddingTop="8dp">
+    </ListView>
 
 </RelativeLayout>
