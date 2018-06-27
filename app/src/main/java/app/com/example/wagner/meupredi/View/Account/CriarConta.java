@@ -152,7 +152,6 @@ public class CriarConta extends AppCompatActivity {
                     } catch(NullPointerException e) {
                         //caso o teclado ja esteja escondido
                     }
-
                     return true;
                 } else {
                     Toast.makeText(getApplicationContext(),"Insira senhas iguais!", Toast.LENGTH_SHORT).show();
@@ -161,7 +160,6 @@ public class CriarConta extends AppCompatActivity {
                 }
             }
         });
-
 
         criarConta.setOnClickListener(new View.OnClickListener() {
             @Override

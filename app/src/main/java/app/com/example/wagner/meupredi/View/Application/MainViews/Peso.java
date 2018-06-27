@@ -52,6 +52,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
     EditText novoCirc, novoPeso;
     Button atualizarPeso;
     Paciente paciente;
+    private double imc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
+
+        imc = (paciente.get_peso()/(paciente.get_altura()*paciente.get_altura()));
 
         //pega novo peso digitado pelo usuario
         novoPeso = (EditText) findViewById(R.id.text_registrar_valor_peso);
@@ -138,7 +141,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                         //recalcula imc
                         if(paciente.get_peso() > 0 && paciente.get_altura() > 0) {
-                            double imc = (paciente.get_peso()/(paciente.get_altura()*paciente.get_altura()));
+
                             String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
                             imc = Double.parseDouble(imcFormatado);
                             paciente.set_imc(imc);
@@ -206,13 +209,16 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
 
-        LimitLine upper_limit = new LimitLine(130f, "Upper Limit");
+        double h = paciente.get_altura();
+        double pesoAux = 24.9*h*h;
+
+        LimitLine upper_limit = new LimitLine((float) pesoAux, "Peso Ideal");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         upper_limit.setTextSize(10f);
 
-        LimitLine lower_limit = new LimitLine(-30f, "Lower Limit");
+        LimitLine lower_limit = new LimitLine(-30f, "Peso Ideal");
         lower_limit.setLineWidth(4f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
         lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
@@ -275,17 +281,6 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
             yVals.add(new Entry(valor, i));
         }
 
-        //Log.i("Peso", "END, tamanho do array: " + pesos.size());
-        //Log.i("Peso", "END, 3: " + pesos.get(0));
-        //Log.i("Peso", "END, 2: " + pesos.get(1));
-        //Log.i("Peso", "END, 1: " + pesos.get(2));
-/*
-        yVals.add(new Entry(60, 0));
-        yVals.add(new Entry(48, 1));
-        yVals.add(new Entry(70.5f, 2));
-        yVals.add(new Entry(100, 3));
-        yVals.add(new Entry(180.9f, 4));
-*/
         return yVals;
     }
 
