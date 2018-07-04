@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     android:padding="8dp"
     android:background="@color/colorBranco">
 
@@ -21,11 +21,12 @@
         android:textStyle="bold" />
     <ListView
         android:id="@+id/lista_consultas"
+        android:layout_below="@+id/tab_perfil_consultas"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="8dp"
         android:isScrollContainer="false"
         android:padding="8dp"
         android:paddingTop="8dp">

@@ -61,7 +61,7 @@ public class Consultas extends Activity {
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultas);
-        // Função abaixo impede que o teclado seja chamado para o edit text quando a tela abrir
+        // Função abaixo i0mpede que o teclado seja chamado para o edit text quando a tela abrir
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         nomeNovaConsulta = (EditText) findViewById(R.id.editText_nome_nova_consulta);

@@ -1,67 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradiente_branco">
-
-    <TextView
-        android:id="@+id/text_pop_dicas"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/text_pop_consultas"
-        android:background="@drawable/gradiente_melon"
-        android:gravity="center_vertical"
-        android:text="DICAS"
-        android:textAlignment="center"
-        android:textColor="@color/colorBranco"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="112dp"
-        android:paddingBottom="8dp"
-        android:text="Agende ou veja suas consultas marcadas"
-        android:textAlignment="center"
-        android:textColor="@color/colorBranco" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@mipmap/ic_marcador_livro"
-        app:srcCompat="@mipmap/ic_marcador_livro" />
-
-    <TextView
-        android:id="@+id/textView31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descubra algumas maneiras de se alcançar um estilo de vida mais saudável"
-        android:textAlignment="center"
-        android:paddingBottom="8dp"
-        android:textColor="@color/colorBranco"
-        android:layout_alignBottom="@+id/text_pop_dicas"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-
-    <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:background="@mipmap/ic_consultas_check"
-        app:srcCompat="@mipmap/ic_consultas_check" />
 
 </RelativeLayout>

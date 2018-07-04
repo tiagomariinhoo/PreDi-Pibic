@@ -254,11 +254,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do{
                 if(cursor.getString(5) != null){
                     if(Integer.parseInt(cursor.getString(5)) == idPaciente){
+                        String local = cursor.getString(2);
                         String date = cursor.getString(3);
                         String time = cursor.getString(4);
-                        Log.d("Pegando date : " , date);
+                        Log.d("Pegando local : " , local);
 
-                        AgendaClass agendaClass = new AgendaClass(cursor.getString(1), "Teste", date, time);
+                        AgendaClass agendaClass = new AgendaClass(cursor.getString(1), local, date, time);
                         agendaList.add(agendaClass);
                     }
                 }
