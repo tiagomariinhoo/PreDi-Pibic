@@ -10,3 +10,4 @@ SE verificaMetas E alcançouMetas ENTAO "Acompanhamento a cada 6 meses!"
 SE verificaMetas E ~alcançouMetas ENTAO "Reforçar a mudança no estilo de vida!"
 SE PreDiabetes ENTAO "PreDiabetes, mudança no estilo de vida!"
 SE dm2 ENTAO "Diagnóstico de Diabetes!"
+

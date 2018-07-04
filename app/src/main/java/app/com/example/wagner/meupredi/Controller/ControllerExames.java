@@ -3,6 +3,7 @@ package app.com.example.wagner.meupredi.Controller;
 import android.content.Context;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
@@ -46,4 +47,15 @@ public class ControllerExames {
         return db.modelGetUltimasTaxas(paciente);
     }
 
+    public ArrayList<Float> getGlicosesJejum(Paciente paciente){
+        return db.modelGetGlicosesJejum(paciente);
+    }
+
+    public ArrayList<Float> getGlicoses75g(Paciente paciente){
+        return db.modelGetGlicoses75g(paciente);
+    }
+
+    public ArrayList<Float> getHemoglobinas(Paciente paciente){
+        return db.modelGetHemoglobinas(paciente);
+    }
 }

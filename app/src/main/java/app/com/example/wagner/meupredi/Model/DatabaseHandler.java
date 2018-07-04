@@ -663,6 +663,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return pesos;
     }
 
+    public ArrayList<Float> modelGetGlicosesJejum(Paciente paciente){
+        ArrayList<Float> glicosesJejum = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_EXAMES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                if(Integer.parseInt(cursor.getString(5)) == paciente.get_id()){
+                    glicosesJejum.add(Float.valueOf(cursor.getString(2)));
+                }
+            } while(cursor.moveToNext());
+        }
+        return glicosesJejum;
+    }
+
+    public ArrayList<Float> modelGetGlicoses75g(Paciente paciente){
+        ArrayList<Float> glicoses75g = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_EXAMES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                if(Integer.parseInt(cursor.getString(5)) == paciente.get_id()){
+                    glicoses75g.add(Float.valueOf(cursor.getString(1)));
+                }
+            } while(cursor.moveToNext());
+        }
+        return glicoses75g;
+    }
+
+    public ArrayList<Float> modelGetHemoglobinas(Paciente paciente){
+        ArrayList<Float> hemoglobinasGlico = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_EXAMES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+            do{
+                if(Integer.parseInt(cursor.getString(5)) == paciente.get_id()){
+                    hemoglobinasGlico.add(Float.valueOf(cursor.getString(6)));
+                }
+            } while(cursor.moveToNext());
+        }
+        return hemoglobinasGlico;
+    }
+
     //metodo chamado na classe Taxas para atualizar medicoes do paciente no banco
     @SuppressLint("LongLogTag")
     public void modelAtualizarTaxas(Paciente paciente){
