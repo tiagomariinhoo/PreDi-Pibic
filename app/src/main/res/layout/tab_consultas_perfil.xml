@@ -19,7 +19,6 @@
         android:textColor="@color/colorBranco"
         android:textSize="18dp"
         android:textStyle="bold" />
-
     <ListView
         android:id="@+id/lista_consultas"
         android:layout_width="match_parent"

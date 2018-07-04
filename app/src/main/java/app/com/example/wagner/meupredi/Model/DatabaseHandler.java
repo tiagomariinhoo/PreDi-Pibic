@@ -453,9 +453,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 exameList.add(exame);
             }while(cursor.moveToNext());
         }
-
         return exameList;
-
     }
 
     //metodo chamado na classe MenuPrincipal para manter o objeto 'paciente' sempre atualizado
@@ -534,7 +532,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
 
         }
-
         paciente.set_id(-1);
         return paciente;
     }
@@ -562,7 +559,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             }while(cursor.moveToNext());
         }
-
         //se nao existir, retorna objeto com id igual a -1
         paciente.set_id(-1);
         return paciente;
@@ -589,6 +585,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_ULTIMADICA, paciente.getUltimaDica());
 
         return db.update(this.TABLE_PACIENTES, values, where, null) > 0;
+
     }
 
 
@@ -663,9 +660,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
             } while(cursor.moveToNext());
         }
-
         return pesos;
-
     }
 
     //metodo chamado na classe Taxas para atualizar medicoes do paciente no banco
