@@ -19,6 +19,7 @@
         android:textColor="@color/colorBranco"
         android:textSize="18dp"
         android:textStyle="bold" />
+
     <ListView
         android:id="@+id/lista_consultas"
         android:layout_below="@+id/tab_perfil_consultas"
