@@ -210,8 +210,8 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         l.setForm(Legend.LegendForm.LINE);
 
         // no description text
-        mChart.setDescription("Demo Line Chart");
-        mChart.setNoDataTextDescription("You need to provide data for the chart.");
+        mChart.setDescription("");
+        mChart.setNoDataTextDescription("Você precisa inserir dados para gerar o gráfico");
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -222,27 +222,30 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
 
+        mChart.getAxisLeft().setDrawGridLines(false);
+        mChart.getXAxis().setDrawGridLines(false);
+
         LimitLine upper_limit = new LimitLine(199f, "Glicose Ideal");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         upper_limit.setTextSize(10f);
 
-        LimitLine lower_limit = new LimitLine(144f, "Glicose Ideal");
+        /*LimitLine lower_limit = new LimitLine(144f, "Glicose Ideal");
         lower_limit.setLineWidth(4f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
         lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        lower_limit.setTextSize(10f);
+        lower_limit.setTextSize(10f);*/
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(upper_limit);
-        leftAxis.addLimitLine(lower_limit);
+        //leftAxis.addLimitLine(lower_limit);
         leftAxis.setAxisMaxValue(220f);
         leftAxis.setAxisMinValue(-50f);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        leftAxis.setDrawZeroLine(false);
+        leftAxis.setDrawZeroLine(true);
 
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
@@ -262,7 +265,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         ArrayList<String> xVals = new ArrayList<String>();
         int i = 0;
         for (i = 0; i < tam; i++){
-            xVals.add("x");
+            xVals.add("");
         }
         /*
         xVals.add("x");
@@ -307,10 +310,10 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         LineDataSet set1;
 
         // create a dataset and give it a type
-        set1 = new LineDataSet(yVals, "DataSet 1");
+        set1 = new LineDataSet(yVals, "Glicose 75g");
 
-        set1.setFillAlpha(110);
-        // set1.setFillColor(Color.RED);
+        set1.setFillAlpha(90);
+        //set1.setFillColor(Color.RED);
 
         // set the line to be drawn like this "- - - - - -"
         //   set1.enableDashedLine(10f, 5f, 0f);

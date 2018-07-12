@@ -13,20 +13,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Model.TelaLogin">
+        <activity android:name=".Model.TelaLogin"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.Account.TelaLoginSplash" />
-        <activity android:name=".View.Account.TelaLogin" />
-        <activity android:name=".View.Account.CriarConta" />
-        <activity android:name=".View.Account.PosLogin" />
-        <activity android:name=".View.Account.EsqueceuSenha" />
+        <activity android:name=".View.Account.TelaLoginSplash"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Account.TelaLogin"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Account.CriarConta"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Account.PosLogin"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Account.EsqueceuSenha"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".View.Application.Desempenho">
+            android:screenOrientation="portrait"
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -35,36 +42,50 @@
             android:label="Taxas"/>
         <activity
             android:name=".View.Application.MainViews.Peso"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_peso" />
         <activity
             android:name=".View.Application.MainViews.Dados"
+            android:screenOrientation="portrait"
             android:label="Dados de registro" />
 
-        <activity android:name=".View.Application.TelaExameLipidograma" />
-        <activity android:name=".View.Application.TelaExameHemograma" />
-        <activity android:name=".View.Application.MainViews.Perfil" />
+        <activity android:name=".View.Application.TelaExameLipidograma"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.TelaExameHemograma"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.MainViews.Perfil"
+            android:screenOrientation="portrait"/>
         <activity android:name=".View.Application.MainViews.Consultas"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".View.Application.TabCorpo" />
-        <activity android:name=".View.Application.TabConsultas" />
-        <activity android:name=".View.Application.TabTaxas" />
+        <activity android:name=".View.Application.TabCorpo"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.TabConsultas"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.TabTaxas"
+            android:screenOrientation="portrait"/>
         <activity android:name=".View.Application.PopPerfil"
-            android:theme="@style/AppTheme.CustomTheme"
-            />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".View.Application.TabelaImc"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.PesoIdeal"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
-        <activity android:name=".View.Application.tabelaPredi" />
-        <activity android:name=".View.Application.NumberPickerPeso" />
+        <activity android:name=".View.Application.tabelaPredi"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.NumberPickerPeso"
+            android:screenOrientation="portrait"/>
         <activity android:name=".View.Application.Dicas"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
-        <activity android:name=".View.Application.MainViews.GraficosPeso" />
+        <activity android:name=".View.Application.MainViews.GraficosPeso"
+            android:screenOrientation="portrait"/>
         <activity android:name=".View.Application.PopNotific"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
-        <activity android:name=".View.Application.Sair" />
-
-
+        <activity android:name=".View.Application.Sair"
+            android:screenOrientation="portrait"/>
     </application>
-
 </manifest>

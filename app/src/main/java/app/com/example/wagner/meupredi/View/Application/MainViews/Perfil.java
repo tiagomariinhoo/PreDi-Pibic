@@ -108,7 +108,7 @@ public class Perfil extends ActivityGroup {
         coracao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Perfil.this, PopPerfil.class);
+                Intent intent = new Intent(Perfil.this, PopNotific.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }

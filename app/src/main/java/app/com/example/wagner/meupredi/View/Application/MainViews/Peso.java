@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
@@ -34,6 +35,8 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
@@ -49,9 +52,10 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         OnChartValueSelectedListener {
 
     private LineChart mChart;
-    EditText novoCirc, novoPeso;
-    Button atualizarPeso;
-    Paciente paciente;
+    private TextView dataUltimaMedicao, pesoUltimaMedicao;
+    private EditText novoCirc, novoPeso;
+    private Button atualizarPeso;
+    private Paciente paciente;
     private double imc;
 
     @Override
@@ -69,13 +73,22 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
         imc = (paciente.get_peso()/(paciente.get_altura()*paciente.get_altura()));
 
+        dataUltimaMedicao = (TextView) findViewById(R.id.text_ultima_medicao_tela_peso);
+        pesoUltimaMedicao = (TextView) findViewById(R.id.text_hint_peso_ultima_medicao);
+
         //pega novo peso digitado pelo usuario
         novoPeso = (EditText) findViewById(R.id.text_registrar_valor_peso);
         novoCirc = (EditText) findViewById(R.id.text_registrar_valor_circunferencia);
 
         Double peso_atual = paciente.get_peso();
         Double circu_atual = paciente.get_circunferencia();
-        novoPeso.setHint(String.format("%.2f", peso_atual));
+        String pesoAtual = novoPeso.getText().toString();
+        if(pesoAtual.length() == 0){
+            pesoUltimaMedicao.setText(String.format("%.2f", peso_atual));
+        }
+        else{
+            pesoUltimaMedicao.setText("");
+        }
         novoCirc.setHint(String.format("%.2f", circu_atual));
 
         //TODO: criar calculo de meta
@@ -96,6 +109,15 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
             }
         });
 
+        novoPeso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               pesoUltimaMedicao.setText("");
+            }
+        });
+
+        pesoUltimaMedicao.setText(String.format("%.2f", peso_atual));
+
         atualizarPeso = (Button) findViewById(R.id.btn_atualizar_peso);
 
         atualizarPeso.setOnClickListener(new View.OnClickListener() {
@@ -106,8 +128,13 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                 String pesoAtual = novoPeso.getText().toString();
                 String circu_atual = novoCirc.getText().toString();
 
+                //pega string da data atual
+                Date dataRegistro = Calendar.getInstance().getTime();
+
+
                 if(pesoAtual.length() == 0) {
                     Toast.makeText(getApplicationContext(),"Preencha o campo correspondente!",Toast.LENGTH_SHORT).show();
+
                 } else {
 
                     //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a uma casa decimal)
@@ -197,8 +224,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         l.setForm(Legend.LegendForm.LINE);
 
         // no description text
-        mChart.setDescription("Demo Line Chart");
-        mChart.setNoDataTextDescription("You need to provide data for the chart.");
+        mChart.setDescription("");
+        mChart.setNoDataTextDescription("Você precisa inserir dados para gerar o gráfico");
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -209,6 +236,9 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
 
+        mChart.getAxisLeft().setDrawGridLines(false);
+        mChart.getXAxis().setDrawGridLines(false);
+
         double h = paciente.get_altura();
         double pesoAux = 24.9*h*h;
 
@@ -218,7 +248,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         upper_limit.setTextSize(10f);
 
-        LimitLine lower_limit = new LimitLine(-30f, "Peso Ideal");
+        LimitLine lower_limit = new LimitLine(50f, "Peso Ideal");
         lower_limit.setLineWidth(4f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
         lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
@@ -228,11 +258,11 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(upper_limit);
         leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(220f);
-        leftAxis.setAxisMinValue(-50f);
+        leftAxis.setAxisMaxValue(180f);
+        leftAxis.setAxisMinValue(0f);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        leftAxis.setDrawZeroLine(false);
+        leftAxis.setDrawZeroLine(true);
 
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
@@ -253,7 +283,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         ArrayList<String> xVals = new ArrayList<String>();
         int i = 0;
         for (i = 0; i < tam; i++){
-            xVals.add("x");
+            xVals.add("");
         }
         /*
         xVals.add("x");
@@ -293,10 +323,10 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         LineDataSet set1;
 
         // create a dataset and give it a type
-        set1 = new LineDataSet(yVals, "DataSet 1");
+        set1 = new LineDataSet(yVals, "Pesos");
 
-        set1.setFillAlpha(110);
-        // set1.setFillColor(Color.RED);
+        set1.setFillAlpha(90);
+        //set1.setFillColor(Color.RED);
 
         // set the line to be drawn like this "- - - - - -"
         //   set1.enableDashedLine(10f, 5f, 0f);
