@@ -102,6 +102,7 @@ public class Perfil extends ActivityGroup {
                 Intent intent = new Intent(Perfil.this, Sair.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
+                finish();
             }
         });
 
