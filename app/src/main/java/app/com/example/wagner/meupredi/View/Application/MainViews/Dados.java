@@ -1,6 +1,7 @@
 package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -171,6 +172,11 @@ public class Dados extends AppCompatActivity {
                 controllerPaciente.atualizarPaciente(paciente);
 
                 Toast.makeText(getApplicationContext(),"Dados atualizados com sucesso!",Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(Dados.this, Perfil.class);
+                intent.putExtra("Paciente", paciente);
+                finish();
+                startActivity(intent);
             }
         });
     }

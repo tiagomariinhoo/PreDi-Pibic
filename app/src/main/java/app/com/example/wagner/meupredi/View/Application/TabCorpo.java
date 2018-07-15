@@ -42,22 +42,22 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
         pesoAtual.setText(String.format("%.2f", paciente.get_peso()));
         imcAtual.setText(String.valueOf(imc));
 
-        if(imc <= 16.9){
+        if(paciente.get_imc() <= 16.9){
             statusIMC.setText("Muito abaixo do Peso");
         }
-        else if(imc <= 18.4){
+        else if(paciente.get_imc() <= 18.4){
             statusIMC.setText("Abaixo do peso");
         }
-        else if(imc <= 24.9){
+        else if(paciente.get_imc() <= 24.9){
             statusIMC.setText("Peso normal");
         }
-        else if(imc <= 29.9){
+        else if(paciente.get_imc() <= 29.9){
             statusIMC.setText("Acima do peso");
         }
-        else if(imc <= 34.9){
+        else if(paciente.get_imc() <= 34.9){
             statusIMC.setText("Obesidade I");
         }
-        else if(imc <= 40){
+        else if(paciente.get_imc() <= 40){
             statusIMC.setText("Obesidade II");
         }
         else{
