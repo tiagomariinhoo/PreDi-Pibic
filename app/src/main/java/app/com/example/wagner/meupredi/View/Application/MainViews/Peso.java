@@ -1,5 +1,6 @@
 package app.com.example.wagner.meupredi.View.Application.MainViews;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -58,6 +59,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
     private Paciente paciente;
     private double imc;
 
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -74,22 +76,20 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         imc = (paciente.get_peso()/(paciente.get_altura()*paciente.get_altura()));
 
         dataUltimaMedicao = (TextView) findViewById(R.id.text_ultima_medicao_tela_peso);
-        pesoUltimaMedicao = (TextView) findViewById(R.id.text_hint_peso_ultima_medicao);
+        //pesoUltimaMedicao = (TextView) findViewById(R.id.text_hint_peso_ultima_medicao);
 
         //pega novo peso digitado pelo usuario
         novoPeso = (EditText) findViewById(R.id.text_registrar_valor_peso);
         novoCirc = (EditText) findViewById(R.id.text_registrar_valor_circunferencia);
 
         Double peso_atual = paciente.get_peso();
-        Double circu_atual = paciente.get_circunferencia();
+        Double circ_atual = paciente.get_circunferencia();
+
         String pesoAtual = novoPeso.getText().toString();
-        if(pesoAtual.length() == 0){
-            pesoUltimaMedicao.setText(String.format("%.2f", peso_atual));
-        }
-        else{
-            pesoUltimaMedicao.setText("");
-        }
-        novoCirc.setHint(String.format("%.2f", circu_atual));
+        String circAtual = novoCirc.getText().toString();
+
+        novoPeso.setHint(String.format("%.2f", peso_atual));
+        novoCirc.setHint(String.format("%.2f", circ_atual));
 
         //TODO: criar calculo de meta
         //TODO: criar atributo de meta para guardar o peso que o paciente devera alcancar
@@ -109,15 +109,6 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
             }
         });
 
-        novoPeso.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               pesoUltimaMedicao.setText("");
-            }
-        });
-
-        pesoUltimaMedicao.setText(String.format("%.2f", peso_atual));
-
         atualizarPeso = (Button) findViewById(R.id.btn_atualizar_peso);
 
         atualizarPeso.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +117,10 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                 //pega string do peso e verifica tamanho
                 String pesoAtual = novoPeso.getText().toString();
-                String circu_atual = novoCirc.getText().toString();
+                String circuAtual = novoCirc.getText().toString();
 
                 //pega string da data atual
                 Date dataRegistro = Calendar.getInstance().getTime();
-
 
                 if(pesoAtual.length() == 0) {
                     Toast.makeText(getApplicationContext(),"Preencha o campo correspondente!",Toast.LENGTH_SHORT).show();
@@ -139,10 +129,10 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                     //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a uma casa decimal)
                     pesoAtual = pesoAtual.replace(',', '.');
-                    circu_atual = pesoAtual.replace(',', '.');
+                    //circuAtual = circuAtual.replace(',', '.');
 
                     Float pesoAtualizado = Float.parseFloat(pesoAtual);
-                    Double circAtualizado = Double.parseDouble(circu_atual);
+                    Double circAtualizado = Double.parseDouble(circuAtual);
 
                     String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
                     Float pesoDoPaciente = Float.parseFloat(pesoFormatado);
@@ -168,7 +158,6 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                         //recalcula imc
                         if(paciente.get_peso() > 0 && paciente.get_altura() > 0) {
-
                             String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
                             imc = Double.parseDouble(imcFormatado);
                             paciente.set_imc(imc);
