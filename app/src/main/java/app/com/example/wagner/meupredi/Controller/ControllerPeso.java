@@ -29,4 +29,8 @@ public class ControllerPeso {
     public ArrayList<Float> getAllPesos(Paciente paciente){
         return db.modelGetAllPesos(paciente);
     }
+
+    public ArrayList<Float> getAllCircunferencias(Paciente paciente) { return db.modelGetAllCircunferencias(paciente);}
+
+    public double getCircunferencia(Paciente paciente) { return db.modelGetCircunferencia(paciente);}
 }

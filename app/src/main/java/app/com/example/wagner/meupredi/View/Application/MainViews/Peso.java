@@ -109,6 +109,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
             }
         });
 
+
         atualizarPeso = (Button) findViewById(R.id.btn_atualizar_peso);
 
         atualizarPeso.setOnClickListener(new View.OnClickListener() {
