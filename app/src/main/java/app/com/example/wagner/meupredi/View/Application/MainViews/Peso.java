@@ -150,9 +150,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                 dataUltimaMedicao.setText(dia + ", " + mes + ", " + ano);
 
                 alertaNovaMedicao = new AlertDialog.Builder(Peso.this);
-
                 alertaNovaMedicao.setTitle("Atenção!");
-
                 alertaNovaMedicao.setMessage("Verifique se as informações de sua medição estão corretas e confirme." +
                         "\n" + "Peso: " + pesoAtual + "kg\nCircunferência: " + circAtual + "cm\nData: " + dataRegistro + ".");
 
@@ -309,14 +307,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         for (i = 0; i < tam; i++) {
             xVals.add("");
         }
-        /*
-        xVals.add("x");
-        xVals.add("x");
-        xVals.add("x");
-        xVals.add("x");
-        xVals.add("x");
-        xVals.add("x");
-*/
+
         return xVals;
     }
 

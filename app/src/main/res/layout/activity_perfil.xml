@@ -88,7 +88,7 @@
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout" />
 
     <TextView
-        android:id="@+id/textView25"
+        android:id="@+id/text_nome_usuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -103,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/image_perfil_coracao" />
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/text_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -124,7 +124,7 @@
         android:layout_marginTop="8dp"
         android:background="@mipmap/ic_dados"
         app:layout_constraintEnd_toStartOf="@+id/image_sair_perfil"
-        app:layout_constraintLeft_toRightOf="@+id/textView26"
+        app:layout_constraintLeft_toRightOf="@+id/text_titulo"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_dados" />
 

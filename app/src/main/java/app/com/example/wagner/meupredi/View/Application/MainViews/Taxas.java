@@ -334,7 +334,6 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
 
         // set data
         mChart.setData(data);
-
     }
 
     @Override
