@@ -12,31 +12,30 @@
         android:id="@+id/text_nome_dados"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:background="@color/colorBarraTituloRoxa"
         android:text="Nome:"
         android:textAlignment="center"
         android:textColor="#fff"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_instrucoes_dados" />
 
     <EditText
         android:id="@+id/edit_nome_dados"
-        android:layout_width="344dp"
-        android:layout_height="76dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="#fff"
         android:ems="10"
         android:inputType="textMultiLine"
         android:nextFocusDown="@+id/edit_idade_dado"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_nome_dados" />
 
     <EditText
@@ -94,14 +93,15 @@
 
     <EditText
         android:id="@+id/edit_altura_dados"
-        android:layout_width="344dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="#fff"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_altura_dado" />
 
     <TextView
@@ -139,15 +139,17 @@
 
     <EditText
         android:id="@+id/edit_idade_dados"
-        android:layout_width="344dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="#fff"
         android:ems="10"
         android:inputType="textPersonName"
         android:nextFocusDown="@+id/edit_altura_dado"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_idade_dados" />
 
     <Button
@@ -155,15 +157,14 @@
         android:layout_width="344dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="ATUALIZAR"
-        android:textColor="@color/colorBranco"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         android:background="@drawable/borda_curvada_verde"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:text="ATUALIZAR"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

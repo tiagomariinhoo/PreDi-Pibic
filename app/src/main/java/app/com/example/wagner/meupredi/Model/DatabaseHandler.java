@@ -57,7 +57,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_CIRCUNFERENCIAPESO = "circunferencia";
     private static final String KEY_PAC = "pac";
 
-
     // ---------- TABLE EXAMES ----------
     // TABLE EXAMES
     private static final String TABLE_EXAMES = "exames";

@@ -95,7 +95,7 @@ public class Consultas extends Activity {
 
                 alertaNovaConsulta.setTitle("Atenção!");
 
-                alertaNovaConsulta.setMessage("Verifique se as informações da sua nova consulta está corretas e confirme."+
+                alertaNovaConsulta.setMessage("Verifique se as informações da sua nova consulta estão corretas e confirme."+
                         "\n"+"Nova Consulta em " + nome + ", " + date + ", as "+ shortTime + ".");
 
                 // Caso Não

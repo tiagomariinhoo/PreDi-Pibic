@@ -2,10 +2,12 @@ package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,14 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -58,6 +56,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
     private Button atualizarPeso;
     private Paciente paciente;
     private double imc;
+    private AlertDialog.Builder alertaNovaMedicao;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -67,20 +66,20 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         setContentView(R.layout.activity_peso);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
 
-        imc = (paciente.get_peso()/(paciente.get_altura()*paciente.get_altura()));
+        imc = (paciente.get_peso() / (paciente.get_altura() * paciente.get_altura()));
 
-        dataUltimaMedicao = (TextView) findViewById(R.id.text_ultima_medicao_tela_peso);
+        dataUltimaMedicao = (TextView) findViewById(R.id.text_data_ultima_medicao_tela_peso);
         //pesoUltimaMedicao = (TextView) findViewById(R.id.text_hint_peso_ultima_medicao);
 
         //pega novo peso digitado pelo usuario
         novoPeso = (EditText) findViewById(R.id.text_registrar_valor_peso);
         novoCirc = (EditText) findViewById(R.id.text_registrar_valor_circunferencia);
+        dataUltimaMedicao = (TextView) findViewById(R.id.text_data_ultima_medicao_tela_peso);
 
         Double peso_atual = paciente.get_peso();
         Double circ_atual = paciente.get_circunferencia();
@@ -102,8 +101,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         findViewById(R.id.tela_peso).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getCurrentFocus()!=null && getCurrentFocus() instanceof EditText){
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (getCurrentFocus() != null && getCurrentFocus() instanceof EditText) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(novoPeso.getWindowToken(), 0);
                 }
             }
@@ -118,83 +117,116 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                 //pega string do peso e verifica tamanho
                 String pesoAtual = novoPeso.getText().toString();
-                String circuAtual = novoCirc.getText().toString();
+                String circAtual = novoCirc.getText().toString();
+
+                // Verificar se algum dos campos não foi preenchido
+                if (circAtual.length() == 0) {
+                    circAtual = circ_atual.toString();
+                }
+                if (pesoAtual.length() == 0) {
+                    pesoAtual = peso_atual.toString();
+                }
 
                 //pega string da data atual
                 Date dataRegistro = Calendar.getInstance().getTime();
 
-                if(pesoAtual.length() == 0) {
-                    Toast.makeText(getApplicationContext(),"Preencha o campo correspondente!",Toast.LENGTH_SHORT).show();
+                //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a uma casa decimal)
+                pesoAtual = pesoAtual.replace(',', '.');
+                circAtual = circAtual.replace(',', '.');
 
-                } else {
+                Float pesoAtualizado = Float.parseFloat(pesoAtual);
+                Double circAtualizado = Double.parseDouble(circAtual);
 
-                    //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a uma casa decimal)
-                    pesoAtual = pesoAtual.replace(',', '.');
-                    //circuAtual = circuAtual.replace(',', '.');
+                String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
+                Float pesoDoPaciente = Float.parseFloat(pesoFormatado);
 
-                    Float pesoAtualizado = Float.parseFloat(pesoAtual);
-                    Double circAtualizado = Double.parseDouble(circuAtual);
+                String circuFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
+                Double circuDoPaciente = Double.parseDouble(circuFormatado);
 
-                    String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
-                    Float pesoDoPaciente = Float.parseFloat(pesoFormatado);
+                int dia = dataRegistro.getDay();
+                String mes = nomeDoMes(dataRegistro.getMonth());
+                int ano = dataRegistro.getYear();
 
-                    String circuFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
-                    Double circuDoPaciente =  Double.parseDouble(circuFormatado);
+                dataUltimaMedicao.setText(dia + ", " + mes + ", " + ano);
 
-                    if(pesoDoPaciente > 0) {
-                        //atualiza valor na tela
-                        if(pesoDoPaciente == null){
-                            novoPeso.setText(String.valueOf(0));
-                        } else {
-                           //  peso.setText(String.valueOf(pesoDoPaciente) + " kg");
-                        }
+                alertaNovaMedicao = new AlertDialog.Builder(Peso.this);
 
-                        //atualiza peso no objeto
-                        paciente.set_peso(pesoDoPaciente);
-                        paciente.set_pesos(pesoDoPaciente);
+                alertaNovaMedicao.setTitle("Atenção!");
 
-                        if (circuDoPaciente > 0){
-                            paciente.set_circunferencia(circuDoPaciente);
-                        }
+                alertaNovaMedicao.setMessage("Verifique se as informações de sua medição estão corretas e confirme." +
+                        "\n" + "Peso: " + pesoAtual + "kg\nCircunferência: " + circAtual + "cm\nData: " + dataRegistro + ".");
 
-                        //recalcula imc
-                        if(paciente.get_peso() > 0 && paciente.get_altura() > 0) {
-                            String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
-                            imc = Double.parseDouble(imcFormatado);
-                            paciente.set_imc(imc);
-                        } else {
-                            paciente.set_imc(0);
-                        }
+                // Caso Não
+                alertaNovaMedicao.setNegativeButton("CANCELAR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(Peso.this, "Nova medicao cancelada", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-                        //atualiza o peso e o imc do paciente no banco
-                        //DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                        ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
-                        ControllerPaciente controllerPaciente = new ControllerPaciente(getApplicationContext());
+                // Caso Sim
+                alertaNovaMedicao.setPositiveButton("CONFIRMAR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                        controllerPeso.atualizarPeso(paciente);
-                        controllerPaciente.atualizarPaciente(paciente);
+                                if (pesoDoPaciente > 0) {
+                                    //atualiza valor na tela
+                                    if (pesoDoPaciente == null) {
+                                        novoPeso.setText(String.valueOf(0));
+                                    } else {
+                                        //  peso.setText(String.valueOf(pesoDoPaciente) + " kg");
+                                    }
 
-                        Toast.makeText(getApplicationContext(),"Peso atualizado com sucesso!",Toast.LENGTH_SHORT).show();
+                                    //atualiza peso no objeto
+                                    paciente.set_peso(pesoDoPaciente);
+                                    paciente.set_pesos(pesoDoPaciente);
 
-                        Intent intent = new Intent(Peso.this, Perfil.class);
-                        intent.putExtra("Paciente", paciente);
-                        //finish();
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                                    if (circuDoPaciente > 0) {
+                                        paciente.set_circunferencia(circuDoPaciente);
+                                    }
 
-                    } else {
-                        Toast.makeText(getApplicationContext(),"Peso inválido!",Toast.LENGTH_SHORT).show();
-                    }
+                                    //recalcula imc
+                                    if (paciente.get_peso() > 0 && paciente.get_altura() > 0) {
+                                        String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
+                                        imc = Double.parseDouble(imcFormatado);
+                                        paciente.set_imc(imc);
+                                    } else {
+                                        paciente.set_imc(0);
+                                    }
 
-                    novoPeso.setText("");
+                                    //atualiza o peso e o imc do paciente no banco
+                                    //DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                                    ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
+                                    ControllerPaciente controllerPaciente = new ControllerPaciente(getApplicationContext());
 
-                    try {
-                        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                    } catch(NullPointerException e) {
-                        //caso o teclado ja esteja escondido
-                    }
-                }
+                                    controllerPeso.atualizarPeso(paciente);
+                                    controllerPaciente.atualizarPaciente(paciente);
+
+                                    Toast.makeText(getApplicationContext(), "Peso atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                                    Intent intent = new Intent(Peso.this, Perfil.class);
+                                    intent.putExtra("Paciente", paciente);
+                                    //finish();
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Peso inválido!", Toast.LENGTH_SHORT).show();
+                                }
+
+                                novoPeso.setText("");
+
+                                try {
+                                    InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                } catch (NullPointerException e) {
+                                    //caso o teclado ja esteja escondido
+                                }
+                            }
+                        });
+                alertaNovaMedicao.create().show();
             }
         });
 
@@ -230,18 +262,20 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         mChart.getXAxis().setDrawGridLines(false);
 
         double h = paciente.get_altura();
-        double pesoAux = 24.9*h*h;
+        double pesoAux = 24.9 * h * h;
 
         LimitLine upper_limit = new LimitLine((float) pesoAux, "Peso Ideal");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        upper_limit.setTextColor(R.color.colorAccent);
         upper_limit.setTextSize(10f);
 
         LimitLine lower_limit = new LimitLine(50f, "Peso Ideal");
         lower_limit.setLineWidth(4f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
         lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+        lower_limit.setTextColor(R.color.colorAccent);
         lower_limit.setTextSize(10f);
 
         YAxis leftAxis = mChart.getAxisLeft();
@@ -269,10 +303,10 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
     }
 
-    private ArrayList<String> setXAxisValues(int tam){
+    private ArrayList<String> setXAxisValues(int tam) {
         ArrayList<String> xVals = new ArrayList<String>();
         int i = 0;
-        for (i = 0; i < tam; i++){
+        for (i = 0; i < tam; i++) {
             xVals.add("");
         }
         /*
@@ -286,7 +320,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         return xVals;
     }
 
-    private ArrayList<Entry> setYAxisValues(){
+    private ArrayList<Entry> setYAxisValues() {
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
@@ -296,7 +330,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         ArrayList<Float> pesos = pesoController.getAllPesos(paciente);
 
         int i;
-        for(i = 0; i < pesos.size(); i++){
+        for (i = 0; i < pesos.size(); i++) {
             float valor = pesos.get(i);
             yVals.add(new Entry(valor, i));
         }
@@ -356,7 +390,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         Log.i("Gesture", "END, lastGesture: " + lastPerformedGesture);
 
         // un-highlight values after the gesture is finished and no single-tap
-        if(lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP)
+        if (lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP)
             // or highlightTouch(null) for callback to onNothingSelected(...)
             mChart.highlightValues(null);
     }
@@ -409,4 +443,35 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
     public void onNothingSelected() {
         Log.i("Nothing selected", "Nothing selected.");
     }
+
+    public String nomeDoMes(int M) {
+        switch (M) {
+            case 0:
+                return "Janeiro";
+            case 1:
+                return "Fevereiro";
+            case 2:
+                return "Março";
+            case 3:
+                return "Abril";
+            case 4:
+                return "Maio";
+            case 5:
+                return "Junho";
+            case 6:
+                return "Julho";
+            case 7:
+                return "Agosto";
+            case 8:
+                return "Setembro";
+            case 9:
+                return "Outubro";
+            case 10:
+                return "Novembro";
+            case 11:
+                return "Dezembro";
+        }
+        return "";
+    }
+
 }
