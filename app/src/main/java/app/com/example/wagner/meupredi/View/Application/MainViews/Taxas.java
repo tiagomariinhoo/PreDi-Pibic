@@ -225,7 +225,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         mChart.getAxisLeft().setDrawGridLines(false);
         mChart.getXAxis().setDrawGridLines(false);
 
-        LimitLine upper_limit = new LimitLine(199f, "Glicose Ideal");
+        LimitLine upper_limit = new LimitLine(199f, "Glicose75g Ideal");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
@@ -280,24 +280,25 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
 
     private ArrayList<Entry> setYAxisValues(){
 
-        //paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
-        //ControllerPeso pesoController = new ControllerPeso(getApplicationContext());
-        //ArrayList<Float> pesos = pesoController.getAllPesos(paciente);
-        /*int i;
-        for(i = 0; i < pesos.size(); i++){
-            float valor = pesos.get(i);
-            yVals.add(new Entry(valor, i));
-        }*/
+        ControllerExames examesController = new ControllerExames(getApplicationContext());
+        ArrayList<Float> glicoses75g = examesController.getGlicoses75g(paciente);
 
+        int i;
+        for(i = 0; i < glicoses75g.size(); i++){
+            float valor = glicoses75g.get(i);
+            yVals.add(new Entry(valor, i));
+        }
+/*
         yVals.add(new Entry(145f, 0));
         yVals.add(new Entry(149f, 2));
         yVals.add(new Entry(156f, 3));
         yVals.add(new Entry(148f, 4));
         yVals.add(new Entry(145f, 5));
-
+*/
         return yVals;
     }
 

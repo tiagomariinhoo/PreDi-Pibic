@@ -152,7 +152,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                 alertaNovaMedicao = new AlertDialog.Builder(Peso.this);
                 alertaNovaMedicao.setTitle("Atenção!");
                 alertaNovaMedicao.setMessage("Verifique se as informações de sua medição estão corretas e confirme." +
-                        "\n" + "Peso: " + pesoAtual + "kg\nCircunferência: " + circAtual + "cm\nData: " + dataRegistro + ".");
+                        "\n" + "Peso: " + pesoAtual + "kg\nCircunferência: " + circAtual + "cm\nData: " + dataRegistro.getDay() +
+                        "/" + dataRegistro.getMonth()+1 + "/" + dataRegistro.getYear());
 
                 // Caso Não
                 alertaNovaMedicao.setNegativeButton("CANCELAR",

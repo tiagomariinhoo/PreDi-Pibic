@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,7 @@ import app.com.example.wagner.meupredi.Controller.ControllerAgenda;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
+import app.com.example.wagner.meupredi.View.Application.Dicas;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
 import app.com.example.wagner.meupredi.View.Application.PopPerfil;
 import app.com.example.wagner.meupredi.View.Application.Sair;
@@ -38,6 +40,7 @@ import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
 @Deprecated
 public class Perfil extends ActivityGroup {
 
+    private TextView nomeUsuario;
     private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair;
     private ControllerAgenda controllerAgenda;
     //private MenuPrincipal menuPrincipal;
@@ -54,9 +57,11 @@ public class Perfil extends ActivityGroup {
         notificacoes = (ImageView) findViewById(R.id.notify_perfil_btm);
         iconeAlerta = (ImageView) findViewById(R.id.image_alerta_notificacoes_perfil);
         iconeSair = (ImageView) findViewById(R.id.image_sair_perfil);
+        nomeUsuario = (TextView) findViewById(R.id.text_nome_usuario);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
-
+        nomeUsuario.setText(paciente.get_nome());
+        String str = paciente.get_nome().split(" ")[0];
         /*
         *Difference between INVISIBLE and GONE.
         * INVISIBLE - The widget will be invisible but space for the widget will be show.
@@ -68,7 +73,7 @@ public class Perfil extends ActivityGroup {
             notificacoes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Perfil.this, PopNotific.class);
+                    Intent intent = new Intent(Perfil.this, Dicas.class);
                     intent.putExtra("Paciente", paciente);
                     startActivity(intent);
                 }
