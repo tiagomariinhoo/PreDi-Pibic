@@ -55,7 +55,7 @@
                 android:layout_alignTop="@+id/text_hemoglicada_perfil"
                 android:background="@color/colorBranco"
                 android:gravity="center_vertical"
-                android:text="-- mg/dL"
+                android:text="-- %"
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorBackground"
                 android:textStyle="bold" />

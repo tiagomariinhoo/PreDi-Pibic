@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    android:background="#f5f6fa">
+
+    <RadioGroup
+        android:id="@+id/radio_group_glicoses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/radio_button_jejum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jejum"
+                android:paddingRight="8dp"
+                android:onClick="checkButton"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/radio_button_apos75g"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Após 75g"
+                android:paddingRight="8dp"
+                android:layout_toRightOf="@id/radio_button_jejum"
+                android:onClick="checkButton"/>
+            <RadioButton
+                android:id="@+id/radio_button_glicolisada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Glicolisada"
+                android:paddingRight="8dp"
+                android:layout_toRightOf="@id/radio_button_apos75g"
+                android:onClick="checkButton"
+                />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+
+    </RadioGroup>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/text_table_glicoses_col1"
+            android:padding="3dip"
+            android:text="Hemoglobina Glicada"
+            android:background="#e84118"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBranco"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_table_glicoses_col2"
+            android:gravity="right"
+            android:padding="3dip"
+            android:text="Status"
+            android:background="#e84118"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBranco"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="4.0% a 6.5%"
+            android:textAlignment="center"
+            android:padding="3dip" />
+        <TextView
+            android:text="Excelente controle"
+            android:gravity="right"
+            android:textAlignment="center"
+            android:padding="3dip" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="7.0% a 7.5%"
+            android:textAlignment="center"
+            android:padding="3dip" />
+        <TextView
+            android:text="Bom controle"
+            android:gravity="right"
+            android:textAlignment="center"
+            android:padding="3dip" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="8.0% a 14%"
+            android:textAlignment="center"
+            android:padding="3dip" />
+        <TextView
+            android:text="Péssimo controle"
+            android:gravity="right"
+            android:textAlignment="center"
+            android:padding="3dip" />
+    </TableRow>
+
+</TableLayout>

@@ -21,7 +21,7 @@ public class TabelaImc extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) ( width*.8), (int) (height*.45));
+        getWindow().setLayout((int) ( width*.90), (int) (height*.30));
 
     }
 }

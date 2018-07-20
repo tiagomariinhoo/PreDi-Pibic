@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import app.com.example.wagner.meupredi.Controller.ControllerPeso;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.PopGlicoses;
 
 /**
  * Created by LeandroDias1 on 25/07/2017.
@@ -51,6 +53,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
     Paciente paciente;
     TextView  glicoseJejum, glicose75, hemoglobinaGlicolisada;
     EditText novaGlicose75, novaGlicoseJejum, novaHemoglobinaGlicolisada;
+    ImageView chamadaInformativo;
     Button atualizarTaxas;
     private LineChart mChart;
 
@@ -86,6 +89,8 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
 
         hemoglobinaGlicolisada = (TextView) findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
         hemoglobinaGlicolisada.setText(String.valueOf(paciente.get_hemoglobinaglicolisada()) + " %");
+
+        chamadaInformativo = (ImageView) findViewById(R.id.image_informativo_glicoses);
 
         novaGlicoseJejum = (EditText) findViewById(R.id.edit_glicoseJejum_taxas);
         novaGlicoseJejum.setRawInputType(Configuration.KEYBOARD_QWERTY);
@@ -188,9 +193,15 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                 transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.image_dados_perfil, fragment);
                 transaction.commit();
-
                 finish();*/
+            }
+        });
 
+        chamadaInformativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Taxas.this, PopGlicoses.class);
+                startActivity(intent);
             }
         });
 
@@ -225,7 +236,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         mChart.getAxisLeft().setDrawGridLines(false);
         mChart.getXAxis().setDrawGridLines(false);
 
-        LimitLine upper_limit = new LimitLine(199f, "Glicose75g Ideal");
+        LimitLine upper_limit = new LimitLine(140f, "Glicose75g Ideal");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
@@ -241,8 +252,8 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(upper_limit);
         //leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(220f);
-        leftAxis.setAxisMinValue(-50f);
+        leftAxis.setAxisMaxValue(160f);
+        leftAxis.setAxisMinValue(0f);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(true);
@@ -285,11 +296,11 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
         ControllerExames examesController = new ControllerExames(getApplicationContext());
-        ArrayList<Float> glicoses75g = examesController.getGlicoses75g(paciente);
+        ArrayList<Float> glicosesJejum = examesController.getGlicosesJejum(paciente);
 
         int i;
-        for(i = 0; i < glicoses75g.size(); i++){
-            float valor = glicoses75g.get(i);
+        for(i = 0; i < glicosesJejum.size(); i++){
+            float valor = glicosesJejum.get(i);
             yVals.add(new Entry(valor, i));
         }
 /*
@@ -311,7 +322,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         LineDataSet set1;
 
         // create a dataset and give it a type
-        set1 = new LineDataSet(yVals, "Glicose 75g");
+        set1 = new LineDataSet(yVals, "Glicose em Jejum");
 
         set1.setFillAlpha(90);
         //set1.setFillColor(Color.RED);

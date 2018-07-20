@@ -60,7 +60,7 @@ public class Perfil extends ActivityGroup {
         nomeUsuario = (TextView) findViewById(R.id.text_nome_usuario);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
-        nomeUsuario.setText(paciente.get_nome());
+        nomeUsuario.setText(paciente.get_nome().split(" ")[0]);
         String str = paciente.get_nome().split(" ")[0];
         /*
         *Difference between INVISIBLE and GONE.
@@ -149,7 +149,6 @@ public class Perfil extends ActivityGroup {
         descritor.setContent(intent);
         descritor.setIndicator("CONSULTAS");
         abas.addTab(descritor);
-
     }
 
     public void getNotify(Date notifyDate){

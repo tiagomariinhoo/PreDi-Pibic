@@ -87,5 +87,8 @@
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.Sair"
             android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.PopGlicoses"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CustomTheme" />
     </application>
 </manifest>

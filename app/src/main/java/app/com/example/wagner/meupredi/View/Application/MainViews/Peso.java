@@ -36,6 +36,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
@@ -79,7 +80,6 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         //pega novo peso digitado pelo usuario
         novoPeso = (EditText) findViewById(R.id.text_registrar_valor_peso);
         novoCirc = (EditText) findViewById(R.id.text_registrar_valor_circunferencia);
-        dataUltimaMedicao = (TextView) findViewById(R.id.text_data_ultima_medicao_tela_peso);
 
         Double peso_atual = paciente.get_peso();
         Double circ_atual = paciente.get_circunferencia();
@@ -128,7 +128,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                 }
 
                 //pega string da data atual
-                Date dataRegistro = Calendar.getInstance().getTime();
+                //Date dataRegistro = new Date.getInstance().getTime();
+                GregorianCalendar dataRegistro = new GregorianCalendar();
 
                 //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a uma casa decimal)
                 pesoAtual = pesoAtual.replace(',', '.');
@@ -143,17 +144,17 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                 String circuFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
                 Double circuDoPaciente = Double.parseDouble(circuFormatado);
 
-                int dia = dataRegistro.getDay();
-                String mes = nomeDoMes(dataRegistro.getMonth());
-                int ano = dataRegistro.getYear();
+                int dia = dataRegistro.get(GregorianCalendar.DAY_OF_MONTH);
+                String mes = nomeDoMes(dataRegistro.get(GregorianCalendar.MONTH));
+                int ano = dataRegistro.get(GregorianCalendar.YEAR);
 
                 dataUltimaMedicao.setText(dia + ", " + mes + ", " + ano);
 
                 alertaNovaMedicao = new AlertDialog.Builder(Peso.this);
                 alertaNovaMedicao.setTitle("Atenção!");
                 alertaNovaMedicao.setMessage("Verifique se as informações de sua medição estão corretas e confirme." +
-                        "\n" + "Peso: " + pesoAtual + "kg\nCircunferência: " + circAtual + "cm\nData: " + dataRegistro.getDay() +
-                        "/" + dataRegistro.getMonth()+1 + "/" + dataRegistro.getYear());
+                        "\n" + "Peso: " + pesoAtual + "kg\nCircunferência: " + circAtual + "cm\nData: " + dia +
+                        "/" + mes + "/" + ano);
 
                 // Caso Não
                 alertaNovaMedicao.setNegativeButton("CANCELAR",
@@ -174,8 +175,6 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                                     //atualiza valor na tela
                                     if (pesoDoPaciente == null) {
                                         novoPeso.setText(String.valueOf(0));
-                                    } else {
-                                        //  peso.setText(String.valueOf(pesoDoPaciente) + " kg");
                                     }
 
                                     //atualiza peso no objeto
