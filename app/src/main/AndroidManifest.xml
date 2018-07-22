@@ -90,5 +90,8 @@
         <activity android:name=".View.Application.PopGlicoses"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".View.Application.TabGlicosesJejum" />
+        <activity android:name=".View.Application.TabGlicosesHemoglobinaGlicada" />
+        <activity android:name=".View.Application.TabGlicosesApos75g" />
     </application>
 </manifest>

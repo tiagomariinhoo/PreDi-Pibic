@@ -1,20 +1,19 @@
 package app.com.example.wagner.meupredi.View.Application;
 
 import android.app.Activity;
+import android.app.ActivityGroup;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.R;
 
-public class PopGlicoses extends Activity {
-
-    RadioGroup radioGroupGlicose;
-    RadioButton radioButton;
-    private TextView coluna1, coluna2;
+public class PopGlicoses extends ActivityGroup {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,27 +26,33 @@ public class PopGlicoses extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) ( width*.95), (int) (height*.35));
+        getWindow().setLayout((int) (width), (int) (height));
 
-        radioGroupGlicose = (RadioGroup) findViewById(R.id.radio_group_glicoses);
-        coluna1 = (TextView) findViewById(R.id.text_table_glicoses_col1);
-        coluna2 = (TextView) findViewById(R.id.text_table_glicoses_col2);
+        TabHost abas = (TabHost) findViewById(R.id.tabhostGlicoses);
+        abas.setup(this.getLocalActivityManager());
 
-        radioButton = (RadioButton) findViewById(radioGroupGlicose.getCheckedRadioButtonId());
-        /*
-        if(radioButton.getText() == "Jejum" & radioButton.isChecked()){
-            coluna1.setText("Glicose em Jejum");
-        }
-        else if(radioButton.getText() == "Após 75g" & radioButton.isChecked()){
-            coluna1.setText("Glicose após 75g");
-        }
-        else if(radioButton.getText() == "Hemoglobina Glicolisada" & radioButton.isChecked()){
-            coluna1.setText("Hemoglobina Glicolisada");
-        }*/
-    }
+        TabHost.TabSpec descritor = abas.newTabSpec("aba1");
 
-    public void checkButton(View v){
-        int radioId = radioGroupGlicose.getCheckedRadioButtonId();
-        radioButton = (RadioButton) findViewById(radioId);
+        Intent intent = new Intent(this, TabGlicosesJejum.class);
+
+        descritor.setContent(intent);
+        descritor.setIndicator("JEJUM");
+        abas.addTab(descritor);
+
+        descritor = abas.newTabSpec("aba2");
+
+        intent = new Intent(this, TabGlicosesApos75g.class);
+
+        descritor.setContent(intent);
+        descritor.setIndicator("APÓS 75g");
+        abas.addTab(descritor);
+
+        descritor = abas.newTabSpec("aba3");
+
+        intent = new Intent(this, TabGlicosesHemoglobinaGlicada.class);
+
+        descritor.setContent(intent);
+        descritor.setIndicator("GLICADA");
+        abas.addTab(descritor);
     }
 }
