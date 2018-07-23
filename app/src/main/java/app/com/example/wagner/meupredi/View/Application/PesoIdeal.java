@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 
+import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 
 /**
@@ -26,6 +27,10 @@ public class PesoIdeal extends Activity  {
     String imcMedio = "Seu imc é de " + imc + " kg/m², por isso você está "+ condicao + " do seu peso ideal e deveria" +
             perder_ganhar + " pelo menos " + emagrecer + " kg";
 
+    String circunferenciaIdeal = "";
+
+    Paciente paciente;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,26 @@ public class PesoIdeal extends Activity  {
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
+
+        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+
+        if(paciente.get_senha().equals("M")){
+            if(paciente.get_circunferencia() < 94){
+                circunferenciaIdeal = "Baixo risco de complicações metabólicas!";
+            } else if(paciente.get_circunferencia() >= 94 && paciente.get_circunferencia() <= 101){
+                circunferenciaIdeal = "Risco aumentado de complicações metabólicas!";
+            } else {
+                circunferenciaIdeal = "Risco muito aumentado de complicações metabólicas!";
+            }
+        } else {
+            if(paciente.get_circunferencia() < 80){
+                circunferenciaIdeal = "Baixo risco de complicações metabólicas!";
+            } else if(paciente.get_circunferencia() >= 80 && paciente.get_circunferencia() <= 87){
+                circunferenciaIdeal = "Risco aumentado de complicações metabólicas!";
+            } else {
+                circunferenciaIdeal = "Risco muito aumentado de complicações metabólicas!";
+            }
+        }
 
         getWindow().setLayout((int) ( width*.8), (int) (height*.40));
 
