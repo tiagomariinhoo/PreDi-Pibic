@@ -156,22 +156,27 @@
         </com.github.mikephil.charting.charts.LineChart>
 
     </RelativeLayout>
-    <!--
+
     <TextView
-        android:id="@+id/text_hint_peso_ultima_medicao"
+        android:id="@+id/text_chamada_lista_pesos_tela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text=""
-        android:textColor="#95afc0"
-        android:textColorHint="#95afc0"
-        android:textSize="50sp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/text_registrar_valor_peso"
-        app:layout_constraintEnd_toEndOf="@+id/text_registrar_valor_peso"
-        app:layout_constraintStart_toStartOf="@+id/text_registrar_valor_peso"
-        app:layout_constraintTop_toTopOf="@+id/text_registrar_valor_peso" />
-    -->
+        android:text="Listar pesos"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintBottom_toBottomOf="@+id/image_chamar_pesos_tela_peso"
+        app:layout_constraintEnd_toStartOf="@+id/image_chamar_pesos_tela_peso"
+        app:layout_constraintTop_toTopOf="@+id/image_chamar_pesos_tela_peso" />
+
+    <ImageView
+        android:id="@+id/image_chamar_pesos_tela_peso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_listar_itens" />
+
 </android.support.constraint.ConstraintLayout>
