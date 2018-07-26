@@ -18,6 +18,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.ExameClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.HemogramaClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.LipidogramaClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 
 /**
  * Created by wagne on 31/03/2017.
@@ -55,6 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_PESO = "peso";
     private static final String KEY_DATA = "dataPeso";
     private static final String KEY_CIRCUNFERENCIAPESO = "circunferencia";
+    private static final String KEY_FLAGPESO = "flagPeso";
     private static final String KEY_PAC = "pac";
 
     // ---------- TABLE EXAMES ----------
@@ -146,6 +148,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_PESO + " REAL,"
                 + KEY_DATA + " DATETIME,"
                 + KEY_CIRCUNFERENCIAPESO + " REAL,"
+                + KEY_FLAGPESO + " INTEGER,"
                 + KEY_PAC + " INTEGER,"
                 + " FOREIGN KEY("+KEY_PAC+") REFERENCES "+TABLE_PACIENTES+"("+KEY_ID+"));";
         db.execSQL(CREATE_PESOS_TABLE);
@@ -608,6 +611,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_PESO, paciente.get_peso());
         values.put(KEY_DATA, dateString);
         values.put(KEY_CIRCUNFERENCIAPESO, paciente.get_circunferencia());
+        values.put(KEY_FLAGPESO, 0);
         values.put(KEY_PAC, paciente.get_id());
 
         //insere dados no banco de pesos
@@ -631,11 +635,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + TABLE_PESOS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
-
         //procura o peso pelo id do paciente
         if(cursor.moveToFirst()){
             do{
-                if(cursor.getString(4).equals(String.valueOf(id))){
+                if(cursor.getString(5).equals(String.valueOf(id)) &&
+                 cursor.getString(4).equals(String.valueOf(0))){
                     peso = Double.parseDouble(cursor.getString(1));
                     Log.d("Peso achado : ", String.valueOf(peso));
                 }
@@ -655,7 +659,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do{
-                if(cursor.getString(4).equals(String.valueOf(id))){
+                if(cursor.getString(3).equals(String.valueOf(id)) &&
+                        cursor.getString(4).equals(String.valueOf(0))){
                     circunferencia = Double.parseDouble(cursor.getString(3));
                 }
             } while(cursor.moveToNext());
@@ -675,12 +680,51 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do{
-                if(Integer.parseInt(cursor.getString(4))==idPaciente){
+                if(Integer.parseInt(cursor.getString(5))==idPaciente &&
+                        cursor.getString(4).equals(String.valueOf(0))){
                     pesos.add(Float.valueOf(cursor.getString(1)));
                 }
             } while(cursor.moveToNext());
         }
         return pesos;
+    }
+
+    public ArrayList<PesoClass> modelGetAllPesoClass(Paciente paciente){
+        int idPaciente = paciente.get_id();
+        ArrayList<PesoClass> pesos = new ArrayList<>();
+        Log.d("DB, ", "GetAllPesos");
+
+        String selectQuery  = "SELECT * FROM " + TABLE_PESOS;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                if(Integer.parseInt(cursor.getString(5))==idPaciente &&
+                        cursor.getString(4).equals(String.valueOf(0))){
+                    PesoClass aux = new PesoClass(Integer.parseInt(cursor.getString(0))
+                    , Double.parseDouble(cursor.getString(1)),
+                            Double.parseDouble(cursor.getString(3)),
+                            cursor.getString(2),
+                            0, Integer.parseInt(cursor.getString(5)));
+                    //pesos.add(Float.valueOf(cursor.getString(1)));
+                    pesos.add(aux);
+                }
+            } while(cursor.moveToNext());
+        }
+        return pesos;
+    }
+
+    public boolean eraseLastInfo(PesoClass peso){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values;
+        String where = this.KEY_ID + "=" + String.valueOf(peso.getIdPeso());
+
+        values = new ContentValues();
+
+        values.put(KEY_FLAGPESO, 1);
+        return db.update(this.TABLE_PESOS, values, where, null) > 0;
     }
 
     public ArrayList<Float> modelGetAllCircunferencias(Paciente paciente){

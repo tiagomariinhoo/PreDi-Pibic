@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 
 /**
  * Created by tico_ on 31/01/2018.
@@ -33,4 +34,8 @@ public class ControllerPeso {
     public ArrayList<Float> getAllCircunferencias(Paciente paciente) { return db.modelGetAllCircunferencias(paciente);}
 
     public double getCircunferencia(Paciente paciente) { return db.modelGetCircunferencia(paciente);}
+
+    public ArrayList<PesoClass> getAllInfos(Paciente paciente) {return db.modelGetAllPesoClass(paciente);}
+
+    public void eraseLastInfo(PesoClass peso){ db.eraseLastInfo(peso); }
 }
