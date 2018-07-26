@@ -252,8 +252,8 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(upper_limit);
         //leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(160f);
-        leftAxis.setAxisMinValue(0f);
+        leftAxis.setAxisMaxValue(200f);
+        leftAxis.setAxisMinValue(60f);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(true);

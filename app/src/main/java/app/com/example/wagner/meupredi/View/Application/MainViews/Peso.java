@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,12 +38,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
 import app.com.example.wagner.meupredi.Controller.ControllerPeso;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.ListaPesos;
 
 /**
  * Created by Tiago on 27/06/2017.
@@ -52,8 +55,9 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         OnChartValueSelectedListener {
 
     private LineChart mChart;
-    private TextView dataUltimaMedicao, pesoUltimaMedicao;
+    private TextView dataUltimaMedicao, pesoUltimaMedicao, TextListaPesosTela;
     private EditText novoCirc, novoPeso;
+    private ImageView chamadaListaPesos;
     private Button atualizarPeso;
     private Paciente paciente;
     private double imc;
@@ -71,8 +75,11 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
+        ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
+        imc = (controllerPeso.getPeso(paciente) / (paciente.get_altura() * paciente.get_altura()));
 
-        imc = (paciente.get_peso() / (paciente.get_altura() * paciente.get_altura()));
+        TextListaPesosTela = (TextView) findViewById(R.id.text_chamada_lista_pesos_tela);
+        chamadaListaPesos = (ImageView) findViewById(R.id.image_chamar_pesos_tela_peso);
 
         dataUltimaMedicao = (TextView) findViewById(R.id.text_data_ultima_medicao_tela_peso);
         //pesoUltimaMedicao = (TextView) findViewById(R.id.text_hint_peso_ultima_medicao);
@@ -108,6 +115,23 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
             }
         });
 
+        chamadaListaPesos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Peso.this, ListaPesos.class);
+                intent.putExtra("Paciente", paciente);
+                startActivity(intent);
+            }
+        });
+
+        TextListaPesosTela.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Peso.this, ListaPesos.class);
+                intent.putExtra("Paciente", paciente);
+                startActivity(intent);
+            }
+        });
 
         atualizarPeso = (Button) findViewById(R.id.btn_atualizar_peso);
 
@@ -186,7 +210,9 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                                     }
 
                                     //recalcula imc
+
                                     if (paciente.get_peso() > 0 && paciente.get_altura() > 0) {
+                                        imc = pesoDoPaciente/(paciente.get_altura()*paciente.get_altura());
                                         String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
                                         imc = Double.parseDouble(imcFormatado);
                                         paciente.set_imc(imc);
@@ -201,6 +227,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                                     controllerPeso.atualizarPeso(paciente);
                                     controllerPaciente.atualizarPaciente(paciente);
+
 
                                     Toast.makeText(getApplicationContext(), "Peso atualizado com sucesso!", Toast.LENGTH_SHORT).show();
 

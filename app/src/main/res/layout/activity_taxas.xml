@@ -296,6 +296,7 @@
         <com.github.mikephil.charting.charts.LineChart
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
             android:id="@+id/linechart_taxas">
         </com.github.mikephil.charting.charts.LineChart>
 

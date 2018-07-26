@@ -74,7 +74,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.tabelaPredi"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.NumberPickerPeso"
             android:screenOrientation="portrait"/>
         <activity android:name=".View.Application.Dicas"
@@ -93,5 +94,6 @@
         <activity android:name=".View.Application.TabGlicosesJejum" />
         <activity android:name=".View.Application.TabGlicosesHemoglobinaGlicada" />
         <activity android:name=".View.Application.TabGlicosesApos75g" />
+        <activity android:name=".View.Application.ListaPesos" />
     </application>
 </manifest>
