@@ -158,9 +158,36 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                 //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a uma casa decimal)
                 pesoAtual = pesoAtual.replace(',', '.');
                 circAtual = circAtual.replace(',', '.');
+/*
+                if(!pesoAtual.equals(".") && !circAtual.equals(".")){
 
-                Float pesoAtualizado = Float.parseFloat(pesoAtual);
-                Double circAtualizado = Double.parseDouble(circAtual);
+                    Toast.makeText(Peso.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Peso.this, Perfil.class);
+                    intent.putExtra("Paciente", paciente);
+                    //finish();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
+                }
+*/
+
+                Log.d("CircAtual : ", circAtual);
+                Log.d("Peso Atual : ", pesoAtual);
+                Float pesoAtualizado = 0f;
+                Float circAtualizado = 0f;
+                try{
+                    pesoAtualizado = Float.parseFloat(pesoAtual);
+                    circAtualizado = Float.parseFloat(circAtual);
+
+                } catch(Exception e){
+
+                    Toast.makeText(Peso.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Peso.this, Perfil.class);
+                    intent.putExtra("Paciente", paciente);
+                    //finish();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
 
                 String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
                 Float pesoDoPaciente = Float.parseFloat(pesoFormatado);
