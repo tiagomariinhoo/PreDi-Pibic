@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,13 +56,114 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         OnChartValueSelectedListener {
 
     private LineChart mChart;
-    private TextView dataUltimaMedicao, pesoUltimaMedicao, TextListaPesosTela;
+    private TextView dataUltimaMedicao, TextListaPesosTela;
     private EditText novoCirc, novoPeso;
     private ImageView chamadaListaPesos;
     private Button atualizarPeso;
+    private CheckBox checkPeso, checkCircunferecia;
     private Paciente paciente;
     private double imc;
     private AlertDialog.Builder alertaNovaMedicao;
+
+    private void inverterCheckBox(String atual){
+        if(atual == "Peso") {
+            checkCircunferecia.setChecked(!checkCircunferecia.isChecked());
+            mudarGrafico();
+        }
+        else {
+            checkPeso.setChecked(!checkPeso.isChecked());
+            mudarGrafico();
+        }
+      }
+
+    private void mudarGrafico(){
+
+        mChart = (LineChart) findViewById(R.id.linechart_tela_peso);
+
+        mChart.setOnChartGestureListener(this);
+        mChart.setOnChartValueSelectedListener(this);
+        mChart.setDrawGridBackground(false);
+
+        // add data pesos
+        setData();
+
+        // get the legend (only possible after setting data)
+        Legend l = mChart.getLegend();
+
+        // modify the legend ...
+        // l.setPosition(LegendPosition.LEFT_OF_CHART);
+        l.setForm(Legend.LegendForm.LINE);
+
+        // no description text
+        mChart.setDescription("");
+        mChart.setNoDataTextDescription("Você precisa inserir dados para gerar o gráfico");
+
+        // enable touch gestures
+        mChart.setTouchEnabled(true);
+
+        // enable scaling and dragging
+        mChart.setDragEnabled(true);
+        mChart.setScaleEnabled(true);
+        // mChart.setScaleXEnabled(true);
+        // mChart.setScaleYEnabled(true);
+
+        mChart.getAxisLeft().setDrawGridLines(false);
+        mChart.getXAxis().setDrawGridLines(false);
+
+        double h = paciente.get_altura();
+        double pesoAux = 24.9 * h * h;
+        LimitLine upper_limit;
+        if(checkPeso.isChecked()) {
+            upper_limit = new LimitLine((float) pesoAux, "Peso Ideal");
+        }
+        else{
+            upper_limit = new LimitLine((float) pesoAux, "Circ. Ideal");
+        }
+
+        upper_limit.setLineWidth(4f);
+        upper_limit.enableDashedLine(10f, 10f, 0f);
+        upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        upper_limit.setTextColor(R.color.colorAccent);
+        upper_limit.setTextSize(10f);
+
+        LimitLine lower_limit;
+        if(checkPeso.isChecked()) {
+            lower_limit = new LimitLine(50f, "Peso Ideal");
+        }
+        else{
+            lower_limit = new LimitLine(50f, "Circ. Ideal");
+        }
+
+        lower_limit.setLineWidth(4f);
+        lower_limit.enableDashedLine(10f, 10f, 0f);
+        lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+        lower_limit.setTextColor(R.color.colorAccent);
+        lower_limit.setTextSize(10f);
+
+        YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.addLimitLine(upper_limit);
+        leftAxis.addLimitLine(lower_limit);
+        leftAxis.setAxisMaxValue(180f);
+        leftAxis.setAxisMinValue(0f);
+        //leftAxis.setYOffset(20f);
+        leftAxis.enableGridDashedLine(10f, 10f, 0f);
+        leftAxis.setDrawZeroLine(true);
+
+        // limit lines are drawn behind data (and not on top)
+        leftAxis.setDrawLimitLinesBehindData(true);
+
+        mChart.getAxisRight().setEnabled(false);
+
+        //mChart.getViewPortHandler().setMaximumScaleY(2f);
+        //mChart.getViewPortHandler().setMaximumScaleX(2f);
+
+        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
+
+        //  dont forget to refresh the drawing
+        mChart.invalidate();
+
+    }
 
     @SuppressLint("CutPasteId")
     @Override
@@ -72,6 +174,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
@@ -91,6 +194,11 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         novoPeso = (EditText) findViewById(R.id.text_registrar_valor_peso);
         novoCirc = (EditText) findViewById(R.id.text_registrar_valor_circunferencia);
 
+        checkPeso = (CheckBox) findViewById(R.id.checkBox_graf_peso);
+        checkCircunferecia = (CheckBox) findViewById(R.id.checkBox_circunferencia_graf);
+
+        mudarGrafico();
+
         Double peso_atual = paciente.get_peso();
         Double circ_atual = paciente.get_circunferencia();
 
@@ -107,6 +215,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
         novoPeso.setRawInputType(Configuration.KEYBOARD_QWERTY);
         novoCirc.setRawInputType(Configuration.KEYBOARD_QWERTY);
+
 
         findViewById(R.id.tela_peso).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +305,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                 Float pesoDoPaciente = Float.parseFloat(pesoFormatado);
 
                 String circuFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
-                Double circuDoPaciente = Double.parseDouble(circuFormatado);
+                Float circuDoPaciente = Float.parseFloat(circuFormatado);
 
                 int dia = dataRegistro.get(GregorianCalendar.DAY_OF_MONTH);
                 String mes = nomeDoMes(dataRegistro.get(GregorianCalendar.MONTH));
@@ -234,6 +343,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                                     //atualiza peso no objeto
                                     paciente.set_peso(pesoDoPaciente);
                                     paciente.set_pesos(pesoDoPaciente);
+                                    paciente.set_circunferencia(circuDoPaciente);
+
 
                                     if (circuDoPaciente > 0) {
                                         paciente.set_circunferencia(circuDoPaciente);
@@ -258,8 +369,9 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                                     controllerPeso.atualizarPeso(paciente);
                                     controllerPaciente.atualizarPaciente(paciente);
 
-
                                     Toast.makeText(getApplicationContext(), "Peso atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                                    Log.d("MEDIDAS: ", String.valueOf(paciente.get_circunferencia()));
 
                                     Intent intent = new Intent(Peso.this, Perfil.class);
                                     intent.putExtra("Paciente", paciente);
@@ -285,76 +397,20 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
             }
         });
 
-        mChart = (LineChart) findViewById(R.id.linechart_peso);
-        mChart.setOnChartGestureListener(this);
-        mChart.setOnChartValueSelectedListener(this);
-        mChart.setDrawGridBackground(false);
+        checkPeso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inverterCheckBox("Peso");
+            }
+        });
 
-        // add data
-        setData();
+        checkCircunferecia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inverterCheckBox("Circunferencia");
 
-        // get the legend (only possible after setting data)
-        Legend l = mChart.getLegend();
-
-        // modify the legend ...
-        // l.setPosition(LegendPosition.LEFT_OF_CHART);
-        l.setForm(Legend.LegendForm.LINE);
-
-        // no description text
-        mChart.setDescription("");
-        mChart.setNoDataTextDescription("Você precisa inserir dados para gerar o gráfico");
-
-        // enable touch gestures
-        mChart.setTouchEnabled(true);
-
-        // enable scaling and dragging
-        mChart.setDragEnabled(true);
-        mChart.setScaleEnabled(true);
-        // mChart.setScaleXEnabled(true);
-        // mChart.setScaleYEnabled(true);
-
-        mChart.getAxisLeft().setDrawGridLines(false);
-        mChart.getXAxis().setDrawGridLines(false);
-
-        double h = paciente.get_altura();
-        double pesoAux = 24.9 * h * h;
-
-        LimitLine upper_limit = new LimitLine((float) pesoAux, "Peso Ideal");
-        upper_limit.setLineWidth(4f);
-        upper_limit.enableDashedLine(10f, 10f, 0f);
-        upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        upper_limit.setTextColor(R.color.colorAccent);
-        upper_limit.setTextSize(10f);
-
-        LimitLine lower_limit = new LimitLine(50f, "Peso Ideal");
-        lower_limit.setLineWidth(4f);
-        lower_limit.enableDashedLine(10f, 10f, 0f);
-        lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        lower_limit.setTextColor(R.color.colorAccent);
-        lower_limit.setTextSize(10f);
-
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.addLimitLine(upper_limit);
-        leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(180f);
-        leftAxis.setAxisMinValue(0f);
-        //leftAxis.setYOffset(20f);
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        leftAxis.setDrawZeroLine(true);
-
-        // limit lines are drawn behind data (and not on top)
-        leftAxis.setDrawLimitLinesBehindData(true);
-
-        mChart.getAxisRight().setEnabled(false);
-
-        //mChart.getViewPortHandler().setMaximumScaleY(2f);
-        //mChart.getViewPortHandler().setMaximumScaleX(2f);
-
-        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
-
-        //  dont forget to refresh the drawing
-        mChart.invalidate();
+            }
+        });
 
     }
 
@@ -375,11 +431,19 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
         ControllerPeso pesoController = new ControllerPeso(getApplicationContext());
-        ArrayList<Float> pesos = pesoController.getAllPesos(paciente);
+        ArrayList<Float> medidas;
+        
+        if(checkPeso.isChecked()){
+            medidas = pesoController.getAllPesos(paciente);
+        }
+        else{
+            Log.d("CIRC: ", "ENTROU");
+            medidas = pesoController.getAllCircunferencias(paciente);
+        }
 
-        int i;
-        for (i = 0; i < pesos.size(); i++) {
-            float valor = pesos.get(i);
+        for (int i = 0; i < medidas.size(); i++) {
+            float valor = medidas.get(i);
+            Log.d("MEDIDAS: ", medidas.get(i).toString());
             yVals.add(new Entry(valor, i));
         }
 
@@ -395,9 +459,14 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         LineDataSet set1;
 
         // create a dataset and give it a type
-        set1 = new LineDataSet(yVals, "Pesos");
+        if(checkPeso.isChecked()){
+            set1 = new LineDataSet(yVals, "Pesos");
+        }
+        else {
+            set1 = new LineDataSet(yVals, "Circunferências");
+        }
 
-        set1.setFillAlpha(90);
+        set1.setFillAlpha(80);
         //set1.setFillColor(Color.RED);
 
         // set the line to be drawn like this "- - - - - -"

@@ -2,10 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/gradiente_plano_de_fundo"
     android:id="@+id/tela_peso"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente_plano_de_fundo">
 
     <TextView
         android:id="@+id/text_registrar_peso"
@@ -30,10 +30,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="0dp"
-        android:gravity="center"
-        android:selectAllOnFocus="true"
         android:backgroundTint="@android:color/white"
+        android:gravity="center"
         android:inputType="numberDecimal"
+        android:selectAllOnFocus="true"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
         android:textColorHint="#95afc0"
@@ -47,7 +47,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/borda_curvada_verde"
         android:text="ATUALIZAR"
         android:textColor="@color/colorBranco"
@@ -80,8 +80,8 @@
         android:layout_marginRight="8dp"
         android:backgroundTint="@android:color/white"
         android:ems="10"
-        android:selectAllOnFocus="true"
         android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
         android:textColorHint="#95afc0"
@@ -142,26 +142,18 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/gradiente_branco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_peso_circunf">
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_graf_peso">
 
         <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/linechart_tela_peso"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
-            android:id="@+id/linechart_peso">
-        </com.github.mikephil.charting.charts.LineChart>
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            android:id="@+id/linechart_circunferencia">
-        </com.github.mikephil.charting.charts.LineChart>
+            android:visibility="visible"></com.github.mikephil.charting.charts.LineChart>
 
     </RelativeLayout>
 
@@ -187,17 +179,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_listar_itens" />
 
-    <Switch
-        android:id="@+id/switch_peso_circunf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+    <CheckBox
+        android:id="@+id/checkBox_graf_peso"
+        android:layout_width="66dp"
+        android:layout_height="29dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="peso/circunferência "
+        android:text="Peso"
+        android:checked="true"
+        android:buttonTint="@color/colorBranco"
         android:textColor="@color/colorBranco"
-        app:layout_constraintEnd_toEndOf="@+id/btn_atualizar_peso"
-        app:layout_constraintStart_toStartOf="@+id/btn_atualizar_peso"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_atualizar_peso" />
+
+    <CheckBox
+        android:id="@+id/checkBox_circunferencia_graf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="267dp"
+        android:text="Circunferencia"
+        android:buttonTint="@color/colorBranco"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox_graf_peso"
+        app:layout_constraintStart_toEndOf="@+id/checkBox_graf_peso"
+        app:layout_constraintTop_toTopOf="@+id/checkBox_graf_peso" />
 
 </android.support.constraint.ConstraintLayout>

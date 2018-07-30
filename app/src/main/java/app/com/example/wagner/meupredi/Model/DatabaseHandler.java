@@ -738,7 +738,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
 
             do{
-                if(Integer.parseInt(cursor.getString(4)) == idPaciente){
+                if(Integer.parseInt(cursor.getString(5)) == idPaciente){
+                    Log.d("circunferencias: ", cursor.getString(3));
                     circunferencias.add(Float.valueOf(cursor.getString(3)));
                 }
             } while(cursor.moveToNext());
