@@ -122,7 +122,16 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                     String novaGJ = novaGlicoseJejum.getText().toString();
 
                     novaGJ = novaGJ.replace(',', '.');
-                    Double gJAtualizada = Double.parseDouble(novaGJ);
+                    Double gJAtualizada = 0d;
+                    try{
+                        gJAtualizada = Double.parseDouble(novaGJ);
+                    } catch(Exception e){
+                        Toast.makeText(Taxas.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(Taxas.this, Perfil.class);
+                        intent.putExtra("Paciente", paciente);
+                        startActivity(intent);
+                    }
+
                     String gJFormatada = String.format(Locale.ENGLISH, "%.2f", gJAtualizada);
                     Double gJDoPaciente = Double.parseDouble(gJFormatada);
 
@@ -140,7 +149,17 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                     String novaG75 = novaGlicose75.getText().toString();
 
                     novaG75 = novaG75.replace(',' , '.');
-                    Double g75Atualizada = Double.parseDouble(novaG75);
+
+                    Double g75Atualizada = 0d;
+                    try{
+                        g75Atualizada = Double.parseDouble(novaG75);
+                    } catch(Exception e){
+                        Toast.makeText(Taxas.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(Taxas.this, Perfil.class);
+                        intent.putExtra("Paciente", paciente);
+                        startActivity(intent);
+                    }
+
                     String g75Formatada = String.format(Locale.ENGLISH, "%.2f", g75Atualizada);
                     Double g75DoPaciente = Double.parseDouble(g75Formatada);
 
@@ -159,7 +178,16 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                     String novaHG = novaHemoglobinaGlicolisada.getText().toString();
 
                     novaHG = novaHG.replace(',', '.');
-                    Double hgAtualizada = Double.parseDouble(novaHG);
+
+                    Double hgAtualizada = 0d;
+                    try{
+                        hgAtualizada = Double.parseDouble(novaHG);
+                    } catch(Exception e){
+                        Toast.makeText(Taxas.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(Taxas.this, Perfil.class);
+                        intent.putExtra("Paciente", paciente);
+                        startActivity(intent);
+                    }
                     String hgFormatada = String.format(Locale.ENGLISH, "%.2f", hgAtualizada);
                     Double hgDoPaciente = Double.parseDouble(hgFormatada);
 
