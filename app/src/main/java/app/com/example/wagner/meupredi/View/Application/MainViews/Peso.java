@@ -81,6 +81,9 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         TextListaPesosTela = (TextView) findViewById(R.id.text_chamada_lista_pesos_tela);
         chamadaListaPesos = (ImageView) findViewById(R.id.image_chamar_pesos_tela_peso);
 
+        TextListaPesosTela = (TextView) findViewById(R.id.text_chamada_lista_pesos_tela);
+        chamadaListaPesos = (ImageView) findViewById(R.id.image_chamar_pesos_tela_peso);
+
         dataUltimaMedicao = (TextView) findViewById(R.id.text_data_ultima_medicao_tela_peso);
         //pesoUltimaMedicao = (TextView) findViewById(R.id.text_hint_peso_ultima_medicao);
 
