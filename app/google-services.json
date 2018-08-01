@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "245148303648",
+    "firebase_url": "https://nossopredi.firebaseio.com",
+    "project_id": "nossopredi",
+    "storage_bucket": "nossopredi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245148303648:android:0b02b8ea3f5c88a0",
+        "android_client_info": {
+          "package_name": "app.com.example.wagner.meupredi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245148303648-tgh005bk1j4vadliun96f21lo2u6e8pd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtgmZuE7QOH5Xbg3VTzwOob3ob181Vo44"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
