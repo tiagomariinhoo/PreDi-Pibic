@@ -3,14 +3,9 @@ package app.com.example.wagner.meupredi.View.Application;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import app.com.example.wagner.meupredi.Controller.ControllerAgenda;
 import app.com.example.wagner.meupredi.Controller.ControllerPeso;
-import app.com.example.wagner.meupredi.Model.ModelClass.AgendaClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 import app.com.example.wagner.meupredi.R;
@@ -34,7 +29,7 @@ public class ListaPesos extends Activity {
 
         ControllerPeso pesoController = new ControllerPeso(ListaPesos.this);
 
-        adapter = new ArrayAdapter<String>(this, R.layout.lista_consultas_item, R.id.text_consulta_item, adapterList(pesoController));
+        adapter = new ArrayAdapter<String>(this, R.layout.lista_item_pesos, R.id.text_item_lista_peso, adapterList(pesoController));
 
         listaDePesos.setAdapter(adapter);
 
