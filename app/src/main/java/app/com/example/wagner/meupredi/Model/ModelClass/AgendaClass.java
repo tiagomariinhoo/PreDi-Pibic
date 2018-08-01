@@ -54,4 +54,9 @@ public class AgendaClass {
     public void setTime(String time) {
         this.time = time;
     }
+
+    @Override
+    public String toString(){
+        return this.getTitulo() + " - " + this.getDate() + " - " + this.getTime() + " - " + this.getLocal();
+    }
 }

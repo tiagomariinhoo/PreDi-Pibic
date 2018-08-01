@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,13 +27,10 @@ import static app.com.example.wagner.meupredi.R.layout.tab_consultas_perfil;
 
 public class TabConsultas extends Activity {
 
-    private Button graficopeso, graficotaxas;
     private Paciente paciente;
     private ListView listaDeConsultas;
     private ArrayAdapter<String> adapter;
-    private String[] items = {};
     ArrayList<AgendaClass> agendaList = new ArrayList<>();
-
     private TextView chamadaConsultas;
 
     @Override
@@ -77,11 +75,15 @@ public class TabConsultas extends Activity {
     }
 
     private ArrayList<String> adapterList(ControllerAgenda controllerAgenda){
+
         agendaList = controllerAgenda.getAllEventos(paciente);
-        ArrayList<String> agendaList2 = new ArrayList<>(Arrays.asList(items));
+
+        ArrayList<String> agendaList2 = new ArrayList<>();
+
         for(AgendaClass agenda : agendaList){
-            agendaList2.add(agenda.getTitulo() + " - " + agenda.getDate() + " - " + agenda.getTime() + " - " + agenda.getLocal());
+            agendaList2.add(agenda.toString());
         }
+
         return agendaList2;
     }
 

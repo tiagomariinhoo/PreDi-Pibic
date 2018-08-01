@@ -64,4 +64,9 @@ public class PesoClass {
     public void setIdPaciente(int idPaciente) {
         this.idPaciente = idPaciente;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%.2f kg | %.2f cm", this.getPeso(), this.getCircunferencia());
+    }
 }
