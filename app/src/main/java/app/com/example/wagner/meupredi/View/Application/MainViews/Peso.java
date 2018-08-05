@@ -345,7 +345,6 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                                     paciente.set_pesos(pesoDoPaciente);
                                     paciente.set_circunferencia(circuDoPaciente);
 
-
                                     if (circuDoPaciente > 0) {
                                         paciente.set_circunferencia(circuDoPaciente);
                                     }

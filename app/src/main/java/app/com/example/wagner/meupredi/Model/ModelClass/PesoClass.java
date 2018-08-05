@@ -67,6 +67,6 @@ public class PesoClass {
 
     @Override
     public String toString() {
-        return String.format("%.2f kg | %.2f cm", this.getPeso(), this.getCircunferencia());
+        return String.format("Peso: %.2f kg -- Circunferência: %.2f cm", this.getPeso(), this.getCircunferencia());
     }
 }

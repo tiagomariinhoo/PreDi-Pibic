@@ -1,23 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:background="@color/colorBranco">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente_plano_de_fundo">
 
-     <ListView
+    <TextView
+        android:id="@+id/text_titulo_lista_de_pesos"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text="Lista de Medições"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
         android:id="@+id/lista_pesos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_height="0dp"
+        android:layout_below="@+id/text_titulo_lista_de_pesos"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gradiente_branco"
         android:isScrollContainer="false"
-        android:padding="8dp"
-        android:paddingTop="8dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista">
 
     </ListView>
 
-</RelativeLayout>
+    <EditText
+        android:id="@+id/edit_text_editar_peso_na_lista"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/white"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textColorHint="#c7ecee"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/text_titulo_lista_de_pesos"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Peso"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_editar_peso_na_lista"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_editar_peso_na_lista"
+        app:layout_constraintTop_toBottomOf="@+id/text_titulo_lista_de_pesos" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Circunferência"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:layout_constraintTop_toBottomOf="@+id/text_titulo_lista_de_pesos" />
+
+    <EditText
+        android:id="@+id/edit_text_editar_circunferencia_na_lista"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/white"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textColorHint="#c7ecee"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btn_editar_peso_lista_pesos"
+        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_peso_na_lista"
+        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+    <Button
+        android:id="@+id/btn_editar_peso_lista_pesos"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/borda_curvada_verde"
+        android:text="Alterar"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_editar_circunferencia_na_lista" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="kg"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_peso_na_lista"
+        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_peso_na_lista" />
+
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="cm"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_circunferencia_na_lista" />
+
+</android.support.constraint.ConstraintLayout>
