@@ -70,6 +70,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_COLESTEROL = "colesterol";
     private static final String KEY_DATA_EXAME = "dataExame";
     private static final String KEY_PAC2 = "pac2";
+    private static final String KEY_FLAGTAXA = "flagTaxa";
     private static final String KEY_HEMOGLOBINAGLICO = "hemoglobinaglico";
 
     // ---------- TABLE LIPIDOGRAMA ----------
@@ -163,6 +164,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DATA_EXAME + " DATETIME,"
                 + KEY_PAC2 + " INTEGER,"
                 + KEY_HEMOGLOBINAGLICO + " REAL,"
+                + KEY_FLAGTAXA + " INTEGER,"
                 + " FOREIGN KEY("+KEY_PAC2+") REFERENCES "+TABLE_PACIENTES+"("+KEY_ID+"));";
         db.execSQL(CREATE_EXAMES_TABLE);
 
@@ -593,6 +595,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public boolean modelEditPeso(PesoClass pesoClass){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values;
+        String where = this.KEY_ID_PESO + "=" + String.valueOf(pesoClass.getIdPeso());
+
+        values = new ContentValues();
+        values.put(KEY_PESO, pesoClass.getPeso());
+        values.put(KEY_CIRCUNFERENCIAPESO, pesoClass.getCircunferencia());
+
+        return db.update(this.TABLE_PESOS, values, where, null) > 0;
+    }
+
+    public boolean modelEditExame(ExameClass exameClass){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values;
+        String where = this.KEY_ID_EXAME + "=" + String.valueOf(exameClass.getId());
+
+        values = new ContentValues();
+        values.put(KEY_GLICOSE75G, exameClass.getGlicose75g());
+        values.put(KEY_GLICOSEJEJUM, exameClass.getGlicoseJejum());
+        values.put(KEY_HEMOGLOBINAGLICO, exameClass.getHemoglobinaGlico());
+
+        return db.update(this.TABLE_EXAMES, values, where, null) > 0;
+    }
+
 
     //metodo chamado na classe PosLogin e Peso para registrar peso do paciente
     public void modelAtualizarPeso(Paciente paciente){
@@ -716,14 +743,57 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return pesos;
     }
 
-    public boolean eraseLastInfo(PesoClass peso){
+    public ArrayList<ExameClass> modelGetAllExameClass(Paciente paciente) throws Exception{
+        int idPaciente = paciente.get_id();
+            ArrayList<ExameClass> exames = new ArrayList<>();
+
+            String selectQuery = "SELECT * FROM " + TABLE_EXAMES;
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+
+            if(cursor.moveToFirst()){
+                do{
+                    if(Integer.parseInt(cursor.getString(5)) == idPaciente &&
+                            cursor.getString(7).equals(String.valueOf(0))){
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        ExameClass aux = new ExameClass();
+                        aux.setId(Integer.valueOf(cursor.getString(0)));
+                        aux.setGlicose75g(Double.parseDouble(cursor.getString(1)));
+                        aux.setGlicoseJejum(Double.parseDouble(cursor.getString(2)));
+                        aux.setColesterol(Double.parseDouble(cursor.getString(3)));
+                        aux.setDataExame(cursor.getString(4));
+                        aux.setIdPac(Integer.valueOf(cursor.getString(5)));
+                        aux.setHemoglobinaGlico(Double.parseDouble(cursor.getString(6)));
+                        aux.setFlagTaxa(Integer.parseInt(cursor.getString(7)));
+                        exames.add(aux);
+                    }
+                } while(cursor.moveToNext());
+            }
+        return exames;
+    }
+
+    public boolean eraseLastInfoTaxas(ExameClass exame){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values;
-        String where = this.KEY_ID + "=" + String.valueOf(peso.getIdPeso());
+        String where = this.KEY_ID_EXAME + "=" + String.valueOf(exame.getId());
 
         values = new ContentValues();
+        values.put(KEY_FLAGTAXA, 1);
 
+        return db.update(this.TABLE_EXAMES, values, where, null) > 0;
+    }
+
+    public boolean eraseLastInfoPeso(PesoClass peso){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values;
+        Log.d("Id Peso Atual : ", String.valueOf(peso.getIdPeso()));
+        String where = this.KEY_ID_PESO + "=" + String.valueOf(peso.getIdPeso());
+
+        values = new ContentValues();
         values.put(KEY_FLAGPESO, 1);
+
         return db.update(this.TABLE_PESOS, values, where, null) > 0;
     }
 

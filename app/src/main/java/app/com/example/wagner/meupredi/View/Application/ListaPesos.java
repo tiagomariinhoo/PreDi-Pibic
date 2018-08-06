@@ -24,6 +24,7 @@ import app.com.example.wagner.meupredi.Controller.ControllerPeso;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
 import app.com.example.wagner.meupredi.View.Application.MainViews.Peso;
 
 public class ListaPesos extends Activity {
@@ -56,6 +57,13 @@ public class ListaPesos extends Activity {
         ControllerPeso pesoController = new ControllerPeso(ListaPesos.this);
 
         ArrayList<PesoClass> pesoList = pesoController.getAllInfos(paciente);
+
+        for(int i=0;i<pesoList.size();i++) {
+            Log.d("Peso value : ", String.valueOf(pesoList.get(i).getPeso()));
+            Log.d("Data Peso : ", pesoList.get(i).getDatePeso());
+            Log.d("Flag: ", String.valueOf(pesoList.get(i).getFlagPeso()));
+        };
+
         //Collections.reverse(pesoList);
 
         adapter = new ArrayAdapter<String>(this, R.layout.lista_item_pesos, R.id.text_item_lista_peso, adapterList(pesoController));
@@ -103,14 +111,22 @@ public class ListaPesos extends Activity {
 
 
                                 //Log.d("AUX: ", aux);
-                                //pesoController.eraseLastInfo(peso);
+                                boolean at = pesoController.eraseLastInfo(peso);
+                                if(at) Log.d("Peso ", "Ultimo peso excluído!");
 
                                 //Log.d("DATE PESO: ", peso.getDatePeso());
 
                                 //pesoController.atualizarPeso(paciente);
-                                //controllerPaciente.atualizarPaciente(paciente);
+                                controllerPaciente.atualizarPaciente(paciente);
 
                                 Toast.makeText(ListaPesos.this, "Medição removida com sucesso!", Toast.LENGTH_LONG).show();
+
+                                Intent intent = new Intent(ListaPesos.this, Peso.class);
+                                intent.putExtra("Paciente", paciente);
+                                //finish();
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+
 
                             }
                         });

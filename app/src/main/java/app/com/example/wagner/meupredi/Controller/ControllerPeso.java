@@ -1,6 +1,7 @@
 package app.com.example.wagner.meupredi.Controller;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,8 @@ public class ControllerPeso {
         db.modelAtualizarPeso(paciente);
     }
 
+    public boolean editPeso(PesoClass peso){return db.modelEditPeso(peso);}
+
     public double getPeso(Paciente paciente){
         return db.modelGetPeso(paciente);
     }
@@ -37,5 +40,7 @@ public class ControllerPeso {
 
     public ArrayList<PesoClass> getAllInfos(Paciente paciente) {return db.modelGetAllPesoClass(paciente);}
 
-    public void eraseLastInfo(PesoClass peso){ db.eraseLastInfo(peso); }
+    public boolean eraseLastInfo(PesoClass peso){
+        Log.d("Id peso : ", String.valueOf(peso.getIdPeso()));
+        return db.eraseLastInfoPeso(peso); }
 }

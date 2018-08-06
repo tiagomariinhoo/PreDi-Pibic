@@ -15,6 +15,16 @@ public class ExameClass {
     double glicoseJejum;
     double colesterol;
     double hemoglobinaGlico;
+
+    public int getFlagTaxa() {
+        return flagTaxa;
+    }
+
+    public void setFlagTaxa(int flagTaxa) {
+        this.flagTaxa = flagTaxa;
+    }
+
+    int flagTaxa;
     Date dataExame;
 
     public double getHemoglobinaGlico() {

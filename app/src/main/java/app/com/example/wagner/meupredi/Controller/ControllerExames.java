@@ -47,6 +47,12 @@ public class ControllerExames {
         return db.modelGetUltimasTaxas(paciente);
     }
 
+    public boolean eraseLastInfoTaxa(ExameClass exame){ return db.eraseLastInfoTaxas(exame);}
+
+    public ArrayList<ExameClass> getAllExamesClass(Paciente paciente) throws Exception { return db.modelGetAllExameClass(paciente); }
+
+    public boolean editExame(ExameClass exame){return db.modelEditExame(exame);}
+
     public ArrayList<Float> getGlicosesJejum(Paciente paciente){
         return db.modelGetGlicosesJejum(paciente);
     }
