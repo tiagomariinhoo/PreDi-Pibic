@@ -43,4 +43,5 @@
         android:layout_centerHorizontal="true"
         android:text="Seu IMC é 24,5 kg/m² e você está dentro da sua faixa ideal de peso."
         android:textAlignment="viewStart" />
+
 </RelativeLayout>

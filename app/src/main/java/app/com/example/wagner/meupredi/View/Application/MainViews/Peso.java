@@ -175,7 +175,6 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
         ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
@@ -279,10 +278,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                     //finish();
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-
                 }
 */
-
                 Log.d("CircAtual : ", circAtual);
                 Log.d("Peso Atual : ", pesoAtual);
                 Float pesoAtualizado = 0f;
@@ -292,7 +289,6 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                     circAtualizado = Float.parseFloat(circAtual);
 
                 } catch(Exception e){
-
                     Toast.makeText(Peso.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Peso.this, Perfil.class);
                     intent.putExtra("Paciente", paciente);
