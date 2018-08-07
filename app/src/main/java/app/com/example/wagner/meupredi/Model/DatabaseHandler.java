@@ -425,7 +425,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 paciente.setCircunferencia(Double.parseDouble(cursor.getString(7)));
                 paciente.setAltura(Double.parseDouble(cursor.getString(8)));
                 paciente.setImc(Double.parseDouble(cursor.getString(9)));
-                paciente.setUltimadica(Integer.parseInt(cursor.getString(10)));
+                paciente.setUltimaDica(Integer.parseInt(cursor.getString(10)));
 
                 //pega seu ultimo peso registrado
                 paciente.setPeso(modelGetPeso(paciente));
@@ -513,7 +513,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     paciente.setCircunferencia(Double.parseDouble(cursor.getString(7)));
                     paciente.setAltura(Double.parseDouble(cursor.getString(8)));
                     paciente.setImc(Double.parseDouble(cursor.getString(9)));
-                    paciente.setUltimadica(Integer.parseInt(cursor.getString(10)));
+                    paciente.setUltimaDica(Integer.parseInt(cursor.getString(10)));
 
                     //DEBUG
                     Log.d("Infos do banco: ", "verificarLogin");

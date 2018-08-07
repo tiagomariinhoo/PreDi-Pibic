@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
+import app.com.example.wagner.meupredi.Database.PacienteDAO;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
@@ -19,7 +20,7 @@ public class ControllerPaciente {
     }
 
     public String addPaciente(Paciente paciente){
-        return db.modelAddPaciente(paciente);
+        return PacienteDAO.savePaciente(paciente);/*db.modelAddPaciente(paciente);*/
     }
 
     public List<Paciente> getAllUsers(){

@@ -42,7 +42,6 @@ public class ListaPesos extends Activity {
         setContentView(R.layout.activity_lista_pesos);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
-        //PacienteDAO.createPaciente(paciente);
 
         listaDePesos = (android.widget.ListView) findViewById(R.id.lista_pesos);
         editPeso = (EditText) findViewById(R.id.edit_text_editar_peso_na_lista);

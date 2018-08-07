@@ -1,7 +1,6 @@
         package app.com.example.wagner.meupredi.Model.ModelClass;
 
         import android.content.Context;
-        import android.support.v7.app.AppCompatActivity;
         import android.util.Log;
         import android.widget.Toast;
         import java.io.Serializable;
@@ -11,7 +10,7 @@
  * Created by wagne on 31/03/2017.
  */
 
-public class Paciente extends AppCompatActivity implements Serializable {
+public class Paciente implements Serializable {
 
             private int id;
             private String nome;
@@ -77,15 +76,15 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 Log.d("Peso: ", String.valueOf(getPeso()));
             }
 
-            public int getUltimaDica() {
+            public Integer getUltimaDica() {
                 return ultimaDica;
             }
 
-            public void setUltimadica(int ultimaDica) {
+            public void setUltimaDica(int ultimaDica) {
                 this.ultimaDica = ultimaDica;
             }
 
-            public int getId() { return id; }
+            public Integer getId() { return id; }
 
             public void setId(int id) {
                 this.id = id;
@@ -131,7 +130,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.email = email;
             }
 
-            public int getIdade() {
+            public Integer getIdade() {
                 return idade;
             }
 
@@ -139,7 +138,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.idade = idade;
             }
 
-            public double getCircunferencia() {
+            public Double getCircunferencia() {
                 return circunferencia;
             }
 
@@ -147,7 +146,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.circunferencia = circunferencia;
             }
 
-            public double getPeso() {
+            public Double getPeso() {
                 return peso;
             }
 
@@ -155,7 +154,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.peso = peso;
             }
 
-            public double getAltura() {
+            public Double getAltura() {
                 return altura;
             }
 
@@ -163,7 +162,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.altura = altura;
             }
 
-            public double getImc() {
+            public Double getImc() {
                 return imc;
             }
 
@@ -171,7 +170,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.imc = imc;
             }
 
-            public double getHba1c() {
+            public Double getHba1c() {
                 return hba1c;
             }
 
@@ -179,7 +178,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.hba1c = hba1c;
             }
 
-            public double getGlicoseJejum() {
+            public Double getGlicoseJejum() {
                 return glicoseJejum;
             }
 
@@ -187,7 +186,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.glicoseJejum = glicosejejum;
             }
 
-            public double getHemoglobinaGlicolisada() {
+            public Double getHemoglobinaGlicolisada() {
                 return hemoglobinaGlicolisada;
             }
 
@@ -195,7 +194,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.hemoglobinaGlicolisada = _hemoglobinaglicolisada;
             }
 
-            public double getGlicose75g() {
+            public Double getGlicose75g() {
                 return glicose75g;
             }
 
@@ -203,7 +202,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.glicose75g = glicose75g;
             }
 
-            public double getColesterol() {
+            public Double getColesterol() {
                 return colesterol;
             }
 
@@ -211,7 +210,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.colesterol = _colesterol;
             }
 
-            public double getLipidograma() {
+            public Double getLipidograma() {
                 return lipidograma;
             }
 
@@ -219,7 +218,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.lipidograma = lipidograma;
             }
 
-            public double getHemograma() {
+            public Double getHemograma() {
                 return hemograma;
             }
 
@@ -227,7 +226,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.hemograma = hemograma;
             }
 
-            public double getTireoide() {
+            public Double getTireoide() {
                 return tireoide;
             }
 
@@ -235,7 +234,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.tireoide = tireoide;
             }
 
-            public int getExTotal() {
+            public Integer getExTotal() {
                 return exTotal;
             }
 
@@ -243,7 +242,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 this.exTotal = exTotal;
             }
 
-            public int getExMax() {
+            public Integer getExMax() {
                 return exMax;
             }
 

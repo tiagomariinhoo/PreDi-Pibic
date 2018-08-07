@@ -1,94 +1,69 @@
 package app.com.example.wagner.meupredi.Database;
 
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 public class PacienteDAO {
 
-    public static String createPaciente(Paciente paciente){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("paciente");
+    private static String status;
 
-        myRef = myRef.child(Integer.toString(paciente.getId()));
-        myRef.setValue(paciente);
-        /*myRef.child("nome").setValue(paciente.getNome());
-        myRef.child("senha").setValue(paciente.getSenha());
-        myRef.child("email").setValue(paciente.getEmail());
-        myRef.child("sexo").setValue(paciente.getSexo());
-        myRef.child("nascimento").setValue(paciente.getNascimento());
-        myRef.child("idade").setValue(paciente.getIdade());
-        myRef.child("exTotal").setValue(paciente.getExTotal());
-        //myRef.child("ultimaDica").setValue(paciente.get_ultimaDica());
-        myRef.child("circunferencia").setValue(paciente.getCircunferencia());
-        myRef.child("peso").setValue(paciente.getPeso()); // check
-        myRef.child("altura").setValue(paciente.getAltura()); // check
-        myRef.child("imc").setValue(paciente.getImc());
-        myRef.child("hba1c").setValue(paciente.getHba1c());
-        myRef.child("glicoseJejum").setValue(paciente.getGlicoseJejum());
-        myRef.child("glicose75g").setValue(paciente.getGlicose75g());
-        myRef.child("hemoglobinaGlicolisada").setValue(paciente.getHemoglobinaGlicolisada());
-        myRef.child("colesterol").setValue(paciente.getColesterol());
-        myRef.child("lipidograma").setValue(paciente.getLipidograma());
-        myRef.child("hemograma").setValue(paciente.getHemograma());
-        myRef.child("tireoide").setValue(paciente.getTireoide());
-        */
+    private static long last_id = 0;
 
-        return "";
-    }
-    /*
+    private static DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("paciente");
 
-    int _id;
-    String _nome;
-    String _senha;
-    String _email;
-    String _sexo;
-    String _nascimento;
-    int _idade;
-    int _exTotal; //Total atual
-    int _exMax; //Meta da semana
-    int ultimaDica;
-    double _circunferencia;
-    double _peso;
-    double _altura;
-    double _imc;
-    double _hba1c;
-    double _glicosejejum;
-    double _glicose75g;
-    double _hemoglobinaglicolisada;
-    double _colesterol;
-    double _lipidograma; // Não está sendo usado
-    double _hemograma; // Não está sendo usado
-    double _tireoide;
-    ArrayList<Float> _pesos
+    private static OnSuccessListener<Void> success = new OnSuccessListener<Void>() {
+        @Override
+        public void onSuccess(Void aVoid) {
+            last_id++;
+            status = "success";
+        }
+    };
 
-    public String addPaciente(Paciente paciente){
-        return db.modelAddPaciente(paciente);
+    private static OnFailureListener failure = new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception e) {
+            status = "fail";
+        }
+    };
+
+    public static String savePaciente(Paciente paciente){
+
+        DataSnapshot snapshot;
+        myRef.child(paciente.getEmail())
+            .setValue(paciente)
+            .addOnSuccessListener(success)
+            .addOnFailureListener(failure);
+
+        return status;
     }
 
-    public List<Paciente> getAllUsers(){
-        return  db.modelGetAllUsers();
+    public static Paciente getPaciente(String email){
+
+        final Paciente[] paciente = new Paciente[1];
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return paciente[0];
     }
 
-    public Paciente getPaciente(String email){
-        return db.modelGetPaciente(email);
-    }
 
-    public void deleteAllPacientes(){
-        db.modelDeletAllPacientes();
-    }
 
-    public Paciente verificarLogin(String email, String senha){
-        return db.modelVerificarLogin(email, senha);
-    }
-
-    public Paciente verificarEmail(String email){
-        return db.modelVerificarEmail(email);
-    }
-
-    public boolean atualizarPaciente(Paciente paciente){
-        return db.modelAtualizarPaciente(paciente);
-    }
-    */
 }
