@@ -172,7 +172,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                 } else {
                     paciente.set_glicose75g(0);
                 }
-
+                
                 if(novaHemoglobinaGlicolisada.getText().toString().length() != 0) {
 
                     String novaHG = novaHemoglobinaGlicolisada.getText().toString();

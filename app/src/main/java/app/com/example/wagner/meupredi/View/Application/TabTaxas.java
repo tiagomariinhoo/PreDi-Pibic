@@ -34,7 +34,7 @@ public class TabTaxas extends Activity {
         valor_glicose75g = (TextView) findViewById(R.id.text_valor_glicose_75g_atual);
 
         Double hg = paciente.get_hemoglobinaglicolisada();
-        valor_hemoglobina_glicolisada.setText(hg.toString()+" mg/dL");
+        valor_hemoglobina_glicolisada.setText(hg.toString()+" %");
 
         Double gl75 = paciente.get_glicose75g();
         valor_glicose75g.setText(gl75.toString()+" mg/dL");
