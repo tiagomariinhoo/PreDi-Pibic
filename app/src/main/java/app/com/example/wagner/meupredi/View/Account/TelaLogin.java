@@ -25,8 +25,6 @@ import java.util.List;
 import app.com.example.wagner.meupredi.Controller.ControllerExames;
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
 import app.com.example.wagner.meupredi.Controller.ControllerPeso;
-import app.com.example.wagner.meupredi.Model.DatabaseHandler;
-import app.com.example.wagner.meupredi.Model.ModelClass.ExameClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 
@@ -122,7 +120,7 @@ public class TelaLogin extends AppCompatActivity {
                 List<Paciente> pacList = new ArrayList<Paciente> ();
                 pacList = controllerPaciente.getAllUsers();
 
-                Log.d("Tamanho pacList LOGIN : ", String.valueOf(pacList.size()));
+                Log.d("Tamanho pacList LOGIN: ", String.valueOf(pacList.size()));
                /* if(pacList.size() > 0){
                     for(int i=0;i<pacList.size();i++){
                         Log.d(pacList.get(i).get_nome()," -> Nome do paciente");
@@ -148,12 +146,12 @@ public class TelaLogin extends AppCompatActivity {
                 paciente = controllerPaciente.verificarLogin(user,pass);
 
                 //se estiverem corretas, faz o login
-                if(paciente.get_id() != -1){
+                if(paciente.getId() != -1){
                     ControllerExames controllerExames = new ControllerExames(getApplicationContext());
                     //pega peso atual do paciente na tabela correspondente
                     double peso = controllerPeso.getPeso(paciente);
-                    Log.d("PESO PEGO NA TELA LOGIN  : ",String.valueOf(peso));
-                    paciente.set_peso(peso);
+                    Log.d("PESO NA TELA LOGIN  : ",String.valueOf(peso));
+                    paciente.setPeso(peso);
 
                     //Paciente pacTaxas = controllerExames.getUltimasTaxas(paciente);
                     paciente = controllerExames.getUltimasTaxas(paciente);

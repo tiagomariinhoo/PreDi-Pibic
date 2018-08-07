@@ -13,36 +13,36 @@
 
 public class Paciente extends AppCompatActivity implements Serializable {
 
-            int _id;
-            String _nome;
-            String _senha;
-            String _email;
-            String _sexo;
-            String _nascimento;
-            int _idade;
-            int _exTotal; //Total atual
-            int _exMax; //Meta da semana
-            int ultimaDica;
-            double _circunferencia;
-            double _peso;
-            double _altura;
-            double _imc;
-            double _hba1c;
-            double _glicosejejum;
-            double _glicose75g;
-            double _hemoglobinaglicolisada;
-            double _colesterol;
-            double _lipidograma; // Não está sendo usado
-            double _hemograma; // Não está sendo usado
-            double _tireoide;
-            ArrayList<Float> _pesos = new ArrayList<Float>();
+            private int id;
+            private String nome;
+            private String senha;
+            private String email;
+            private String sexo;
+            private String nascimento;
+            private int idade;
+            private int exTotal; //Total atual
+            private int exMax; //Meta da semana
+            private int ultimaDica;
+            private double circunferencia;
+            private double peso;
+            private double altura;
+            private double imc;
+            private double hba1c;
+            private double glicoseJejum;
+            private double glicose75g;
+            private double hemoglobinaGlicolisada;
+            private double colesterol;
+            private double lipidograma; // Não está sendo usado
+            private double hemograma; // Não está sendo usado
+            private double tireoide;
+            private ArrayList<Float> pesos = new ArrayList<Float>();
 
             public ArrayList<Float> get_pesos() {
-                return _pesos;
+                return pesos;
             }
 
             public void set_pesos(float p) {
-                this._pesos.add(p);
+                this.pesos.add(p);
             }
             public Paciente() {
             }
@@ -50,206 +50,205 @@ public class Paciente extends AppCompatActivity implements Serializable {
             public Paciente(int id, String nome, String senha, String email, String sexo, int idade, double circunferencia, double peso, double altura, int ultimaDica) {
 
                 //valores com -1 serão setados ou calculados após o cadastro inicial
-                this._id = id;
-                this._nome = nome;
-                this._senha = senha;
-                this._email = email;
-                this._sexo = sexo;
-                this._idade = idade;
-                this._circunferencia = circunferencia;
-                this._peso = peso;
-                this._altura = altura;
-                this._imc = -1;
-                this._hba1c = -1;
-                this._glicose75g = -1;
-                this._glicosejejum = -1;
-                this._colesterol = -1;
-                this._lipidograma = -1;
-                this._hemograma = -1;
-                this._tireoide = -1;
+                this.id = id;
+                this.nome = nome;
+                this.senha = senha;
+                this.email = email;
+                this.sexo = sexo;
+                this.idade = idade;
+                this.circunferencia = circunferencia;
+                this.peso = peso;
+                this.altura = altura;
+                this.imc = -1;
+                this.hba1c = -1;
+                this.glicose75g = -1;
+                this.glicoseJejum = -1;
+                this.colesterol = -1;
+                this.lipidograma = -1;
+                this.hemograma = -1;
+                this.tireoide = -1;
+                this.hemoglobinaGlicolisada = -1;
                 this.ultimaDica = ultimaDica;
             }
 
             public void getInfo(){
-                Log.d("Get info: ", get_nome());
-                Log.d("Nome: ", get_nome());
-                Log.d("Peso: ", String.valueOf(get_peso()));
+                Log.d("Get info: ", getNome());
+                Log.d("Nome: ", getNome());
+                Log.d("Peso: ", String.valueOf(getPeso()));
             }
 
             public int getUltimaDica() {
                 return ultimaDica;
             }
 
-            public void set_ultimadica(int ultimaDica) {
+            public void setUltimadica(int ultimaDica) {
                 this.ultimaDica = ultimaDica;
             }
 
-            public int get_id() {
-                return _id;
+            public int getId() { return id; }
+
+            public void setId(int id) {
+                this.id = id;
             }
 
-            public void set_id(int _id) {
-                this._id = _id;
+            public String getSexo() {
+                return sexo;
             }
 
-            public String get_sexo() {
-                return _sexo;
+            public void setSexo(String sexo) {
+                this.sexo = sexo;
             }
 
-            public void set_sexo(String sexo) {
-                this._sexo = sexo;
+            public String getNascimento() {
+                return nascimento;
             }
 
-            public String get_nascimento() {
-                return _nascimento;
+            public void setNascimento(String nascimento) {
+                this.nascimento = nascimento;
             }
 
-            public void set_nascimento(String nascimento) {
-                this._nascimento = nascimento;
+            public String getNome() {
+                return nome;
             }
 
-            public String get_nome() {
-                return _nome;
+            public void setNome(String nome) {
+                this.nome = nome;
             }
 
-            public void set_nome(String _nome) {
-                this._nome = _nome;
+            public String getSenha() {
+                return senha;
             }
 
-            public String get_senha() {
-                return _senha;
+            public void setSenha(String senha) {
+                this.senha = senha;
             }
 
-            public void set_senha(String _senha) {
-                this._senha = _senha;
+            public String getEmail() {
+                return email;
             }
 
-            public String get_email() {
-                return _email;
+            public void setEmail(String email) {
+                this.email = email;
             }
 
-            public void set_email(String _email) {
-                this._email = _email;
+            public int getIdade() {
+                return idade;
             }
 
-            public int get_idade() {
-                return _idade;
+            public void setIdade(int idade) {
+                this.idade = idade;
             }
 
-            public void set_idade(int _idade) {
-                this._idade = _idade;
+            public double getCircunferencia() {
+                return circunferencia;
             }
 
-            public double get_circunferencia() {
-                return _circunferencia;
+            public void setCircunferencia(double circunferencia) {
+                this.circunferencia = circunferencia;
             }
 
-            public void set_circunferencia(double _circunferencia) {
-                this._circunferencia = _circunferencia;
+            public double getPeso() {
+                return peso;
             }
 
-            public double get_peso() {
-                return _peso;
+            public void setPeso(double peso) {
+                this.peso = peso;
             }
 
-            public void set_peso(double _peso) {
-                this._peso = _peso;
+            public double getAltura() {
+                return altura;
             }
 
-            public double get_altura() {
-                return _altura;
+            public void setAltura(double altura) {
+                this.altura = altura;
             }
 
-            public void set_altura(double _altura) {
-                this._altura = _altura;
+            public double getImc() {
+                return imc;
             }
 
-            public double get_imc() {
-                return _imc;
+            public void setImc(double imc) {
+                this.imc = imc;
             }
 
-            public void set_imc(double _imc) {
-                this._imc = _imc;
+            public double getHba1c() {
+                return hba1c;
             }
 
-            public double get_hba1c() {
-                return _hba1c;
+            public void setHba1c(double hba1c) {
+                this.hba1c = hba1c;
             }
 
-            public void set_hba1c(double _hba1c) {
-                this._hba1c = _hba1c;
+            public double getGlicoseJejum() {
+                return glicoseJejum;
             }
 
-            public double get_glicosejejum() {
-                return _glicosejejum;
+            public void setGlicoseJejum(double glicosejejum) {
+                this.glicoseJejum = glicosejejum;
             }
 
-            public void set_glicosejejum(double _glicosejejum) {
-                this._glicosejejum = _glicosejejum;
+            public double getHemoglobinaGlicolisada() {
+                return hemoglobinaGlicolisada;
             }
 
-            public double get_hemoglobinaglicolisada() {
-                return _hemoglobinaglicolisada;
+            public void setHemoglobinaGlicolisada(double _hemoglobinaglicolisada) {
+                this.hemoglobinaGlicolisada = _hemoglobinaglicolisada;
             }
 
-            public void set_hemoglobinaglicolisada(double _hemoglobinaglicolisada) {
-                this._hemoglobinaglicolisada = _hemoglobinaglicolisada;
+            public double getGlicose75g() {
+                return glicose75g;
             }
 
-            public double get_glicose75g() {
-                return _glicose75g;
+            public void setGlicose75g(double glicose75g) {
+                this.glicose75g = glicose75g;
             }
 
-            public void set_glicose75g(double _glicose75g) {
-                this._glicose75g = _glicose75g;
+            public double getColesterol() {
+                return colesterol;
             }
 
-            public double get_colesterol() {
-                return _colesterol;
+            public void setColesterol(double _colesterol) {
+                this.colesterol = _colesterol;
             }
 
-            public void set_colesterol(double _colesterol) {
-                this._colesterol = _colesterol;
+            public double getLipidograma() {
+                return lipidograma;
             }
 
-            public double get_lipidograma() {
-                return _lipidograma;
+            public void setLipidograma(double lipidograma) {
+                this.lipidograma = lipidograma;
             }
 
-            public void set_lipidograma(double _lipidograma) {
-                this._lipidograma = _lipidograma;
+            public double getHemograma() {
+                return hemograma;
             }
 
-            public double get_hemograma() {
-                return _hemograma;
+            public void setHemograma(double hemograma) {
+                this.hemograma = hemograma;
             }
 
-            public void set_hemograma(double _hemograma) {
-                this._hemograma = _hemograma;
+            public double getTireoide() {
+                return tireoide;
             }
 
-            public double get_tireoide() {
-                return _tireoide;
+            public void setTireoide(double tireoide) {
+                this.tireoide = tireoide;
             }
 
-            public void set_tireoide(double _tireoide) {
-                this._tireoide = _tireoide;
+            public int getExTotal() {
+                return exTotal;
             }
 
-            public int get_exTotal() {
-                return _exTotal;
+            public void setExTotal(int exTotal) {
+                this.exTotal = exTotal;
             }
 
-            public void set_exTotal(int _exTotal) {
-                this._exTotal = _exTotal;
+            public int getExMax() {
+                return exMax;
             }
 
-            public int get_exMax() {
-                return _exMax;
-            }
-
-            public void set_exMax(int _exMax) {
-                this._exMax = _exMax;
+            public void setExMax(int exMax) {
+                this.exMax = exMax;
             }
 
             //metodo chamado na classe MenuPrincipal para verificar situacao do paciente
@@ -258,19 +257,19 @@ public class Paciente extends AppCompatActivity implements Serializable {
                 //TODO: ajustar este método para os novos atributos
 
                 Log.d("Começando ", "O CALCULOO");
-                if (get_glicosejejum() >= 100 && get_glicosejejum() <= 125) {
+                if (getGlicoseJejum() >= 100 && getGlicoseJejum() <= 125) {
                     //Log.d("TTG!","");
                     Toast.makeText(context, "TTG", Toast.LENGTH_LONG).show();
-                    if (get_glicose75g() < 140) {
+                    if (getGlicose75g() < 140) {
                         //Log.d("GJA","");
                         Toast.makeText(context, "GJA!", Toast.LENGTH_LONG).show();
-                    } else if (get_glicose75g() >= 140 && get_glicose75g() < 199) {
+                    } else if (getGlicose75g() >= 140 && getGlicose75g() < 199) {
                         //Log.d("TDG"," Pré Diabetes");
                         //Log.d("MEV", "Por 6 meses");
                         Toast.makeText(context, "TDG Pré Diabetes, MEV por 6 meses!", Toast.LENGTH_LONG).show();
 
-                        if (get_peso() != -1 && get_imc() >= 25) {
-                            double pct = (get_peso() * 100) / get_peso();
+                        if (getPeso() != -1 && getImc() >= 25) {
+                            double pct = (getPeso() * 100) / getPeso();
                             pct = 100 - pct;
 
                             boolean metas;
@@ -281,7 +280,7 @@ public class Paciente extends AppCompatActivity implements Serializable {
                             if (!metas) {
                                 boolean risco = false;
 
-                                if (get_imc() >= 25 && get_glicose75g() >= 200 && get_glicosejejum() >= 200)
+                                if (getImc() >= 25 && getGlicose75g() >= 200 && getGlicoseJejum() >= 200)
                                     risco = true;
 
                                 if (!risco) {
@@ -305,16 +304,16 @@ public class Paciente extends AppCompatActivity implements Serializable {
 
                         }
 
-                    } else if (get_glicose75g() >= 200) {
+                    } else if (getGlicose75g() >= 200) {
                         //Log.d("DM2 : ", "Avaliação e manejo do DM2");
                         Toast.makeText(context, "Sua glicose está muito alta! Avaliação e manejo do DM2", Toast.LENGTH_LONG).show();
                     }
-                } else if (get_glicosejejum() >= 126 || get_glicosejejum() >= 200) {
+                } else if (getGlicoseJejum() >= 126 || getGlicoseJejum() >= 200) {
                     Toast.makeText(context, "Sua glicose está muito alta! Avaliação de manejo do DM2", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(context, "Sua glicose está normal! Avaliação a cada 3 anos ou conforme o risco.", Toast.LENGTH_LONG).show();
                 }
 
-                Log.d("glicose75 g : ", String.valueOf(get_glicose75g()));
+                Log.d("glicose75 g : ", String.valueOf(getGlicose75g()));
             }
         }

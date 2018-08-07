@@ -125,7 +125,7 @@ public class TelaExameLipidograma extends AppCompatActivity {
 
                     paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
-                    novoLipidograma.setIdPacienteLipidograma(paciente.get_id());
+                    novoLipidograma.setIdPacienteLipidograma(paciente.getId());
 
                     DatabaseHandler db = new DatabaseHandler(getApplicationContext());
                     ControllerExames controllerExames = new ControllerExames(getApplicationContext());

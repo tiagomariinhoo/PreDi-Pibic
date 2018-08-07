@@ -3,7 +3,6 @@ package app.com.example.wagner.meupredi.View.Application;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,7 +29,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
         setContentView(tab_corpo_perfil);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
-        double imc = paciente.get_imc();
+        double imc = paciente.getImc();
 
         pesoAtual = (TextView) findViewById(R.id.text_tab_corpo_peso_atual);
         chamadaPeso = (TextView) findViewById(R.id.text_tab_corpo_atualizar_peso);
@@ -40,25 +39,25 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
         pesoIdeal = (TextView) findViewById(R.id.text_qual_meu_peso_ideal);
         statusIMC = (TextView) findViewById(R.id.text_tab_corpo_status_imc);
 
-        pesoAtual.setText(String.format("%.2f", paciente.get_peso()));
+        pesoAtual.setText(String.format("%.2f", paciente.getPeso()));
         imcAtual.setText(String.valueOf(imc));
 
-        if(paciente.get_imc() <= 16.9){
+        if(paciente.getImc() <= 16.9){
             statusIMC.setText("Muito abaixo do Peso");
         }
-        else if(paciente.get_imc() <= 18.4){
+        else if(paciente.getImc() <= 18.4){
             statusIMC.setText("Abaixo do peso");
         }
-        else if(paciente.get_imc() <= 24.9){
+        else if(paciente.getImc() <= 24.9){
             statusIMC.setText("Peso normal");
         }
-        else if(paciente.get_imc() <= 29.9){
+        else if(paciente.getImc() <= 29.9){
             statusIMC.setText("Acima do peso");
         }
-        else if(paciente.get_imc() <= 34.9){
+        else if(paciente.getImc() <= 34.9){
             statusIMC.setText("Obesidade I");
         }
-        else if(paciente.get_imc() <= 40){
+        else if(paciente.getImc() <= 40){
             statusIMC.setText("Obesidade II");
         }
         else{

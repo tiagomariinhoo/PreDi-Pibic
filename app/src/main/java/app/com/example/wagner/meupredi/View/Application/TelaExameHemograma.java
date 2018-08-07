@@ -119,7 +119,7 @@ public class TelaExameHemograma  extends AppCompatActivity {
                     newHemograma.setRwd(rwdPaciente);
 
                     paciente = (Paciente) getIntent().getExtras().get("Paciente");
-                    newHemograma.setIdPacienteHemograma(paciente.get_id());
+                    newHemograma.setIdPacienteHemograma(paciente.getId());
 
                     DatabaseHandler db = new DatabaseHandler(getApplicationContext());
                     ControllerExames controllerExames = new ControllerExames(getApplicationContext());

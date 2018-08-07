@@ -1,7 +1,6 @@
 package app.com.example.wagner.meupredi.View.Application;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,16 +16,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
 import app.com.example.wagner.meupredi.Controller.ControllerPeso;
+import app.com.example.wagner.meupredi.Database.PacienteDAO;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
 import app.com.example.wagner.meupredi.View.Application.MainViews.Peso;
 
 public class ListaPesos extends Activity {
@@ -45,9 +41,8 @@ public class ListaPesos extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pesos);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        //PacienteDAO.createPaciente(paciente);
 
         listaDePesos = (android.widget.ListView) findViewById(R.id.lista_pesos);
         editPeso = (EditText) findViewById(R.id.edit_text_editar_peso_na_lista);
@@ -231,17 +226,17 @@ public class ListaPesos extends Activity {
 
                                             if (position == pesoList.size() - 1) {
                                                 // SIGNIFICA QUE É O PESO ATUAL QUE ELE ESTA EDITANDO, RECALCULE O IMC!
-                                                double imc = paciente.get_imc();
-                                                paciente.set_peso(valorPeso);
-                                                paciente.set_circunferencia(valorCirc);
+                                                double imc = paciente.getImc();
+                                                paciente.setPeso(valorPeso);
+                                                paciente.setCircunferencia(valorCirc);
 
-                                                if (paciente.get_peso() > 0 && paciente.get_altura() > 0) {
-                                                    imc = valorPeso / (paciente.get_altura() * paciente.get_altura());
+                                                if (paciente.getPeso() > 0 && paciente.getAltura() > 0) {
+                                                    imc = valorPeso / (paciente.getAltura() * paciente.getAltura());
                                                     String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
                                                     imc = Double.parseDouble(imcFormatado);
-                                                    paciente.set_imc(imc);
+                                                    paciente.setImc(imc);
                                                 } else {
-                                                    paciente.set_imc(0);
+                                                    paciente.setImc(0);
                                                 }
                                             }
 

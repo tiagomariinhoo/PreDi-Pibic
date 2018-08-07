@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -35,12 +34,12 @@ public class PopNotific extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        Log.d("Teste glicose jejum: ", String.valueOf(paciente.get_glicosejejum()));
-        Log.d("Teste glicose 2h: ", String.valueOf(paciente.get_glicose75g()));
+        Log.d("Teste glicose jejum: ", String.valueOf(paciente.getGlicoseJejum()));
+        Log.d("Teste glicose 2h: ", String.valueOf(paciente.getGlicose75g()));
 
         userVariables = new HashMap<String, Double>();
-        userVariables.put("glicemiaJejum", paciente.get_glicosejejum());
-        userVariables.put("glicemia2h", paciente.get_glicose75g());
+        userVariables.put("glicemiaJejum", paciente.getGlicoseJejum());
+        userVariables.put("glicemia2h", paciente.getGlicose75g());
         userVariables.put("idade", Double.parseDouble("50"));
 
         String msg = "teste";

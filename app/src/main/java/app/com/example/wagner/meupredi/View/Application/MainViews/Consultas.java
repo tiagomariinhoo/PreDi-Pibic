@@ -11,10 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -127,7 +125,7 @@ public class Consultas extends Activity {
                                 finish();
                                 startActivity(intent);
 
-                                Log.d("NOME DO PACIENTE : " , paciente.get_nome());
+                                Log.d("NOME DO PACIENTE : " , paciente.getNome());
                                 try {
                                     //AgendaClass agenda = new AgendaClass(nome, "3293", date, time);
 

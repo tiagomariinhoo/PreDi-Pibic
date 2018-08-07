@@ -181,7 +181,7 @@ public class CriarConta extends AppCompatActivity {
                 tempPaciente = controllerPaciente.verificarEmail(emailCadastro);
 
                 //se o id for -1, entao email nao foi cadastrado
-                if(tempPaciente.get_id() == -1) {
+                if(tempPaciente.getId() == -1) {
 
                     //verifica se todos os campos estao preenchidos
                     if(nomeCompleto.length() == 0) {
@@ -203,35 +203,35 @@ public class CriarConta extends AppCompatActivity {
                         //verifica opcao de sexo selecionada
                         String selected = sexo.getSelectedItem().toString();
                         if (selected.equals("M")) {
-                            paciente.set_sexo("M");
+                            paciente.setSexo("M");
                         } else {
-                            paciente.set_sexo("F");
+                            paciente.setSexo("F");
                         }
 
                         dataCadastro = dataCadastro.substring(0, 2) + "/" + dataCadastro.substring(2, 4) + "/" + dataCadastro.substring(4, dataCadastro.length());
-                        paciente.set_nascimento(dataCadastro);
+                        paciente.setNascimento(dataCadastro);
 
                         GregorianCalendar calendar = new GregorianCalendar();
                         int dia = calendar.get(GregorianCalendar.DAY_OF_YEAR);
 
-                        paciente.set_exTotal(0);
+                        paciente.setExTotal(0);
 
                         //DEBUG: imprime todos os dados do paciente
                         Log.d("Criando: ", "criar conta");
-                        Log.d("Nome : ", paciente.get_nome());
-                        Log.d("Senha : ", paciente.get_senha());
-                        Log.d("Email: ", paciente.get_email());
-                        Log.d("Sexo: ", String.valueOf(paciente.get_sexo()));
-                        Log.d("Nascimento: ", paciente.get_nascimento());
-                        Log.d("Idade : ", String.valueOf(paciente.get_idade()));
-                        Log.d("Circunferencia : ", String.valueOf(paciente.get_circunferencia()));
-                        Log.d("Peso : ", String.valueOf(paciente.get_peso()));
-                        Log.d("Altura : ", String.valueOf(paciente.get_altura()));
-                        Log.d("IMC : ", String.valueOf(paciente.get_imc()));
-                        Log.d("HBA1C : ", String.valueOf(paciente.get_hba1c()));
-                        Log.d("GlicoseJejum : ", String.valueOf(paciente.get_glicosejejum()));
-                        Log.d("Glicose75g : ", String.valueOf(paciente.get_glicose75g()));
-                        Log.d("Colesterol : ", String.valueOf(paciente.get_colesterol()));
+                        Log.d("Nome : ", paciente.getNome());
+                        Log.d("Senha : ", paciente.getSenha());
+                        Log.d("Email: ", paciente.getEmail());
+                        Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
+                        Log.d("Nascimento: ", paciente.getNascimento());
+                        Log.d("Idade : ", String.valueOf(paciente.getIdade()));
+                        Log.d("Circunferencia : ", String.valueOf(paciente.getCircunferencia()));
+                        Log.d("Peso : ", String.valueOf(paciente.getPeso()));
+                        Log.d("Altura : ", String.valueOf(paciente.getAltura()));
+                        Log.d("IMC : ", String.valueOf(paciente.getImc()));
+                        Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
+                        Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
+                        Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
+                        Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
 
                         String msg = controllerPaciente.addPaciente(paciente);
                         ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());

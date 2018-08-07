@@ -1,8 +1,7 @@
-
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
@@ -29,8 +28,8 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 dependencies {
-    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
 }
 
 allprojects {
@@ -40,21 +39,22 @@ allprojects {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:25.3.1'
-    compile 'org.apache.commons:commons-lang3:3.6'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:support-media-compat:27.0.2'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:27.0.2'
+    implementation 'org.apache.commons:commons-lang3:3.6'
+    testImplementation 'junit:junit:4.12'
     // Biblioteca adicionada
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
-    compile 'com.github.Vatican-Cameos:CarouselPicker:v1.0'
-    compile 'com.github.sundeepk:compact-calendar-view:2.0.3-beta'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
-    compile 'com.michaelmuenzer.android:ScrollableNumberPicker:0.2.2'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
+    implementation 'com.github.Vatican-Cameos:CarouselPicker:v1.0'
+    implementation 'com.github.sundeepk:compact-calendar-view:2.0.3-beta'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+    implementation 'com.michaelmuenzer.android:ScrollableNumberPicker:0.2.2'
 }
 
 android {
@@ -71,15 +71,20 @@ repositories {
 }
 
 dependencies {
-    compile 'com.sun.mail:android-mail:1.5.5'
-    compile 'com.sun.mail:android-activation:1.5.5'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+    implementation 'com.sun.mail:android-mail:1.5.5'
+    implementation 'com.sun.mail:android-activation:1.5.5'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }
 dependencies {
-    compile 'com.android.support.constraint:constraint-layout:+'
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
 dependencies {
-    compile 'com.android.support.constraint:constraint-layout:+'
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
+
 apply plugin: 'com.google.gms.google-services'
 
+dependencies {
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+}

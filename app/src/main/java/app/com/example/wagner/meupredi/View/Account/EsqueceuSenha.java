@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
-import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 
@@ -60,15 +59,15 @@ public class EsqueceuSenha extends AppCompatActivity {
                 //verificando existencia do email no banco de dados
                 paciente = controllerPaciente.verificarEmail(email.getText().toString().trim());
 
-                if(paciente.get_id() != -1){
+                if(paciente.getId() != -1){
 
                     //setando dados da mensagem
                     String sender = email.getText().toString().trim();
                     String subject = "MeuPreDi: recuperar senha";
-                    String message = "Sr(a) " + paciente.get_nome().toString()
+                    String message = "Sr(a) " + paciente.getNome().toString()
                                              + ", a opção de reenvio de senha foi solicitada com seu email. "
                                              + "Se você não fez essa solicitação, desconsidere esta mensagem.\n\n"
-                                             + "Senha: " + paciente.get_senha().toString()
+                                             + "Senha: " + paciente.getSenha().toString()
                                              + "\n\nEquipe MeuPreDi";
 
                     //criando objeto do email

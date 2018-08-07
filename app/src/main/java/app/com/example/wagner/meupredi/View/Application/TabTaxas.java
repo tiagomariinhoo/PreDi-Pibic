@@ -33,13 +33,13 @@ public class TabTaxas extends Activity {
         valor_glicoseJejum = (TextView) findViewById(R.id.text_valor_glicose_jejum_atual);
         valor_glicose75g = (TextView) findViewById(R.id.text_valor_glicose_75g_atual);
 
-        Double hg = paciente.get_hemoglobinaglicolisada();
+        Double hg = paciente.getHemoglobinaGlicolisada();
         valor_hemoglobina_glicolisada.setText(hg.toString()+" mg/dL");
 
-        Double gl75 = paciente.get_glicose75g();
+        Double gl75 = paciente.getGlicose75g();
         valor_glicose75g.setText(gl75.toString()+" mg/dL");
 
-        Double jejum = paciente.get_glicosejejum();
+        Double jejum = paciente.getGlicoseJejum();
         valor_glicoseJejum.setText(jejum.toString()+" mg/dL");
 
         chamadaAtualizarTaxas.setOnClickListener(new View.OnClickListener() {

@@ -45,18 +45,18 @@ public class PesoIdeal extends Activity  {
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
-        if(paciente.get_senha().equals("M")){
-            if(paciente.get_circunferencia() < 94){
+        if(paciente.getSenha().equals("M")){
+            if(paciente.getCircunferencia() < 94){
                 circunferenciaIdeal = "Baixo risco de complicações metabólicas!";
-            } else if(paciente.get_circunferencia() >= 94 && paciente.get_circunferencia() <= 101){
+            } else if(paciente.getCircunferencia() >= 94 && paciente.getCircunferencia() <= 101){
                 circunferenciaIdeal = "Risco aumentado de complicações metabólicas!";
             } else {
                 circunferenciaIdeal = "Risco muito aumentado de complicações metabólicas!";
             }
         } else {
-            if(paciente.get_circunferencia() < 80){
+            if(paciente.getCircunferencia() < 80){
                 circunferenciaIdeal = "Baixo risco de complicações metabólicas!";
-            } else if(paciente.get_circunferencia() >= 80 && paciente.get_circunferencia() <= 87){
+            } else if(paciente.getCircunferencia() >= 80 && paciente.getCircunferencia() <= 87){
                 circunferenciaIdeal = "Risco aumentado de complicações metabólicas!";
             } else {
                 circunferenciaIdeal = "Risco muito aumentado de complicações metabólicas!";

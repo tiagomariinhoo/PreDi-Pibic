@@ -1,15 +1,14 @@
 package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.app.ActivityGroup;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -24,7 +23,6 @@ import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.Dicas;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
-import app.com.example.wagner.meupredi.View.Application.PopPerfil;
 import app.com.example.wagner.meupredi.View.Application.Sair;
 import app.com.example.wagner.meupredi.View.Application.TabConsultas;
 import app.com.example.wagner.meupredi.View.Application.TabCorpo;
@@ -60,8 +58,8 @@ public class Perfil extends ActivityGroup {
         nomeUsuario = (TextView) findViewById(R.id.text_nome_usuario);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
-        nomeUsuario.setText(paciente.get_nome().split(" ")[0]);
-        String str = paciente.get_nome().split(" ")[0];
+        nomeUsuario.setText(paciente.getNome().split(" ")[0]);
+        String str = paciente.getNome().split(" ")[0];
         /*
         *Difference between INVISIBLE and GONE.
         * INVISIBLE - The widget will be invisible but space for the widget will be show.
@@ -153,8 +151,8 @@ public class Perfil extends ActivityGroup {
 
     public void getNotify(Date notifyDate){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
+        Notification.Builder notificationBuilder = (Notification.Builder) new Notification.Builder(this)
+                .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.mipmap.ic_coracao)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_coracao))
                 .setContentTitle("Notification from PreDi!")

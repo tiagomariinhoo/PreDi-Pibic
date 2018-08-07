@@ -49,24 +49,24 @@ public class Dados extends AppCompatActivity {
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
         //se o usuario ja preencheu algum dado, preenche como hint
-        if(paciente.get_nome().length() != 0) {
-            nome.setHint(paciente.get_nome());
+        if(paciente.getNome().length() != 0) {
+            nome.setHint(paciente.getNome());
         }
 
-        if(paciente.get_idade() != -1) {
-            idade.setHint(String.valueOf(paciente.get_idade()) + " anos");
+        if(paciente.getIdade() != -1) {
+            idade.setHint(String.valueOf(paciente.getIdade()) + " anos");
         } else {
             idade.setHint("idade não cadastrada");
         }
 
-        if(paciente.get_altura() != -1.0) {
-            altura.setHint(String.valueOf(paciente.get_altura()) + " m");
+        if(paciente.getAltura() != -1.0) {
+            altura.setHint(String.valueOf(paciente.getAltura()) + " m");
         } else {
             altura.setHint("altura não cadastrada");
         }
 
-        if(paciente.get_circunferencia() != -1.0) {
-            circunferecia.setHint(String.valueOf(paciente.get_circunferencia()) + " cm");
+        if(paciente.getCircunferencia() != -1.0) {
+            circunferecia.setHint(String.valueOf(paciente.getCircunferencia()) + " cm");
         } else {
             circunferecia.setHint("circunferência não cadastrada");
         }
@@ -93,8 +93,8 @@ public class Dados extends AppCompatActivity {
                 String nomeAtual = nome.getText().toString();
 
                 if(nomeAtual.length() != 0) {
-                    paciente.set_nome(nomeAtual);
-                    nome.setHint(String.valueOf(paciente.get_nome()));
+                    paciente.setNome(nomeAtual);
+                    nome.setHint(String.valueOf(paciente.getNome()));
                     nome.setText("");
                 }
 
@@ -103,8 +103,8 @@ public class Dados extends AppCompatActivity {
 
                 if(idadeAtual.length() != 0) {
                     try {
-                        paciente.set_idade(Integer.parseInt(idadeAtual));
-                        idade.setHint(String.valueOf(paciente.get_idade()));
+                        paciente.setIdade(Integer.parseInt(idadeAtual));
+                        idade.setHint(String.valueOf(paciente.getIdade()));
                         idade.setText("");
                     } catch(NumberFormatException e) {
                         Toast.makeText(getApplicationContext(),"Idade em formato incorreto!",Toast.LENGTH_SHORT).show();
@@ -129,21 +129,21 @@ public class Dados extends AppCompatActivity {
                     Double alturaDoPaciente = Double.parseDouble(alturaFormatada);
 
                     //atualiza altura no objeto
-                    paciente.set_altura(alturaDoPaciente);
+                    paciente.setAltura(alturaDoPaciente);
 
                     //atualiza valor na tela
-                    altura.setHint(String.valueOf(paciente.get_altura()) + " m");
+                    altura.setHint(String.valueOf(paciente.getAltura()) + " m");
                     altura.setText("");
 
                     //recalcula imc
-                    if(paciente.get_peso() > 0 && paciente.get_altura() > 0) {
+                    if(paciente.getPeso() > 0 && paciente.getAltura() > 0) {
 
-                        double imc = (paciente.get_peso()/(paciente.get_altura()*paciente.get_altura()));
+                        double imc = (paciente.getPeso()/(paciente.getAltura()*paciente.getAltura()));
                         String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
                         imc = Double.parseDouble(imcFormatado);
-                        paciente.set_imc(imc);
+                        paciente.setImc(imc);
                     } else {
-                        paciente.set_imc(0);
+                        paciente.setImc(0);
                     }
                 }
 
@@ -159,10 +159,10 @@ public class Dados extends AppCompatActivity {
                     Double circunferenciaDoPaciente = Double.parseDouble(circunferenciaFormatada);
 
                     //atualiza circunferencia no objeto
-                    paciente.set_circunferencia(circunferenciaDoPaciente);
+                    paciente.setCircunferencia(circunferenciaDoPaciente);
 
                     //atualiza valor na tela
-                    circunferecia.setHint(String.valueOf(paciente.get_circunferencia()) + " cm");
+                    circunferecia.setHint(String.valueOf(paciente.getCircunferencia()) + " cm");
                     circunferecia.setText("");
                 }
 

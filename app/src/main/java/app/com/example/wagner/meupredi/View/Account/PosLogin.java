@@ -53,27 +53,27 @@ public class PosLogin extends AppCompatActivity {
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
-        nomeUsuario.setText("Sr(a). " + paciente.get_nome());
+        nomeUsuario.setText("Sr(a). " + paciente.getNome());
 
         //DEBUG: imprime dados do usuario pegos do banco
         Log.d("Se ja existe: ", "poslogin");
-        Log.d("Nome : ", paciente.get_nome());
-        Log.d("Senha : ", paciente.get_senha());
-        Log.d("Email: ", paciente.get_email());
-        Log.d("Sexo: ", String.valueOf(paciente.get_sexo()));
-        Log.d("Nascimento: ", paciente.get_nascimento());
-        Log.d("Idade : ", String.valueOf(paciente.get_idade()));
-        Log.d("Circunferencia : ", String.valueOf(paciente.get_circunferencia()));
-        Log.d("Peso : ", String.valueOf(paciente.get_peso()));
-        Log.d("Altura : ", String.valueOf(paciente.get_altura()));
-        Log.d("IMC : ", String.valueOf(paciente.get_imc()));
-        Log.d("HBA1C : ", String.valueOf(paciente.get_hba1c()));
-        Log.d("GlicoseJejum : ", String.valueOf(paciente.get_glicosejejum()));
-        Log.d("Glicose75g : ", String.valueOf(paciente.get_glicose75g()));
-        Log.d("Colesterol : ", String.valueOf(paciente.get_colesterol()));
+        Log.d("Nome : ", paciente.getNome());
+        Log.d("Senha : ", paciente.getSenha());
+        Log.d("Email: ", paciente.getEmail());
+        Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
+        Log.d("Nascimento: ", paciente.getNascimento());
+        Log.d("Idade : ", String.valueOf(paciente.getIdade()));
+        Log.d("Circunferencia : ", String.valueOf(paciente.getCircunferencia()));
+        Log.d("Peso : ", String.valueOf(paciente.getPeso()));
+        Log.d("Altura : ", String.valueOf(paciente.getAltura()));
+        Log.d("IMC : ", String.valueOf(paciente.getImc()));
+        Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
+        Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
+        Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
+        Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
 
         //se o usuario ja fez o cadastro dos dados, pula esta tela
-        if(paciente.get_peso() > 0 && paciente.get_altura() > 0 && paciente.get_circunferencia() > 0) {
+        if(paciente.getPeso() > 0 && paciente.getAltura() > 0 && paciente.getCircunferencia() > 0) {
 
             Intent intent = new Intent(PosLogin.this, Perfil.class);
             intent.putExtra("Paciente", paciente);
@@ -108,7 +108,7 @@ public class PosLogin extends AppCompatActivity {
                 //se o usuario nao preencheu algum dado, deixa como -1
 
                 if (alturaCadastro.length()==0){
-                    paciente.set_altura(-1);
+                    paciente.setAltura(-1);
                     flag = true;
                 } else {
 
@@ -125,9 +125,9 @@ public class PosLogin extends AppCompatActivity {
                     Double alturaDoPaciente = Double.parseDouble(alturaFormatada);
 
                     //atualiza altura no objeto
-                    paciente.set_altura(alturaDoPaciente);
+                    paciente.setAltura(alturaDoPaciente);
                 } if (pesoCadastro.length()==0){
-                    paciente.set_peso(-1);
+                    paciente.setPeso(-1);
                     flag = true;
                 } else {
 
@@ -137,11 +137,11 @@ public class PosLogin extends AppCompatActivity {
                     Log.d("Peso atualizado : " , String.valueOf(pesoAtualizado));
                     String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
                     float pesoDoPaciente = Float.parseFloat(pesoFormatado);
-                    paciente.set_peso(pesoDoPaciente);
+                    paciente.setPeso(pesoDoPaciente);
                     paciente.set_pesos(pesoDoPaciente);
 
                 } if (circunferenciaCadastro.length()==0){
-                    paciente.set_circunferencia(-1);
+                    paciente.setCircunferencia(-1);
                     flag = true;
                 } else {
 
@@ -152,18 +152,18 @@ public class PosLogin extends AppCompatActivity {
                     double circunferenciaDoPaciente = Double.parseDouble(circunferenciaFormatada);
 
                     //atualiza circunferencia no objeto
-                    paciente.set_circunferencia(circunferenciaDoPaciente);
+                    paciente.setCircunferencia(circunferenciaDoPaciente);
                 }
 
                 //calculo de IMC
-                if(paciente.get_peso() > 0 && paciente.get_altura() > 0) {
+                if(paciente.getPeso() > 0 && paciente.getAltura() > 0) {
 
-                    double imc = (paciente.get_peso()/(paciente.get_altura()*paciente.get_altura()));
+                    double imc = (paciente.getPeso()/(paciente.getAltura()*paciente.getAltura()));
                     String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
                     imc = Double.parseDouble(imcFormatado);
-                    paciente.set_imc(imc);
+                    paciente.setImc(imc);
                 } else {
-                    paciente.set_imc(0);
+                    paciente.setImc(0);
                 }
 
                 //se o usuario nao preencheu algum dos dados, avisa que ele pode preencher depois
@@ -192,20 +192,20 @@ public class PosLogin extends AppCompatActivity {
 
                 //DEBUG: imprime os dados do paciente para verificar se estao corretos
                 Log.d("Sincronizado: ", "poslogin");
-                Log.d("Nome : ", paciente.get_nome());
-                Log.d("Senha : ", paciente.get_senha());
-                Log.d("Email: ", paciente.get_email());
-                Log.d("Sexo: ", String.valueOf(paciente.get_sexo()));
-                Log.d("Nascimento: ", paciente.get_nascimento());
+                Log.d("Nome : ", paciente.getNome());
+                Log.d("Senha : ", paciente.getSenha());
+                Log.d("Email: ", paciente.getEmail());
+                Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
+                Log.d("Nascimento: ", paciente.getNascimento());
                 //Log.d("Idade : ", String.valueOf(paciente.get_idade()));
-                Log.d("Circunferencia : ", String.valueOf(paciente.get_circunferencia()));
-                Log.d("Peso : ", String.valueOf(paciente.get_peso()));
-                Log.d("Altura : ", String.valueOf(paciente.get_altura()));
-                Log.d("IMC : ", String.valueOf(paciente.get_imc()));
-                Log.d("HBA1C : ", String.valueOf(paciente.get_hba1c()));
-                Log.d("GlicoseJejum : ", String.valueOf(paciente.get_glicosejejum()));
-                Log.d("Glicose75g : ", String.valueOf(paciente.get_glicose75g()));
-                Log.d("Colesterol : ", String.valueOf(paciente.get_colesterol()));
+                Log.d("Circunferencia : ", String.valueOf(paciente.getCircunferencia()));
+                Log.d("Peso : ", String.valueOf(paciente.getPeso()));
+                Log.d("Altura : ", String.valueOf(paciente.getAltura()));
+                Log.d("IMC : ", String.valueOf(paciente.getImc()));
+                Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
+                Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
+                Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
+                Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
 
                 Intent intent = new Intent(PosLogin.this, Perfil.class);
                 intent.putExtra("Paciente", paciente);

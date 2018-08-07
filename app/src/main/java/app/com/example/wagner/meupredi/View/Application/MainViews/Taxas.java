@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.ControllerExames;
-import app.com.example.wagner.meupredi.Controller.ControllerPeso;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
@@ -74,21 +73,21 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         Log.d("TELA TAXAS : " , "<<<<<");
-        Log.d("GlicoseJejum : ", String.valueOf(paciente.get_glicosejejum()));
-        Log.d("Glicose75g : ", String.valueOf(paciente.get_glicose75g()));
-        Log.d("Colesterol : ", String.valueOf(paciente.get_colesterol()));
-        Log.d("Lipidograma : ", String.valueOf(paciente.get_lipidograma()));
-        Log.d("Hemograma : ", String.valueOf(paciente.get_hemograma()));
-        Log.d("Tireoide : ", String.valueOf(paciente.get_tireoide()));
+        Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
+        Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
+        Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
+        Log.d("Lipidograma : ", String.valueOf(paciente.getLipidograma()));
+        Log.d("Hemograma : ", String.valueOf(paciente.getHemograma()));
+        Log.d("Tireoide : ", String.valueOf(paciente.getTireoide()));
 
         glicoseJejum = (TextView) findViewById(R.id.text_glicoseJejumAtual_taxas);
-        glicoseJejum.setText(String.valueOf(paciente.get_glicosejejum()) + " mg/dL");
+        glicoseJejum.setText(String.valueOf(paciente.getGlicoseJejum()) + " mg/dL");
 
         glicose75 = (TextView) findViewById(R.id.text_glicose75gAtual_taxas);
-        glicose75.setText(String.valueOf(paciente.get_glicose75g()) + " mg/dL");
+        glicose75.setText(String.valueOf(paciente.getGlicose75g()) + " mg/dL");
 
         hemoglobinaGlicolisada = (TextView) findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
-        hemoglobinaGlicolisada.setText(String.valueOf(paciente.get_hemoglobinaglicolisada()) + " %");
+        hemoglobinaGlicolisada.setText(String.valueOf(paciente.getHemoglobinaGlicolisada()) + " %");
 
         chamadaInformativo = (ImageView) findViewById(R.id.image_informativo_glicoses);
 
@@ -138,10 +137,10 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                     glicoseJejum.setText(String.valueOf(gJDoPaciente) + " mg/dL");
                     Log.d("GJejum : ", glicoseJejum.getText().toString());
 
-                    paciente.set_glicosejejum(gJDoPaciente);
+                    paciente.setGlicoseJejum(gJDoPaciente);
 
                 } else {
-                    paciente.set_glicosejejum(0);
+                    paciente.setGlicoseJejum(0);
                 }
 
                 if(novaGlicose75.getText().toString().length() != 0) {
@@ -167,10 +166,10 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
 
                     Log.d("Gli75 : ", glicose75.getText().toString());
 
-                    paciente.set_glicose75g(g75DoPaciente);
+                    paciente.setGlicose75g(g75DoPaciente);
 
                 } else {
-                    paciente.set_glicose75g(0);
+                    paciente.setGlicose75g(0);
                 }
 
                 if(novaHemoglobinaGlicolisada.getText().toString().length() != 0) {
@@ -195,10 +194,10 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
 
                     Log.d("HG : ", hemoglobinaGlicolisada.getText().toString());
 
-                    paciente.set_hemoglobinaglicolisada(hgDoPaciente);
+                    paciente.setHemoglobinaGlicolisada(hgDoPaciente);
 
                 } else {
-                    paciente.set_hemoglobinaglicolisada(0);
+                    paciente.setHemoglobinaGlicolisada(0);
                 }
 
                 //atualiza dados no banco de taxas e nos dados do paciente

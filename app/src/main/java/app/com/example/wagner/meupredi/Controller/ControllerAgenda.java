@@ -1,23 +1,16 @@
 package app.com.example.wagner.meupredi.Controller;
 
-import android.app.NotificationManager;
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.AgendaClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.R;
 
 /**
  * Created by LeandroDias1 on 05/03/2018.
@@ -33,7 +26,7 @@ public class ControllerAgenda {
     }
 
     public String adicionarEvento(Paciente paciente, AgendaClass evento){
-        Log.d("ADICIONANDO PACIENTE : ", paciente.get_nome());
+        Log.d("ADICIONANDO PACIENTE : ", paciente.getNome());
         Log.d("EVENTO INFO: ", evento.getTitulo() + " " + evento.getDate().toString());
         return db.modelAddDate(paciente, evento);
     }
@@ -47,7 +40,7 @@ public class ControllerAgenda {
 
     public ArrayList<AgendaClass> getAllEventos(Paciente paciente){
         ArrayList<AgendaClass> consultas = db.modelGetAllAgendas(paciente);
-        Log.d("Consultas do ", paciente.get_nome());
+        Log.d("Consultas do ", paciente.getNome());
         for(int i=0;i<consultas.size();i++){
             for(int j=0;j<consultas.size()-1;j++){
                 int com = consultas.get(j).getDate().compareTo(consultas.get(j+1).getDate());
@@ -120,7 +113,7 @@ public class ControllerAgenda {
         ArrayList<AgendaClass> consultas = db.modelGetAllAgendas(paciente);
         consultas = sortConsultas(consultas);
 
-        Log.d("EventNotify : ", paciente.get_nome());
+        Log.d("EventNotify : ", paciente.getNome());
         for(int i=0;i<consultas.size();i++){
             Log.d("Consulta2 : ", consultas.get(i).getTitulo());
             Log.d("Data", consultas.get(i).getDate());

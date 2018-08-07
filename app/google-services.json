@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "245148303648-82hm3djppjqp59aqmpbqmdq7l4qedfcr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.com.example.wagner.meupredi",
+            "certificate_hash": "b5515b08c88262861c4d66456dc12956b6c39ef9"
+          }
+        },
+        {
           "client_id": "245148303648-tgh005bk1j4vadliun96f21lo2u6e8pd.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245148303648-tgh005bk1j4vadliun96f21lo2u6e8pd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

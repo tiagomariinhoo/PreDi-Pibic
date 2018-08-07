@@ -36,10 +36,7 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
@@ -110,7 +107,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         mChart.getAxisLeft().setDrawGridLines(false);
         mChart.getXAxis().setDrawGridLines(false);
 
-        double h = paciente.get_altura();
+        double h = paciente.getAltura();
         double pesoAux = 24.9 * h * h;
         LimitLine upper_limit;
         if(checkPeso.isChecked()) {
@@ -178,7 +175,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
         ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
-        imc = (controllerPeso.getPeso(paciente) / (paciente.get_altura() * paciente.get_altura()));
+        imc = (controllerPeso.getPeso(paciente) / (paciente.getAltura() * paciente.getAltura()));
 
         TextListaPesosTela = (TextView) findViewById(R.id.text_chamada_lista_pesos_tela);
         chamadaListaPesos = (ImageView) findViewById(R.id.image_chamar_pesos_tela_peso);
@@ -198,8 +195,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
         mudarGrafico();
 
-        Double peso_atual = paciente.get_peso();
-        Double circ_atual = paciente.get_circunferencia();
+        Double peso_atual = paciente.getPeso();
+        Double circ_atual = paciente.getCircunferencia();
 
         String pesoAtual = novoPeso.getText().toString();
         String circAtual = novoCirc.getText().toString();
@@ -337,23 +334,23 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                                     }
 
                                     //atualiza peso no objeto
-                                    paciente.set_peso(pesoDoPaciente);
+                                    paciente.setPeso(pesoDoPaciente);
                                     paciente.set_pesos(pesoDoPaciente);
-                                    paciente.set_circunferencia(circuDoPaciente);
+                                    paciente.setCircunferencia(circuDoPaciente);
 
                                     if (circuDoPaciente > 0) {
-                                        paciente.set_circunferencia(circuDoPaciente);
+                                        paciente.setCircunferencia(circuDoPaciente);
                                     }
 
                                     //recalcula imc
 
-                                    if (paciente.get_peso() > 0 && paciente.get_altura() > 0) {
-                                        imc = pesoDoPaciente/(paciente.get_altura()*paciente.get_altura());
+                                    if (paciente.getPeso() > 0 && paciente.getAltura() > 0) {
+                                        imc = pesoDoPaciente/(paciente.getAltura()*paciente.getAltura());
                                         String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
                                         imc = Double.parseDouble(imcFormatado);
-                                        paciente.set_imc(imc);
+                                        paciente.setImc(imc);
                                     } else {
-                                        paciente.set_imc(0);
+                                        paciente.setImc(0);
                                     }
 
                                     //atualiza o peso e o imc do paciente no banco
@@ -366,7 +363,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                                     Toast.makeText(getApplicationContext(), "Peso atualizado com sucesso!", Toast.LENGTH_SHORT).show();
 
-                                    Log.d("MEDIDAS: ", String.valueOf(paciente.get_circunferencia()));
+                                    Log.d("MEDIDAS: ", String.valueOf(paciente.getCircunferencia()));
 
                                     Intent intent = new Intent(Peso.this, Perfil.class);
                                     intent.putExtra("Paciente", paciente);
