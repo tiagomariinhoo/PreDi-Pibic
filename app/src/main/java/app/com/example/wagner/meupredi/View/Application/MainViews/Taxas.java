@@ -42,6 +42,7 @@ import app.com.example.wagner.meupredi.Controller.ControllerPeso;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.ListaTaxas;
 import app.com.example.wagner.meupredi.View.Application.PopGlicoses;
 
 /**
@@ -53,7 +54,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
     Paciente paciente;
     TextView  glicoseJejum, glicose75, hemoglobinaGlicolisada;
     EditText novaGlicose75, novaGlicoseJejum, novaHemoglobinaGlicolisada;
-    ImageView chamadaInformativo;
+    ImageView chamadaInformativo, chamadaListarTaxas;
     Button atualizarTaxas;
     private LineChart mChart;
 
@@ -91,6 +92,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         hemoglobinaGlicolisada.setText(String.valueOf(paciente.get_hemoglobinaglicolisada()) + " %");
 
         chamadaInformativo = (ImageView) findViewById(R.id.image_informativo_glicoses);
+        chamadaListarTaxas = (ImageView) findViewById(R.id.btn_chamada_listar_taxas);
 
         novaGlicoseJejum = (EditText) findViewById(R.id.edit_glicoseJejum_taxas);
         novaGlicoseJejum.setRawInputType(Configuration.KEYBOARD_QWERTY);
@@ -229,6 +231,16 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Taxas.this, PopGlicoses.class);
+                startActivity(intent);
+            }
+        });
+
+        chamadaListarTaxas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Taxas.this, ListaTaxas.class);
+                intent.putExtra("Paciente", paciente);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });

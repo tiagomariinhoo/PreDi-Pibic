@@ -281,6 +281,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_hemoglobina_glicolisada_taxas" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout4"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -294,11 +295,10 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_atualizar_taxas">
 
         <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/linechart_taxas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
-            android:id="@+id/linechart_taxas">
-        </com.github.mikephil.charting.charts.LineChart>
+            android:visibility="visible"></com.github.mikephil.charting.charts.LineChart>
 
     </RelativeLayout>
 
@@ -314,5 +314,19 @@
         app:layout_constraintStart_toEndOf="@+id/btn_atualizar_taxas"
         app:layout_constraintTop_toTopOf="@+id/btn_atualizar_taxas"
         app:srcCompat="@mipmap/ic_goals" />
+
+    <ImageView
+        android:id="@+id/btn_chamada_listar_taxas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout4"
+        app:layout_constraintEnd_toStartOf="@+id/btn_atualizar_taxas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_hemoglobina_glicolisadaAtual_taxas"
+        app:srcCompat="@mipmap/ic_listar_itens" />
 
 </android.support.constraint.ConstraintLayout>

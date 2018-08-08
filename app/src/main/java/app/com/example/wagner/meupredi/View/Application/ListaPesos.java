@@ -27,7 +27,6 @@ import app.com.example.wagner.meupredi.Controller.ControllerPeso;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
 import app.com.example.wagner.meupredi.View.Application.MainViews.Peso;
 
 public class ListaPesos extends Activity {
@@ -45,7 +44,6 @@ public class ListaPesos extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pesos);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
