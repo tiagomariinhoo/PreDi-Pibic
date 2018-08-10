@@ -4,66 +4,48 @@ import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
-public class PacienteDAO {
+public abstract class PacienteDAO extends DatabaseHelper {
 
-    private static String status;
+    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("Pacientes");
 
-    private static long last_id = 0;
+    public static boolean createPaciente(Paciente paciente){
 
-    private static DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("paciente");
+        myRef.document(paciente.getEmail())
+             .set(paciente)
+             .addOnSuccessListener(success)
+             .addOnFailureListener(failure);
 
-    private static OnSuccessListener<Void> success = new OnSuccessListener<Void>() {
-        @Override
-        public void onSuccess(Void aVoid) {
-            last_id++;
-            status = "success";
-        }
-    };
-
-    private static OnFailureListener failure = new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception e) {
-            status = "fail";
-        }
-    };
-
-    public static String savePaciente(Paciente paciente){
-
-        DataSnapshot snapshot;
-        myRef.child(paciente.getEmail())
-            .setValue(paciente)
-            .addOnSuccessListener(success)
-            .addOnFailureListener(failure);
-
-        return status;
+        return succeeded;
     }
 
-    public static Paciente getPaciente(String email){
+    public static boolean updatePaciente(Paciente paciente){
+        myRef.document(paciente.getEmail())
+             .set(paciente, SetOptions.merge())
+             .addOnSuccessListener(success)
+             .addOnFailureListener(failure);
 
-        final Paciente[] paciente = new Paciente[1];
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        return paciente[0];
+        return succeeded;
     }
 
+    public static Task<QuerySnapshot> queryAllPacientes(){
+        return myRef.get();
+    }
 
+    public static Task<DocumentSnapshot> queryPaciente(String email){
+        return myRef.document(email).get();
+    }
+
+    public static void queryExistsPaciente(String email){
+        myRef.document(email);
+    }
 
 }

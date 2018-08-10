@@ -76,7 +76,7 @@ public class Paciente implements Serializable {
                 Log.d("Peso: ", String.valueOf(getPeso()));
             }
 
-            public Integer getUltimaDica() {
+            public int getUltimaDica() {
                 return ultimaDica;
             }
 
@@ -84,7 +84,7 @@ public class Paciente implements Serializable {
                 this.ultimaDica = ultimaDica;
             }
 
-            public Integer getId() { return id; }
+            public int getId() { return id; }
 
             public void setId(int id) {
                 this.id = id;
@@ -130,7 +130,7 @@ public class Paciente implements Serializable {
                 this.email = email;
             }
 
-            public Integer getIdade() {
+            public int getIdade() {
                 return idade;
             }
 
@@ -138,7 +138,7 @@ public class Paciente implements Serializable {
                 this.idade = idade;
             }
 
-            public Double getCircunferencia() {
+            public double getCircunferencia() {
                 return circunferencia;
             }
 
@@ -146,7 +146,7 @@ public class Paciente implements Serializable {
                 this.circunferencia = circunferencia;
             }
 
-            public Double getPeso() {
+            public double getPeso() {
                 return peso;
             }
 
@@ -154,7 +154,7 @@ public class Paciente implements Serializable {
                 this.peso = peso;
             }
 
-            public Double getAltura() {
+            public double getAltura() {
                 return altura;
             }
 
@@ -162,7 +162,7 @@ public class Paciente implements Serializable {
                 this.altura = altura;
             }
 
-            public Double getImc() {
+            public double getImc() {
                 return imc;
             }
 
@@ -170,7 +170,7 @@ public class Paciente implements Serializable {
                 this.imc = imc;
             }
 
-            public Double getHba1c() {
+            public double getHba1c() {
                 return hba1c;
             }
 
@@ -178,7 +178,7 @@ public class Paciente implements Serializable {
                 this.hba1c = hba1c;
             }
 
-            public Double getGlicoseJejum() {
+            public double getGlicoseJejum() {
                 return glicoseJejum;
             }
 
@@ -186,7 +186,7 @@ public class Paciente implements Serializable {
                 this.glicoseJejum = glicosejejum;
             }
 
-            public Double getHemoglobinaGlicolisada() {
+            public double getHemoglobinaGlicolisada() {
                 return hemoglobinaGlicolisada;
             }
 
@@ -194,7 +194,7 @@ public class Paciente implements Serializable {
                 this.hemoglobinaGlicolisada = _hemoglobinaglicolisada;
             }
 
-            public Double getGlicose75g() {
+            public double getGlicose75g() {
                 return glicose75g;
             }
 
@@ -202,7 +202,7 @@ public class Paciente implements Serializable {
                 this.glicose75g = glicose75g;
             }
 
-            public Double getColesterol() {
+            public double getColesterol() {
                 return colesterol;
             }
 
@@ -210,7 +210,7 @@ public class Paciente implements Serializable {
                 this.colesterol = _colesterol;
             }
 
-            public Double getLipidograma() {
+            public double getLipidograma() {
                 return lipidograma;
             }
 
@@ -218,7 +218,7 @@ public class Paciente implements Serializable {
                 this.lipidograma = lipidograma;
             }
 
-            public Double getHemograma() {
+            public double getHemograma() {
                 return hemograma;
             }
 
@@ -226,7 +226,7 @@ public class Paciente implements Serializable {
                 this.hemograma = hemograma;
             }
 
-            public Double getTireoide() {
+            public double getTireoide() {
                 return tireoide;
             }
 
@@ -234,7 +234,7 @@ public class Paciente implements Serializable {
                 this.tireoide = tireoide;
             }
 
-            public Integer getExTotal() {
+            public int getExTotal() {
                 return exTotal;
             }
 
@@ -242,7 +242,7 @@ public class Paciente implements Serializable {
                 this.exTotal = exTotal;
             }
 
-            public Integer getExMax() {
+            public int getExMax() {
                 return exMax;
             }
 

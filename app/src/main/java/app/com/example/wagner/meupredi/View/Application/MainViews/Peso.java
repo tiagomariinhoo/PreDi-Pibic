@@ -34,14 +34,19 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
 import app.com.example.wagner.meupredi.Controller.ControllerPeso;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaPesos;
 
@@ -62,18 +67,18 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
     private double imc;
     private AlertDialog.Builder alertaNovaMedicao;
 
-    private void inverterCheckBox(String atual){
+    private void inverterCheckBox(String atual, List<PesoClass> pesos){
         if(atual == "Peso") {
             checkCircunferecia.setChecked(!checkCircunferecia.isChecked());
-            mudarGrafico();
+            mudarGrafico(pesos);
         }
         else {
             checkPeso.setChecked(!checkPeso.isChecked());
-            mudarGrafico();
+            mudarGrafico(pesos);
         }
       }
 
-    private void mudarGrafico(){
+    private void mudarGrafico(List<PesoClass> pesos){
 
         mChart = (LineChart) findViewById(R.id.linechart_tela_peso);
 
@@ -82,7 +87,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         mChart.setDrawGridBackground(false);
 
         // add data pesos
-        setData();
+        setData(pesos);
 
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();
@@ -175,7 +180,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
         ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
-        imc = (controllerPeso.getPeso(paciente) / (paciente.getAltura() * paciente.getAltura()));
+
+        imc = (/*controllerPeso.getPeso(paciente)*/paciente.getPeso() / (paciente.getAltura() * paciente.getAltura()));
 
         TextListaPesosTela = (TextView) findViewById(R.id.text_chamada_lista_pesos_tela);
         chamadaListaPesos = (ImageView) findViewById(R.id.image_chamar_pesos_tela_peso);
@@ -193,7 +199,12 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         checkPeso = (CheckBox) findViewById(R.id.checkBox_graf_peso);
         checkCircunferecia = (CheckBox) findViewById(R.id.checkBox_circunferencia_graf);
 
-        mudarGrafico();
+        controllerPeso.getAllInfos(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                mudarGrafico(queryDocumentSnapshots.toObjects(PesoClass.class));
+            }
+        });
 
         Double peso_atual = paciente.getPeso();
         Double circ_atual = paciente.getCircunferencia();
@@ -388,22 +399,26 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                 alertaNovaMedicao.create().show();
             }
         });
-
-        checkPeso.setOnClickListener(new View.OnClickListener() {
+        controllerPeso.getAllInfos(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onClick(View v) {
-                inverterCheckBox("Peso");
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                queryDocumentSnapshots.toObjects(PesoClass.class);
+                checkPeso.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        inverterCheckBox("Peso", queryDocumentSnapshots.toObjects(PesoClass.class));
+                    }
+                });
+
+                checkCircunferecia.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        inverterCheckBox("Circunferencia", queryDocumentSnapshots.toObjects(PesoClass.class));
+
+                    }
+                });
             }
         });
-
-        checkCircunferecia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inverterCheckBox("Circunferencia");
-
-            }
-        });
-
     }
 
     private ArrayList<String> setXAxisValues(int tam) {
@@ -415,36 +430,38 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
         return xVals;
     }
-
-    private ArrayList<Entry> setYAxisValues() {
+    private float doubleToFloat(double number){
+        return Float.parseFloat(Double.toString(number));
+    }
+    private ArrayList<Entry> setYAxisValues(List<PesoClass> medidas) {
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
         ControllerPeso pesoController = new ControllerPeso(getApplicationContext());
-        ArrayList<Float> medidas;
-        
+        List<Float> medidasAux;
+
         if(checkPeso.isChecked()){
-            medidas = pesoController.getAllPesos(paciente);
+            medidasAux = medidas.stream().map(medida -> doubleToFloat(medida.getPeso())).collect(Collectors.toList());
         }
         else{
             Log.d("CIRC: ", "ENTROU");
-            medidas = pesoController.getAllCircunferencias(paciente);
+            medidasAux = medidas.stream().map(medida -> doubleToFloat(medida.getCircunferencia())).collect(Collectors.toList());
         }
 
         for (int i = 0; i < medidas.size(); i++) {
-            float valor = medidas.get(i);
-            Log.d("MEDIDAS: ", medidas.get(i).toString());
+            float valor = medidasAux.get(i);
+            Log.d("MEDIDAS: ", medidasAux.get(i).toString());
             yVals.add(new Entry(valor, i));
         }
 
         return yVals;
     }
 
-    private void setData() {
+    private void setData(List<PesoClass> medidas) {
 
-        ArrayList<Entry> yVals = setYAxisValues();
+        ArrayList<Entry> yVals = setYAxisValues(medidas);
 
         ArrayList<String> xVals = setXAxisValues(yVals.size());
 

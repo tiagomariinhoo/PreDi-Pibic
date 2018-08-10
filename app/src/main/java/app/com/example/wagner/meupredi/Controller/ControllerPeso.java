@@ -3,8 +3,13 @@ package app.com.example.wagner.meupredi.Controller;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import app.com.example.wagner.meupredi.Database.PesoDAO;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
@@ -24,10 +29,14 @@ public class ControllerPeso {
         db.modelAtualizarPeso(paciente);
     }
 
-    public boolean editPeso(PesoClass peso){return db.modelEditPeso(peso);}
+    public boolean editPeso(PesoClass peso){
+        return PesoDAO.updatePeso(peso);
+        //return db.modelEditPeso(peso);
+    }
 
-    public double getPeso(Paciente paciente){
-        return db.modelGetPeso(paciente);
+    public Task<QuerySnapshot> getPeso(Paciente paciente){
+        return PesoDAO.queryPeso(paciente);
+        //return db.modelGetPeso(paciente);
     }
 
     public ArrayList<Float> getAllPesos(Paciente paciente){
@@ -38,9 +47,14 @@ public class ControllerPeso {
 
     public double getCircunferencia(Paciente paciente) { return db.modelGetCircunferencia(paciente);}
 
-    public ArrayList<PesoClass> getAllInfos(Paciente paciente) {return db.modelGetAllPesoClass(paciente);}
+    public Task<QuerySnapshot> getAllInfos(Paciente paciente) {
+        return PesoDAO.queryAllPesos(paciente);
+        //return db.modelGetAllPesoClass(paciente);
+    }
 
     public boolean eraseLastInfo(PesoClass peso){
         Log.d("Id peso : ", String.valueOf(peso.getIdPeso()));
-        return db.eraseLastInfoPeso(peso); }
+        return PesoDAO.deletePeso(peso);
+        //return db.eraseLastInfoPeso(peso);
+    }
 }

@@ -2,7 +2,9 @@ package app.com.example.wagner.meupredi.Controller;
 
 import android.content.Context;
 
-import java.util.List;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import app.com.example.wagner.meupredi.Database.PacienteDAO;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
@@ -19,16 +21,19 @@ public class ControllerPaciente {
         db = new DatabaseHandler(context);
     }
 
-    public String addPaciente(Paciente paciente){
-        return PacienteDAO.savePaciente(paciente);/*db.modelAddPaciente(paciente);*/
+    public boolean addPaciente(Paciente paciente){
+        return PacienteDAO.createPaciente(paciente);
+        //return db.modelAddPaciente(paciente).equals("Registro inserido com sucesso!");
     }
 
-    public List<Paciente> getAllUsers(){
-      return  db.modelGetAllUsers();
+    public Task<QuerySnapshot> getAllUsers(){
+        return PacienteDAO.queryAllPacientes();
+        //return  db.modelGetAllUsers();
     }
 
-    public Paciente getPaciente(String email){
-        return db.modelGetPaciente(email);
+    public Task<DocumentSnapshot> getPaciente(String email){
+        return PacienteDAO.queryPaciente(email);
+        //return db.modelGetPaciente(email);
     }
 
     public void deleteAllPacientes(){
@@ -44,7 +49,8 @@ public class ControllerPaciente {
     }
 
     public boolean atualizarPaciente(Paciente paciente){
-        return db.modelAtualizarPaciente(paciente);
+        return PacienteDAO.updatePaciente(paciente);
+        //return db.modelAtualizarPaciente(paciente);
     }
 
 }

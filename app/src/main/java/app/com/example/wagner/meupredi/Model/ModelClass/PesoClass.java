@@ -1,20 +1,32 @@
 package app.com.example.wagner.meupredi.Model.ModelClass;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class PesoClass {
     int idPeso;
     double peso;
     double circunferencia;
     String datePeso;
+    String pacienteEmail;
     int flagPeso;
     int idPaciente;
 
+    public PesoClass() {}
+
     public PesoClass(int idPeso, double peso, double circunferencia, String datePeso, int flagPeso, int idPaciente) {
+        this(idPeso, peso, circunferencia, datePeso, flagPeso, idPaciente, null);
+    }
+
+    public PesoClass(int idPeso, double peso, double circunferencia, String datePeso, int flagPeso, int idPaciente, String pacienteEmail) {
         this.idPeso = idPeso;
         this.peso = peso;
         this.circunferencia = circunferencia;
         this.datePeso = datePeso;
         this.flagPeso = flagPeso;
         this.idPaciente = idPaciente;
+        this.pacienteEmail = pacienteEmail;
     }
 
     public int getIdPeso() {
@@ -63,6 +75,14 @@ public class PesoClass {
 
     public void setIdPaciente(int idPaciente) {
         this.idPaciente = idPaciente;
+    }
+
+    public String getPacienteEmail(){
+        return pacienteEmail;
+    }
+
+    public void setPacienteEmail(String pacienteEmail){
+        this.pacienteEmail = pacienteEmail;
     }
 
     @Override

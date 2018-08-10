@@ -201,8 +201,8 @@ public class CriarConta extends AppCompatActivity {
                         Paciente paciente = new Paciente (0, nomeCompleto, senhaCadastro, emailCadastro, "", idadeAux, 0 , 0, 0, -1);
 
                         //verifica opcao de sexo selecionada
-                        String selected = sexo.getSelectedItem().toString();
-                        if (selected.equals("M")) {
+                        String selectedSexo = sexo.getSelectedItem().toString();
+                        if (selectedSexo.equals("M")) {
                             paciente.setSexo("M");
                         } else {
                             paciente.setSexo("F");
@@ -233,7 +233,12 @@ public class CriarConta extends AppCompatActivity {
                         Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
                         Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
 
-                        String msg = controllerPaciente.addPaciente(paciente);
+                        String msg;
+                        if(controllerPaciente.addPaciente(paciente)){
+                            msg = "Registro inserido com sucesso!";
+                        } else {
+                            msg = "Erro ao inserir o registro!";
+                        }
                         ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
                         controllerPeso.atualizarPeso(paciente);
                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();

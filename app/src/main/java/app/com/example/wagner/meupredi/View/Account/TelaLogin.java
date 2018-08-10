@@ -19,13 +19,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import app.com.example.wagner.meupredi.Controller.ControllerExames;
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
 import app.com.example.wagner.meupredi.Controller.ControllerPeso;
+import app.com.example.wagner.meupredi.Database.PacienteDAO;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 import app.com.example.wagner.meupredi.R;
 
 public class TelaLogin extends AppCompatActivity {
@@ -117,10 +123,10 @@ public class TelaLogin extends AppCompatActivity {
                 SharedPreferences.Editor editor = settings.edit();
 
                 //DEBUG: imprime lista de pacientes cadastrados
-                List<Paciente> pacList = new ArrayList<Paciente> ();
-                pacList = controllerPaciente.getAllUsers();
+                //List<Paciente> pacList = new ArrayList<Paciente> ();
+                //pacList = controllerPaciente.getAllUsers();
 
-                Log.d("Tamanho pacList LOGIN: ", String.valueOf(pacList.size()));
+                //Log.d("Tamanho pacList LOGIN: ", String.valueOf(pacList.size()));
                /* if(pacList.size() > 0){
                     for(int i=0;i<pacList.size();i++){
                         Log.d(pacList.get(i).get_nome()," -> Nome do paciente");
@@ -142,6 +148,43 @@ public class TelaLogin extends AppCompatActivity {
                 user = usuario.getText().toString();
                 pass = senha.getText().toString();
 
+                controllerPaciente.getPaciente(user).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        final Paciente paciente = documentSnapshot.toObject(Paciente.class);
+                        //se a senha estiver correta, faz o login
+                        if (paciente.getSenha().equals(pass)) {
+                            ControllerExames controllerExames = new ControllerExames(getApplicationContext());
+                            //pega peso atual do paciente na tabela correspondente
+                            //double peso = controllerPeso.getPeso(paciente);
+                            controllerPeso.getPeso(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if(queryDocumentSnapshots.toObjects(PesoClass.class).size() >= 1) {
+                                        //pega o primeiro peso da lista de pesos (lista ordenada por data da pesagem)
+                                        PesoClass peso = queryDocumentSnapshots.toObjects(PesoClass.class).get(0);
+                                        Log.d("PESO NA TELA LOGIN  : ", String.valueOf(peso));
+                                        paciente.setPeso(peso.getPeso());
+                                    }
+                                    //Paciente pacTaxas = controllerExames.getUltimasTaxas(paciente);
+
+                                    //pra q essa linha ta aqui?
+                                    //paciente = controllerExames.getUltimasTaxas(paciente);
+
+                                    Intent it = new Intent(TelaLogin.this, PosLogin.class);
+                                    it.putExtra("Paciente", paciente);
+
+                                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(it);
+                                    finish();
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Usuário inválido!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                /*
                 Paciente paciente = new Paciente();
                 paciente = controllerPaciente.verificarLogin(user,pass);
 
@@ -166,6 +209,7 @@ public class TelaLogin extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Usuário inválido!", Toast.LENGTH_LONG).show();
                 }
+                */
             }
         });
 
