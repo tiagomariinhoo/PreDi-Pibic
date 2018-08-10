@@ -178,7 +178,7 @@ public class PosLogin extends AppCompatActivity {
                 ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
                 //pega peso cadastrado pelo paciente na tela e insere em sua respectiva tabela no banco
                 if(pesoCadastro.length() != 0){
-                    controllerPeso.atualizarPeso(paciente);
+                    controllerPeso.addPeso(paciente);
                 }
 
                 //atualiza dados do usuario no banco

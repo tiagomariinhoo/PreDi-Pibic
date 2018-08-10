@@ -23,13 +23,18 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
 import app.com.example.wagner.meupredi.Controller.ControllerPeso;
+import app.com.example.wagner.meupredi.Database.PesoDAO;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 import app.com.example.wagner.meupredi.R;
 
 public class GraficosPeso extends AppCompatActivity implements OnChartGestureListener,
@@ -136,18 +141,15 @@ public class GraficosPeso extends AppCompatActivity implements OnChartGestureLis
         return xVals;
     }
 
-    private ArrayList<Entry> setYAxisValues(){
+    private ArrayList<Entry> setYAxisValues(List<PesoClass> pesos){
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
-        ControllerPeso pesoController = new ControllerPeso(getApplicationContext());
-        ArrayList<Float> pesos = pesoController.getAllPesos(paciente);
-
         int i;
         for(i = 0; i < pesos.size(); i++){
-            float valor = pesos.get(i);
+            float valor = ((float) pesos.get(i).getPeso());
             yVals.add(new Entry(valor, i));
         }
 
@@ -166,39 +168,43 @@ public class GraficosPeso extends AppCompatActivity implements OnChartGestureLis
     }
 
     private void setData() {
+        ControllerPeso pesoController = new ControllerPeso(getApplicationContext());
+        pesoController.getAllInfos(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                ArrayList<Entry> yVals = setYAxisValues(queryDocumentSnapshots.toObjects(PesoClass.class));
 
-        ArrayList<Entry> yVals = setYAxisValues();
+                ArrayList<String> xVals = setXAxisValues(yVals.size());
 
-        ArrayList<String> xVals = setXAxisValues(yVals.size());
+                LineDataSet set1;
 
-        LineDataSet set1;
+                // create a dataset and give it a type
+                set1 = new LineDataSet(yVals, "DataSet 1");
 
-        // create a dataset and give it a type
-        set1 = new LineDataSet(yVals, "DataSet 1");
+                set1.setFillAlpha(110);
+                // set1.setFillColor(Color.RED);
 
-        set1.setFillAlpha(110);
-        // set1.setFillColor(Color.RED);
+                // set the line to be drawn like this "- - - - - -"
+                //   set1.enableDashedLine(10f, 5f, 0f);
+                // set1.enableDashedHighlightLine(10f, 5f, 0f);
+                set1.setColor(Color.BLACK);
+                set1.setCircleColor(Color.BLACK);
+                set1.setLineWidth(1f);
+                set1.setCircleRadius(3f);
+                set1.setDrawCircleHole(false);
+                set1.setValueTextSize(9f);
+                set1.setDrawFilled(true);
 
-        // set the line to be drawn like this "- - - - - -"
-        //   set1.enableDashedLine(10f, 5f, 0f);
-        // set1.enableDashedHighlightLine(10f, 5f, 0f);
-        set1.setColor(Color.BLACK);
-        set1.setCircleColor(Color.BLACK);
-        set1.setLineWidth(1f);
-        set1.setCircleRadius(3f);
-        set1.setDrawCircleHole(false);
-        set1.setValueTextSize(9f);
-        set1.setDrawFilled(true);
+                ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                dataSets.add(set1); // add the datasets
 
-        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-        dataSets.add(set1); // add the datasets
+                // create a data object with the datasets
+                LineData data = new LineData(xVals, dataSets);
 
-        // create a data object with the datasets
-        LineData data = new LineData(xVals, dataSets);
-
-        // set data
-        mChart.setData(data);
-
+                // set data
+                mChart.setData(data);
+            }
+        });
     }
 
     @Override

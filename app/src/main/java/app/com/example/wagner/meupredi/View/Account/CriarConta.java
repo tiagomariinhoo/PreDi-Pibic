@@ -240,7 +240,7 @@ public class CriarConta extends AppCompatActivity {
                             msg = "Erro ao inserir o registro!";
                         }
                         ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
-                        controllerPeso.atualizarPeso(paciente);
+                        controllerPeso.addPeso(paciente);
                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
                         Intent voltaLogin = new Intent(CriarConta.this, TelaLogin.class);

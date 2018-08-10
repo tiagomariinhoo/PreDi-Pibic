@@ -25,8 +25,9 @@ public class ControllerPeso {
         db = new DatabaseHandler(context);
     }
 
-    public void atualizarPeso(Paciente paciente){
-        db.modelAtualizarPeso(paciente);
+    public boolean addPeso(Paciente paciente){
+        return PesoDAO.createPeso(paciente);
+        //db.modelAtualizarPeso(paciente);
     }
 
     public boolean editPeso(PesoClass peso){

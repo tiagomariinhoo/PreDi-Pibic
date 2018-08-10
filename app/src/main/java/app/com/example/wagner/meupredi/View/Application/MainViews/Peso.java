@@ -369,7 +369,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                                     ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
                                     ControllerPaciente controllerPaciente = new ControllerPaciente(getApplicationContext());
 
-                                    controllerPeso.atualizarPeso(paciente);
+                                    controllerPeso.addPeso(paciente);
                                     controllerPaciente.atualizarPaciente(paciente);
 
                                     Toast.makeText(getApplicationContext(), "Peso atualizado com sucesso!", Toast.LENGTH_SHORT).show();
@@ -430,9 +430,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
         return xVals;
     }
-    private float doubleToFloat(double number){
-        return Float.parseFloat(Double.toString(number));
-    }
+
     private ArrayList<Entry> setYAxisValues(List<PesoClass> medidas) {
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
@@ -443,11 +441,11 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         List<Float> medidasAux;
 
         if(checkPeso.isChecked()){
-            medidasAux = medidas.stream().map(medida -> doubleToFloat(medida.getPeso())).collect(Collectors.toList());
+            medidasAux = medidas.stream().map(medida -> (float)(medida.getPeso())).collect(Collectors.toList());
         }
         else{
             Log.d("CIRC: ", "ENTROU");
-            medidasAux = medidas.stream().map(medida -> doubleToFloat(medida.getCircunferencia())).collect(Collectors.toList());
+            medidasAux = medidas.stream().map(medida -> (float)(medida.getCircunferencia())).collect(Collectors.toList());
         }
 
         for (int i = 0; i < medidas.size(); i++) {
