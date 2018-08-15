@@ -8,6 +8,6 @@ SE gja OU tdg ENTAO mev E PreDiabetes
 SE mev ENTAO verificaMetas
 SE verificaMetas E alcançouMetas ENTAO "Acompanhamento a cada 6 meses!"
 SE verificaMetas E ~alcançouMetas ENTAO "Reforçar a mudança no estilo de vida!"
-SE PreDiabetes ENTAO "PreDiabetes, mudança no estilo de vida!"
-SE dm2 ENTAO "Diagnóstico de Diabetes!"
+SE PreDiabetes ENTAO "Pré-Diabetes, busque uma mudança no estilo de vida!"
+SE dm2 ENTAO "Diagnóstico de Diabetes, é indispensável que você procure e se mantenha acompanhado de um médico!"
 

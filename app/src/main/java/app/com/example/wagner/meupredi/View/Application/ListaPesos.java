@@ -256,29 +256,21 @@ public class ListaPesos extends Activity {
                                     }
                                 });
                         alertaAlterarPeso.create().show();
-
                     }
                 });
-
             }
         });
-
-
     }
 
     private ArrayList<String> adapterList(ControllerPeso pesoController){
 
         ArrayList<PesoClass> pesoList = pesoController.getAllInfos(paciente);
-
         ArrayList<String> pesoListAux = new ArrayList<>();
 
         for(PesoClass peso : pesoList){
             pesoListAux.add(peso.toString());
         }
-
         //Collections.reverse(pesoListAux);
-
         return pesoListAux;
     }
-
 }

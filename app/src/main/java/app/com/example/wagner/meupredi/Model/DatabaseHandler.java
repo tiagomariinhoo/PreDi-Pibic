@@ -752,7 +752,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery(selectQuery, null);
 
-
             if(cursor.moveToFirst()){
                 do{
                     if(Integer.parseInt(cursor.getString(5)) == idPaciente &&

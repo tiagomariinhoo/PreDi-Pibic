@@ -42,7 +42,6 @@
             android:label="Taxas"/>
         <activity
             android:name=".View.Application.MainViews.Peso"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_peso" />
         <activity
             android:name=".View.Application.MainViews.Dados"

@@ -44,9 +44,7 @@ public class TelaLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_tela_login);
-
 
         usuario = (EditText) findViewById(R.id.edit_usuario_login);
         senha = (EditText) findViewById(R.id.edit_senha_login);
