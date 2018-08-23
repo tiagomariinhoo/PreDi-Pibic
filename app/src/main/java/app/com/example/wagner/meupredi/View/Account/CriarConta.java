@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +23,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -174,79 +179,20 @@ public class CriarConta extends AppCompatActivity {
                 String conSenhaCadastro = conSenha.getText().toString();
 
                 //verificando se email ja foi cadastrado
-                //DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                ControllerPaciente controllerPaciente = new ControllerPaciente(getApplicationContext());
-                Paciente tempPaciente = new Paciente();
-
-                tempPaciente = controllerPaciente.verificarEmail(emailCadastro);
-
-                //se o id for -1, entao email nao foi cadastrado
-                if(tempPaciente.getId() == -1) {
-
-                    //verifica se todos os campos estao preenchidos
-                    if(nomeCompleto.length() == 0) {
-                        Toast.makeText(getApplicationContext(), "Insira um nome válido!", Toast.LENGTH_SHORT).show();
-                    } else if(emailCadastro.length() == 0) {
-                        Toast.makeText(getApplicationContext(), "Insira um email válido!", Toast.LENGTH_SHORT).show();
-                    } else if(dataCadastro.length() == 0){
-                        data.setText("");
-                        Toast.makeText(getApplicationContext(), "Data em formato inválido! Por favor, digite no formato ddmmaaaa.", Toast.LENGTH_SHORT).show();
-                    } else if(senhaCadastro.length() == 0) {
-                        Toast.makeText(getApplicationContext(), "Insira uma senha válida!", Toast.LENGTH_SHORT).show();
-                    } else if(senhaCadastro.equals(conSenhaCadastro)) {
-                        Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
-
-                        Log.d("Idade Criar Conta: ", String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - ano));
-                        //configuracao padrao de usuario
-                        Paciente paciente = new Paciente (0, nomeCompleto, senhaCadastro, emailCadastro, "", idadeAux, 0 , 0, 0, -1);
-
-                        //verifica opcao de sexo selecionada
-                        String selected = sexo.getSelectedItem().toString();
-                        if (selected.equals("M")) {
-                            paciente.setSexo("M");
-                        } else {
-                            paciente.setSexo("F");
+                ControllerPaciente.getPaciente(emailCadastro)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Toast.makeText(getApplicationContext(), "Email já cadastrado!", Toast.LENGTH_LONG).show();
                         }
-
-                        dataCadastro = dataCadastro.substring(0, 2) + "/" + dataCadastro.substring(2, 4) + "/" + dataCadastro.substring(4, dataCadastro.length());
-                        paciente.setNascimento(dataCadastro);
-
-                        GregorianCalendar calendar = new GregorianCalendar();
-                        int dia = calendar.get(GregorianCalendar.DAY_OF_YEAR);
-
-                        paciente.setExTotal(0);
-
-                        //DEBUG: imprime todos os dados do paciente
-                        Log.d("Criando: ", "criar conta");
-                        Log.d("Nome : ", paciente.getNome());
-                        Log.d("Senha : ", paciente.getSenha());
-                        Log.d("Email: ", paciente.getEmail());
-                        Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
-                        Log.d("Nascimento: ", paciente.getNascimento());
-                        Log.d("Idade : ", String.valueOf(paciente.getIdade()));
-                        Log.d("Circunferencia : ", String.valueOf(paciente.getCircunferencia()));
-                        Log.d("Peso : ", String.valueOf(paciente.getPeso()));
-                        Log.d("Altura : ", String.valueOf(paciente.getAltura()));
-                        Log.d("IMC : ", String.valueOf(paciente.getImc()));
-                        Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
-                        Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
-                        Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
-                        Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
-
-                        String msg = controllerPaciente.addPaciente(paciente);
-                        ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
-                        controllerPeso.atualizarPeso(paciente);
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-
-                        Intent voltaLogin = new Intent(CriarConta.this, TelaLogin.class);
-                        startActivity(voltaLogin);
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Insira senhas iguais!", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Email já cadastrado!", Toast.LENGTH_LONG).show();
-                }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            //email não cadastrado
+                            novoPaciente(nomeCompleto, emailCadastro, dataCadastro, senhaCadastro, conSenhaCadastro);
+                        }
+                    });
 
             }
         });
@@ -258,5 +204,80 @@ public class CriarConta extends AppCompatActivity {
                 startActivity(voltaLogin);
             }
         });
+    }
+
+    private void novoPaciente(String nomeCompleto, String emailCadastro, String dataCadastro, String senhaCadastro, String conSenhaCadastro){
+        //verifica se todos os campos estao preenchidos
+        if(nomeCompleto.length() == 0) {
+            Toast.makeText(getApplicationContext(), "Insira um nome válido!", Toast.LENGTH_SHORT).show();
+        } else if(emailCadastro.length() == 0) {
+            Toast.makeText(getApplicationContext(), "Insira um email válido!", Toast.LENGTH_SHORT).show();
+        } else if(dataCadastro.length() == 0){
+            data.setText("");
+            Toast.makeText(getApplicationContext(), "Data em formato inválido! Por favor, digite no formato ddmmaaaa.", Toast.LENGTH_SHORT).show();
+        } else if(senhaCadastro.length() == 0) {
+            Toast.makeText(getApplicationContext(), "Insira uma senha válida!", Toast.LENGTH_SHORT).show();
+        } else if(senhaCadastro.equals(conSenhaCadastro)) {
+            Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+
+            Log.d("Idade Criar Conta: ", String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - ano));
+            //configuracao padrao de usuario
+            Paciente paciente = new Paciente (0, nomeCompleto, senhaCadastro, emailCadastro, "", idadeAux, 0 , 0, 0, -1);
+
+            //verifica opcao de sexo selecionada
+            String selected = sexo.getSelectedItem().toString();
+            if (selected.equals("M")) {
+                paciente.setSexo("M");
+            } else {
+                paciente.setSexo("F");
+            }
+
+            dataCadastro = dataCadastro.substring(0, 2) + "/" + dataCadastro.substring(2, 4) + "/" + dataCadastro.substring(4, dataCadastro.length());
+            paciente.setNascimento(dataCadastro);
+
+            GregorianCalendar calendar = new GregorianCalendar();
+            int dia = calendar.get(GregorianCalendar.DAY_OF_YEAR);
+
+            paciente.setExTotal(0);
+
+            //DEBUG: imprime todos os dados do paciente
+            Log.d("Criando: ", "criar conta");
+            Log.d("Nome : ", paciente.getNome());
+            Log.d("Senha : ", paciente.getSenha());
+            Log.d("Email: ", paciente.getEmail());
+            Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
+            Log.d("Nascimento: ", paciente.getNascimento());
+            Log.d("Idade : ", String.valueOf(paciente.getIdade()));
+            Log.d("Circunferencia : ", String.valueOf(paciente.getCircunferencia()));
+            Log.d("Peso : ", String.valueOf(paciente.getPeso()));
+            Log.d("Altura : ", String.valueOf(paciente.getAltura()));
+            Log.d("IMC : ", String.valueOf(paciente.getImc()));
+            Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
+            Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
+            Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
+            Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
+
+            ControllerPaciente.addPaciente(paciente)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Registro inserido com sucesso!", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Erro ao inserir o registro!", Toast.LENGTH_LONG).show();
+                    }
+                });
+            ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
+            controllerPeso.atualizarPeso(paciente);
+
+            Intent voltaLogin = new Intent(CriarConta.this, TelaLogin.class);
+            startActivity(voltaLogin);
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Insira senhas iguais!", Toast.LENGTH_LONG).show();
+        }
     }
 }

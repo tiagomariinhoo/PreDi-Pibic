@@ -175,7 +175,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
         ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
-        imc = (controllerPeso.getPeso(paciente) / (paciente.getAltura() * paciente.getAltura()));
+        //imc = (controllerPeso.getPeso(paciente) / (paciente.getAltura() * paciente.getAltura()));
 
         TextListaPesosTela = (TextView) findViewById(R.id.text_chamada_lista_pesos_tela);
         chamadaListaPesos = (ImageView) findViewById(R.id.image_chamar_pesos_tela_peso);
