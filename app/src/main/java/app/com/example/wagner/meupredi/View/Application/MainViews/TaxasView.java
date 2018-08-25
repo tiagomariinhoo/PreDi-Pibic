@@ -76,9 +76,6 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
         Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
         Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
-        Log.d("Lipidograma : ", String.valueOf(paciente.getLipidograma()));
-        Log.d("Hemograma : ", String.valueOf(paciente.getHemograma()));
-        Log.d("Tireoide : ", String.valueOf(paciente.getTireoide()));
 
         glicoseJejum = (TextView) findViewById(R.id.text_glicoseJejumAtual_taxas);
         glicoseJejum.setText(String.valueOf(paciente.getGlicoseJejum()) + " mg/dL");

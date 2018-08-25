@@ -594,7 +594,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.update(this.TABLE_PACIENTES, values, where, null) > 0;
 
     }
-
+/*
     public boolean modelEditPeso(PesoClass pesoClass){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values;
@@ -606,7 +606,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return db.update(this.TABLE_PESOS, values, where, null) > 0;
     }
-
+*/
     public boolean modelEditExame(ExameClass exameClass){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values;
@@ -715,7 +715,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return pesos;
     }
-
+/*
     public ArrayList<PesoClass> modelGetAllPesoClass(Paciente paciente){
         int idPaciente = paciente.getId();
         ArrayList<PesoClass> pesos = new ArrayList<>();
@@ -742,7 +742,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return pesos;
     }
-
+*/
     public ArrayList<ExameClass> modelGetAllExameClass(Paciente paciente) throws Exception{
         int idPaciente = paciente.getId();
             ArrayList<ExameClass> exames = new ArrayList<>();
@@ -784,7 +784,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return db.update(this.TABLE_EXAMES, values, where, null) > 0;
     }
-
+/*
     public boolean eraseLastInfoPeso(PesoClass peso){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values;
@@ -796,7 +796,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return db.update(this.TABLE_PESOS, values, where, null) > 0;
     }
-
+*/
     public ArrayList<Float> modelGetAllCircunferencias(Paciente paciente){
         int idPaciente = paciente.getId();
         ArrayList<Float> circunferencias = new ArrayList<>();

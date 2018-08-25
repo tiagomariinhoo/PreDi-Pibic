@@ -41,12 +41,11 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
-import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
-import app.com.example.wagner.meupredi.Controller.ControllerPeso;
+import app.com.example.wagner.meupredi.Controller.PacienteController;
+import app.com.example.wagner.meupredi.Controller.MedidaController;
+import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaPesos;
 
@@ -67,18 +66,18 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
     private double imc;
     private AlertDialog.Builder alertaNovaMedicao;
 
-    private void inverterCheckBox(String atual, List<PesoClass> pesos){
+    private void inverterCheckBox(String atual){
         if(atual == "Peso") {
             checkCircunferecia.setChecked(!checkCircunferecia.isChecked());
-            mudarGrafico(pesos);
+            mudarGrafico();
         }
         else {
             checkPeso.setChecked(!checkPeso.isChecked());
-            mudarGrafico(pesos);
+            mudarGrafico();
         }
       }
 
-    private void mudarGrafico(List<PesoClass> pesos){
+    private void mudarGrafico(){
 
         mChart = (LineChart) findViewById(R.id.linechart_tela_peso);
 
@@ -87,7 +86,30 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         mChart.setDrawGridBackground(false);
 
         // add data pesos
-        setData(pesos);
+        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        MedidaController.getAllMedidas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Medida> medidas = queryDocumentSnapshots.toObjects(Medida.class);
+                List<Entry> yVals = new ArrayList<>();
+                List<String> xVals = new ArrayList<>();
+
+                for(int i = 0; i < medidas.size(); ++i){
+                    float valor;
+                    if(checkPeso.isChecked()) {
+                        valor = (float) medidas.get(i).getPeso();
+                    } else {
+                        valor = (float) medidas.get(i).getCircunferencia();
+                    }
+                    Log.d("MEDIDAS: ", medidas.get(i).toString());
+                    yVals.add(new Entry(valor, i));
+                    xVals.add("");
+                }
+
+                setData(xVals, yVals);
+
+            }
+        });
 
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();
@@ -179,9 +201,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         paciente.getInfo();
-        ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
 
-        imc = (/*controllerPeso.getPeso(paciente)*/paciente.getPeso() / (paciente.getAltura() * paciente.getAltura()));
+        imc = (paciente.getPeso() / (paciente.getAltura() * paciente.getAltura()));
 
         TextListaPesosTela = (TextView) findViewById(R.id.text_chamada_lista_pesos_tela);
         chamadaListaPesos = (ImageView) findViewById(R.id.image_chamar_pesos_tela_peso);
@@ -199,18 +220,10 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         checkPeso = (CheckBox) findViewById(R.id.checkBox_graf_peso);
         checkCircunferecia = (CheckBox) findViewById(R.id.checkBox_circunferencia_graf);
 
-        controllerPeso.getAllInfos(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                mudarGrafico(queryDocumentSnapshots.toObjects(PesoClass.class));
-            }
-        });
+        mudarGrafico();
 
         Double peso_atual = paciente.getPeso();
         Double circ_atual = paciente.getCircunferencia();
-
-        String pesoAtual = novoPeso.getText().toString();
-        String circAtual = novoCirc.getText().toString();
 
         novoPeso.setHint(String.format("%.2f", peso_atual));
         novoCirc.setHint(String.format("%.2f", circ_atual));
@@ -365,12 +378,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                                     }
 
                                     //atualiza o peso e o imc do paciente no banco
-                                    //DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                                    ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
-                                    ControllerPaciente controllerPaciente = new ControllerPaciente(getApplicationContext());
-
-                                    controllerPeso.addPeso(paciente);
-                                    controllerPaciente.atualizarPaciente(paciente);
+                                    MedidaController.addMedida(paciente);
+                                    PacienteController.atualizarPaciente(paciente);
 
                                     Toast.makeText(getApplicationContext(), "Peso atualizado com sucesso!", Toast.LENGTH_SHORT).show();
 
@@ -399,69 +408,39 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                 alertaNovaMedicao.create().show();
             }
         });
-        controllerPeso.getAllInfos(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+        checkPeso.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                queryDocumentSnapshots.toObjects(PesoClass.class);
-                checkPeso.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        inverterCheckBox("Peso", queryDocumentSnapshots.toObjects(PesoClass.class));
-                    }
-                });
-
-                checkCircunferecia.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        inverterCheckBox("Circunferencia", queryDocumentSnapshots.toObjects(PesoClass.class));
-
-                    }
-                });
+            public void onClick(View v) {
+                inverterCheckBox("Peso");
             }
         });
+
+        checkCircunferecia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inverterCheckBox("Circunferencia");
+
+            }
+        });
+
     }
 
-    private ArrayList<String> setXAxisValues(int tam) {
-        ArrayList<String> xVals = new ArrayList<String>();
-        int i = 0;
-        for (i = 0; i < tam; i++) {
+    private void setAxisValues(List<Entry> yVals, List<String> xVals, List<Medida> medidas){
+        for(int i = 0; i < medidas.size(); ++i){
+            float valor;
+            if(checkPeso.isChecked()) {
+                valor = (float) medidas.get(i).getPeso();
+            } else {
+                valor = (float) medidas.get(i).getCircunferencia();
+            }
+            Log.d("MEDIDAS: ", medidas.get(i).toString());
+            yVals.add(new Entry(valor, i));
             xVals.add("");
         }
-
-        return xVals;
     }
 
-    private ArrayList<Entry> setYAxisValues(List<PesoClass> medidas) {
-
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
-
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
-
-        ControllerPeso pesoController = new ControllerPeso(getApplicationContext());
-        List<Float> medidasAux;
-
-        if(checkPeso.isChecked()){
-            medidasAux = medidas.stream().map(medida -> (float)(medida.getPeso())).collect(Collectors.toList());
-        }
-        else{
-            Log.d("CIRC: ", "ENTROU");
-            medidasAux = medidas.stream().map(medida -> (float)(medida.getCircunferencia())).collect(Collectors.toList());
-        }
-
-        for (int i = 0; i < medidas.size(); i++) {
-            float valor = medidasAux.get(i);
-            Log.d("MEDIDAS: ", medidasAux.get(i).toString());
-            yVals.add(new Entry(valor, i));
-        }
-
-        return yVals;
-    }
-
-    private void setData(List<PesoClass> medidas) {
-
-        ArrayList<Entry> yVals = setYAxisValues(medidas);
-
-        ArrayList<String> xVals = setXAxisValues(yVals.size());
+    private void setData(List<String> xVals, List<Entry> yVals) {
 
         LineDataSet set1;
 

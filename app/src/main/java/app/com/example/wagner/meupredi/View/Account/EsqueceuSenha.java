@@ -3,6 +3,7 @@ package app.com.example.wagner.meupredi.View.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
@@ -52,38 +57,21 @@ public class EsqueceuSenha extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                ControllerPaciente controllerPaciente = new ControllerPaciente(getApplicationContext());
-                Paciente paciente = new Paciente();
-
                 //verificando existencia do email no banco de dados
-                paciente = controllerPaciente.verificarEmail(email.getText().toString().trim());
-
-                if(paciente.getId() != -1){
-
-                    //setando dados da mensagem
-                    String sender = email.getText().toString().trim();
-                    String subject = "MeuPreDi: recuperar senha";
-                    String message = "Sr(a) " + paciente.getNome().toString()
-                                             + ", a opção de reenvio de senha foi solicitada com seu email. "
-                                             + "Se você não fez essa solicitação, desconsidere esta mensagem.\n\n"
-                                             + "Senha: " + paciente.getSenha().toString()
-                                             + "\n\nEquipe MeuPreDi";
-
-                    //criando objeto do email
-                    SendMail sm = new SendMail(getApplicationContext(), sender, subject, message);
-
-                    //enviando email
-                    sm.execute();
-
-                    Toast.makeText(getApplicationContext(), "Email de recuperação de senha enviado!", Toast.LENGTH_LONG).show();
-
-                    Intent intent = new Intent(EsqueceuSenha.this, TelaLogin.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Email não cadatrado ou inválido!", Toast.LENGTH_LONG).show();
-                }
-
+                ControllerPaciente.getPaciente(email.getText().toString().trim())
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Paciente paciente = documentSnapshot.toObject(Paciente.class);
+                            enviarEmail(paciente);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Email não cadatrado ou inválido!", Toast.LENGTH_LONG).show();
+                        }
+                    });
 
             }
         });
@@ -98,4 +86,25 @@ public class EsqueceuSenha extends AppCompatActivity {
 
     }
 
+    public void enviarEmail(Paciente paciente){
+        //setando dados da mensagem
+        String sender = email.getText().toString().trim();
+        String subject = "MeuPreDi: recuperar senha";
+        String message = "Sr(a) " + paciente.getNome().toString()
+                + ", a opção de reenvio de senha foi solicitada com seu email. "
+                + "Se você não fez essa solicitação, desconsidere esta mensagem.\n\n"
+                + "Senha: " + paciente.getSenha().toString()
+                + "\n\nEquipe MeuPreDi";
+
+        //criando objeto do email
+        SendMail sm = new SendMail(getApplicationContext(), sender, subject, message);
+
+        //enviando email
+        sm.execute();
+
+        Toast.makeText(getApplicationContext(), "Email de recuperação de senha enviado!", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(EsqueceuSenha.this, TelaLogin.class);
+        startActivity(intent);
+    }
 }
