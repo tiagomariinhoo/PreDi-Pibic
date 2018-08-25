@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
+import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 
@@ -58,7 +58,7 @@ public class EsqueceuSenha extends AppCompatActivity {
             public void onClick(View v) {
 
                 //verificando existencia do email no banco de dados
-                ControllerPaciente.getPaciente(email.getText().toString().trim())
+                PacienteController.getPaciente(email.getText().toString().trim())
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {

@@ -58,20 +58,6 @@ public class TabConsultas extends Activity {
                 startActivity(intent);
             }
         });
-
-
-/*
-        graficopeso = (Button) findViewById(R.id.btn_tab_evolucao_peso);
-
-        graficopeso.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TabEvolucao.this, GraficosPeso.class);
-                intent.putExtra("Paciente", paciente);
-                startActivity(intent);
-            }
-        });
-*/
     }
 
     private ArrayList<String> adapterList(ControllerAgenda controllerAgenda){

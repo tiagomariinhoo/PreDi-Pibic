@@ -13,12 +13,13 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import app.com.example.wagner.meupredi.View.Account.EmailConfig;
-
 public class SendMail extends AsyncTask<Void,Void,Void> {
 
     private Context context;
     private Session session;
+
+    public static final String EMAIL_PREDI ="prediteste@gmail.com";
+    public static final String PASSWORD_PREDI ="teste123456";
 
     private String email;
     private String subject;
@@ -58,7 +59,7 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
                 new javax.mail.Authenticator() {
                     //Authenticating the password
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(EmailConfig.EMAIL, EmailConfig.PASSWORD);
+                        return new PasswordAuthentication(EMAIL_PREDI, PASSWORD_PREDI);
                     }
                 });
 
@@ -67,7 +68,7 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
             MimeMessage mm = new MimeMessage(session);
 
             //email do remetente
-            mm.setFrom(new InternetAddress(EmailConfig.EMAIL));
+            mm.setFrom(new InternetAddress(EMAIL_PREDI));
             //destinatario
             mm.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             //assunto

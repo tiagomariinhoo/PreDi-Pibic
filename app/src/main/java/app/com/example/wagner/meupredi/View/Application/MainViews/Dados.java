@@ -12,9 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.Locale;
 
-import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
+import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
@@ -24,7 +26,6 @@ public class Dados extends AppCompatActivity {
     EditText nome;
     EditText idade;
     EditText altura;
-    EditText circunferecia;
     Button atualizar;
     Paciente paciente;
 
@@ -42,9 +43,6 @@ public class Dados extends AppCompatActivity {
 
         altura = (EditText) findViewById(R.id.edit_altura_dados);
         altura.setRawInputType(Configuration.KEYBOARD_QWERTY);
-
-        circunferecia = (EditText) findViewById(R.id.edit_circunferencia_dados);
-        circunferecia.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
@@ -65,12 +63,6 @@ public class Dados extends AppCompatActivity {
             altura.setHint("altura não cadastrada");
         }
 
-        if(paciente.getCircunferencia() != -1.0) {
-            circunferecia.setHint(String.valueOf(paciente.getCircunferencia()) + " cm");
-        } else {
-            circunferecia.setHint("circunferência não cadastrada");
-        }
-
         findViewById(R.id.tela_dados).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +70,6 @@ public class Dados extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(idade.getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(altura.getWindowToken(), 0);
-                    imm.hideSoftInputFromWindow(circunferecia.getWindowToken(), 0);
                 }
             }
         });
@@ -147,31 +138,13 @@ public class Dados extends AppCompatActivity {
                     }
                 }
 
-                //atualiza circunferencia
-                String circunferenciaAtual = circunferecia.getText().toString();
-
-                if(circunferenciaAtual.length() != 0) {
-
-                    //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a uma casa decimal)
-                    circunferenciaAtual = circunferenciaAtual.replace(',', '.');
-                    Double circunferenciaAtualizada = Double.parseDouble(circunferenciaAtual);
-                    String circunferenciaFormatada = String.format(Locale.ENGLISH, "%.2f", circunferenciaAtualizada);
-                    Double circunferenciaDoPaciente = Double.parseDouble(circunferenciaFormatada);
-
-                    //atualiza circunferencia no objeto
-                    paciente.setCircunferencia(circunferenciaDoPaciente);
-
-                    //atualiza valor na tela
-                    circunferecia.setHint(String.valueOf(paciente.getCircunferencia()) + " cm");
-                    circunferecia.setText("");
-                }
-
-                //atualiza a idade, altura, circunferencia e o imc do paciente no banco
-                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                ControllerPaciente controllerPaciente = new ControllerPaciente(getApplicationContext());
-                controllerPaciente.atualizarPaciente(paciente);
-
-                Toast.makeText(getApplicationContext(),"Dados atualizados com sucesso!",Toast.LENGTH_SHORT).show();
+                //atualiza a idade, altura e o imc do paciente no banco
+                PacienteController.atualizarPaciente(paciente).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(),"Dados atualizados com sucesso!",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 Intent intent = new Intent(Dados.this, Perfil.class);
                 intent.putExtra("Paciente", paciente);

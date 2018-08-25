@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Application.MainViews.Taxas;
+import app.com.example.wagner.meupredi.View.Application.MainViews.TaxasView;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
 
@@ -45,7 +45,7 @@ public class TabTaxas extends Activity {
         chamadaAtualizarTaxas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TabTaxas.this, Taxas.class);
+                Intent intent = new Intent(TabTaxas.this, TaxasView.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }

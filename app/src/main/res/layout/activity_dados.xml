@@ -38,42 +38,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_nome_dados" />
 
-    <EditText
-        android:id="@+id/edit_circunferencia_dados"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
-        android:background="#fff"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:nextFocusDown="@+id/edit_circunferencia_dado"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_circunferencia_dado"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.0" />
-
-    <TextView
-        android:id="@+id/text_circunferencia_dado"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorBarraTituloRoxa"
-        android:text="Circunferência (em cm):"
-        android:textAlignment="center"
-        android:textColor="@color/colorBranco"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_altura_dados" />
-
     <TextView
         android:id="@+id/text_altura_dado"
         android:layout_width="0dp"

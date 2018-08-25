@@ -45,7 +45,7 @@ public class PesoIdeal extends Activity  {
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
-        if(paciente.getSenha().equals("M")){
+        if(paciente.getSexo().equals("M")){
             if(paciente.getCircunferencia() < 94){
                 circunferenciaIdeal = "Baixo risco de complicações metabólicas!";
             } else if(paciente.getCircunferencia() >= 94 && paciente.getCircunferencia() <= 101){

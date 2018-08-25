@@ -1,6 +1,5 @@
 package app.com.example.wagner.meupredi.Model;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,17 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.AgendaClass;
-import app.com.example.wagner.meupredi.Model.ModelClass.ExameClass;
-import app.com.example.wagner.meupredi.Model.ModelClass.HemogramaClass;
-import app.com.example.wagner.meupredi.Model.ModelClass.LipidogramaClass;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
 
 /**
  * Created by wagne on 31/03/2017.
@@ -274,8 +268,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return agendaList;
     }
-
-    public String modelAddExame (ExameClass exame){
+/*
+    public String modelAddExame (Taxas exame){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -303,56 +297,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
     }
-
-    public String modelAddLipidograma (LipidogramaClass lipidograma){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(KEY_HDL, lipidograma.getHDL());
-        values.put(KEY_LDL, lipidograma.getLDL());
-        values.put(KEY_COLESTEROLTOTAL, lipidograma.getColesterolTotal());
-        values.put(KEY_TRIGLICERIDES, lipidograma.getTriglicerides());
-        values.put(KEY_DATA_LIPIDOGRAMA, lipidograma.getDataLipidograma());
-        values.put(KEY_LOCAL_LIPIDOGRAMA, lipidograma.getLocalLipidograma());
-        values.put(KEY_PAC4, lipidograma.getIdPacienteLipidograma());
-
-        long retorno;
-        retorno = db.insert(TABLE_LIPIDOGRAMA, null, values);
-        db.close();
-
-        if(retorno == -1){
-            return "Erro ao registrar o lipidograma!";
-        } else {
-            return "Lipidograma registrado com sucesso!";
-        }
-    }
-
-    public String modelAddHemograma (HemogramaClass hemograma){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(KEY_HEMOGLOBINA, hemograma.getHemoglobina());
-        values.put(KEY_HEMATOCRITO, hemograma.getHematocrito());
-        values.put(KEY_VGM, hemograma.getVgm());
-        values.put(KEY_CHCM, hemograma.getChcm());
-        values.put(KEY_CHGM, hemograma.getChgm());
-        values.put(KEY_RWD, hemograma.getRwd());
-        values.put(KEY_DATA_HEMOGRAMA, hemograma.getDataHemograma());
-        values.put(KEY_PAC5, hemograma.getIdPacienteHemograma());
-
-        long retorno;
-        retorno = db.insert(TABLE_HEMOGRAMA, null, values);
-        db.close();
-
-        if(retorno == -1){
-            return "Erro ao inserir o hemograma";
-        } else {
-            return "Registro do hemograma feito com sucesso!";
-        }
-    }
-
+*/
     //metodo chamado na classe CriarConta para adicionar um novo paciente ao banco
     public String modelAddPaciente(Paciente paciente){
 
@@ -372,7 +317,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("Peso : ", String.valueOf(paciente.getPeso()));
         Log.d("Altura : ", String.valueOf(paciente.getAltura()));
         Log.d("IMC : ", String.valueOf(paciente.getImc()));
-        Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
         Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
         Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
         Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
@@ -431,7 +375,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 paciente.setPeso(modelGetPeso(paciente));
 
                 //pega suas ultimas taxas cadastradas
-                paciente = modelGetUltimasTaxas(paciente);
+                //paciente = modelGetUltimasTaxas(paciente);
 
                 pacientesList.add(paciente);
 
@@ -439,9 +383,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return pacientesList;
     }
-
-    public List<ExameClass> modelGetAllExames() throws ParseException {
-        List<ExameClass> exameList = new ArrayList<>();
+/*
+    public List<Taxas> modelGetAllExames() throws ParseException {
+        List<Taxas> exameList = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + TABLE_EXAMES;
 
@@ -450,7 +394,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do{
-                ExameClass exame = new ExameClass();
+                Taxas exame = new Taxas();
                 exame.setId(Integer.parseInt(cursor.getString(0)));
                 exame.setGlicose75g(Double.parseDouble(cursor.getString(1)));
                 exame.setGlicoseJejum(Double.parseDouble(cursor.getString(2)));
@@ -462,7 +406,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return exameList;
     }
-
+*/
     //metodo chamado na classe MenuPrincipal para manter o objeto 'paciente' sempre atualizado
     public Paciente modelGetPaciente(String email) {
 
@@ -527,7 +471,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Log.d("Peso : ", String.valueOf(paciente.getPeso()));
                     Log.d("Altura : ", String.valueOf(paciente.getAltura()));
                     Log.d("IMC : ", String.valueOf(paciente.getImc()));
-                    Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
                     Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
                     Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
                     Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
@@ -606,20 +549,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return db.update(this.TABLE_PESOS, values, where, null) > 0;
     }
-*/
-    public boolean modelEditExame(ExameClass exameClass){
+
+    public boolean modelEditExame(Taxas taxas){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values;
-        String where = this.KEY_ID_EXAME + "=" + String.valueOf(exameClass.getId());
+        String where = this.KEY_ID_EXAME + "=" + String.valueOf(taxas.getId());
 
         values = new ContentValues();
-        values.put(KEY_GLICOSE75G, exameClass.getGlicose75g());
-        values.put(KEY_GLICOSEJEJUM, exameClass.getGlicoseJejum());
-        values.put(KEY_HEMOGLOBINAGLICO, exameClass.getHemoglobinaGlico());
+        values.put(KEY_GLICOSE75G, taxas.getGlicose75g());
+        values.put(KEY_GLICOSEJEJUM, taxas.getGlicoseJejum());
+        values.put(KEY_HEMOGLOBINAGLICO, taxas.getHemoglobinaGlico());
 
         return db.update(this.TABLE_EXAMES, values, where, null) > 0;
     }
-
+*/
 
     //metodo chamado na classe PosLogin e Peso para registrar peso do paciente
     public void modelAtualizarPeso(Paciente paciente){
@@ -743,9 +686,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return pesos;
     }
 */
-    public ArrayList<ExameClass> modelGetAllExameClass(Paciente paciente) throws Exception{
+/*
+    public ArrayList<Taxas> modelGetAllExameClass(Paciente paciente) throws Exception{
         int idPaciente = paciente.getId();
-            ArrayList<ExameClass> exames = new ArrayList<>();
+            ArrayList<Taxas> exames = new ArrayList<>();
 
             String selectQuery = "SELECT * FROM " + TABLE_EXAMES;
 
@@ -758,7 +702,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     if(Integer.parseInt(cursor.getString(5)) == idPaciente &&
                             cursor.getString(7).equals(String.valueOf(0))){
                         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                        ExameClass aux = new ExameClass();
+                        Taxas aux = new Taxas();
                         aux.setId(Integer.valueOf(cursor.getString(0)));
                         aux.setGlicose75g(Double.parseDouble(cursor.getString(1)));
                         aux.setGlicoseJejum(Double.parseDouble(cursor.getString(2)));
@@ -774,7 +718,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return exames;
     }
 
-    public boolean eraseLastInfoTaxas(ExameClass exame){
+    public boolean eraseLastInfoTaxas(Taxas exame){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values;
         String where = this.KEY_ID_EXAME + "=" + String.valueOf(exame.getId());
@@ -784,6 +728,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return db.update(this.TABLE_EXAMES, values, where, null) > 0;
     }
+*/
 /*
     public boolean eraseLastInfoPeso(PesoClass peso){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -816,7 +761,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return circunferencias;
     }
-
+/*
     public ArrayList<Float> modelGetGlicosesJejum(Paciente paciente){
         ArrayList<Float> glicosesJejum = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_EXAMES;
@@ -942,5 +887,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //retorna paciente com ultimas taxas cadastradas pelo usuario
         return paciente;
     }
-
+*/
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,10 +14,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.Locale;
 
-import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
-import app.com.example.wagner.meupredi.Controller.ControllerPeso;
+import app.com.example.wagner.meupredi.Controller.PacienteController;
+import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
@@ -67,7 +71,6 @@ public class PosLogin extends AppCompatActivity {
         Log.d("Peso : ", String.valueOf(paciente.getPeso()));
         Log.d("Altura : ", String.valueOf(paciente.getAltura()));
         Log.d("IMC : ", String.valueOf(paciente.getImc()));
-        Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
         Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
         Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
         Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
@@ -138,7 +141,6 @@ public class PosLogin extends AppCompatActivity {
                     String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
                     float pesoDoPaciente = Float.parseFloat(pesoFormatado);
                     paciente.setPeso(pesoDoPaciente);
-                    paciente.set_pesos(pesoDoPaciente);
 
                 } if (circunferenciaCadastro.length()==0){
                     paciente.setCircunferencia(-1);
@@ -173,22 +175,27 @@ public class PosLogin extends AppCompatActivity {
                             " quando quiser.",Toast.LENGTH_LONG).show();
                 }
 
-                //DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                ControllerPaciente controllerPaciente = new ControllerPaciente(getApplicationContext());
-                ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
                 //pega peso cadastrado pelo paciente na tela e insere em sua respectiva tabela no banco
                 if(pesoCadastro.length() != 0){
-                    controllerPeso.addPeso(paciente);
+                    MedidaController.addMedida(paciente);
                 }
 
                 //atualiza dados do usuario no banco
-                if(controllerPaciente.atualizarPaciente(paciente)){
-                    Toast.makeText(getApplicationContext(),"Sucesso ao editar!",Toast.LENGTH_LONG).show();
-                    Log.d("Sucesso"," Sucesso");
-                } else {
-                    Toast.makeText(getApplicationContext(),"Erro ao editar!",Toast.LENGTH_LONG).show();
-                    Log.d("Erro"," Erro");
-                }
+                PacienteController.atualizarPaciente(paciente)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(),"Sucesso ao editar!",Toast.LENGTH_LONG).show();
+                            Log.d("Sucesso"," Sucesso");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(),"Erro ao editar!",Toast.LENGTH_LONG).show();
+                            Log.d("Erro"," Erro");
+                        }
+                    });
 
                 //DEBUG: imprime os dados do paciente para verificar se estao corretos
                 Log.d("Sincronizado: ", "poslogin");
@@ -202,7 +209,6 @@ public class PosLogin extends AppCompatActivity {
                 Log.d("Peso : ", String.valueOf(paciente.getPeso()));
                 Log.d("Altura : ", String.valueOf(paciente.getAltura()));
                 Log.d("IMC : ", String.valueOf(paciente.getImc()));
-                Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
                 Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
                 Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
                 Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));

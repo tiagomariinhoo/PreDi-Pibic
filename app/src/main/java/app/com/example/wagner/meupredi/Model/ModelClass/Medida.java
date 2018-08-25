@@ -1,37 +1,35 @@
 package app.com.example.wagner.meupredi.Model.ModelClass;
 
-import com.google.firebase.firestore.ServerTimestamp;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
-public class PesoClass {
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    private String datePeso; // serves as ID
-    double peso;
-    double circunferencia;
-    int flagPeso;
+public class Medida {
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+    private String dateMedida; // serves as ID
+    private double peso;
+    private double circunferencia;
+    private int flagPeso;
     private String emailPaciente;
 
-    public PesoClass(String datePeso, double peso, double circunferencia, int flagPeso, String emailPaciente) {
-        this(peso, circunferencia, flagPeso, emailPaciente);
-        this.datePeso = datePeso;
+    public Medida(String dateMedida, double peso, double circunferencia, String emailPaciente) {
+        this(peso, circunferencia, emailPaciente);
+        this.dateMedida = dateMedida;
     }
     //yyyy-MM-dd HH:mm:ss.S
-    public PesoClass(Date datePeso, double peso, double circunferencia, int flagPeso, String emailPaciente) {
-        this(peso, circunferencia, flagPeso, emailPaciente);
-        String stringDate = dateFormat.format(datePeso);
-        this.datePeso = stringDate;
+    public Medida(Date dateMedida, double peso, double circunferencia, String emailPaciente) {
+        this(peso, circunferencia, emailPaciente);
+        this.dateMedida = dateFormat.format(dateMedida);
     }
 
-    private PesoClass(double peso, double circunferencia, int flagPeso, String emailPaciente) {
+    private Medida(double peso, double circunferencia, String emailPaciente) {
         this.peso = peso;
         this.circunferencia = circunferencia;
-        this.flagPeso = flagPeso;
+        this.flagPeso = 1;
         this.emailPaciente = emailPaciente;
     }
 
+    public Medida(){}
 
     public double getPeso() {
         return peso;
@@ -49,22 +47,9 @@ public class PesoClass {
         this.circunferencia = circunferencia;
     }
 
-    public String getDatePesoString() {
-        return datePeso.toString();
+    public String getDateMedida() {
+        return dateMedida;
     }
-
-    public Date getDatePeso(){
-        try {
-            return dateFormat.parse(datePeso);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    //date is automatically set by the database, so no setter allowed
-    /*public void setDatePeso(String datePeso) {
-        this.datePeso = datePeso;
-    }*/
 
     public int getFlagPeso() {
         return flagPeso;
@@ -84,7 +69,8 @@ public class PesoClass {
 
     @Override
     public String toString() {
-        return String.format("Peso: %.2f kg -- Circunferência: %.2f cm", this.getPeso(), this.getCircunferencia());
+        return String.format(Locale.getDefault(),
+                "Peso: %.2f kg -- Circunferência: %.2f cm", this.getPeso(), this.getCircunferencia());
     }
 
 }

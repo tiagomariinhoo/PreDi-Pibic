@@ -35,12 +35,16 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+
+import javax.annotation.Nullable;
 
 import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Controller.MedidaController;
@@ -53,7 +57,7 @@ import app.com.example.wagner.meupredi.View.Application.ListaPesos;
  * Created by Tiago on 27/06/2017.
  */
 
-public class Peso extends AppCompatActivity implements OnChartGestureListener,
+public class MedidaView extends AppCompatActivity implements OnChartGestureListener,
         OnChartValueSelectedListener {
 
     private LineChart mChart;
@@ -86,7 +90,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         mChart.setDrawGridBackground(false);
 
         // add data pesos
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        //TODO: usar snapshot listener pra plotar o gráfico
         MedidaController.getAllMedidas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -250,7 +254,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         chamadaListaPesos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Peso.this, ListaPesos.class);
+                Intent intent = new Intent(MedidaView.this, ListaPesos.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
@@ -259,7 +263,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
         TextListaPesosTela.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Peso.this, ListaPesos.class);
+                Intent intent = new Intent(MedidaView.this, ListaPesos.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
@@ -310,8 +314,8 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                     circAtualizado = Float.parseFloat(circAtual);
 
                 } catch(Exception e){
-                    Toast.makeText(Peso.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Peso.this, Perfil.class);
+                    Toast.makeText(MedidaView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(MedidaView.this, Perfil.class);
                     intent.putExtra("Paciente", paciente);
                     //finish();
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -330,7 +334,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                 dataUltimaMedicao.setText(dia + ", " + mes + ", " + ano);
 
-                alertaNovaMedicao = new AlertDialog.Builder(Peso.this);
+                alertaNovaMedicao = new AlertDialog.Builder(MedidaView.this);
                 alertaNovaMedicao.setTitle("Atenção!");
                 alertaNovaMedicao.setMessage("Verifique se as informações de sua medição estão corretas e confirme." +
                         "\n" + "Peso: " + pesoAtual + "kg\nCircunferência: " + circAtual + "cm\nData: " + dia +
@@ -341,7 +345,7 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(Peso.this, "Nova medicao cancelada", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MedidaView.this, "Nova medicao cancelada", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -359,7 +363,6 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                                     //atualiza peso no objeto
                                     paciente.setPeso(pesoDoPaciente);
-                                    paciente.set_pesos(pesoDoPaciente);
                                     paciente.setCircunferencia(circuDoPaciente);
 
                                     if (circuDoPaciente > 0) {
@@ -379,13 +382,16 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
 
                                     //atualiza o peso e o imc do paciente no banco
                                     MedidaController.addMedida(paciente);
-                                    PacienteController.atualizarPaciente(paciente);
+                                    PacienteController.atualizarPaciente(paciente).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(getApplicationContext(), "Peso atualizado com sucesso!", Toast.LENGTH_SHORT).show();
 
-                                    Toast.makeText(getApplicationContext(), "Peso atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                            Log.d("MEDIDAS: ", String.valueOf(paciente.getCircunferencia()));
+                                        }
+                                    });
 
-                                    Log.d("MEDIDAS: ", String.valueOf(paciente.getCircunferencia()));
-
-                                    Intent intent = new Intent(Peso.this, Perfil.class);
+                                    Intent intent = new Intent(MedidaView.this, Perfil.class);
                                     intent.putExtra("Paciente", paciente);
                                     //finish();
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -420,24 +426,9 @@ public class Peso extends AppCompatActivity implements OnChartGestureListener,
             @Override
             public void onClick(View v) {
                 inverterCheckBox("Circunferencia");
-
             }
         });
 
-    }
-
-    private void setAxisValues(List<Entry> yVals, List<String> xVals, List<Medida> medidas){
-        for(int i = 0; i < medidas.size(); ++i){
-            float valor;
-            if(checkPeso.isChecked()) {
-                valor = (float) medidas.get(i).getPeso();
-            } else {
-                valor = (float) medidas.get(i).getCircunferencia();
-            }
-            Log.d("MEDIDAS: ", medidas.get(i).toString());
-            yVals.add(new Entry(valor, i));
-            xVals.add("");
-        }
     }
 
     private void setData(List<String> xVals, List<Entry> yVals) {

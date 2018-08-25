@@ -33,13 +33,16 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-import app.com.example.wagner.meupredi.Controller.ControllerExames;
-import app.com.example.wagner.meupredi.Model.DatabaseHandler;
+import app.com.example.wagner.meupredi.Controller.TaxasController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.PopGlicoses;
 
@@ -47,7 +50,7 @@ import app.com.example.wagner.meupredi.View.Application.PopGlicoses;
  * Created by LeandroDias1 on 25/07/2017.
  */
 
-public class Taxas  extends AppCompatActivity implements OnChartGestureListener, OnChartValueSelectedListener {
+public class TaxasView extends AppCompatActivity implements OnChartGestureListener, OnChartValueSelectedListener {
 
     Paciente paciente;
     TextView  glicoseJejum, glicose75, hemoglobinaGlicolisada;
@@ -122,8 +125,8 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                     try{
                         gJAtualizada = Double.parseDouble(novaGJ);
                     } catch(Exception e){
-                        Toast.makeText(Taxas.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(Taxas.this, Perfil.class);
+                        Toast.makeText(TaxasView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(TaxasView.this, Perfil.class);
                         intent.putExtra("Paciente", paciente);
                         startActivity(intent);
                     }
@@ -150,8 +153,8 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                     try{
                         g75Atualizada = Double.parseDouble(novaG75);
                     } catch(Exception e){
-                        Toast.makeText(Taxas.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(Taxas.this, Perfil.class);
+                        Toast.makeText(TaxasView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(TaxasView.this, Perfil.class);
                         intent.putExtra("Paciente", paciente);
                         startActivity(intent);
                     }
@@ -179,8 +182,8 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                     try{
                         hgAtualizada = Double.parseDouble(novaHG);
                     } catch(Exception e){
-                        Toast.makeText(Taxas.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(Taxas.this, Perfil.class);
+                        Toast.makeText(TaxasView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(TaxasView.this, Perfil.class);
                         intent.putExtra("Paciente", paciente);
                         startActivity(intent);
                     }
@@ -198,9 +201,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                 }
 
                 //atualiza dados no banco de taxas e nos dados do paciente
-                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                ControllerExames controllerExames = new ControllerExames(getApplicationContext());
-                controllerExames.atualizarTaxas(paciente);
+                TaxasController.addTaxas(paciente);
 
                 Toast.makeText(getApplicationContext(),"Taxas atualizadas com sucesso!",Toast.LENGTH_SHORT).show();
                 paciente.calculo_diabetes(getApplicationContext());
@@ -208,7 +209,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
                 novaGlicose75.setText("");
                 novaHemoglobinaGlicolisada.setText("");
 
-                Intent intent = new Intent(Taxas.this, Perfil.class);
+                Intent intent = new Intent(TaxasView.this, Perfil.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
 
@@ -224,7 +225,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         chamadaInformativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Taxas.this, PopGlicoses.class);
+                Intent intent = new Intent(TaxasView.this, PopGlicoses.class);
                 startActivity(intent);
             }
         });
@@ -235,7 +236,24 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         mChart.setDrawGridBackground(false);
 
         // add data
-        setData();
+        TaxasController.getAllTaxas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Taxas> taxas = queryDocumentSnapshots.toObjects(Taxas.class);
+                List<Entry> yVals = new ArrayList<>();
+                List<String> xVals = new ArrayList<>();
+
+                for(int i = 0; i < taxas.size(); ++i){
+                    float valor = (float)taxas.get(i).getGlicoseJejum();
+                    Log.d("MEDIDAS: ", taxas.get(i).toString());
+                    yVals.add(new Entry(valor, i));
+                    xVals.add("");
+                }
+
+                setData(xVals, yVals);
+
+            }
+        });
 
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();
@@ -296,52 +314,7 @@ public class Taxas  extends AppCompatActivity implements OnChartGestureListener,
         mChart.invalidate();
     }
 
-    private ArrayList<String> setXAxisValues(int tam){
-        ArrayList<String> xVals = new ArrayList<String>();
-        int i = 0;
-        for (i = 0; i < tam; i++){
-            xVals.add("");
-        }
-        /*
-        xVals.add("x");
-        xVals.add("x");
-        xVals.add("x");
-        xVals.add("x");
-        xVals.add("x");
-        xVals.add("x");
-*/
-        return xVals;
-    }
-
-    private ArrayList<Entry> setYAxisValues(){
-
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
-
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
-
-        ControllerExames examesController = new ControllerExames(getApplicationContext());
-        ArrayList<Float> glicosesJejum = examesController.getGlicosesJejum(paciente);
-
-        int i;
-        for(i = 0; i < glicosesJejum.size(); i++){
-            float valor = glicosesJejum.get(i);
-            yVals.add(new Entry(valor, i));
-        }
-/*
-        yVals.add(new Entry(145f, 0));
-        yVals.add(new Entry(149f, 2));
-        yVals.add(new Entry(156f, 3));
-        yVals.add(new Entry(148f, 4));
-        yVals.add(new Entry(145f, 5));
-*/
-        return yVals;
-    }
-
-    private void setData() {
-
-        ArrayList<Entry> yVals = setYAxisValues();
-
-        ArrayList<String> xVals = setXAxisValues(yVals.size());
+    private void setData(List<String> xVals, List<Entry> yVals) {
 
         LineDataSet set1;
 

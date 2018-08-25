@@ -1,15 +1,12 @@
 package app.com.example.wagner.meupredi.Controller;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-
-import app.com.example.wagner.meupredi.Database.PesoDAO;
-import app.com.example.wagner.meupredi.Model.DatabaseHandler;
+import app.com.example.wagner.meupredi.Database.MedidaDAO;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 
@@ -17,44 +14,35 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
  * Created by tico_ on 31/01/2018.
  */
 
-public abstract class ControllerPeso {
-/*    DatabaseHandler db;
+public abstract class MedidaController {
 
-    public ControllerPeso(Context context) {
-        db = new DatabaseHandler(context);
-    }
-*/
-    public static void addPeso(Paciente paciente){
+    public static Task<Void> addMedida(Paciente paciente){
         //db.modelAtualizarPeso(paciente);
+        return MedidaDAO.createMedida(paciente);
     }
 
-    public boolean editPeso(Medida peso){
+    public static Task<Void> editMedida(Medida medida){
         //return db.modelEditPeso(peso);
-        return true;
+        return MedidaDAO.updateMedida(medida);
     }
 
-    public Task<QuerySnapshot> getPeso(Paciente paciente){
-        return PesoDAO.getPeso(paciente);
+    public static Task<QuerySnapshot> getMedida(Paciente paciente){
+        return MedidaDAO.getMedida(paciente);
         //return db.modelGetPeso(paciente);
     }
 
-    public ArrayList<Float> getAllPesos(Paciente paciente){
-        return db.modelGetAllPesos(paciente);
+    public static Query getDadosGrafico(Paciente paciente){
+        return MedidaDAO.graphMedidas(paciente);
     }
 
-    public ArrayList<Float> getAllCircunferencias(Paciente paciente) { return db.modelGetAllCircunferencias(paciente);}
-
-    public double getCircunferencia(Paciente paciente) { return db.modelGetCircunferencia(paciente);}
-
-    public ArrayList<Medida> getAllInfos(Paciente paciente) {
-        return new ArrayList<>();
+    public static Task<QuerySnapshot> getAllMedidas(Paciente paciente) {
+        return MedidaDAO.getAllMedidas(paciente);
         //return db.modelGetAllPesoClass(paciente);
     }
 
-    public boolean eraseLastInfo(Medida peso){
-        Log.d("Id peso : ", String.valueOf(peso.getDatePesoString()));
-        return true;
-        //return PesoDAO.deletePeso(peso);
+    public static Task<Void> eraseLastInfo(Medida medida){
+        Log.d("Id peso : ", String.valueOf(medida.getDateMedida()));
+        return MedidaDAO.deleteMedida(medida);
         //return db.eraseLastInfoPeso(peso);
     }
 }

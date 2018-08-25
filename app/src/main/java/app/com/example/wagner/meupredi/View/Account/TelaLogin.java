@@ -23,16 +23,18 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Nullable;
 
-import app.com.example.wagner.meupredi.Controller.ControllerExames;
-import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
-import app.com.example.wagner.meupredi.Controller.ControllerPeso;
+import app.com.example.wagner.meupredi.Controller.TaxasController;
+import app.com.example.wagner.meupredi.Controller.PacienteController;
+import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
+import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
+import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
 
 public class TelaLogin extends AppCompatActivity {
@@ -117,7 +119,6 @@ public class TelaLogin extends AppCompatActivity {
 
                 //abre o banco e o sharedpreferences para edicao
                // DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
 
                 SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
                 SharedPreferences.Editor editor = settings.edit();
@@ -147,43 +148,23 @@ public class TelaLogin extends AppCompatActivity {
                 String user,pass;
                 user = usuario.getText().toString();
                 pass = senha.getText().toString();
-
-                ControllerPaciente.verificarLogin(user, pass)
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                PacienteController.verificarLogin(user, pass).addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot querySnapshots) {
-                        ControllerExames controllerExames = new ControllerExames(getApplicationContext());
-                        //se estiverem corretas, faz o login
-                        final Paciente paciente = controllerExames.getUltimasTaxas(querySnapshots.toObjects(Paciente.class).get(0));
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("FIREBASE EXCEPTION: ", "Listen failed.", e);
+                            return;
+                        } else if(queryDocumentSnapshots.isEmpty()){
+                            Toast.makeText(getApplicationContext(), "Usuário inválido!", Toast.LENGTH_LONG).show();
+                        } else{
+                            //se estiverem corretas, faz o login
+                            Paciente paciente = queryDocumentSnapshots.toObjects(Paciente.class).get(0);
 
-                        //pega peso atual do paciente na tabela correspondente
-                        controllerPeso.getPeso(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                PesoClass peso = queryDocumentSnapshots.toObjects(PesoClass.class).get(0);
-                                Log.d("PESO NA TELA LOGIN  : ", String.valueOf(peso));
-                                paciente.setPeso(peso.getPeso());
-                            }
-                        });
-
-                        //Paciente pacTaxas = controllerExames.getUltimasTaxas(paciente);
-                        //paciente = controllerExames.getUltimasTaxas(paciente);
-
-
-                        Intent it = new Intent(TelaLogin.this, PosLogin.class);
-                        it.putExtra("Paciente", paciente);
-
-                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(it);
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Usuário inválido!", Toast.LENGTH_LONG).show();
+                            setInfoAndFinish(paciente);
+                        }
                     }
                 });
+
             }
         });
 
@@ -195,5 +176,41 @@ public class TelaLogin extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void setInfoAndFinish(Paciente paciente){
+        //insere taxas no paciente
+        TaxasController.getLastInfoTaxas(paciente)
+            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if (!queryDocumentSnapshots.isEmpty()){
+                        Taxas taxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);
+                        paciente.setTaxas(taxas);
+                    }
+                    setMedidas(paciente);
+                }
+            });
+    }
+
+    private void setMedidas(Paciente paciente){
+        //insere medidas no paciente
+        MedidaController.getMedida(paciente)
+            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if(!queryDocumentSnapshots.isEmpty()) {
+                        Medida medida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
+                        Log.d("MEDIDAS NA TELA LOGIN  : ", medida.toString());
+                        paciente.setPeso(medida.getPeso());
+                        paciente.setCircunferencia(medida.getCircunferencia());
+                    }
+                    Intent it = new Intent(TelaLogin.this, PosLogin.class);
+                    it.putExtra("Paciente", paciente);
+                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(it);
+                    finish();
+                }
+            });
     }
 }

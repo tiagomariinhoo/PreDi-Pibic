@@ -22,13 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
-import app.com.example.wagner.meupredi.Controller.ControllerPeso;
-import app.com.example.wagner.meupredi.Database.PacienteDAO;
+import app.com.example.wagner.meupredi.Controller.PacienteController;
+import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.PesoClass;
+import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Application.MainViews.Peso;
+import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
 
 public class ListaPesos extends Activity {
 
@@ -64,33 +63,51 @@ public class ListaPesos extends Activity {
         editPeso.setRawInputType(Configuration.KEYBOARD_QWERTY);
         editCirc.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
-        ControllerPeso pesoController = new ControllerPeso(ListaPesos.this);
-
-        ArrayList<PesoClass> pesoList = pesoController.getAllInfos(paciente);
 /*
         for(int i=0;i<pesoList.size();i++) {
             Log.d("Peso value : ", String.valueOf(pesoList.get(i).getPeso()));
-            Log.d("Data Peso : ", pesoList.get(i).getDatePeso());
+            Log.d("Data Peso : ", pesoList.get(i).getDateMedida());
             Log.d("Flag: ", String.valueOf(pesoList.get(i).getFlagPeso()));
         };
 */
         //Collections.reverse(pesoList);
+        MedidaController.getAllMedidas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Medida> medidas = queryDocumentSnapshots.toObjects(Medida.class);
+                adapter = new ArrayAdapter<String>(ListaPesos.this, R.layout.lista_item_pesos,
+                        R.id.text_item_lista_peso, adapterList(medidas));
 
-        adapter = new ArrayAdapter<String>(this, R.layout.lista_item_pesos, R.id.text_item_lista_peso, adapterList(pesoController));
+                listaDePesos.setAdapter(adapter);
 
-        listaDePesos.setAdapter(adapter);
+                addListeners(medidas);
+            }
+        });
+    }
 
+    private ArrayList<String> adapterList(List<Medida> medidas){
+
+        ArrayList<String> medidasAux = new ArrayList<>();
+
+        for(Medida medida : medidas){
+            medidasAux.add(medida.toString());
+        }
+
+        return medidasAux;
+    }
+
+    private void addListeners(List<Medida> medidas){
         listaDePesos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String value = (String) adapter.getItem(position);
 
-                PesoClass peso = pesoList.get(position);
+                Medida peso = medidas.get(position);
 
                 alertaPesoSelecionado = new AlertDialog.Builder(ListaPesos.this);
                 alertaPesoSelecionado.setTitle("Alerta!");
-                alertaPesoSelecionado.setMessage("Você deseja remover ou editar essa essa medição?\n" + value + "\nFeita em " + peso.getDatePeso());
+                alertaPesoSelecionado.setMessage("Você deseja remover ou editar essa essa medição?\n" + value + "\nFeita em " + peso.getDateMedida());
                 // Caso EDITAR
                 alertaPesoSelecionado.setNegativeButton("EDITAR",
                         new DialogInterface.OnClickListener() {
@@ -118,25 +135,29 @@ public class ListaPesos extends Activity {
                                 adapter.notifyDataSetChanged();
 
                                 //Log.d("AUX: ", aux);
-                                boolean at = pesoController.eraseLastInfo(peso);
-                                if(at) Log.d("Peso ", "Ultimo peso excluído!");
-
-                                //Log.d("DATE PESO: ", peso.getDatePeso());
-
-                                //pesoController.atualizarPeso(paciente);
-                                pesoController.getPeso(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                MedidaController.eraseLastInfo(peso).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                        PesoClass peso = queryDocumentSnapshots.toObjects(PesoClass.class).get(0);
-                                        paciente.setPeso(peso.getPeso());
-                                        paciente.setCircunferencia(peso.getCircunferencia());
-                                        ControllerPaciente.atualizarPaciente(paciente);
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("Peso ", "Ultimo peso excluído!");
+                                        Toast.makeText(ListaPesos.this, "Medição removida com sucesso!", Toast.LENGTH_LONG).show();
+                                        MedidaController.getMedida(paciente)
+                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                    if(!queryDocumentSnapshots.isEmpty()) {
+                                                        Medida peso = queryDocumentSnapshots.toObjects(Medida.class).get(0);
+                                                        paciente.setPeso(peso.getPeso());
+                                                        paciente.setCircunferencia(peso.getCircunferencia());
+                                                        PacienteController.atualizarPaciente(paciente);
+                                                    }
+                                                }
+                                            });
                                     }
                                 });
 
-                                Toast.makeText(ListaPesos.this, "Medição removida com sucesso!", Toast.LENGTH_LONG).show();
+                                //Log.d("DATE PESO: ", peso.getDateMedida());
 
-                                Intent intent = new Intent(ListaPesos.this, Peso.class);
+                                Intent intent = new Intent(ListaPesos.this, MedidaView.class);
                                 intent.putExtra("Paciente", paciente);
                                 //finish();
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -229,7 +250,7 @@ public class ListaPesos extends Activity {
                                                 valorCirc = Float.parseFloat(finalValorDiferenteCirc);
                                             } catch (Exception e) {
                                                 Toast.makeText(ListaPesos.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                                                Intent intent = new Intent(ListaPesos.this, Peso.class);
+                                                Intent intent = new Intent(ListaPesos.this, MedidaView.class);
                                                 intent.putExtra("Paciente", paciente);
                                                 //finish();
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -239,7 +260,7 @@ public class ListaPesos extends Activity {
                                             peso.setPeso(valorPeso);
                                             peso.setCircunferencia(valorCirc);
 
-                                            if (position == pesoList.size() - 1) {
+                                            if (position == medidas.size() - 1) {
                                                 // SIGNIFICA QUE É O PESO ATUAL QUE ELE ESTA EDITANDO, RECALCULE O IMC!
                                                 double imc = paciente.getImc();
                                                 paciente.setPeso(valorPeso);
@@ -255,9 +276,9 @@ public class ListaPesos extends Activity {
                                                 }
                                             }
 
-                                            pesoController.editPeso(peso);
+                                            MedidaController.editMedida(peso);
 
-                                            Intent intent = new Intent(ListaPesos.this, Peso.class);
+                                            Intent intent = new Intent(ListaPesos.this, MedidaView.class);
                                             intent.putExtra("Paciente", paciente);
                                             startActivity(intent);
                                             //finish();
@@ -274,23 +295,6 @@ public class ListaPesos extends Activity {
 
             }
         });
-
-
-    }
-
-    private ArrayList<String> adapterList(ControllerPeso pesoController){
-
-        ArrayList<PesoClass> pesoList = pesoController.getAllInfos(paciente);
-
-        ArrayList<String> pesoListAux = new ArrayList<>();
-
-        for(PesoClass peso : pesoList){
-            pesoListAux.add(peso.toString());
-        }
-
-        //Collections.reverse(pesoListAux);
-
-        return pesoListAux;
     }
 
 }

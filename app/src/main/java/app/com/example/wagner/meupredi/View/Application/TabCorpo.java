@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Application.MainViews.Peso;
+import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
 
@@ -67,7 +67,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
         pesoAtual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chamadaPeso = new Intent(TabCorpo.this, Peso.class);
+                Intent chamadaPeso = new Intent(TabCorpo.this, MedidaView.class);
                 chamadaPeso.putExtra("Paciente", paciente);
                 startActivity(chamadaPeso);
             }
@@ -76,7 +76,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
         chamadaPeso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chamadaPeso = new Intent(TabCorpo.this, Peso.class);
+                Intent chamadaPeso = new Intent(TabCorpo.this, MedidaView.class);
                 chamadaPeso.putExtra("Paciente", paciente);
                 startActivity(chamadaPeso);
             }

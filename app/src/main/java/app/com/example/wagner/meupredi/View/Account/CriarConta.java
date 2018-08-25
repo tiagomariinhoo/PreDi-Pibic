@@ -33,8 +33,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import app.com.example.wagner.meupredi.Controller.ControllerPaciente;
-import app.com.example.wagner.meupredi.Controller.ControllerPeso;
+import app.com.example.wagner.meupredi.Controller.PacienteController;
+import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 
@@ -179,21 +179,18 @@ public class CriarConta extends AppCompatActivity {
                 String conSenhaCadastro = conSenha.getText().toString();
 
                 //verificando se email ja foi cadastrado
-                ControllerPaciente.getPaciente(emailCadastro)
+                PacienteController.getPaciente(emailCadastro)
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Toast.makeText(getApplicationContext(), "Email já cadastrado!", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            //email não cadastrado
-                            novoPaciente(nomeCompleto, emailCadastro, dataCadastro, senhaCadastro, conSenhaCadastro);
+                            if(documentSnapshot != null){
+                                //email não cadastrado
+                                novoPaciente(nomeCompleto, emailCadastro, dataCadastro, senhaCadastro, conSenhaCadastro);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Email já cadastrado!", Toast.LENGTH_LONG).show();
+                            }
                         }
                     });
-
             }
         });
 
@@ -238,8 +235,6 @@ public class CriarConta extends AppCompatActivity {
             GregorianCalendar calendar = new GregorianCalendar();
             int dia = calendar.get(GregorianCalendar.DAY_OF_YEAR);
 
-            paciente.setExTotal(0);
-
             //DEBUG: imprime todos os dados do paciente
             Log.d("Criando: ", "criar conta");
             Log.d("Nome : ", paciente.getNome());
@@ -252,12 +247,11 @@ public class CriarConta extends AppCompatActivity {
             Log.d("Peso : ", String.valueOf(paciente.getPeso()));
             Log.d("Altura : ", String.valueOf(paciente.getAltura()));
             Log.d("IMC : ", String.valueOf(paciente.getImc()));
-            Log.d("HBA1C : ", String.valueOf(paciente.getHba1c()));
             Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
             Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
             Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
 
-            ControllerPaciente.addPaciente(paciente)
+            PacienteController.addPaciente(paciente)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -270,8 +264,6 @@ public class CriarConta extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Erro ao inserir o registro!", Toast.LENGTH_LONG).show();
                     }
                 });
-            ControllerPeso controllerPeso = new ControllerPeso(getApplicationContext());
-            controllerPeso.atualizarPeso(paciente);
 
             Intent voltaLogin = new Intent(CriarConta.this, TelaLogin.class);
             startActivity(voltaLogin);

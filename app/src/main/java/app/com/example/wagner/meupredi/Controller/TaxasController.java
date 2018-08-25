@@ -11,58 +11,34 @@ import java.util.List;
 
 import app.com.example.wagner.meupredi.Database.TaxasDAO;
 import app.com.example.wagner.meupredi.Model.DatabaseHandler;
-import app.com.example.wagner.meupredi.Model.ModelClass.Taxa;
+import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 /**
  * Created by tico_ on 31/01/2018.
  */
 
-public class TaxaController {
-    DatabaseHandler db;
-
-    public TaxaController(Context context) {
-        db = new DatabaseHandler(context);
-    }
+public abstract class TaxasController {
 
     public static Task<Void> addTaxas(Paciente paciente){
         //db.modelAtualizarTaxas(paciente);
         return TaxasDAO.createTaxas(paciente);
     }
 
-    public static Task<Void> editTaxas(Taxa taxa){
-        return TaxasDAO.updateTaxas(taxa);
+    public static Task<Void> editTaxas(Taxas taxas){
+        return TaxasDAO.updateTaxas(taxas);
     }
 
-    public static Task<QuerySnapshot> getUltimasTaxas(Paciente paciente){
+    public static Task<QuerySnapshot> getLastInfoTaxas(Paciente paciente){
         return TaxasDAO.getTaxas(paciente);
     }
 
-    get getAll eraseLast
-
-    public List<Taxa> getAllExames() throws ParseException {
-        return db.modelGetAllExames();
+    public static Task<QuerySnapshot> getAllTaxas(Paciente paciente){
+        return TaxasDAO.getAllTaxas(paciente);
     }
 
-    /*public Paciente getUltimasTaxas(Paciente paciente){
-        return db.modelGetUltimasTaxas(paciente);
-    }*/
-
-    public boolean eraseLastInfoTaxa(Taxa exame){ return db.eraseLastInfoTaxas(exame);}
-
-    public ArrayList<Taxa> getAllExamesClass(Paciente paciente) throws Exception { return db.modelGetAllExameClass(paciente); }
-
-    public boolean editExame(Taxa exame){return db.modelEditExame(exame);}
-
-    public ArrayList<Float> getGlicosesJejum(Paciente paciente){
-        return db.modelGetGlicosesJejum(paciente);
+    public static Task<Void> eraseLastInfoTaxas(Taxas taxas){
+        return TaxasDAO.deleteTaxas(taxas);
     }
 
-    public ArrayList<Float> getGlicoses75g(Paciente paciente){
-        return db.modelGetGlicoses75g(paciente);
-    }
-
-    public ArrayList<Float> getHemoglobinas(Paciente paciente){
-        return db.modelGetHemoglobinas(paciente);
-    }
 }
