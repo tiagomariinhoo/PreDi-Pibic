@@ -6,10 +6,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.Collections;
 
 import javax.annotation.Nullable;
 

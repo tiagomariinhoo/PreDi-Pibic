@@ -3,6 +3,7 @@ package app.com.example.wagner.meupredi.Database;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
@@ -32,8 +33,13 @@ public abstract class TaxasDAO {
         return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).get();
     }
 
+    public static Query graphMedidas(Paciente paciente){
+        //sempre dar reverse nesse resultado, pq ele é ordenado pela data ao contrário de como o gráfico deve receber
+        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(5);
+    }
+
     public static Task<QuerySnapshot> getTaxas(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas").limit(1).get();
+        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1).get();
     }
 
     public static Task<Void> deleteTaxas(Taxas taxas){
