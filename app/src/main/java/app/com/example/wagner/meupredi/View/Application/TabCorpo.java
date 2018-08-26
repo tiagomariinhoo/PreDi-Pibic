@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import app.com.example.wagner.meupredi.Controller.MedidaController;
+import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
@@ -16,7 +21,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
  * Created by wagne on 12/02/2018.
  */
 
-    public class TabCorpo extends Activity{
+public class TabCorpo extends Activity{
 
     private TextView pesoAtual, chamadaPeso, ultimaMedicao, imcAtual;
     private TextView informativoIMC, pesoIdeal, statusIMC;
@@ -63,6 +68,17 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
         else{
             statusIMC.setText("Obesidade III");
         }
+        ultimaMedicao.setText("Ultima medição: 01/01/1900");
+        MedidaController.getMedida(paciente)
+            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    Medida medida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
+                    String date = medida.getDateMedida().replace("-", "/").split(" ")[1];
+
+                    ultimaMedicao.setText("Ultima medição: "+date);
+                }
+            });
 
         pesoAtual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,5 +116,5 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
             }
         });
 
-        }
     }
+}

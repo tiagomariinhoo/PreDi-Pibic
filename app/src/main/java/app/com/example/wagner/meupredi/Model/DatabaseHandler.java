@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.com.example.wagner.meupredi.Model.ModelClass.AgendaClass;
+import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 /**
@@ -219,7 +219,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public String modelAddDate(Paciente paciente, AgendaClass agenda){
+    public String modelAddDate(Paciente paciente, Consulta agenda){
         Log.d("Paciente : ", paciente.getNome());
         Log.d("Evento : ", agenda.getTitulo());
 
@@ -242,8 +242,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<AgendaClass> modelGetAllAgendas (Paciente paciente){
-        ArrayList<AgendaClass> agendaList = new ArrayList<>();
+    public ArrayList<Consulta> modelGetAllAgendas (Paciente paciente){
+        ArrayList<Consulta> agendaList = new ArrayList<>();
         int idPaciente = paciente.getId();
 
         String selectQuery = "SELECT * FROM " + TABLE_AGENDA;
@@ -259,8 +259,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         String time = cursor.getString(4);
                         Log.d("Pegando local : " , local);
 
-                        AgendaClass agendaClass = new AgendaClass(cursor.getString(1), local, date, time);
-                        agendaList.add(agendaClass);
+                        Consulta consulta = new Consulta(cursor.getString(1), local, date, time);
+                        agendaList.add(consulta);
                     }
                 }
             } while(cursor.moveToNext());

@@ -10,7 +10,7 @@ import java.util.Locale;
 
 public class Taxas {
 
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault());
     private String dateTaxas; // serves as ID
     private String emailPaciente;
     private double glicose75g;

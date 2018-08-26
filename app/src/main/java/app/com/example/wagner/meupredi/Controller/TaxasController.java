@@ -10,7 +10,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.annotation.Nullable;
 
-import app.com.example.wagner.meupredi.Database.GraphHelper;
+import app.com.example.wagner.meupredi.View.Application.MainViews.GraphHelper;
 import app.com.example.wagner.meupredi.Database.TaxasDAO;
 import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;

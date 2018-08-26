@@ -9,10 +9,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,13 +19,20 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import app.com.example.wagner.meupredi.Controller.ControllerAgenda;
-import app.com.example.wagner.meupredi.Model.ModelClass.AgendaClass;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import app.com.example.wagner.meupredi.Controller.ConsultaController;
+import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 
@@ -35,7 +40,7 @@ import app.com.example.wagner.meupredi.R;
  * Created by LeandroDias1 on 18/04/2017.
  */
 
-public class Consultas extends Activity {
+public class ConsultaView extends Activity {
 
     private DateFormat formatacaoData = DateFormat.getDateInstance();
     private Calendar dataTime = Calendar.getInstance();
@@ -43,9 +48,9 @@ public class Consultas extends Activity {
     private ImageView agendarNovaConsulta;
     private EditText nomeNovaConsulta, tipoNovaConsulta;
     private AlertDialog.Builder alertaNovaConsulta;
-    private String date = "-", time = "-", nome = "-", shortDate = "-", shortTime = "-",  diaEscolhido = "", mesEscolhido = "", anoEscolhido = "", tipoExame = "";
+    private String date = "-", time = "-", local = "-", shortDate = "-", shortTime = "-",  diaEscolhido = "", mesEscolhido = "", anoEscolhido = "", tipoExame = "";
+    private Date newDate;
     private Paciente paciente;
-    ArrayList<AgendaClass> agendaList = new ArrayList<>();
 
     private ListView listaDeConsultas;
 
@@ -70,38 +75,49 @@ public class Consultas extends Activity {
         agendarNovaConsulta = (ImageView) findViewById(R.id.btn_agendar_nova_consulta);
         listaDeConsultas = (ListView) findViewById(R.id.lista_consultas);
 
-        ControllerAgenda controllerAgenda = new ControllerAgenda(Consultas.this);
+        //ConsultaController controllerAgenda = new ConsultaController(ConsultaView.this);
 
         //arraylist = new ArrayList<>(Arrays.asList(items));
-        adapter = new ArrayAdapter<String>(this, R.layout.lista_consultas_item, R.id.text_consulta_item, adapterList(controllerAgenda));
+        contadorConsultas.setText("Consultas");
+        listaDeConsultas.setAdapter(new ArrayAdapter<String>(this, R.layout.lista_consultas_item,
+                                    R.id.text_consulta_item, adapterList(new ArrayList<Consulta>())));
+        ConsultaController.getAllConsultas(paciente)
+            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    List<Consulta> consultas = queryDocumentSnapshots.toObjects(Consulta.class);
+                    adapter = new ArrayAdapter<String>(ConsultaView.this, R.layout.lista_consultas_item,
+                            R.id.text_consulta_item, adapterList(consultas));
 
-        listaDeConsultas.setAdapter(adapter);
+                    listaDeConsultas.setAdapter(adapter);
+                    contadorConsultas.setText("Consultas ("+adapterList(consultas).size()+")");
+                }
+            });
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
-        nome = "";
+        local = "";
         agendarNovaConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nome = nomeNovaConsulta.getText().toString();
+                local = nomeNovaConsulta.getText().toString();
                 tipoExame = tipoNovaConsulta.getText().toString();
                 nomeNovaConsulta.setHint("Hospital/Clínica");
-                btnMarcarData.setHint("yyyy/MM/dd");
-                btnMarcarHorario.setHint("00:00");
+                //btnMarcarData.setHint("yyyy/MM/dd");
+                //btnMarcarHorario.setHint("00:00");
                 tipoNovaConsulta.setHint("Exame de Glicemia, TTG, ...");
 
-                alertaNovaConsulta = new AlertDialog.Builder( Consultas.this );
+                alertaNovaConsulta = new AlertDialog.Builder( ConsultaView.this );
 
                 alertaNovaConsulta.setTitle("Atenção!");
 
                 alertaNovaConsulta.setMessage("Verifique se as informações da sua nova consulta estão corretas e confirme."+
-                        "\n"+"Nova Consulta em " + nome + ", " + date + ", as "+ shortTime + ".");
+                        "\n"+"Nova Consulta em " + local + ", " + date + ", às "+ shortTime + ".");
 
                 // Caso Não
                 alertaNovaConsulta.setNegativeButton("CANCELAR",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(Consultas.this, "Nova consulta cancelada", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ConsultaView.this, "Nova consulta cancelada", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -110,28 +126,33 @@ public class Consultas extends Activity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(Consultas.this, "Nova consulta agendada!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ConsultaView.this, "Nova consulta agendada!", Toast.LENGTH_SHORT).show();
                                 // FAZER FUNÇÃO DE ADICIONAR NOVA CONSULTA EM LISTA DE CONSULTAS MARCADAS
 
-                                //arraylist.add(nome+" - "+shortDate+" - "+shortTime);
-                                AgendaClass agendaClass = new AgendaClass(tipoExame, nome, anoEscolhido + "/" + mesEscolhido + "/" + diaEscolhido, shortTime);
-                                ControllerAgenda controllerAgenda = new ControllerAgenda(Consultas.this);
-                                controllerAgenda.adicionarEvento(paciente, agendaClass);
+                                //arraylist.add(local+" - "+shortDate+" - "+shortTime);
+                                newDate = convertDate();
+                                Consulta consulta = new Consulta(tipoExame, local, newDate);
 
-                                adapter.notifyDataSetChanged();
+                                ConsultaController.addEvento(paciente, consulta)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    });
 
-                                Intent intent = new Intent(Consultas.this, Perfil.class);
+                                Intent intent = new Intent(ConsultaView.this, Perfil.class);
                                 intent.putExtra("Paciente", paciente);
                                 finish();
                                 startActivity(intent);
 
                                 Log.d("NOME DO PACIENTE : " , paciente.getNome());
                                 try {
-                                    //AgendaClass agenda = new AgendaClass(nome, "3293", date, time);
+                                    //Consulta agenda = new Consulta(local, "3293", date, time);
 
-                                    //ControllerAgenda controllerAgenda = new ControllerAgenda(getApplicationContext());
+                                    //ConsultaController controllerAgenda = new ConsultaController(getApplicationContext());
                                     //Log.d(controllerAgenda.adicionarEvento(paciente, agenda), "");
-                                    //agendaList = controllerAgenda.getAllEventos(paciente);
+                                    //consultas = controllerAgenda.getAllEventos(paciente);
                                     //controllerAgenda.getAllEventos(paciente);
 
                                     //Log.d("Adicionando : ", controllerAgenda.adicionarEvento(paciente, agenda));
@@ -145,8 +166,6 @@ public class Consultas extends Activity {
                 alertaNovaConsulta.create().show();
             }
         });
-
-        contadorConsultas.setText("Consultas ("+adapterList(controllerAgenda).size()+")");
 
         btnMarcarData .setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,59 +183,46 @@ public class Consultas extends Activity {
 
     }
 
-    private ArrayList<String> adapterList(ControllerAgenda controllerAgenda){
-        agendaList = controllerAgenda.getAllEventos(paciente);
-        ArrayList<String> agendaList2 = new ArrayList<>(Arrays.asList(items));
-        for(AgendaClass agenda : agendaList){
-            agendaList2.add(agenda.getTitulo() + " - " + agenda.getDate() + " - " + agenda.getTime() + " - " + agenda.getLocal());
+    private ArrayList<String> adapterList(List<Consulta> consultas){
+        ArrayList<String> auxConsultas = new ArrayList<>();
+        for(Consulta consulta : consultas){
+            auxConsultas.add(consulta.toString());
         }
-        return agendaList2;
+        return auxConsultas;
     }
 
     private void updateData(){
-        new DatePickerDialog(Consultas.this, d, dataTime.get(Calendar.YEAR), dataTime.get(Calendar.MONTH), dataTime.get(Calendar.DAY_OF_MONTH)).show();
+        new DatePickerDialog(ConsultaView.this, d, dataTime.get(Calendar.YEAR), dataTime.get(Calendar.MONTH), dataTime.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void updateTime(){
-        new TimePickerDialog(Consultas.this, t, dataTime.get(Calendar.HOUR_OF_DAY), dataTime.get(Calendar.MINUTE), true ).show();
+        new TimePickerDialog(ConsultaView.this, t, dataTime.get(Calendar.HOUR_OF_DAY), dataTime.get(Calendar.MINUTE), true ).show();
 
     }
 
-   /* private Date convertDate() throws ParseException {
-        SimpleDateFormat convertData = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss", Locale.US);
+    private Date convertDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
         Log.d("DATE INICIO : ", date);
         Log.d("TIME INICIO: ", time);
         String ans = date + " " + time;
         try{
-            //Date testData = convertData.parse(ans);
-            //Log.d("Testdata : ", testData.toString());
-            //return testData;
+            return dateFormat.parse(ans);
         } catch (ParseException e){
             Log.d("Não foi possível transformar", " ");
         }
 
-        String a = "dd/mm/yyyy hh:mm:ss";
-        Date test = convertData.parse(a);
-
-        return test;
-    }*/
+        return null;
+    }
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener(){
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            date = "";
-            shortDate = "";
-            diaEscolhido = "";
-            mesEscolhido = "";
-            anoEscolhido = "";
-            if(dayOfMonth < 10) diaEscolhido = "0";
-            if(month < 10) mesEscolhido = "0";
-            diaEscolhido = diaEscolhido + Integer.toString(dayOfMonth);
-            mesEscolhido = mesEscolhido + Integer.toString(month+1);
-            anoEscolhido = anoEscolhido + Integer.toString(year);
-            date = anoEscolhido + "/" + mesEscolhido + "/" + diaEscolhido;
-            shortDate = mesEscolhido + "/" + diaEscolhido;
+            diaEscolhido = String.format("%02d", dayOfMonth);
+            mesEscolhido = String.format("%02d", month+1);
+            anoEscolhido = Integer.toString(year);
+            date = diaEscolhido + "/" + mesEscolhido + "/" + anoEscolhido;
+            shortDate = diaEscolhido + "/" + mesEscolhido;
             btnMarcarData.setText(diaEscolhido + "/" + mesEscolhido + "/" + anoEscolhido);
         }
     };
@@ -238,28 +244,5 @@ public class Consultas extends Activity {
             btnMarcarHorario.setText(horaEscolhida + ":" + minutosEscolhidos);
         }
     };
-
-    public class AdapterCursosPersonalizado extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return 0;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return null;
-        }
-    }
 
 }

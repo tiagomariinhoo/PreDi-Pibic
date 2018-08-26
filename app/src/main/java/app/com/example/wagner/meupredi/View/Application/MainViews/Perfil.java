@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
@@ -15,9 +14,9 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import app.com.example.wagner.meupredi.Controller.ControllerAgenda;
+import app.com.example.wagner.meupredi.Controller.ConsultaController;
+import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
@@ -40,7 +39,6 @@ public class Perfil extends ActivityGroup {
 
     private TextView nomeUsuario;
     private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair;
-    private ControllerAgenda controllerAgenda;
     //private MenuPrincipal menuPrincipal;
     private Paciente paciente;
 
@@ -59,7 +57,6 @@ public class Perfil extends ActivityGroup {
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         nomeUsuario.setText(paciente.getNome().split(" ")[0]);
-        String str = paciente.getNome().split(" ")[0];
         /*
         *Difference between INVISIBLE and GONE.
         * INVISIBLE - The widget will be invisible but space for the widget will be show.
@@ -67,7 +64,7 @@ public class Perfil extends ActivityGroup {
          */
         iconeAlerta.setVisibility(View.VISIBLE);
         int AlertaFlag = 1;
-        if (AlertaFlag == 1){
+        if(AlertaFlag == 1){
             notificacoes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -78,17 +75,7 @@ public class Perfil extends ActivityGroup {
             });
         }
 
-        controllerAgenda = new ControllerAgenda(getApplicationContext());
-        try{
-            controllerAgenda.getAllEventos(paciente);
-        } catch(Exception e){
-            Log.d("Sem eventos", " Disponiveis!");
-        }
-
-        Date notifyDate = controllerAgenda.eventNotify(paciente);
-        if(notifyDate != null){
-            getNotify(notifyDate);
-        }
+        ConsultaController.notifyConsulta(this, paciente);
 
         configuracoes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,14 +136,14 @@ public class Perfil extends ActivityGroup {
         abas.addTab(descritor);
     }
 
-    public void getNotify(Date notifyDate){
+    public void onNotify(Consulta consulta){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Notification.Builder notificationBuilder = (Notification.Builder) new Notification.Builder(this)
+        Notification.Builder notificationBuilder = new Notification.Builder(this)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.mipmap.ic_coracao)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_coracao))
                 .setContentTitle("Notification from PreDi!")
-                .setContentText("Você tem uma consulta em " + dateFormat.format(notifyDate) + ", dê uma verificada!");
+                .setContentText("Você tem uma consulta em " + dateFormat.format(ConsultaController.getDateObject(consulta)) + ", dê uma verificada!");
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, notificationBuilder.build());
@@ -167,5 +154,6 @@ public class Perfil extends ActivityGroup {
         Intent intent = new Intent(Perfil.this, TelaLogin.class);
         startActivity(intent);
     }
+
 }
 

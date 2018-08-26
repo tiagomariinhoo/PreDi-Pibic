@@ -1,26 +1,38 @@
 package app.com.example.wagner.meupredi.Model.ModelClass;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by LeandroDias1 on 05/03/2018.
  */
 
-public class AgendaClass {
+public class Consulta {
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
     private String titulo;
     private String local;
     private String date;
     private String time;
 
-    public AgendaClass(String titulo, String local, String date, String time) {
-        this.titulo = titulo;
-        this.local = local;
+    public Consulta(){}
+
+    public Consulta(String titulo, String local, Date date) {
+        this(titulo, local);
+        this.date = dateFormat.format(date);
+        this.time = timeFormat.format(date);
+    }
+
+    public Consulta(String titulo, String local, String date, String time) {
+        this(titulo, local);
         this.date = date;
         this.time = time;
     }
 
-    public AgendaClass(){
-
+    private Consulta(String titulo, String local) {
+        this.titulo = titulo;
+        this.local = local;
     }
 
     public String getTitulo() {

@@ -50,12 +50,6 @@ public class Paciente implements Serializable {
         this.ultimaDica = ultimaDica;
     }
 
-    public void getInfo(){
-        Log.d("Get info: ", getNome());
-        Log.d("Nome: ", getNome());
-        Log.d("Peso: ", String.valueOf(getPeso()));
-    }
-
     public int getUltimaDica() {
         return ultimaDica;
     }

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Medida {
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault());
     private String dateMedida; // serves as ID
     private double peso;
     private double circunferencia;
