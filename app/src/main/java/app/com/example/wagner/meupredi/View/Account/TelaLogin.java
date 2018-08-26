@@ -20,8 +20,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -148,15 +150,12 @@ public class TelaLogin extends AppCompatActivity {
                 String user,pass;
                 user = usuario.getText().toString();
                 pass = senha.getText().toString();
-                PacienteController.verificarLogin(user, pass).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                PacienteController.verificarLogin(user, pass).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w("FIREBASE EXCEPTION: ", "Listen failed.", e);
-                            return;
-                        } else if(queryDocumentSnapshots.isEmpty()){
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (queryDocumentSnapshots.isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Usuário inválido!", Toast.LENGTH_LONG).show();
-                        } else{
+                        } else {
                             //se estiverem corretas, faz o login
                             Paciente paciente = queryDocumentSnapshots.toObjects(Paciente.class).get(0);
 
@@ -164,7 +163,17 @@ public class TelaLogin extends AppCompatActivity {
                         }
                     }
                 });
-
+/*
+                PacienteController.verificarLogin(user, pass).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("FIREBASE EXCEPTION: ", "Listen failed.", e);
+                            return;
+                        } else
+                    }
+                });
+*/
             }
         });
 
@@ -188,6 +197,11 @@ public class TelaLogin extends AppCompatActivity {
                         Taxas taxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);
                         paciente.setTaxas(taxas);
                     }
+                }
+            })
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     setMedidas(paciente);
                 }
             });
@@ -205,6 +219,11 @@ public class TelaLogin extends AppCompatActivity {
                         paciente.setPeso(medida.getPeso());
                         paciente.setCircunferencia(medida.getCircunferencia());
                     }
+                }
+            })
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     Intent it = new Intent(TelaLogin.this, PosLogin.class);
                     it.putExtra("Paciente", paciente);
                     it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

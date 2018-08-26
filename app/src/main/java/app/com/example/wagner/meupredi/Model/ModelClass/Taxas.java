@@ -17,7 +17,7 @@ public class Taxas {
     private double glicoseJejum;
     private double colesterol;
     private double hemoglobinaGlico;
-    private int flagTaxa;
+    private int flagTaxa = 1;
 
     public Taxas(String dateTaxas, String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
         this(emailPaciente, glicose75g, glicoseJejum, colesterol, hemoglobinaGlico);

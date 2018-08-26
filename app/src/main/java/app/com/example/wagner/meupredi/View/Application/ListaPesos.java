@@ -67,7 +67,7 @@ public class ListaPesos extends Activity {
         for(int i=0;i<pesoList.size();i++) {
             Log.d("Peso value : ", String.valueOf(pesoList.get(i).getPeso()));
             Log.d("Data Peso : ", pesoList.get(i).getDateMedida());
-            Log.d("Flag: ", String.valueOf(pesoList.get(i).getFlagPeso()));
+            Log.d("Flag: ", String.valueOf(pesoList.get(i).getFlagMedida()));
         };
 */
         //Collections.reverse(pesoList);
@@ -135,34 +135,42 @@ public class ListaPesos extends Activity {
                                 adapter.notifyDataSetChanged();
 
                                 //Log.d("AUX: ", aux);
+                                Intent intent = new Intent(ListaPesos.this, MedidaView.class);
                                 MedidaController.eraseLastInfo(peso).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("Peso ", "Ultimo peso excluído!");
                                         Toast.makeText(ListaPesos.this, "Medição removida com sucesso!", Toast.LENGTH_LONG).show();
-                                        MedidaController.getMedida(paciente)
-                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                    if(!queryDocumentSnapshots.isEmpty()) {
-                                                        Medida peso = queryDocumentSnapshots.toObjects(Medida.class).get(0);
-                                                        paciente.setPeso(peso.getPeso());
-                                                        paciente.setCircunferencia(peso.getCircunferencia());
-                                                        PacienteController.atualizarPaciente(paciente);
-                                                    }
-                                                }
-                                            });
                                     }
                                 });
 
-                                //Log.d("DATE PESO: ", peso.getDateMedida());
+                                MedidaController.getMedida(paciente)
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                Log.d("Nova Medida: ", queryDocumentSnapshots.toObjects(Medida.class).get(0).toString());
+                                                if(!queryDocumentSnapshots.isEmpty()) {
+                                                    Medida peso = queryDocumentSnapshots.toObjects(Medida.class).get(0);
+                                                    paciente.setPeso(peso.getPeso());
+                                                    paciente.setCircunferencia(peso.getCircunferencia());
+                                                    PacienteController.atualizarPaciente(paciente);
 
+
+                                                    intent.putExtra("Paciente", paciente);
+                                                    //finish();
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                        });
+                                //Log.d("DATE PESO: ", peso.getDateMedida());
+/*
                                 Intent intent = new Intent(ListaPesos.this, MedidaView.class);
                                 intent.putExtra("Paciente", paciente);
                                 //finish();
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
-
+*/
                             }
                         });
 

@@ -17,7 +17,7 @@ public abstract class MedidaDAO {
     private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("Pacientes");
 
     private static CollectionReference getRef(String email){
-        return myRef.document(email).collection("Pesos");
+        return myRef.document(email).collection("Medidas");
     }
 
     public static Task<Void> createMedida(Paciente paciente){
@@ -30,19 +30,20 @@ public abstract class MedidaDAO {
     }
 
     public static Task<QuerySnapshot> getAllMedidas(Paciente paciente){
-        return getRef(paciente.getEmail()).get();
+        return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).get();
     }
 
     public static Query graphMedidas(Paciente paciente){
-        return getRef(paciente.getEmail()).orderBy("datePeso");
+        //sempre dar reverse nesse resultado, pq ele é ordenado pela data ao contrário de como o gráfico deve receber
+        return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).orderBy("dateMedida", Query.Direction.DESCENDING).limit(5);
     }
 
     public static Task<QuerySnapshot> getMedida(Paciente paciente){
-        return getRef(paciente.getEmail()).orderBy("datePeso").limit(1).get();
+        return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1).get();
     }
 
     public static Task<Void> deleteMedida(Medida medida){
-        medida.setFlagPeso(0);
+        medida.setFlagMedida(0);
         return getRef(medida.getEmailPaciente())
                 .document(medida.getDateMedida())
                 .set(medida, SetOptions.merge());

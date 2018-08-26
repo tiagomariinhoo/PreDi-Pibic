@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -34,12 +35,17 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
@@ -48,17 +54,19 @@ import javax.annotation.Nullable;
 
 import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Controller.MedidaController;
+import app.com.example.wagner.meupredi.Database.GraphHelper;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaPesos;
+import io.grpc.Metadata;
 
 /**
  * Created by Tiago on 27/06/2017.
  */
 
 public class MedidaView extends AppCompatActivity implements OnChartGestureListener,
-        OnChartValueSelectedListener {
+        OnChartValueSelectedListener, GraphHelper<Medida> {
 
     private LineChart mChart;
     private TextView dataUltimaMedicao, TextListaPesosTela;
@@ -67,16 +75,20 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     private Button atualizarPeso;
     private CheckBox checkPeso, checkCircunferecia;
     private Paciente paciente;
+    private List<Medida> medidas = new ArrayList<>();
     private double imc;
     private AlertDialog.Builder alertaNovaMedicao;
 
     private void inverterCheckBox(String atual){
         if(atual == "Peso") {
-            checkCircunferecia.setChecked(!checkCircunferecia.isChecked());
+            checkPeso.setChecked(true);
+            checkCircunferecia.setChecked(false);
             mudarGrafico();
         }
         else {
-            checkPeso.setChecked(!checkPeso.isChecked());
+            checkPeso.setChecked(false);
+            checkCircunferecia.setChecked(true);
+            //mChart.setData(new LineData());
             mudarGrafico();
         }
       }
@@ -91,40 +103,11 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
         // add data pesos
         //TODO: usar snapshot listener pra plotar o gráfico
-        MedidaController.getAllMedidas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Medida> medidas = queryDocumentSnapshots.toObjects(Medida.class);
-                List<Entry> yVals = new ArrayList<>();
-                List<String> xVals = new ArrayList<>();
-
-                for(int i = 0; i < medidas.size(); ++i){
-                    float valor;
-                    if(checkPeso.isChecked()) {
-                        valor = (float) medidas.get(i).getPeso();
-                    } else {
-                        valor = (float) medidas.get(i).getCircunferencia();
-                    }
-                    Log.d("MEDIDAS: ", medidas.get(i).toString());
-                    yVals.add(new Entry(valor, i));
-                    xVals.add("");
-                }
-
-                setData(xVals, yVals);
-
-            }
-        });
-
-        // get the legend (only possible after setting data)
-        Legend l = mChart.getLegend();
-
-        // modify the legend ...
-        // l.setPosition(LegendPosition.LEFT_OF_CHART);
-        l.setForm(Legend.LegendForm.LINE);
+        setData();
 
         // no description text
         mChart.setDescription("");
-        mChart.setNoDataTextDescription("Você precisa inserir dados para gerar o gráfico");
+        mChart.setNoDataText("Você precisa inserir dados para gerar o gráfico");
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -224,6 +207,9 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         checkPeso = (CheckBox) findViewById(R.id.checkBox_graf_peso);
         checkCircunferecia = (CheckBox) findViewById(R.id.checkBox_circunferencia_graf);
 
+        MedidaController.getDadosGrafico(this, paciente);
+
+        //carrega o gráfico vazio pra evitar delay para inicializar a tela
         mudarGrafico();
 
         Double peso_atual = paciente.getPeso();
@@ -325,8 +311,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                 String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
                 Float pesoDoPaciente = Float.parseFloat(pesoFormatado);
 
-                String circuFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
-                Float circuDoPaciente = Float.parseFloat(circuFormatado);
+                String circFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
+                Float circDoPaciente = Float.parseFloat(circFormatado);
 
                 int dia = dataRegistro.get(GregorianCalendar.DAY_OF_MONTH);
                 String mes = nomeDoMes(dataRegistro.get(GregorianCalendar.MONTH));
@@ -355,19 +341,19 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                if (pesoDoPaciente > 0) {
+                                if (pesoDoPaciente > 0 && circDoPaciente > 0) {
                                     //atualiza valor na tela
                                     if (pesoDoPaciente == null) {
                                         novoPeso.setText(String.valueOf(0));
                                     }
 
+                                    if (circDoPaciente == null) {
+                                        novoCirc.setText(String.valueOf(0));
+                                    }
+
                                     //atualiza peso no objeto
                                     paciente.setPeso(pesoDoPaciente);
-                                    paciente.setCircunferencia(circuDoPaciente);
-
-                                    if (circuDoPaciente > 0) {
-                                        paciente.setCircunferencia(circuDoPaciente);
-                                    }
+                                    paciente.setCircunferencia(circDoPaciente);
 
                                     //recalcula imc
 
@@ -390,18 +376,21 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                                             Log.d("MEDIDAS: ", String.valueOf(paciente.getCircunferencia()));
                                         }
                                     });
-
-                                    Intent intent = new Intent(MedidaView.this, Perfil.class);
+/*
+                                    Intent intent = new Intent(MedidaView.this, MedidaView.class);
                                     intent.putExtra("Paciente", paciente);
                                     //finish();
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
-
+*/
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Peso inválido!", Toast.LENGTH_SHORT).show();
                                 }
 
                                 novoPeso.setText("");
+                                novoCirc.setText("");
+                                novoPeso.setHint(String.format("%.2f", paciente.getPeso()));
+                                novoCirc.setHint(String.format("%.2f", paciente.getCircunferencia()));
 
                                 try {
                                     InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -431,7 +420,29 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
     }
 
-    private void setData(List<String> xVals, List<Entry> yVals) {
+    @Override
+    public void onReceiveData(List<Medida> data){
+        this.medidas = data;
+        Collections.reverse(medidas);
+        mudarGrafico();
+    }
+
+    private void setData() {
+
+        List<Entry> yVals = new ArrayList<>();
+        List<String> xVals = new ArrayList<>();
+
+        for (int i = 0; i < medidas.size(); ++i) {
+            float valor;
+            if (checkPeso.isChecked()) {
+                valor = (float) medidas.get(i).getPeso();
+            } else {
+                valor = (float) medidas.get(i).getCircunferencia();
+            }
+            Log.d("MEDIDAS: ", medidas.get(i).toString());
+            yVals.add(new Entry(valor, i));
+            xVals.add("");
+        }
 
         LineDataSet set1;
 
@@ -466,6 +477,12 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         // set data
         mChart.setData(data);
 
+        // get the legend (only possible after setting data)
+        Legend l = mChart.getLegend();
+
+        // modify the legend ...
+        // l.setPosition(LegendPosition.LEFT_OF_CHART);
+        l.setForm(Legend.LegendForm.LINE);
     }
 
     @Override

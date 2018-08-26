@@ -1,11 +1,19 @@
 package app.com.example.wagner.meupredi.Controller;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Collections;
+
+import javax.annotation.Nullable;
+
+import app.com.example.wagner.meupredi.Database.GraphHelper;
 import app.com.example.wagner.meupredi.Database.MedidaDAO;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
@@ -31,8 +39,16 @@ public abstract class MedidaController {
         //return db.modelGetPeso(paciente);
     }
 
-    public static Query getDadosGrafico(Paciente paciente){
-        return MedidaDAO.graphMedidas(paciente);
+    public static <T extends Activity & GraphHelper<Medida>> void getDadosGrafico(T current, Paciente paciente){
+        MedidaDAO.graphMedidas(paciente).addSnapshotListener(current, new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (e != null) Log.d("Firebase Error: ", e.getMessage());
+                if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                    current.onReceiveData(queryDocumentSnapshots.toObjects(Medida.class));
+                }
+            }
+        });
     }
 
     public static Task<QuerySnapshot> getAllMedidas(Paciente paciente) {

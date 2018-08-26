@@ -9,7 +9,7 @@ public class Medida {
     private String dateMedida; // serves as ID
     private double peso;
     private double circunferencia;
-    private int flagPeso;
+    private int flagMedida = 1;
     private String emailPaciente;
 
     public Medida(String dateMedida, double peso, double circunferencia, String emailPaciente) {
@@ -25,7 +25,6 @@ public class Medida {
     private Medida(double peso, double circunferencia, String emailPaciente) {
         this.peso = peso;
         this.circunferencia = circunferencia;
-        this.flagPeso = 1;
         this.emailPaciente = emailPaciente;
     }
 
@@ -51,12 +50,12 @@ public class Medida {
         return dateMedida;
     }
 
-    public int getFlagPeso() {
-        return flagPeso;
+    public int getFlagMedida() {
+        return flagMedida;
     }
 
-    public void setFlagPeso(int flagPeso) {
-        this.flagPeso = flagPeso;
+    public void setFlagMedida(int flagMedida) {
+        this.flagMedida = flagMedida;
     }
 
     public String getEmailPaciente() {
@@ -70,7 +69,7 @@ public class Medida {
     @Override
     public String toString() {
         return String.format(Locale.getDefault(),
-                "Peso: %.2f kg -- Circunferência: %.2f cm", this.getPeso(), this.getCircunferencia());
+                "Peso: %.2f kg -- Circunferência: %.2f cm", this.peso, this.circunferencia);
     }
 
 }

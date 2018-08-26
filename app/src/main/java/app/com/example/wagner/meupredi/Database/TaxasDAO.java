@@ -29,11 +29,11 @@ public abstract class TaxasDAO {
     }
 
     public static Task<QuerySnapshot> getAllTaxas(Paciente paciente){
-        return getRef(paciente.getEmail()).get();
+        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).get();
     }
 
     public static Task<QuerySnapshot> getTaxas(Paciente paciente){
-        return getRef(paciente.getEmail()).orderBy("dateTaxas").limit(1).get();
+        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas").limit(1).get();
     }
 
     public static Task<Void> deleteTaxas(Taxas taxas){
