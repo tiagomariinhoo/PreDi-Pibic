@@ -35,6 +35,7 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,13 +49,14 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaPesos;
+import app.com.example.wagner.meupredi.View.Application.MedidaListener;
 
 /**
  * Created by Tiago on 27/06/2017.
  */
 
 public class MedidaView extends AppCompatActivity implements OnChartGestureListener,
-        OnChartValueSelectedListener, GraphHelper<Medida> {
+        OnChartValueSelectedListener, MedidaListener, GraphHelper<Medida> {
 
     private LineChart mChart;
     private TextView dataUltimaMedicao, TextListaPesosTela;
@@ -65,6 +67,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     private Paciente paciente;
     private List<Medida> medidas = new ArrayList<>();
     private double imc;
+    private ListenerRegistration graphListener;
     private AlertDialog.Builder alertaNovaMedicao;
 
     private void inverterCheckBox(String atual){
@@ -90,8 +93,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         mChart.setDrawGridBackground(false);
 
         // add data pesos
-        //TODO: usar snapshot listener pra plotar o gráfico
-        setData();
+        if(!medidas.isEmpty())
+            setData();
 
         // no description text
         mChart.setDescription("");
@@ -174,7 +177,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        //paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();
 
         imc = (paciente.getPeso() / (paciente.getAltura() * paciente.getAltura()));
 
@@ -194,10 +198,12 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         checkPeso = (CheckBox) findViewById(R.id.checkBox_graf_peso);
         checkCircunferecia = (CheckBox) findViewById(R.id.checkBox_circunferencia_graf);
 
-        MedidaController.getDadosGrafico(this, paciente);
+        graphListener = MedidaController.getDadosGrafico(this, paciente);
 
         //carrega o gráfico vazio pra evitar delay para inicializar a tela
         mudarGrafico();
+
+        PacienteUpdater.addListener(this);
 
         Double peso_atual = paciente.getPeso();
         Double circ_atual = paciente.getCircunferencia();
@@ -408,6 +414,27 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onPause() {
+        if(isFinishing()){
+            Log.d("Listener ", "Removido");
+            PacienteUpdater.removeListener(this);
+            if(graphListener != null) graphListener.remove();
+        }
+        super.onPause();
+    }
+
+    @Override
     public void onReceiveData(List<Medida> data){
         this.medidas = data;
         Collections.reverse(medidas);
@@ -572,4 +599,9 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         return "";
     }
 
+    @Override
+    public void onChangeMedida(Medida medida) {
+        novoPeso.setHint(String.format("%.2f", medida.getPeso()));
+        novoCirc.setHint(String.format("%.2f", medida.getCircunferencia()));
+    }
 }

@@ -28,6 +28,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 public class ListaPesos extends Activity {
 
@@ -110,69 +111,45 @@ public class ListaPesos extends Activity {
                 alertaPesoSelecionado.setMessage("Você deseja remover ou editar essa essa medição?\n" + value + "\nFeita em " + peso.getDateMedida());
                 // Caso EDITAR
                 alertaPesoSelecionado.setNegativeButton("EDITAR",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(ListaPesos.this, "Mude os valores da medição e clique em ALTERAR", Toast.LENGTH_LONG).show();
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(ListaPesos.this, "Mude os valores da medição e clique em ALTERAR", Toast.LENGTH_LONG).show();
 
-                                String[] separados = value.split(" ");
-                                editPeso.setHint(separados[1]);
-                                editPeso.setEnabled(true);
+                            String[] separados = value.split(" ");
+                            editPeso.setHint(separados[1]);
+                            editPeso.setEnabled(true);
 
-                                editCirc.setHint(separados[5]);
-                                editCirc.setEnabled(true);
-                            }
-                        });
+                            editCirc.setHint(separados[5]);
+                            editCirc.setEnabled(true);
+                        }
+                    });
                 // Caso REMOVER
                 alertaPesoSelecionado.setPositiveButton("REMOVER",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.d("VALUE: ", value);
-                                String aux = Integer.toString(position);
-                                Log.d("AUX: ", aux);
-                                adapter.remove(value);
-                                adapter.notifyDataSetChanged();
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("VALUE: ", value);
+                            String aux = Integer.toString(position);
+                            Log.d("AUX: ", aux);
+                            adapter.remove(value);
+                            adapter.notifyDataSetChanged();
 
-                                //Log.d("AUX: ", aux);
-                                Intent intent = new Intent(ListaPesos.this, MedidaView.class);
-                                MedidaController.eraseLastInfo(peso).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d("Peso ", "Ultimo peso excluído!");
-                                        Toast.makeText(ListaPesos.this, "Medição removida com sucesso!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                                MedidaController.getMedida(paciente)
-                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                Log.d("Nova Medida: ", queryDocumentSnapshots.toObjects(Medida.class).get(0).toString());
-                                                if(!queryDocumentSnapshots.isEmpty()) {
-                                                    Medida peso = queryDocumentSnapshots.toObjects(Medida.class).get(0);
-                                                    paciente.setPeso(peso.getPeso());
-                                                    paciente.setCircunferencia(peso.getCircunferencia());
-                                                    PacienteController.atualizarPaciente(paciente);
-
-
-                                                    intent.putExtra("Paciente", paciente);
-                                                    //finish();
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    startActivity(intent);
-                                                }
-                                            }
-                                        });
-                                //Log.d("DATE PESO: ", peso.getDateMedida());
-/*
-                                Intent intent = new Intent(ListaPesos.this, MedidaView.class);
-                                intent.putExtra("Paciente", paciente);
-                                //finish();
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-*/
-                            }
-                        });
+                            //Log.d("AUX: ", aux);
+                            MedidaController.eraseLastInfo(peso).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("Peso ", "Ultimo peso excluído!");
+                                    Toast.makeText(ListaPesos.this, "Medição removida com sucesso!", Toast.LENGTH_LONG).show();
+                                }
+                            });/*
+                            Intent intent = new Intent(ListaPesos.this, MedidaView.class);
+                            intent.putExtra("Paciente", paciente);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);*/
+                            finish();
+                        }
+                    });
 
                 alertaPesoSelecionado.create().show();
 
@@ -231,71 +208,81 @@ public class ListaPesos extends Activity {
                         String finalValorDiferentePeso = valorDiferentePeso;
                         String finalValorDiferenteCirc = valorDiferenteCirc;
                         alertaAlterarPeso.setPositiveButton("SIM",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                                        if (invalid_input) {
-                                            Toast.makeText(ListaPesos.this, "Mude os valores da medição e clique em ALTERAR", Toast.LENGTH_LONG).show();
+                                    if(invalid_input) {
+                                        Toast.makeText(ListaPesos.this, "Mude os valores da medição e clique em ALTERAR", Toast.LENGTH_LONG).show();
 
-                                            String[] separados = value.split(" ");
-                                            //editPeso.setText(separados[1]);
-                                            editPeso.setText("");
-                                            editPeso.setEnabled(true);
+                                        String[] separados = value.split(" ");
+                                        //editPeso.setText(separados[1]);
+                                        editPeso.setText("");
+                                        editPeso.setEnabled(true);
 
-                                            //editCirc.setText(separados[5]);
-                                            editCirc.setText("");
-                                            editCirc.setEnabled(true);
-                                        } else {
+                                        //editCirc.setText(separados[5])
+                                        editCirc.setText("");
+                                        editCirc.setEnabled(true);
+                                    } else {
 
-                                            // FAZER CODIGO DE EDITAR AQUI
+                                        // FAZER CODIGO DE EDITAR AQUI
 
-                                            float valorPeso = 0f;
-                                            float valorCirc = 0f;
+                                        float valorPeso = 0f;
+                                        float valorCirc = 0f;
 
-                                            try {
-                                                valorPeso = Float.parseFloat(finalValorDiferentePeso);
-                                                valorCirc = Float.parseFloat(finalValorDiferenteCirc);
-                                            } catch (Exception e) {
-                                                Toast.makeText(ListaPesos.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                                                Intent intent = new Intent(ListaPesos.this, MedidaView.class);
-                                                intent.putExtra("Paciente", paciente);
-                                                //finish();
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                startActivity(intent);
-                                            }
-
-                                            peso.setPeso(valorPeso);
-                                            peso.setCircunferencia(valorCirc);
-
-                                            if (position == medidas.size() - 1) {
-                                                // SIGNIFICA QUE É O PESO ATUAL QUE ELE ESTA EDITANDO, RECALCULE O IMC!
-                                                double imc = paciente.getImc();
-                                                paciente.setPeso(valorPeso);
-                                                paciente.setCircunferencia(valorCirc);
-
-                                                if (paciente.getPeso() > 0 && paciente.getAltura() > 0) {
-                                                    imc = valorPeso / (paciente.getAltura() * paciente.getAltura());
-                                                    String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
-                                                    imc = Double.parseDouble(imcFormatado);
-                                                    paciente.setImc(imc);
-                                                } else {
-                                                    paciente.setImc(0);
-                                                }
-                                            }
-
-                                            MedidaController.editMedida(peso);
-
-                                            Intent intent = new Intent(ListaPesos.this, MedidaView.class);
+                                        try {
+                                            valorPeso = Float.parseFloat(finalValorDiferentePeso);
+                                            valorCirc = Float.parseFloat(finalValorDiferenteCirc);
+                                        } catch (Exception e) {
+                                            Toast.makeText(ListaPesos.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                                            /*Intent intent = new Intent(ListaPesos.this, MedidaView.class);
                                             intent.putExtra("Paciente", paciente);
-                                            startActivity(intent);
-                                            //finish();
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                                            Toast.makeText(ListaPesos.this, "Valores alterados com sucesso", Toast.LENGTH_SHORT).show();
+                                            startActivity(intent);*/
+                                            finish();
                                         }
+
+                                        peso.setPeso(valorPeso);
+                                        peso.setCircunferencia(valorCirc);
+
+                                        if (position == medidas.size() - 1) {
+                                            // SIGNIFICA QUE É O PESO ATUAL QUE ELE ESTA EDITANDO, RECALCULE O IMC!
+                                            double imc = paciente.getImc();
+                                            paciente.setPeso(valorPeso);
+                                            paciente.setCircunferencia(valorCirc);
+
+                                            if (paciente.getPeso() > 0 && paciente.getAltura() > 0) {
+                                                imc = valorPeso / (paciente.getAltura() * paciente.getAltura());
+                                                String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
+                                                imc = Double.parseDouble(imcFormatado);
+                                                paciente.setImc(imc);
+                                            } else {
+                                                paciente.setImc(0);
+                                            }
+                                        }
+
+                                        MedidaController.editMedida(peso);
+
+                                        if (editCirc.getText().length() != 0){
+                                            editCirc.setHint(String.format("%.2f", editCirc.getText()));
+                                            editCirc.setText("");
+                                        }
+                                        if(editCirc.getText().length() != 0) {
+                                            editPeso.setHint(String.format("%.2f", editPeso.getText()));
+                                            editPeso.setText("");
+                                        }
+
+                                        /*Intent intent = new Intent(ListaPesos.this, MedidaView.class);
+                                        intent.putExtra("Paciente", paciente);
+                                        startActivity(intent);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        */
+                                        finish();
+
+                                        Toast.makeText(ListaPesos.this, "Valores alterados com sucesso", Toast.LENGTH_SHORT).show();
                                     }
-                                });
+                                }
+                            });
                         alertaAlterarPeso.create().show();
 
                     }

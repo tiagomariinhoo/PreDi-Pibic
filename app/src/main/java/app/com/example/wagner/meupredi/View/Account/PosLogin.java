@@ -111,7 +111,6 @@ public class PosLogin extends AppCompatActivity {
                 //se o usuario nao preencheu algum dado, deixa como -1
 
                 if (alturaCadastro.length()==0){
-                    paciente.setAltura(-1);
                     flag = true;
                 } else {
 
@@ -130,7 +129,6 @@ public class PosLogin extends AppCompatActivity {
                     //atualiza altura no objeto
                     paciente.setAltura(alturaDoPaciente);
                 } if (pesoCadastro.length()==0){
-                    paciente.setPeso(-1);
                     flag = true;
                 } else {
 
@@ -143,7 +141,6 @@ public class PosLogin extends AppCompatActivity {
                     paciente.setPeso(pesoDoPaciente);
 
                 } if (circunferenciaCadastro.length()==0){
-                    paciente.setCircunferencia(-1);
                     flag = true;
                 } else {
 

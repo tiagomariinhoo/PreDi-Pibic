@@ -42,6 +42,10 @@ public abstract class MedidaDAO {
         return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1).get();
     }
 
+    public static Query getLastMedida(Paciente paciente){
+        return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1);
+    }
+
     public static Task<Void> deleteMedida(Medida medida){
         medida.setFlagMedida(0);
         return getRef(medida.getEmailPaciente())

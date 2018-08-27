@@ -3,6 +3,7 @@ package app.com.example.wagner.meupredi.View.Application;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
 
@@ -21,7 +23,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
  * Created by wagne on 12/02/2018.
  */
 
-public class TabCorpo extends Activity{
+public class TabCorpo extends Activity implements MedidaListener{
 
     private TextView pesoAtual, chamadaPeso, ultimaMedicao, imcAtual;
     private TextView informativoIMC, pesoIdeal, statusIMC;
@@ -34,7 +36,6 @@ public class TabCorpo extends Activity{
         setContentView(tab_corpo_perfil);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
-        double imc = paciente.getImc();
 
         pesoAtual = (TextView) findViewById(R.id.text_tab_corpo_peso_atual);
         chamadaPeso = (TextView) findViewById(R.id.text_tab_corpo_atualizar_peso);
@@ -44,8 +45,10 @@ public class TabCorpo extends Activity{
         pesoIdeal = (TextView) findViewById(R.id.text_qual_meu_peso_ideal);
         statusIMC = (TextView) findViewById(R.id.text_tab_corpo_status_imc);
 
+        PacienteUpdater.addListener(this);
+
         pesoAtual.setText(String.format("%.2f", paciente.getPeso()));
-        imcAtual.setText(String.valueOf(imc));
+        imcAtual.setText(String.valueOf(paciente.getImc()));
 
         if(paciente.getImc() <= 16.9){
             statusIMC.setText("Muito abaixo do Peso");
@@ -68,17 +71,6 @@ public class TabCorpo extends Activity{
         else{
             statusIMC.setText("Obesidade III");
         }
-        ultimaMedicao.setText("Ultima medição: 01/01/1900");
-        MedidaController.getMedida(paciente)
-            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    Medida medida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
-                    String date = medida.getDateMedida().replace("-", "/").split(" ")[1];
-
-                    ultimaMedicao.setText("Ultima medição: "+date);
-                }
-            });
 
         pesoAtual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,5 +108,22 @@ public class TabCorpo extends Activity{
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        if(isFinishing()){
+            Log.d("Listener ", "Removido");
+            PacienteUpdater.removeListener(this);
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onChangeMedida(Medida medida) {
+        pesoAtual.setText(String.format("%.2f", medida.getPeso()));
+        String date = medida.getDateMedida().replace("-", "/").split(" ")[1];
+        ultimaMedicao.setText("Ultima medição: " + date);
+        ultimaMedicao.setVisibility(View.VISIBLE);
     }
 }

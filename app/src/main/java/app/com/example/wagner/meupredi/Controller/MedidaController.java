@@ -6,6 +6,9 @@ import android.util.Log;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.MetadataChanges;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.annotation.Nullable;
@@ -36,8 +39,8 @@ public abstract class MedidaController {
         //return db.modelGetPeso(paciente);
     }
 
-    public static <T extends Activity & GraphHelper<Medida>> void getDadosGrafico(T current, Paciente paciente){
-        MedidaDAO.graphMedidas(paciente).addSnapshotListener(current, new EventListener<QuerySnapshot>() {
+    public static ListenerRegistration getDadosGrafico(GraphHelper<Medida> current, Paciente paciente){
+        return MedidaDAO.graphMedidas(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (e != null) Log.d("Firebase Error: ", e.getMessage());
@@ -46,6 +49,11 @@ public abstract class MedidaController {
                 }
             }
         });
+    }
+
+    public static Query getLastInfoMedida(Paciente paciente){
+        return MedidaDAO.getLastMedida(paciente);
+        //return db.modelGetPeso(paciente);
     }
 
     public static Task<QuerySnapshot> getAllMedidas(Paciente paciente) {

@@ -219,7 +219,7 @@ public class CriarConta extends AppCompatActivity {
 
             Log.d("Idade Criar Conta: ", String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - ano));
             //configuracao padrao de usuario
-            Paciente paciente = new Paciente (0, nomeCompleto, senhaCadastro, emailCadastro, "", idadeAux, 0 , 0, 0, -1);
+            Paciente paciente = new Paciente(0, nomeCompleto, senhaCadastro, emailCadastro, "", idadeAux, -1);
 
             //verifica opcao de sexo selecionada
             String selected = sexo.getSelectedItem().toString();
@@ -231,9 +231,6 @@ public class CriarConta extends AppCompatActivity {
 
             dataCadastro = dataCadastro.substring(0, 2) + "/" + dataCadastro.substring(2, 4) + "/" + dataCadastro.substring(4, dataCadastro.length());
             paciente.setNascimento(dataCadastro);
-
-            GregorianCalendar calendar = new GregorianCalendar();
-            int dia = calendar.get(GregorianCalendar.DAY_OF_YEAR);
 
             //DEBUG: imprime todos os dados do paciente
             Log.d("Criando: ", "criar conta");

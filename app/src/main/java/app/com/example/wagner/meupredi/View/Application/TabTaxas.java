@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.TaxasView;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
@@ -16,7 +18,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
  * Created by wagne on 12/02/2018.
  */
 
-public class TabTaxas extends Activity {
+public class TabTaxas extends Activity implements TaxasListener{
 
     private TextView chamadaAtualizarTaxas, valor_glicoseJejum, valor_glicose75g , valor_hemoglobina_glicolisada;
     private Paciente paciente;
@@ -28,10 +30,13 @@ public class TabTaxas extends Activity {
         setContentView(tab_taxas_perfil);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
+
         chamadaAtualizarTaxas = (TextView) findViewById(R.id.btn_atualizar_taxas);
         valor_hemoglobina_glicolisada = (TextView) findViewById(R.id.text_valor_hemoglobina_glicolisada_atual);
         valor_glicoseJejum = (TextView) findViewById(R.id.text_valor_glicose_jejum_atual);
         valor_glicose75g = (TextView) findViewById(R.id.text_valor_glicose_75g_atual);
+
+        PacienteUpdater.addListener(this);
 
         Double hg = paciente.getHemoglobinaGlicolisada();
         valor_hemoglobina_glicolisada.setText(hg.toString()+" mg/dL");
@@ -50,5 +55,12 @@ public class TabTaxas extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onChangeTaxas(Taxas taxas) {
+        valor_hemoglobina_glicolisada.setText(String.format("%.2f", taxas.getHemoglobinaGlico()));
+        valor_glicose75g.setText(String.format("%.2f", taxas.getGlicose75g()));
+        valor_glicoseJejum.setText(String.format("%.2f", taxas.getGlicoseJejum()));
     }
 }

@@ -42,6 +42,10 @@ public abstract class TaxasDAO {
         return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1).get();
     }
 
+    public static Query getLastTaxas(Paciente paciente){
+        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1);
+    }
+
     public static Task<Void> deleteTaxas(Taxas taxas){
         taxas.setFlagTaxa(0);
         return getRef(taxas.getEmailPaciente())

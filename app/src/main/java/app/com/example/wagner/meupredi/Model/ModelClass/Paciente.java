@@ -30,7 +30,7 @@ public class Paciente implements Serializable {
 
     public Paciente() {}
 
-    public Paciente(int id, String nome, String senha, String email, String sexo, int idade, double circunferencia, double peso, double altura, int ultimaDica) {
+    public Paciente(int id, String nome, String senha, String email, String sexo, int idade, int ultimaDica) {
 
         //valores com -1 serão setados ou calculados após o cadastro inicial
         this.id = id;
@@ -39,9 +39,9 @@ public class Paciente implements Serializable {
         this.email = email;
         this.sexo = sexo;
         this.idade = idade;
-        this.circunferencia = circunferencia;
-        this.peso = peso;
-        this.altura = altura;
+        this.circunferencia = 0;
+        this.peso = 0;
+        this.altura = 0;
         this.imc = -1;
         this.glicose75g = -1;
         this.glicoseJejum = -1;
@@ -181,6 +181,13 @@ public class Paciente implements Serializable {
         this.glicoseJejum = taxas.getGlicoseJejum();
         this.colesterol = taxas.getColesterol();
         this.hemoglobinaGlicolisada = taxas.getHemoglobinaGlico();
+    }
+
+    public void setTaxas(double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlicolisada){
+        this.glicose75g = glicose75g;
+        this.glicoseJejum = glicoseJejum;
+        this.colesterol = colesterol;
+        this.hemoglobinaGlicolisada = hemoglobinaGlicolisada;
     }
 
     //metodo chamado na classe MenuPrincipal para verificar situacao do paciente

@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.PacienteController;
-import app.com.example.wagner.meupredi.Model.DatabaseHandler;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 

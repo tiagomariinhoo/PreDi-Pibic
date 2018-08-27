@@ -1,11 +1,13 @@
 package app.com.example.wagner.meupredi.Controller;
 
-import android.app.Activity;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.MetadataChanges;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.annotation.Nullable;
@@ -30,12 +32,12 @@ public abstract class TaxasController {
         return TaxasDAO.updateTaxas(taxas);
     }
 
-    public static Task<QuerySnapshot> getLastInfoTaxas(Paciente paciente){
+    public static Task<QuerySnapshot> getTaxas(Paciente paciente){
         return TaxasDAO.getTaxas(paciente);
     }
 
-    public static <T extends Activity & GraphHelper<Taxas>> void getDadosGrafico(T current, Paciente paciente){
-        TaxasDAO.graphMedidas(paciente).addSnapshotListener(current, new EventListener<QuerySnapshot>() {
+    public static ListenerRegistration getDadosGrafico(GraphHelper<Taxas> current, Paciente paciente){
+        return TaxasDAO.graphMedidas(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (e != null) Log.d("Firebase Error: ", e.getMessage());
@@ -44,6 +46,10 @@ public abstract class TaxasController {
                 }
             }
         });
+    }
+
+    public static Query getLastInfoTaxas(Paciente paciente){
+        return TaxasDAO.getLastTaxas(paciente);
     }
 
     public static Task<QuerySnapshot> getAllTaxas(Paciente paciente){

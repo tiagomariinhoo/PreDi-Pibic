@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
@@ -56,6 +57,7 @@ public class Perfil extends ActivityGroup {
         nomeUsuario = (TextView) findViewById(R.id.text_nome_usuario);
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
+
         nomeUsuario.setText(paciente.getNome().split(" ")[0]);
         /*
         *Difference between INVISIBLE and GONE.
