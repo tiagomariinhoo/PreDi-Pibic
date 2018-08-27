@@ -23,7 +23,7 @@ public abstract class ConsultaDAO {
     }
 
     public static Task<Void> createConsulta(Paciente paciente, Consulta consulta){
-        return getRef(paciente.getEmail()).document(consulta.getTime()+" "+consulta.getDate()).set(consulta);
+        return getRef(paciente.getEmail()).document(consulta.getDate()+" "+consulta.getTime()).set(consulta);
     }
 
     public static Task<Void> updateConsulta(Paciente paciente, Consulta consulta){
@@ -31,16 +31,28 @@ public abstract class ConsultaDAO {
     }
 
     public static Task<QuerySnapshot> getAllConsultas(Paciente paciente){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String currentDate = dateFormat.format(new Date());
-        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.DESCENDING)
-                                          .whereGreaterThan("date", currentDate).get();
+        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+                                          .orderBy("time", Query.Direction.ASCENDING)
+                                          .whereGreaterThan("date", currentDate)
+                                          .get();
+    }
+
+    public static Query getLiveConsultas(Paciente paciente){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String currentDate = dateFormat.format(new Date());
+        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+                .orderBy("time", Query.Direction.ASCENDING)
+                .whereGreaterThan("date", currentDate);
     }
 
     public static Task<QuerySnapshot> getConsulta(Paciente paciente){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String currentDate = dateFormat.format(new Date());
-        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.DESCENDING)
-                                          .whereGreaterThan("date", currentDate).limit(1).get();
+        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+                                          .orderBy("time", Query.Direction.ASCENDING)
+                                          .whereGreaterThan("date", currentDate)
+                                          .limit(1).get();
     }
 }

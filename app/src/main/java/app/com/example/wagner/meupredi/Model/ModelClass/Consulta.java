@@ -1,5 +1,8 @@
 package app.com.example.wagner.meupredi.Model.ModelClass;
 
+import android.util.Log;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -9,7 +12,7 @@ import java.util.Locale;
  */
 
 public class Consulta {
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
     private String titulo;
     private String local;
@@ -67,8 +70,19 @@ public class Consulta {
         this.time = time;
     }
 
+    public String printingDate(){
+        SimpleDateFormat printDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return printDateFormat.format(dateFormat.parse(date));
+        } catch (ParseException e) {
+            Log.d("Parsing Error", e.getMessage());
+        }
+        return "";
+        //(new StringBuilder(this.date).reverse().toString().replace("-", "/"));
+    }
+
     @Override
     public String toString(){
-        return this.getTitulo() + " - " + this.getDate() + " - " + this.getTime() + " - " + this.getLocal();
+        return this.titulo + " - " + this.printingDate() + " - " + this.time + " - " + this.local;
     }
 }

@@ -56,7 +56,7 @@ import app.com.example.wagner.meupredi.View.Application.MedidaListener;
  */
 
 public class MedidaView extends AppCompatActivity implements OnChartGestureListener,
-        OnChartValueSelectedListener, MedidaListener, GraphHelper<Medida> {
+        OnChartValueSelectedListener, MedidaListener, LiveUpdateHelper<Medida> {
 
     private LineChart mChart;
     private TextView dataUltimaMedicao, TextListaPesosTela;
@@ -416,12 +416,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     @Override
     public void onBackPressed() {
         finish();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
     }
 
     @Override

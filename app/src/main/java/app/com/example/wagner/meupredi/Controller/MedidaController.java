@@ -1,19 +1,17 @@
 package app.com.example.wagner.meupredi.Controller;
 
-import android.app.Activity;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.annotation.Nullable;
 
-import app.com.example.wagner.meupredi.View.Application.MainViews.GraphHelper;
+import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
 import app.com.example.wagner.meupredi.Database.MedidaDAO;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
@@ -39,7 +37,7 @@ public abstract class MedidaController {
         //return db.modelGetPeso(paciente);
     }
 
-    public static ListenerRegistration getDadosGrafico(GraphHelper<Medida> current, Paciente paciente){
+    public static ListenerRegistration getDadosGrafico(LiveUpdateHelper<Medida> current, Paciente paciente){
         return MedidaDAO.graphMedidas(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
