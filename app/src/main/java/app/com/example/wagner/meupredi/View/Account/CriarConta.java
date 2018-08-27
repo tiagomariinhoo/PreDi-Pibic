@@ -223,7 +223,7 @@ public class CriarConta extends AppCompatActivity {
 
             String sexoCadastro = sexo.getSelectedItem().toString();
 
-            if (!sexoCadastro.equals("M") && !sexoCadastro.equals("M")) {
+            if (!sexoCadastro.equals("M") && !sexoCadastro.equals("F")) {
                 sexoCadastro = "";
             }
 
