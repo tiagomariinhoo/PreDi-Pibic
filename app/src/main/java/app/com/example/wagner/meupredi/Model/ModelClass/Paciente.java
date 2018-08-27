@@ -11,7 +11,6 @@
 
 public class Paciente implements Serializable {
 
-    private int id; // TODO: RETIRAR ID SOMENTE APÓS REWORK DE TODAS AS FUNCIONALIDADES DO DatabaseHandler
     private String nome;
     private String senha;
     private String email;
@@ -30,10 +29,8 @@ public class Paciente implements Serializable {
 
     public Paciente() {}
 
-    public Paciente(int id, String nome, String senha, String email, String sexo, int idade, int ultimaDica) {
+    public Paciente(String nome, String senha, String email, String sexo, int idade, int ultimaDica) {
 
-        //valores com -1 serão setados ou calculados após o cadastro inicial
-        this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
@@ -56,12 +53,6 @@ public class Paciente implements Serializable {
 
     public void setUltimaDica(int ultimaDica) {
         this.ultimaDica = ultimaDica;
-    }
-
-    public int getId() { return id; }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getSexo() {

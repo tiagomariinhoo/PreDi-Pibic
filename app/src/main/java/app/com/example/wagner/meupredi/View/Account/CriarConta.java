@@ -177,20 +177,24 @@ public class CriarConta extends AppCompatActivity {
                 String dataCadastro = data.getText().toString();
                 String senhaCadastro = senha.getText().toString();
                 String conSenhaCadastro = conSenha.getText().toString();
-
-                //verificando se email ja foi cadastrado
-                PacienteController.getPaciente(emailCadastro)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if(documentSnapshot != null){
-                                //email não cadastrado
-                                novoPaciente(nomeCompleto, emailCadastro, dataCadastro, senhaCadastro, conSenhaCadastro);
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Email já cadastrado!", Toast.LENGTH_LONG).show();
+                //fazer checagem de email antes evita erro do firebase
+                if(emailCadastro.length() == 0){
+                    Toast.makeText(getApplicationContext(), "Insira um email válido!", Toast.LENGTH_SHORT).show();
+                } else {
+                    //verificando se email ja foi cadastrado
+                    PacienteController.getPaciente(emailCadastro)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot != null && !documentSnapshot.exists()) {
+                                    //email não cadastrado
+                                    novoPaciente(nomeCompleto, emailCadastro, dataCadastro, senhaCadastro, conSenhaCadastro);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Email já cadastrado!", Toast.LENGTH_LONG).show();
+                                }
                             }
-                        }
-                    });
+                        });
+                }
             }
         });
 
@@ -207,8 +211,6 @@ public class CriarConta extends AppCompatActivity {
         //verifica se todos os campos estao preenchidos
         if(nomeCompleto.length() == 0) {
             Toast.makeText(getApplicationContext(), "Insira um nome válido!", Toast.LENGTH_SHORT).show();
-        } else if(emailCadastro.length() == 0) {
-            Toast.makeText(getApplicationContext(), "Insira um email válido!", Toast.LENGTH_SHORT).show();
         } else if(dataCadastro.length() == 0){
             data.setText("");
             Toast.makeText(getApplicationContext(), "Data em formato inválido! Por favor, digite no formato ddmmaaaa.", Toast.LENGTH_SHORT).show();
@@ -218,16 +220,17 @@ public class CriarConta extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
 
             Log.d("Idade Criar Conta: ", String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - ano));
+
+            String sexoCadastro = sexo.getSelectedItem().toString();
+
+            if (!sexoCadastro.equals("M") && !sexoCadastro.equals("M")) {
+                sexoCadastro = "";
+            }
+
             //configuracao padrao de usuario
-            Paciente paciente = new Paciente(0, nomeCompleto, senhaCadastro, emailCadastro, "", idadeAux, -1);
+            Paciente paciente = new Paciente(nomeCompleto, senhaCadastro, emailCadastro, sexoCadastro, idadeAux, -1);
 
             //verifica opcao de sexo selecionada
-            String selected = sexo.getSelectedItem().toString();
-            if (selected.equals("M")) {
-                paciente.setSexo("M");
-            } else {
-                paciente.setSexo("F");
-            }
 
             dataCadastro = dataCadastro.substring(0, 2) + "/" + dataCadastro.substring(2, 4) + "/" + dataCadastro.substring(4, dataCadastro.length());
             paciente.setNascimento(dataCadastro);
