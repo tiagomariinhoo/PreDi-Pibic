@@ -122,8 +122,7 @@ public class TabCorpo extends Activity implements MedidaListener{
     @Override
     public void onChangeMedida(Medida medida) {
         pesoAtual.setText(String.format("%.2f", medida.getPeso()));
-        String date = medida.getDateMedida().replace("-", "/").split(" ")[0];
-        ultimaMedicao.setText("Ultima medição: " + date);
+        ultimaMedicao.setText("Ultima medição: " + medida.printingDate());
         ultimaMedicao.setVisibility(View.VISIBLE);
     }
 }

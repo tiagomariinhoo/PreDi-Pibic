@@ -62,14 +62,12 @@ public class EsqueceuSenha extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Paciente paciente = documentSnapshot.toObject(Paciente.class);
-                            enviarEmail(paciente);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Email não cadatrado ou inválido!", Toast.LENGTH_LONG).show();
+                            if(documentSnapshot != null && documentSnapshot.exists()) {
+                                Paciente paciente = documentSnapshot.toObject(Paciente.class);
+                                enviarEmail(paciente);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Email não cadatrado ou inválido!", Toast.LENGTH_LONG).show();
+                            }
                         }
                     });
 
@@ -79,8 +77,7 @@ public class EsqueceuSenha extends AppCompatActivity {
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EsqueceuSenha.this, TelaLogin.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -104,7 +101,6 @@ public class EsqueceuSenha extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "Email de recuperação de senha enviado!", Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(EsqueceuSenha.this, TelaLogin.class);
-        startActivity(intent);
+        finish();
     }
 }

@@ -101,6 +101,10 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
                 || date.length() == 0
                 || time.length() == 0) {
                     Toast.makeText(ConsultaView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                } else if(!date.matches("\\d\\d/\\d\\d/\\d\\d\\d\\d")) {
+                    Toast.makeText(ConsultaView.this, "Por favor, digite uma data válida!", Toast.LENGTH_LONG).show();
+                } else if(!time.matches("\\d\\d:\\d\\d:\\d\\d")){
+                    Toast.makeText(ConsultaView.this, "Por favor, digite um horário válido!", Toast.LENGTH_LONG).show();
                 } else {
                     alertaNovaConsulta = new AlertDialog.Builder(ConsultaView.this);
 

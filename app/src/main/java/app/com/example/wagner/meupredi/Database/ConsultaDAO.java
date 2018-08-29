@@ -23,11 +23,13 @@ public abstract class ConsultaDAO {
     }
 
     public static Task<Void> createConsulta(Paciente paciente, Consulta consulta){
-        return getRef(paciente.getEmail()).document(consulta.getDate()+" "+consulta.getTime()).set(consulta);
+        return getRef(paciente.getEmail()).document(consulta.getDate()+" "+consulta.getTime())
+                                          .set(consulta);
     }
 
     public static Task<Void> updateConsulta(Paciente paciente, Consulta consulta){
-        return getRef(paciente.getEmail()).document(consulta.getDate()+" "+consulta.getTime()).set(consulta, SetOptions.merge());
+        return getRef(paciente.getEmail()).document(consulta.getDate()+" "+consulta.getTime())
+                                          .set(consulta, SetOptions.merge());
     }
 
     public static Task<QuerySnapshot> getAllConsultas(Paciente paciente){
@@ -35,7 +37,7 @@ public abstract class ConsultaDAO {
         String currentDate = dateFormat.format(new Date());
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
                                           .orderBy("time", Query.Direction.ASCENDING)
-                                          .whereGreaterThan("date", currentDate)
+                                          .whereGreaterThanOrEqualTo("date", currentDate)
                                           .get();
     }
 
@@ -43,8 +45,8 @@ public abstract class ConsultaDAO {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String currentDate = dateFormat.format(new Date());
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
-                .orderBy("time", Query.Direction.ASCENDING)
-                .whereGreaterThan("date", currentDate);
+                                          .orderBy("time", Query.Direction.ASCENDING)
+                                          .whereGreaterThanOrEqualTo("date", currentDate);
     }
 
     public static Task<QuerySnapshot> getConsulta(Paciente paciente){
@@ -52,7 +54,7 @@ public abstract class ConsultaDAO {
         String currentDate = dateFormat.format(new Date());
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
                                           .orderBy("time", Query.Direction.ASCENDING)
-                                          .whereGreaterThan("date", currentDate)
+                                          .whereGreaterThanOrEqualTo("date", currentDate)
                                           .limit(1).get();
     }
 }

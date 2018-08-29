@@ -126,9 +126,10 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                         gJAtualizada = Double.parseDouble(novaGJ);
                     } catch(Exception e){
                         Toast.makeText(TaxasView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(TaxasView.this, Perfil.class);
+                        /*Intent intent = new Intent(TaxasView.this, Perfil.class);
                         intent.putExtra("Paciente", paciente);
-                        startActivity(intent);
+                        startActivity(intent);*/
+                        finish();
                     }
 
                     String gJFormatada = String.format(Locale.ENGLISH, "%.2f", gJAtualizada);
@@ -154,9 +155,10 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                         g75Atualizada = Double.parseDouble(novaG75);
                     } catch(Exception e){
                         Toast.makeText(TaxasView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(TaxasView.this, Perfil.class);
+                        /*Intent intent = new Intent(TaxasView.this, Perfil.class);
                         intent.putExtra("Paciente", paciente);
-                        startActivity(intent);
+                        startActivity(intent);*/
+                        finish();
                     }
 
                     String g75Formatada = String.format(Locale.ENGLISH, "%.2f", g75Atualizada);
@@ -183,9 +185,10 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                         hgAtualizada = Double.parseDouble(novaHG);
                     } catch(Exception e){
                         Toast.makeText(TaxasView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(TaxasView.this, Perfil.class);
+                        /*Intent intent = new Intent(TaxasView.this, Perfil.class);
                         intent.putExtra("Paciente", paciente);
-                        startActivity(intent);
+                        startActivity(intent);*/
+                        finish();
                     }
                     String hgFormatada = String.format(Locale.ENGLISH, "%.2f", hgAtualizada);
                     Double hgDoPaciente = Double.parseDouble(hgFormatada);
@@ -209,9 +212,10 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                 novaGlicose75.setText("");
                 novaHemoglobinaGlicolisada.setText("");
 
-                Intent intent = new Intent(TaxasView.this, Perfil.class);
+                /*Intent intent = new Intent(TaxasView.this, Perfil.class);
                 intent.putExtra("Paciente", paciente);
-                startActivity(intent);
+                startActivity(intent);*/
+                finish();
 
                 /*
                 Fragment fragment = new Fragment();

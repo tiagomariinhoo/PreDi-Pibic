@@ -294,11 +294,11 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
                 } catch(Exception e){
                     Toast.makeText(MedidaView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(MedidaView.this, Perfil.class);
+                    /*Intent intent = new Intent(MedidaView.this, Perfil.class);
                     intent.putExtra("Paciente", paciente);
-                    //finish();
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    startActivity(intent);*/
+                    finish();
                 }
 
                 String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);

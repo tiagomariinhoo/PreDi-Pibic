@@ -201,8 +201,7 @@ public class CriarConta extends AppCompatActivity {
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent voltaLogin = new Intent(CriarConta.this, TelaLogin.class);
-                startActivity(voltaLogin);
+                finish();
             }
         });
     }
@@ -265,8 +264,7 @@ public class CriarConta extends AppCompatActivity {
                     }
                 });
 
-            Intent voltaLogin = new Intent(CriarConta.this, TelaLogin.class);
-            startActivity(voltaLogin);
+            finish();
 
         } else {
             Toast.makeText(getApplicationContext(), "Insira senhas iguais!", Toast.LENGTH_LONG).show();

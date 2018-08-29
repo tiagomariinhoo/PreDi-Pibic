@@ -108,7 +108,8 @@ public class ListaPesos extends Activity {
 
                 alertaPesoSelecionado = new AlertDialog.Builder(ListaPesos.this);
                 alertaPesoSelecionado.setTitle("Alerta!");
-                alertaPesoSelecionado.setMessage("Você deseja remover ou editar essa essa medição?\n" + value + "\nFeita em " + peso.getDateMedida());
+                alertaPesoSelecionado.setMessage("Você deseja remover ou editar essa essa medição?\n" + value + "\n"
+                                                + "Feita em " + peso.printingDate() + " às " + peso.printingTime());
                 // Caso EDITAR
                 alertaPesoSelecionado.setNegativeButton("EDITAR",
                     new DialogInterface.OnClickListener() {

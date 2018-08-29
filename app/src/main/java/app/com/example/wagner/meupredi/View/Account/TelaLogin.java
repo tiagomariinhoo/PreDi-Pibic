@@ -174,7 +174,6 @@ public class TelaLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TelaLogin.this, EsqueceuSenha.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -189,7 +188,7 @@ public class TelaLogin extends AppCompatActivity {
                 Log.d("Got Medida", Integer.toString(queryDocumentSnapshots.size()));
                 if(!queryDocumentSnapshots.isEmpty()) {
                     Medida medida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
-                    Log.d("MEDIDAS NA TELA LOGIN  : ", medida.toString());
+                    Log.d("MEDIDAS LOGIN", medida.toString());
                     paciente.setPeso(medida.getPeso());
                     paciente.setCircunferencia(medida.getCircunferencia());
                 } else{

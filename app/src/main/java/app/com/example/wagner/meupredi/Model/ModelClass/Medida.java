@@ -1,5 +1,8 @@
 package app.com.example.wagner.meupredi.Model.ModelClass;
 
+import android.util.Log;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -49,6 +52,26 @@ public class Medida {
 
     public String getDateMedida() {
         return dateMedida;
+    }
+
+    public String printingDate(){
+        SimpleDateFormat printDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return printDateFormat.format(dateFormat.parse(dateMedida));
+        } catch (ParseException e) {
+            Log.d("Parsing Error", e.getMessage());
+        }
+        return "";
+    }
+
+    public String printingTime(){
+        SimpleDateFormat printTimeFormat = new SimpleDateFormat("HH:mm:ss");
+        try {
+            return printTimeFormat.format(dateFormat.parse(dateMedida));
+        } catch (ParseException e) {
+            Log.d("Parsing Error", e.getMessage());
+        }
+        return "";
     }
 
     public int getFlagMedida() {

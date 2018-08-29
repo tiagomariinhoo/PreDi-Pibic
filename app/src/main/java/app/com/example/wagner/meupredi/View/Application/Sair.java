@@ -48,9 +48,10 @@ public class Sair extends Activity {
         sairNAO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Sair.this, Perfil.class);
+                /*Intent intent = new Intent(Sair.this, Perfil.class);
                 intent.putExtra("Paciente", paciente);
-                startActivity(intent);
+                startActivity(intent);*/
+                finish();
             }
         });
 
