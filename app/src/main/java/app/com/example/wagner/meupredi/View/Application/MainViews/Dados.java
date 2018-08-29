@@ -127,7 +127,6 @@ public class Dados extends AppCompatActivity {
 
                     //recalcula imc
                     if(paciente.getPeso() > 0 && paciente.getAltura() > 0) {
-
                         double imc = (paciente.getPeso()/(paciente.getAltura()*paciente.getAltura()));
                         String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
                         imc = Double.parseDouble(imcFormatado);

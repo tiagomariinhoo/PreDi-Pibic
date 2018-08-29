@@ -14,10 +14,10 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 
 public abstract class MedidaDAO {
 
-    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("Pacientes");
+    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("pacientes");
 
     private static CollectionReference getRef(String email){
-        return myRef.document(email).collection("Medidas");
+        return myRef.document(email).collection("medidas");
     }
 
     public static Task<Void> createMedida(Paciente paciente){

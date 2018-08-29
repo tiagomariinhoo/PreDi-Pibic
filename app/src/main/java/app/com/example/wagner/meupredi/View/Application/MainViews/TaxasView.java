@@ -59,12 +59,6 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
     Button atualizarTaxas;
     private LineChart mChart;
 
-    FragmentTransaction transaction;
-    FragmentManager fragmentManager;
-
-    Class fragmentClasse = null;
-    private Fragment MyFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -180,7 +174,7 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
                     novaHG = novaHG.replace(',', '.');
 
-                    Double hgAtualizada = 0d;
+                    Double hgAtualizada = 0.0;
                     try{
                         hgAtualizada = Double.parseDouble(novaHG);
                     } catch(Exception e){

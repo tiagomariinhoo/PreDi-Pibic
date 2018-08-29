@@ -16,10 +16,10 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 public abstract class ConsultaDAO {
 
-    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("Pacientes");
+    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("pacientes");
 
     private static CollectionReference getRef(String email){
-        return myRef.document(email).collection("Consultas");
+        return myRef.document(email).collection("consultas");
     }
 
     public static Task<Void> createConsulta(Paciente paciente, Consulta consulta){

@@ -48,7 +48,7 @@ import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Application.ListaPesos;
+import app.com.example.wagner.meupredi.View.Application.ListaMedidas;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
 
 /**
@@ -233,7 +233,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         chamadaListaPesos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MedidaView.this, ListaPesos.class);
+                Intent intent = new Intent(MedidaView.this, ListaMedidas.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
@@ -242,7 +242,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         TextListaPesosTela.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MedidaView.this, ListaPesos.class);
+                Intent intent = new Intent(MedidaView.this, ListaMedidas.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
@@ -286,11 +286,11 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 */
                 Log.d("CircAtual : ", circAtual);
                 Log.d("Peso Atual : ", pesoAtual);
-                Float pesoAtualizado = 0f;
-                Float circAtualizado = 0f;
+                Double pesoAtualizado = 0.0;
+                Double circAtualizado = 0.0;
                 try{
-                    pesoAtualizado = Float.parseFloat(pesoAtual);
-                    circAtualizado = Float.parseFloat(circAtual);
+                    pesoAtualizado = Double.parseDouble(pesoAtual);
+                    circAtualizado = Double.parseDouble(circAtual);
 
                 } catch(Exception e){
                     Toast.makeText(MedidaView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
@@ -302,10 +302,10 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                 }
 
                 String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
-                Float pesoDoPaciente = Float.parseFloat(pesoFormatado);
+                Double pesoDoPaciente = Double.parseDouble(pesoFormatado);
 
                 String circFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
-                Float circDoPaciente = Float.parseFloat(circFormatado);
+                Double circDoPaciente = Double.parseDouble(circFormatado);
 
                 int dia = dataRegistro.get(GregorianCalendar.DAY_OF_MONTH);
                 String mes = nomeDoMes(dataRegistro.get(GregorianCalendar.MONTH));
@@ -348,19 +348,9 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                                     paciente.setPeso(pesoDoPaciente);
                                     paciente.setCircunferencia(circDoPaciente);
 
-                                    //recalcula imc
-
-                                    if (paciente.getPeso() > 0 && paciente.getAltura() > 0) {
-                                        imc = pesoDoPaciente/(paciente.getAltura()*paciente.getAltura());
-                                        String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
-                                        imc = Double.parseDouble(imcFormatado);
-                                        paciente.setImc(imc);
-                                    } else {
-                                        paciente.setImc(0);
-                                    }
-
                                     //atualiza o peso e o imc do paciente no banco
                                     MedidaController.addMedida(paciente);
+/*
                                     PacienteController.atualizarPaciente(paciente).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -369,6 +359,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                                             Log.d("MEDIDAS: ", String.valueOf(paciente.getCircunferencia()));
                                         }
                                     });
+*/
 /*
                                     Intent intent = new Intent(MedidaView.this, MedidaView.class);
                                     intent.putExtra("Paciente", paciente);

@@ -13,10 +13,10 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 public abstract class TaxasDAO {
-    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("Pacientes");
+    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("pacientes");
 
     private static CollectionReference getRef(String email){
-        return myRef.document(email).collection("Taxas");
+        return myRef.document(email).collection("taxas");
     }
 
     public static Task<Void> createTaxas(Paciente paciente){

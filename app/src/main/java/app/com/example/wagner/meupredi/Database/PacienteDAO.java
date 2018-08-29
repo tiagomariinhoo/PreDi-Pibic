@@ -12,7 +12,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 public abstract class PacienteDAO {
 
-    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("Pacientes");
+    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("pacientes");
 
     public static Task<Void> createPaciente(Paciente paciente){
 

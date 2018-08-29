@@ -10,6 +10,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Nullable;
 
@@ -50,8 +51,10 @@ public final class PacienteUpdater {
                     } else {
                         medida = new Medida("01-01-1900", 0, 0, paciente.getEmail());
                     }
+
                     paciente.setPeso(medida.getPeso());
                     paciente.setCircunferencia(medida.getCircunferencia());
+                    paciente.setImc(imcAtualizado());
                     PacienteController.atualizarPaciente(paciente);
                     onUpdate(medida);
                 }
@@ -119,5 +122,18 @@ public final class PacienteUpdater {
             medidaSnapshot.remove();
             taxasSnapshot.remove();
         }
+    }
+
+    //recalcula imc
+    private static double imcAtualizado(){
+        double imc;
+        if (paciente.getPeso() > 0 && paciente.getAltura() > 0) {
+            imc = paciente.getPeso()/(paciente.getAltura()*paciente.getAltura());
+            String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
+            imc = Double.parseDouble(imcFormatado);
+        } else {
+            imc = 0;
+        }
+        return imc;
     }
 }

@@ -124,5 +124,28 @@ public class TabCorpo extends Activity implements MedidaListener{
         pesoAtual.setText(String.format("%.2f", medida.getPeso()));
         ultimaMedicao.setText("Ultima medição: " + medida.printingDate());
         ultimaMedicao.setVisibility(View.VISIBLE);
+        paciente = PacienteUpdater.getPaciente();
+        imcAtual.setText(String.valueOf(paciente.getImc()));
+        if(paciente.getImc() <= 16.9){
+            statusIMC.setText("Muito abaixo do Peso");
+        }
+        else if(paciente.getImc() <= 18.4){
+            statusIMC.setText("Abaixo do peso");
+        }
+        else if(paciente.getImc() <= 24.9){
+            statusIMC.setText("Peso normal");
+        }
+        else if(paciente.getImc() <= 29.9){
+            statusIMC.setText("Acima do peso");
+        }
+        else if(paciente.getImc() <= 34.9){
+            statusIMC.setText("Obesidade I");
+        }
+        else if(paciente.getImc() <= 40){
+            statusIMC.setText("Obesidade II");
+        }
+        else{
+            statusIMC.setText("Obesidade III");
+        }
     }
 }

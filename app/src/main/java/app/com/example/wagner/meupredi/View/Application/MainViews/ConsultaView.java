@@ -44,7 +44,6 @@ import app.com.example.wagner.meupredi.View.Application.TabConsultas;
 
 public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>{
 
-    private DateFormat formatacaoData = DateFormat.getDateInstance();
     private Calendar dataTime = Calendar.getInstance();
     private TextView btnMarcarData, btnMarcarHorario, contadorConsultas;
     private ImageView agendarNovaConsulta;

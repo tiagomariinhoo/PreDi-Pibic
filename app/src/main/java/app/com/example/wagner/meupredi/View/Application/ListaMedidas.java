@@ -2,7 +2,6 @@ package app.com.example.wagner.meupredi.View.Application;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -22,15 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.R;
-import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
-import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
-public class ListaPesos extends Activity {
+public class ListaMedidas extends Activity {
 
     private Paciente paciente;
     private android.widget.ListView listaDePesos;
@@ -47,12 +43,6 @@ public class ListaPesos extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
-        /*List<Paciente> pacs = PacienteDAO.getAllPacientes();
-        Log.d("Pacientes sizeDAO", Integer.toString(pacs.size()));
-        pacs.forEach(paciente -> {
-            Log.d("NameDAO: ", paciente.getNome());
-        });*/
-
         listaDePesos = (android.widget.ListView) findViewById(R.id.lista_pesos);
         editPeso = (EditText) findViewById(R.id.edit_text_editar_peso_na_lista);
         editCirc = (EditText) findViewById(R.id.edit_text_editar_circunferencia_na_lista);
@@ -64,19 +54,11 @@ public class ListaPesos extends Activity {
         editPeso.setRawInputType(Configuration.KEYBOARD_QWERTY);
         editCirc.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
-/*
-        for(int i=0;i<pesoList.size();i++) {
-            Log.d("Peso value : ", String.valueOf(pesoList.get(i).getPeso()));
-            Log.d("Data Peso : ", pesoList.get(i).getDateMedida());
-            Log.d("Flag: ", String.valueOf(pesoList.get(i).getFlagMedida()));
-        };
-*/
-        //Collections.reverse(pesoList);
         MedidaController.getAllMedidas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Medida> medidas = queryDocumentSnapshots.toObjects(Medida.class);
-                adapter = new ArrayAdapter<String>(ListaPesos.this, R.layout.lista_item_pesos,
+                adapter = new ArrayAdapter<String>(ListaMedidas.this, R.layout.lista_item_pesos,
                         R.id.text_item_lista_peso, adapterList(medidas));
 
                 listaDePesos.setAdapter(adapter);
@@ -106,7 +88,7 @@ public class ListaPesos extends Activity {
 
                 Medida peso = medidas.get(position);
 
-                alertaPesoSelecionado = new AlertDialog.Builder(ListaPesos.this);
+                alertaPesoSelecionado = new AlertDialog.Builder(ListaMedidas.this);
                 alertaPesoSelecionado.setTitle("Alerta!");
                 alertaPesoSelecionado.setMessage("Você deseja remover ou editar essa essa medição?\n" + value + "\n"
                                                 + "Feita em " + peso.printingDate() + " às " + peso.printingTime());
@@ -115,7 +97,7 @@ public class ListaPesos extends Activity {
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(ListaPesos.this, "Mude os valores da medição e clique em ALTERAR", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ListaMedidas.this, "Mude os valores da medição e clique em ALTERAR", Toast.LENGTH_LONG).show();
 
                             String[] separados = value.split(" ");
                             editPeso.setHint(separados[1]);
@@ -141,10 +123,10 @@ public class ListaPesos extends Activity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d("Peso ", "Ultimo peso excluído!");
-                                    Toast.makeText(ListaPesos.this, "Medição removida com sucesso!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ListaMedidas.this, "Medição removida com sucesso!", Toast.LENGTH_LONG).show();
                                 }
                             });/*
-                            Intent intent = new Intent(ListaPesos.this, MedidaView.class);
+                            Intent intent = new Intent(ListaMedidas.this, MedidaView.class);
                             intent.putExtra("Paciente", paciente);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);*/
@@ -183,7 +165,7 @@ public class ListaPesos extends Activity {
                                 || !valorDiferenteCirc.matches("\\d+(\\.\\d+)?");
 
 
-                        alertaAlterarPeso = new AlertDialog.Builder(ListaPesos.this);
+                        alertaAlterarPeso = new AlertDialog.Builder(ListaMedidas.this);
                         alertaAlterarPeso.setTitle("Alerta!");
                         // Esse if verifca se o usuario digitou dados inválidos(por exemplo: " ,", " . ", " .5", etc) ou não
                         if(invalid_input) {
@@ -202,7 +184,7 @@ public class ListaPesos extends Activity {
                                         editCirc.setText("");
                                         editPeso.setHint("");
                                         editCirc.setHint("");
-                                        Toast.makeText(ListaPesos.this, "Operação cancelada", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ListaMedidas.this, "Operação cancelada", Toast.LENGTH_LONG).show();
                                     }
                                 });
                         // Caso Sim
@@ -214,7 +196,7 @@ public class ListaPesos extends Activity {
                                 public void onClick(DialogInterface dialog, int which) {
 
                                     if(invalid_input) {
-                                        Toast.makeText(ListaPesos.this, "Mude os valores da medição e clique em ALTERAR", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ListaMedidas.this, "Mude os valores da medição e clique em ALTERAR", Toast.LENGTH_LONG).show();
 
                                         String[] separados = value.split(" ");
                                         //editPeso.setText(separados[1]);
@@ -228,15 +210,15 @@ public class ListaPesos extends Activity {
 
                                         // FAZER CODIGO DE EDITAR AQUI
 
-                                        float valorPeso = 0f;
-                                        float valorCirc = 0f;
+                                        double valorPeso = 0.0;
+                                        double valorCirc = 0.0;
 
                                         try {
-                                            valorPeso = Float.parseFloat(finalValorDiferentePeso);
-                                            valorCirc = Float.parseFloat(finalValorDiferenteCirc);
+                                            valorPeso = Double.parseDouble(finalValorDiferentePeso);
+                                            valorCirc = Double.parseDouble(finalValorDiferenteCirc);
                                         } catch (Exception e) {
-                                            Toast.makeText(ListaPesos.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                                            /*Intent intent = new Intent(ListaPesos.this, MedidaView.class);
+                                            Toast.makeText(ListaMedidas.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
+                                            /*Intent intent = new Intent(ListaMedidas.this, MedidaView.class);
                                             intent.putExtra("Paciente", paciente);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(intent);*/
@@ -245,42 +227,33 @@ public class ListaPesos extends Activity {
 
                                         peso.setPeso(valorPeso);
                                         peso.setCircunferencia(valorCirc);
-
+/*
                                         if (position == medidas.size() - 1) {
                                             // SIGNIFICA QUE É O PESO ATUAL QUE ELE ESTA EDITANDO, RECALCULE O IMC!
                                             double imc = paciente.getImc();
                                             paciente.setPeso(valorPeso);
                                             paciente.setCircunferencia(valorCirc);
-
-                                            if (paciente.getPeso() > 0 && paciente.getAltura() > 0) {
-                                                imc = valorPeso / (paciente.getAltura() * paciente.getAltura());
-                                                String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
-                                                imc = Double.parseDouble(imcFormatado);
-                                                paciente.setImc(imc);
-                                            } else {
-                                                paciente.setImc(0);
-                                            }
                                         }
-
+*/
                                         MedidaController.editMedida(peso);
 
                                         if (editCirc.getText().length() != 0){
-                                            editCirc.setHint(String.format("%.2f", editCirc.getText()));
+                                            editCirc.setHint(String.format("%.2f", valorCirc));
                                             editCirc.setText("");
                                         }
-                                        if(editCirc.getText().length() != 0) {
-                                            editPeso.setHint(String.format("%.2f", editPeso.getText()));
+                                        if(editPeso.getText().length() != 0) {
+                                            editPeso.setHint(String.format("%.2f", valorPeso));
                                             editPeso.setText("");
                                         }
 
-                                        /*Intent intent = new Intent(ListaPesos.this, MedidaView.class);
+                                        /*Intent intent = new Intent(ListaMedidas.this, MedidaView.class);
                                         intent.putExtra("Paciente", paciente);
                                         startActivity(intent);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         */
                                         finish();
 
-                                        Toast.makeText(ListaPesos.this, "Valores alterados com sucesso", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ListaMedidas.this, "Valores alterados com sucesso", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
