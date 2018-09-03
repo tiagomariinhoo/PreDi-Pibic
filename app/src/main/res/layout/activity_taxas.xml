@@ -265,7 +265,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_novo3_taxas" />
 
     <Button
-        android:id="@+id/btn_atualizar_taxas"
+        android:id="@+id/btn_atualizar_taxasss"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
@@ -291,7 +291,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_atualizar_taxas">
+        app:layout_constraintTop_toBottomOf="@+id/btn_atualizar_taxasss">
 
         <com.github.mikephil.charting.charts.LineChart
             android:layout_width="match_parent"
@@ -309,10 +309,22 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_atualizar_taxas"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_atualizar_taxasss"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_atualizar_taxas"
-        app:layout_constraintTop_toTopOf="@+id/btn_atualizar_taxas"
+        app:layout_constraintStart_toEndOf="@+id/btn_atualizar_taxasss"
+        app:layout_constraintTop_toTopOf="@+id/btn_atualizar_taxasss"
         app:srcCompat="@mipmap/ic_goals" />
+
+    <ImageView
+        android:id="@+id/btn_chamada_listar_taxas"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:background="@mipmap/ic_listar_itens"
+        android:text="listar"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_atualizar_taxasss"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_atualizar_taxasss"
+        app:srcCompat="@mipmap/ic_listar_itens" />
 
 </android.support.constraint.ConstraintLayout>

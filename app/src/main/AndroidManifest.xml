@@ -76,5 +76,6 @@
         <activity android:name=".View.Application.TabGlicosesHemoglobinaGlicada" />
         <activity android:name=".View.Application.TabGlicosesApos75g" />
         <activity android:name=".View.Application.ListaMedidas" />
+        <activity android:name=".View.Application.ListaTaxas" />
     </application>
 </manifest>

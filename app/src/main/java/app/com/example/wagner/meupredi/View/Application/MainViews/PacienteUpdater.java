@@ -49,7 +49,7 @@ public final class PacienteUpdater {
                     if (!queryDocumentSnapshots.isEmpty()) {
                         medida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
                     } else {
-                        medida = new Medida("01-01-1900", 0, 0, paciente.getEmail());
+                        medida = new Medida("1900-01-01_00:00:00", 0, 0, paciente.getEmail());
                     }
 
                     paciente.setPeso(medida.getPeso());
@@ -72,7 +72,7 @@ public final class PacienteUpdater {
                     if (!queryDocumentSnapshots.isEmpty()){
                         taxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);
                     } else{
-                        taxas = new Taxas("01-01-1900", paciente.getEmail(), 0, 0, 0, 0);
+                        taxas = new Taxas("1900-01-01_00:00:00", paciente.getEmail(), 0, 0, 0, 0);
                     }
                     paciente.setTaxas(taxas);
                     PacienteController.atualizarPaciente(paciente);

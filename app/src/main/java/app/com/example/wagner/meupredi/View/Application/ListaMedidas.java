@@ -19,7 +19,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
@@ -58,8 +57,8 @@ public class ListaMedidas extends Activity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Medida> medidas = queryDocumentSnapshots.toObjects(Medida.class);
-                adapter = new ArrayAdapter<String>(ListaMedidas.this, R.layout.lista_item_pesos,
-                        R.id.text_item_lista_peso, adapterList(medidas));
+                adapter = new ArrayAdapter<String>(ListaMedidas.this, R.layout.lista_item,
+                        R.id.text_item_lista, adapterList(medidas));
 
                 listaDePesos.setAdapter(adapter);
 

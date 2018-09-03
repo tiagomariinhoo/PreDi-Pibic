@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -44,6 +41,7 @@ import app.com.example.wagner.meupredi.Controller.TaxasController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.ListaTaxas;
 import app.com.example.wagner.meupredi.View.Application.PopGlicoses;
 
 /**
@@ -55,7 +53,7 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
     Paciente paciente;
     TextView  glicoseJejum, glicose75, hemoglobinaGlicolisada;
     EditText novaGlicose75, novaGlicoseJejum, novaHemoglobinaGlicolisada;
-    ImageView chamadaInformativo;
+    ImageView chamadaInformativo, listarTaxas;
     Button atualizarTaxas;
     private LineChart mChart;
 
@@ -74,22 +72,24 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
         Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
         Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
 
-        glicoseJejum = (TextView) findViewById(R.id.text_glicoseJejumAtual_taxas);
+        listarTaxas = (ImageView) findViewById(R.id.btn_chamada_listar_taxas);
+
+        glicoseJejum = findViewById(R.id.text_glicoseJejumAtual_taxas);
         glicoseJejum.setText(String.valueOf(paciente.getGlicoseJejum()) + " mg/dL");
 
-        glicose75 = (TextView) findViewById(R.id.text_glicose75gAtual_taxas);
+        glicose75 = findViewById(R.id.text_glicose75gAtual_taxas);
         glicose75.setText(String.valueOf(paciente.getGlicose75g()) + " mg/dL");
 
-        hemoglobinaGlicolisada = (TextView) findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
+        hemoglobinaGlicolisada = findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
         hemoglobinaGlicolisada.setText(String.valueOf(paciente.getHemoglobinaGlicolisada()) + " %");
 
-        chamadaInformativo = (ImageView) findViewById(R.id.image_informativo_glicoses);
+        chamadaInformativo = findViewById(R.id.image_informativo_glicoses);
 
-        novaGlicoseJejum = (EditText) findViewById(R.id.edit_glicoseJejum_taxas);
+        novaGlicoseJejum = findViewById(R.id.edit_glicoseJejum_taxas);
         novaGlicoseJejum.setRawInputType(Configuration.KEYBOARD_QWERTY);
-        novaGlicose75 = (EditText) findViewById(R.id.edit_glicose75g_taxas);
+        novaGlicose75 = findViewById(R.id.edit_glicose75g_taxas);
         novaGlicose75.setRawInputType(Configuration.KEYBOARD_QWERTY);
-        novaHemoglobinaGlicolisada = (EditText) findViewById(R.id.edit_hemoglobina_glicolisada_taxas);
+        novaHemoglobinaGlicolisada = findViewById(R.id.edit_hemoglobina_glicolisada_taxas);
         novaHemoglobinaGlicolisada.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
         findViewById(R.id.tela_taxas).setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,16 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
             }
         });
 
-        atualizarTaxas = (Button) findViewById(R.id.btn_atualizar_taxas);
+        listarTaxas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TaxasView.this, ListaTaxas.class);
+                intent.putExtra("Paciente", paciente);
+                startActivity(intent);
+            }
+        });
+
+        atualizarTaxas = findViewById(R.id.btn_atualizar_taxasss);
 
         atualizarTaxas.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,5 +1,6 @@
 package app.com.example.wagner.meupredi.Model.ModelClass;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -10,7 +11,7 @@ import java.util.Locale;
 
 public class Taxas {
 
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
     private String dateTaxas; // serves as ID
     private String emailPaciente;
     private double glicose75g;
@@ -91,5 +92,26 @@ public class Taxas {
         return dateTaxas;
     }
 
+    public String printGlicoseJejum(){
+        return String.format("%.2f mg/dL", glicoseJejum);
+    }
+    public String printGlicose75g(){
+        return String.format("%.2f mg/dL", glicose75g);
+    }
+
+    public String printHemoglobinaGlicada(){
+        return String.format("%.2f %%", hemoglobinaGlico);
+    }
+
+    public String printDate(){
+        SimpleDateFormat printFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        try {
+            return printFormat.format(dateFormat.parse(dateTaxas));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
 
 }

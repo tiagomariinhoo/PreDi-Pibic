@@ -31,7 +31,7 @@ public class TabTaxas extends Activity implements TaxasListener{
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
-        chamadaAtualizarTaxas = (TextView) findViewById(R.id.btn_atualizar_taxas);
+        chamadaAtualizarTaxas = (TextView) findViewById(R.id.btn_atualizar_taxasss);
         valor_hemoglobina_glicolisada = (TextView) findViewById(R.id.text_valor_hemoglobina_glicolisada_atual);
         valor_glicoseJejum = (TextView) findViewById(R.id.text_valor_glicose_jejum_atual);
         valor_glicose75g = (TextView) findViewById(R.id.text_valor_glicose_75g_atual);

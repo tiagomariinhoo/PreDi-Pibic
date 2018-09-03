@@ -23,12 +23,12 @@ public abstract class ConsultaDAO {
     }
 
     public static Task<Void> createConsulta(Paciente paciente, Consulta consulta){
-        return getRef(paciente.getEmail()).document(consulta.getDate()+" "+consulta.getTime())
+        return getRef(paciente.getEmail()).document(consulta.getDate()+"_"+consulta.getTime())
                                           .set(consulta);
     }
 
     public static Task<Void> updateConsulta(Paciente paciente, Consulta consulta){
-        return getRef(paciente.getEmail()).document(consulta.getDate()+" "+consulta.getTime())
+        return getRef(paciente.getEmail()).document(consulta.getDate()+"_"+consulta.getTime())
                                           .set(consulta, SetOptions.merge());
     }
 
