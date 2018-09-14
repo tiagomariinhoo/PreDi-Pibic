@@ -1,5 +1,6 @@
 package app.com.example.wagner.meupredi.View.Application.MainViews;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -14,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,19 +52,21 @@ import app.com.example.wagner.meupredi.View.Application.PopGlicoses;
 
 public class TaxasView extends AppCompatActivity implements OnChartGestureListener, OnChartValueSelectedListener {
 
-    Paciente paciente;
-    TextView  glicoseJejum, glicose75, hemoglobinaGlicolisada;
-    EditText novaGlicose75, novaGlicoseJejum, novaHemoglobinaGlicolisada;
-    ImageView chamadaInformativo, listarTaxas;
-    Button atualizarTaxas;
+    private Paciente paciente;
+    private RadioGroup radioGroupGraficoTaxas;
+    private TextView  glicoseJejum, glicose75, hemoglobinaGlicolisada;
+    private TextView tituloJejum, titulo75g, tituloGlicada;
+    private EditText novaGlicose75, novaGlicoseJejum, novaHemoglobinaGlicolisada;
+    private ImageView chamadaInformativo, listarTaxas;
+    private Button atualizarTaxas;
     private LineChart mChart;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taxas);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -76,10 +80,8 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
         glicoseJejum = findViewById(R.id.text_glicoseJejumAtual_taxas);
         glicoseJejum.setText(String.valueOf(paciente.getGlicoseJejum()) + " mg/dL");
-
         glicose75 = findViewById(R.id.text_glicose75gAtual_taxas);
         glicose75.setText(String.valueOf(paciente.getGlicose75g()) + " mg/dL");
-
         hemoglobinaGlicolisada = findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
         hemoglobinaGlicolisada.setText(String.valueOf(paciente.getHemoglobinaGlicolisada()) + " %");
 
@@ -92,6 +94,10 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
         novaHemoglobinaGlicolisada = findViewById(R.id.edit_hemoglobina_glicolisada_taxas);
         novaHemoglobinaGlicolisada.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
+        tituloJejum = findViewById(R.id.text_titulo_jejum_tela_axas);
+        titulo75g = findViewById(R.id.text_titulo_75g_tela_taxas);
+        tituloGlicada = findViewById(R.id.text_glicada_titulo_tela_taxas);
+
         findViewById(R.id.tela_taxas).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +106,46 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                     imm.hideSoftInputFromWindow(novaGlicose75.getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(novaGlicoseJejum.getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(novaHemoglobinaGlicolisada.getWindowToken(), 0);
+                    tituloJejum.setTextColor(getResources().getColor(R.color.colorBranco));
+                    titulo75g.setTextColor(getResources().getColor(R.color.colorBranco));
+                    tituloGlicada.setTextColor(getResources().getColor(R.color.colorBranco));
                 }
+            }
+        });
+
+        novaGlicoseJejum.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(MotionEvent.ACTION_UP == motionEvent.getAction()) {
+                    tituloJejum.setTextColor(getResources().getColor(R.color.colorConfirm));
+                    titulo75g.setTextColor(getResources().getColor(R.color.colorBranco));
+                    tituloGlicada.setTextColor(getResources().getColor(R.color.colorBranco));
+                }
+                return false;
+            }
+        });
+
+        novaGlicose75.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(MotionEvent.ACTION_UP == motionEvent.getAction()) {
+                    tituloJejum.setTextColor(getResources().getColor(R.color.colorBranco));
+                    titulo75g.setTextColor(getResources().getColor(R.color.colorConfirm));
+                    tituloGlicada.setTextColor(getResources().getColor(R.color.colorBranco));
+                }
+                return false;
+            }
+        });
+
+        novaHemoglobinaGlicolisada.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(MotionEvent.ACTION_UP == motionEvent.getAction()) {
+                    tituloJejum.setTextColor(getResources().getColor(R.color.colorBranco));
+                    titulo75g.setTextColor(getResources().getColor(R.color.colorBranco));
+                    tituloGlicada.setTextColor(getResources().getColor(R.color.colorConfirm));
+                }
+                return false;
             }
         });
 
@@ -113,7 +158,7 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
             }
         });
 
-        atualizarTaxas = findViewById(R.id.btn_atualizar_taxasss);
+        atualizarTaxas = findViewById(R.id.btn_atualizar_taxas);
 
         atualizarTaxas.setOnClickListener(new View.OnClickListener() {
             @Override

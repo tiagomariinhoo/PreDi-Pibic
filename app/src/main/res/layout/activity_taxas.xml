@@ -7,270 +7,207 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradiente_plano_de_fundo">
 
+    <ImageView
+        android:id="@+id/btn_chamada_listar_taxas"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/ic_listar_itens"
+        android:text="listar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_listar_itens" />
+
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Mantenha suas taxas atualizadas!"
+        android:text="Taxas"
+        android:textAllCaps="false"
         android:textColor="@color/colorBranco"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/edit_glicoseJejum_taxas"
-            android:layout_width="172dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/colorBranco"
-            android:gravity="center_vertical"
-            android:hint="mg/dL"
-            android:textAlignment="center"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/text_valorAtual1_taxas"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="1.0"
-            android:layout_marginStart="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/text_novo1_taxas"
-            app:layout_constraintVertical_bias="0.0"/>
+    <ImageView
+        android:id="@+id/image_informativo_glicoses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroupGraficoTaxas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_atualizar_taxas"
+        app:srcCompat="@mipmap/ic_informativo_taxas_chamada" />
 
-        <TextView
-            android:id="@+id/text_valorAtual1_taxas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:text="Última medição:"
-            android:textAlignment="center"
-            android:textColor="@color/colorBranco"
-            app:layout_constraintHorizontal_bias="0.32"
-            app:layout_constraintLeft_toLeftOf="@+id/text_glicoseJejumAtual_taxas"
-            app:layout_constraintRight_toRightOf="@+id/text_glicoseJejumAtual_taxas"
-            app:layout_constraintTop_toBottomOf="@+id/text_glicoseJejum_taxas" />
-
-        <TextView
-            android:id="@+id/text_novo1_taxas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Novo:"
-            android:textAlignment="center"
-            android:textColor="@color/colorBranco"
-            app:layout_constraintRight_toRightOf="@+id/edit_glicoseJejum_taxas"
-            app:layout_constraintTop_toBottomOf="@+id/text_glicoseJejum_taxas"
-            android:layout_marginTop="0dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="@+id/edit_glicoseJejum_taxas" />
-
-    <TextView
-        android:id="@+id/text_glicoseJejumAtual_taxas"
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:background="@color/colorBranco"
-        android:gravity="center_vertical"
-        android:text="-- mg/dL"
-        android:textAlignment="center"
-        android:textColor="#34495e"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/gradiente_branco"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/edit_glicoseJejum_taxas"
-        app:layout_constraintTop_toBottomOf="@+id/text_valorAtual1_taxas"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupGraficoTaxas">
 
-        <TextView
-            android:id="@+id/text_glicoseJejum_taxas"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="8dp"
-            android:background="#575fcf"
-            android:gravity="center_vertical"
-            android:text="GLICOSE EM JEJUM"
-            android:textAlignment="center"
-            android:textColor="@color/colorBranco"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-        <TextView
-            android:id="@+id/text_glicose75_taxas"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:background="#575fcf"
-            android:gravity="center_vertical"
-            android:text="GLICOSE APÓS 75g"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBranco"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginTop="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/text_glicoseJejumAtual_taxas"
-            app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/text_glicose75gAtual_taxas"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:background="@color/colorBranco"
-        android:gravity="center_vertical"
-        android:text="-- mg/dL"
-        android:textAlignment="center"
-        android:textColor="#34495e"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/edit_glicose75g_taxas"
-        app:layout_constraintTop_toBottomOf="@+id/text_valorAtual2_taxas"
-        app:layout_constraintVertical_bias="0.0" />
-
-        <EditText
-            android:id="@+id/edit_glicose75g_taxas"
-            android:layout_width="172dp"
-            android:layout_height="30dp"
-            android:background="@color/colorBranco"
-            android:gravity="center_vertical"
-            android:hint="mg/dL"
-            android:nextFocusDown="@+id/edit_hemoglobina_glicolisada_taxas"
-            android:textAlignment="center"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_novo2_taxas"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintLeft_toRightOf="@+id/text_valorAtual2_taxas"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="1.0" />
-
-        <TextView
-            android:id="@+id/text_valorAtual2_taxas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:text="Última medição:"
-            android:textColor="@color/colorBranco"
-            app:layout_constraintLeft_toLeftOf="@+id/text_glicose75gAtual_taxas"
-            app:layout_constraintRight_toRightOf="@+id/text_glicose75gAtual_taxas"
-            app:layout_constraintTop_toBottomOf="@+id/text_glicose75_taxas"
-            app:layout_constraintHorizontal_bias="0.452" />
-
-        <TextView
-            android:id="@+id/text_novo2_taxas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Novo:"
-            android:textColor="@color/colorBranco"
-            app:layout_constraintLeft_toLeftOf="@+id/edit_glicose75g_taxas"
-            app:layout_constraintRight_toRightOf="@+id/edit_glicose75g_taxas"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/text_glicose75_taxas" />
-
-        <TextView
-            android:id="@+id/text_hemoglobina_glicolisada_taxas"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="0dp"
-            android:background="#575fcf"
-            android:gravity="center_vertical"
-            android:text="HEMOGLOBINA GLICOLISADA (HbA1c)"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBranco"
-            android:textStyle="bold"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_glicose75gAtual_taxas" />
-
-        <TextView
-            android:id="@+id/text_valorAtual3_taxas"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:text="Última medição:"
-            android:textAlignment="center"
-            android:textColor="@color/colorBranco"
-            app:layout_constraintLeft_toLeftOf="@+id/text_hemoglobina_glicolisadaAtual_taxas"
-            app:layout_constraintRight_toRightOf="@+id/text_hemoglobina_glicolisadaAtual_taxas"
-            app:layout_constraintTop_toBottomOf="@+id/text_hemoglobina_glicolisada_taxas"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginTop="0dp" />
-
-        <TextView
-            android:id="@+id/text_novo3_taxas"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Novo:"
-            android:textAlignment="center"
-            android:textColor="@color/colorBranco"
-            app:layout_constraintLeft_toLeftOf="@+id/edit_hemoglobina_glicolisada_taxas"
-            app:layout_constraintRight_toRightOf="@+id/edit_hemoglobina_glicolisada_taxas"
-            app:layout_constraintTop_toBottomOf="@+id/text_hemoglobina_glicolisada_taxas"
-            app:layout_constraintHorizontal_bias="1.0"
-            android:layout_marginTop="0dp" />
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/linechart_taxas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"></com.github.mikephil.charting.charts.LineChart>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/text_hemoglobina_glicolisadaAtual_taxas"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorBranco"
-        android:gravity="center_vertical"
-        android:text="-- %"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#34495e"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/edit_hemoglobina_glicolisada_taxas"
-        app:layout_constraintTop_toBottomOf="@+id/text_valorAtual3_taxas"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textColor="#b2bec3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_glicose75gAtual_taxas"
+        app:layout_constraintTop_toTopOf="@+id/text_glicose75gAtual_taxas" />
 
     <EditText
         android:id="@+id/edit_hemoglobina_glicolisada_taxas"
-        android:layout_width="172dp"
-        android:layout_height="30dp"
-        android:background="@color/colorBranco"
-        android:gravity="center_vertical"
-        android:hint="%"
-        android:textAlignment="center"
-        android:textSize="14dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_novo3_taxas" />
-
-    <Button
-        android:id="@+id/btn_atualizar_taxasss"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/text_hemoglobina_glicolisadaAtual_taxas"
+        android:layout_centerHorizontal="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/white"
+        android:inputType="numberDecimal"
+        android:maxEms="5"
+        android:minEms="5"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_glicose75g_taxas"
+        app:layout_constraintTop_toBottomOf="@+id/text_hemoglobina_glicolisadaAtual_taxas" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_hemoglobina_glicolisada_taxas"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="%"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintEnd_toEndOf="@+id/edit_hemoglobina_glicolisada_taxas"
+        app:layout_constraintStart_toStartOf="@+id/edit_hemoglobina_glicolisada_taxas"
+        app:layout_constraintTop_toBottomOf="@+id/edit_hemoglobina_glicolisada_taxas" />
+
+    <TextView
+        android:id="@+id/text_glicoseJejumAtual_taxas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#b2bec3"
+        app:layout_constraintEnd_toStartOf="@+id/text_glicose75gAtual_taxas"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_glicose75gAtual_taxas" />
+
+    <TextView
+        android:id="@+id/text_glicose75gAtual_taxas"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#b2bec3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <EditText
+        android:id="@+id/edit_glicose75g_taxas"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/white"
+        android:inputType="numberDecimal"
+        android:maxEms="5"
+        android:minEms="5"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_glicose75gAtual_taxas" />
+
+    <EditText
+        android:id="@+id/edit_glicoseJejum_taxas"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/white"
+        android:inputType="numberDecimal"
+        android:maxEms="5"
+        android:minEms="5"
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintEnd_toStartOf="@+id/edit_glicose75g_taxas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_glicoseJejumAtual_taxas" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="mg/dL"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintEnd_toEndOf="@+id/edit_glicose75g_taxas"
+        app:layout_constraintStart_toStartOf="@+id/edit_glicose75g_taxas"
+        app:layout_constraintTop_toBottomOf="@+id/edit_glicose75g_taxas" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="mg/dL"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintEnd_toEndOf="@+id/edit_glicoseJejum_taxas"
+        app:layout_constraintStart_toStartOf="@+id/edit_glicoseJejum_taxas"
+        app:layout_constraintTop_toBottomOf="@+id/edit_glicoseJejum_taxas" />
+
+
+    <Button
+        android:id="@+id/btn_atualizar_taxas"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/textView7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/borda_curvada_verde"
         android:text="ATUALIZAR"
         android:textColor="@color/colorBranco"
@@ -278,53 +215,137 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_hemoglobina_glicolisada_taxas" />
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/textView15"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/gradiente_branco"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_atualizar_taxasss">
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            android:id="@+id/linechart_taxas">
-        </com.github.mikephil.charting.charts.LineChart>
-
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/image_informativo_glicoses"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_atualizar_taxasss"
+        android:background="@drawable/borda_curvada_transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_atualizar_taxasss"
-        app:layout_constraintTop_toTopOf="@+id/btn_atualizar_taxasss"
-        app:srcCompat="@mipmap/ic_goals" />
-
-    <ImageView
-        android:id="@+id/btn_chamada_listar_taxas"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:background="@mipmap/ic_listar_itens"
-        android:text="listar"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_atualizar_taxasss"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_atualizar_taxasss"
-        app:srcCompat="@mipmap/ic_listar_itens" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/text_titulo_jejum_tela_axas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Jejum"
+        android:textAllCaps="false"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView15"
+        app:layout_constraintEnd_toEndOf="@+id/text_glicoseJejumAtual_taxas"
+        app:layout_constraintStart_toStartOf="@+id/text_glicoseJejumAtual_taxas"
+        app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/text_titulo_75g_tela_taxas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="75g"
+        android:textAllCaps="false"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/text_titulo_jejum_tela_axas"
+        app:layout_constraintEnd_toEndOf="@+id/text_glicose75gAtual_taxas"
+        app:layout_constraintStart_toStartOf="@+id/text_glicose75gAtual_taxas"
+        app:layout_constraintTop_toTopOf="@+id/text_titulo_jejum_tela_axas" />
+
+    <TextView
+        android:id="@+id/text_glicada_titulo_tela_taxas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Glicada"
+        android:textAllCaps="false"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/text_hemoglobina_glicolisadaAtual_taxas"
+        app:layout_constraintStart_toStartOf="@+id/text_hemoglobina_glicolisadaAtual_taxas"
+        app:layout_constraintTop_toTopOf="@+id/text_titulo_75g_tela_taxas" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="|"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_titulo_75g_tela_taxas"
+        app:layout_constraintEnd_toStartOf="@+id/text_titulo_75g_tela_taxas"
+        app:layout_constraintStart_toEndOf="@+id/text_titulo_jejum_tela_axas"
+        app:layout_constraintTop_toTopOf="@+id/text_titulo_75g_tela_taxas" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="|"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_titulo_75g_tela_taxas"
+        app:layout_constraintEnd_toStartOf="@+id/text_glicada_titulo_tela_taxas"
+        app:layout_constraintStart_toEndOf="@+id/text_titulo_75g_tela_taxas"
+        app:layout_constraintTop_toTopOf="@+id/text_titulo_75g_tela_taxas" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupGraficoTaxas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borda_curvada_transparent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_atualizar_taxas">
+
+        <RadioButton
+            android:id="@+id/radioJejum_grafico_taxas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Em jejum "
+            android:textColor="@color/colorBranco" />
+
+        <RadioButton
+            android:id="@+id/radioApos75g_grafico_taxas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Após 75g "
+            android:textColor="@color/colorBranco" />
+
+        <RadioButton
+            android:id="@+id/radioGlicada_grafico_taxas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Glicada  "
+            android:textColor="@color/colorBranco" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="detalhes"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_chamada_listar_taxas"
+        app:layout_constraintEnd_toStartOf="@+id/btn_chamada_listar_taxas"
+        app:layout_constraintTop_toTopOf="@+id/btn_chamada_listar_taxas" />
 
 </android.support.constraint.ConstraintLayout>

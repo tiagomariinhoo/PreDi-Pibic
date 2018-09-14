@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/tab_hemoglobina_glicada_taxas"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/text_hemoglobina_glicolisadaAtual_taxas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="TextView"
+        android:textColor="@color/colorBranco"/>
+
+    <EditText
+        android:id="@+id/edit_hemoglobina_glicolisada_taxas"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/text_hemoglobina_glicolisadaAtual_taxas"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@android:color/white"
+        android:minEms="5"
+        android:maxEms="5"
+        android:inputType="numberDecimal"
+        android:textColor="@color/colorBranco" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_hemoglobina_glicolisada_taxas"
+        android:textColor="@color/colorBranco"
+        android:layout_centerHorizontal="true"
+        android:text="md/dL" />
+
+    <Button
+        android:id="@+id/btn_atualizar_taxas"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/textView7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borda_curvada_verde"
+        android:text="ATUALIZAR"
+        android:textColor="@color/colorBranco"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

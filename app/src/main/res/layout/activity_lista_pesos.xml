@@ -10,18 +10,19 @@
 
     <TextView
         android:id="@+id/text_titulo_lista_de_pesos"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:gravity="center_vertical"
-        android:text="Lista de Medições"
+        android:text="MEDIDAS"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
-        android:textSize="18dp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,102 +39,61 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista">
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupMedidas">
 
     </ListView>
 
-    <EditText
-        android:id="@+id/edit_text_editar_peso_na_lista"
-        android:layout_width="100dp"
+    <RadioGroup
+        android:id="@+id/radioGroupMedidas"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@android:color/white"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textColor="@color/colorBranco"
-        android:textColorHint="#c7ecee"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/text_titulo_lista_de_pesos"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9">
+
+        <RadioButton
+            android:id="@+id/radioPeso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Peso "
+            android:textColor="@color/colorBranco" />
+
+        <RadioButton
+            android:id="@+id/radioCircufenrencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Circunferência"
+            android:textColor="@color/colorBranco" />
+
+    </RadioGroup>
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="ACOMPANHAMENTO"
+        android:textColor="@color/colorBranco"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_titulo_lista_de_pesos" />
+
+    <ImageView
+        android:id="@+id/image_informacao_lista_medidas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Peso"
-        android:textColor="@color/colorBranco"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_editar_peso_na_lista"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_editar_peso_na_lista"
-        app:layout_constraintTop_toBottomOf="@+id/text_titulo_lista_de_pesos" />
-
-    <TextView
-        android:id="@+id/textView31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Circunferência"
-        android:textColor="@color/colorBranco"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_editar_circunferencia_na_lista"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_editar_circunferencia_na_lista"
-        app:layout_constraintTop_toBottomOf="@+id/text_titulo_lista_de_pesos" />
-
-    <EditText
-        android:id="@+id/edit_text_editar_circunferencia_na_lista"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@android:color/white"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textColor="@color/colorBranco"
-        android:textColorHint="#c7ecee"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btn_editar_peso_lista_pesos"
-        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_peso_na_lista"
-        app:layout_constraintTop_toBottomOf="@+id/textView31" />
-
-    <Button
-        android:id="@+id/btn_editar_peso_lista_pesos"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/borda_curvada_verde"
-        android:text="Alterar"
-        android:textColor="@color/colorBranco"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_editar_circunferencia_na_lista" />
-
-    <TextView
-        android:id="@+id/textView35"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="kg"
-        android:textColor="@color/colorBranco"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_peso_na_lista"
-        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_peso_na_lista" />
-
-    <TextView
-        android:id="@+id/textView36"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="cm"
-        android:textColor="@color/colorBranco"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
-        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_circunferencia_na_lista" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/text_titulo_lista_de_pesos"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@mipmap/ic_informativo_taxas_chamada"
+        app:srcCompat="@mipmap/ic_informativo_taxas_chamada" />
 
 </android.support.constraint.ConstraintLayout>

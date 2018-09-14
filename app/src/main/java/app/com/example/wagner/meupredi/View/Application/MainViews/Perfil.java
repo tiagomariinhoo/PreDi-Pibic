@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
@@ -24,9 +23,9 @@ import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.Dicas;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
 import app.com.example.wagner.meupredi.View.Application.Sair;
-import app.com.example.wagner.meupredi.View.Application.TabConsultas;
-import app.com.example.wagner.meupredi.View.Application.TabCorpo;
-import app.com.example.wagner.meupredi.View.Application.TabTaxas;
+import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabConsultas;
+import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabCorpo;
+import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabTaxas;
 
 import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
 
@@ -40,7 +39,6 @@ public class Perfil extends ActivityGroup {
 
     private TextView nomeUsuario;
     private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair;
-    //private MenuPrincipal menuPrincipal;
     private Paciente paciente;
 
     @Override

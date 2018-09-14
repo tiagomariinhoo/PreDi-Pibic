@@ -1,4 +1,4 @@
-package app.com.example.wagner.meupredi.View.Application;
+package app.com.example.wagner.meupredi.View.Application.Tabs.Perfil;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.TaxasView;
+import app.com.example.wagner.meupredi.View.Application.TaxasListener;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
 
@@ -18,7 +19,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
  * Created by wagne on 12/02/2018.
  */
 
-public class TabTaxas extends Activity implements TaxasListener{
+public class TabTaxas extends Activity implements TaxasListener {
 
     private TextView chamadaAtualizarTaxas, valor_glicoseJejum, valor_glicose75g , valor_hemoglobina_glicolisada;
     private Paciente paciente;
@@ -31,7 +32,7 @@ public class TabTaxas extends Activity implements TaxasListener{
 
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
-        chamadaAtualizarTaxas = (TextView) findViewById(R.id.btn_atualizar_taxasss);
+        chamadaAtualizarTaxas = (TextView) findViewById(R.id.btn_atualizar_taxas_75g);
         valor_hemoglobina_glicolisada = (TextView) findViewById(R.id.text_valor_hemoglobina_glicolisada_atual);
         valor_glicoseJejum = (TextView) findViewById(R.id.text_valor_glicose_jejum_atual);
         valor_glicose75g = (TextView) findViewById(R.id.text_valor_glicose_75g_atual);

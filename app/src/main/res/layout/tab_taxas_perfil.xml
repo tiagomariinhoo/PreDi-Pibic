@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/btn_atualizar_taxasss"
+        android:id="@+id/btn_atualizar_taxas_75g"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/gradiente_azul"

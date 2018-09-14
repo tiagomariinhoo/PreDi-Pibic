@@ -1,4 +1,4 @@
-package app.com.example.wagner.meupredi.View.Application;
+package app.com.example.wagner.meupredi.View.Application.Tabs.Informativo;
 
 import android.app.Activity;
 import android.os.Bundle;

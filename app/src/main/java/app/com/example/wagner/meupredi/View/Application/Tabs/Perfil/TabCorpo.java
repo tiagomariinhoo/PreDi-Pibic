@@ -1,4 +1,4 @@
-package app.com.example.wagner.meupredi.View.Application;
+package app.com.example.wagner.meupredi.View.Application.Tabs.Perfil;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,15 +7,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
+import app.com.example.wagner.meupredi.View.Application.MedidaListener;
+import app.com.example.wagner.meupredi.View.Application.PesoIdeal;
+import app.com.example.wagner.meupredi.View.Application.TabelaImc;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
 
@@ -23,7 +22,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
  * Created by wagne on 12/02/2018.
  */
 
-public class TabCorpo extends Activity implements MedidaListener{
+public class TabCorpo extends Activity implements MedidaListener {
 
     private TextView pesoAtual, chamadaPeso, ultimaMedicao, imcAtual;
     private TextView informativoIMC, pesoIdeal, statusIMC;
@@ -122,7 +121,7 @@ public class TabCorpo extends Activity implements MedidaListener{
     @Override
     public void onChangeMedida(Medida medida) {
         pesoAtual.setText(String.format("%.2f", medida.getPeso()));
-        ultimaMedicao.setText("Ultima medição: " + medida.printingDate());
+        ultimaMedicao.setText("Ultima medição: " + medida.printDate());
         ultimaMedicao.setVisibility(View.VISIBLE);
         paciente = PacienteUpdater.getPaciente();
         imcAtual.setText(String.valueOf(paciente.getImc()));

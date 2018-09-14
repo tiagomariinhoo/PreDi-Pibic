@@ -1,17 +1,15 @@
 package app.com.example.wagner.meupredi.View.Application;
 
-import android.app.Activity;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.View;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TabHost;
-import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.Tabs.Informativo.TabGlicosesApos75g;
+import app.com.example.wagner.meupredi.View.Application.Tabs.Informativo.TabGlicosesHemoglobinaGlicada;
+import app.com.example.wagner.meupredi.View.Application.Tabs.Informativo.TabGlicosesJejum;
 
 public class PopGlicoses extends ActivityGroup {
 
@@ -26,7 +24,7 @@ public class PopGlicoses extends ActivityGroup {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width), (int) (height));
+        //getWindow().setLayout((int) (width*8), (int) (height*.50));
 
         TabHost abas = (TabHost) findViewById(R.id.tabhostGlicoses);
         abas.setup(this.getLocalActivityManager());

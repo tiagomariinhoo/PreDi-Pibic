@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente_branco">
+
+
+    <EditText
+        android:id="@+id/edit_text_editar_peso_na_lista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textColor="@color/colorBackground"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <EditText
+        android:id="@+id/edit_text_editar_circunferencia_na_lista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textColor="@color/colorBackground"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_peso_na_lista" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Edite ou exclua essa Medição!"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="kg"
+        android:textColor="@color/colorBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_peso_na_lista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_peso_na_lista"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_editar_peso_na_lista" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="cm"
+        android:textColor="@color/colorBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_editar_circunferencia_na_lista" />
+
+    <ImageView
+        android:id="@+id/btn_excluir_peso_lista_pesos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:srcCompat="@mipmap/ic_deletar_item_lista" />
+
+    <ImageView
+        android:id="@+id/btn_editar_peso_lista_pesos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:srcCompat="@mipmap/ic_editar_bola" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Editar"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_editar_peso_lista_pesos"
+        app:layout_constraintEnd_toStartOf="@+id/btn_editar_peso_lista_pesos"
+        app:layout_constraintTop_toTopOf="@+id/btn_editar_peso_lista_pesos" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Excluir"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_excluir_peso_lista_pesos"
+        app:layout_constraintStart_toEndOf="@+id/btn_excluir_peso_lista_pesos"
+        app:layout_constraintTop_toTopOf="@+id/btn_excluir_peso_lista_pesos" />
+
+</android.support.constraint.ConstraintLayout>

@@ -2,12 +2,13 @@ package app.com.example.wagner.meupredi.Model.ModelClass;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Medida {
+public class Medida implements Serializable {
     //private final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault());
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
     private String dateMedida; // serves as ID
@@ -54,7 +55,7 @@ public class Medida {
         return dateMedida;
     }
 
-    public String printingDate(){
+    public String printDate(){
         SimpleDateFormat printDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             return printDateFormat.format(dateFormat.parse(dateMedida));
@@ -64,7 +65,7 @@ public class Medida {
         return "";
     }
 
-    public String printingTime(){
+    public String printTime(){
         SimpleDateFormat printTimeFormat = new SimpleDateFormat("HH:mm:ss");
         try {
             return printTimeFormat.format(dateFormat.parse(dateMedida));
@@ -90,10 +91,19 @@ public class Medida {
         this.emailPaciente = emailPaciente;
     }
 
+    public String printPeso(){
+        return String.format("%.2f mg/dL", peso);
+    }
+    public String printCircunferencia(){
+        return String.format("%.2f mg/dL", circunferencia);
+    }
+
     @Override
     public String toString() {
         return String.format(Locale.getDefault(),
                 "Peso: %.2f kg -- Circunferência: %.2f cm", this.peso, this.circunferencia);
     }
+
+
 
 }
