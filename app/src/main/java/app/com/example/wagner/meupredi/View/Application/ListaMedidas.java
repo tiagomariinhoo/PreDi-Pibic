@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
     private ImageView informacao;
     private AlertDialog.Builder alertaDuvidas, chamadaCartaoMedida;
     private RadioGroup radioGroupMedidas;
+    private ListenerRegistration listListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,16 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
         informacao = findViewById(R.id.image_informacao_lista_medidas);
         radioGroupMedidas = findViewById(R.id.radioGroupMedidas);
 
+        radioGroupMedidas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                onChangedAdapter(medidas);
+                listaDePesos.setAdapter(adapter);
+            }
+        });
+
+        listListener = MedidaController.getDadosGrafico(this, paciente);
+/*
         MedidaController.getAllMedidas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -65,7 +78,7 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
                 });
                 addListeners(medidas);
             }
-        });
+        });*/
 
         informacao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,14 +106,6 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
             }
         });
 
-    }
-
-    private ArrayList<String> adapterList(List<Medida> medidas){
-        ArrayList<String> medidasAux = new ArrayList<>();
-        for(Medida medida : medidas){
-            medidasAux.add(medida.toString());
-        }
-        return medidasAux;
     }
 
     private void addListeners(List<Medida> medidas){
@@ -137,6 +142,7 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
     }
 
     private void onChangedAdapter(List<Medida> medidas){
+
         adapter = new ListaAdapter(ListaMedidas.this, R.layout.lista_item, medidas, Medida.class);
         switch (radioGroupMedidas.getCheckedRadioButtonId()){
             case R.id.radioPeso:
@@ -146,12 +152,24 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
                 adapter.setType("Circunferencia");
                 break;
         }
+        listaDePesos.setAdapter(adapter);
     }
 
     @Override
     public void onReceiveData(List<Medida> data){
         this.medidas = data;
-        Collections.reverse(medidas);
+        //Collections.reverse(medidas);
+
+        addListeners(medidas);
         onChangedAdapter(medidas);
+    }
+
+    @Override
+    protected void onPause() {
+        if(isFinishing()){
+            Log.d("Listener ", "Removido");
+            if(listListener != null) listListener.remove();
+        }
+        super.onPause();
     }
 }

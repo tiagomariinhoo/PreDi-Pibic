@@ -14,18 +14,21 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Collections;
 import java.util.List;
 
 import app.com.example.wagner.meupredi.Controller.TaxasController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
 
-public class ListaTaxas extends Activity {
+public class ListaTaxas extends Activity implements LiveUpdateHelper<Taxas> {
 
     private Paciente paciente;
     private ImageView informacao;
     private RadioGroup radioTaxasGroup;
+    private List<Taxas> taxas;
     private RadioButton radioTaxasButton;
     private android.widget.ListView listaDeTaxas;
     private ListaAdapter adapter;
@@ -92,6 +95,7 @@ public class ListaTaxas extends Activity {
     }
 
     private void onChangedAdapter(List<Taxas> taxas){
+        Collections.reverse(taxas);
         adapter = new ListaAdapter(ListaTaxas.this, R.layout.lista_item, taxas, Taxas.class);
         switch (radioTaxasGroup.getCheckedRadioButtonId()){
             case R.id.radioJejum:
@@ -113,5 +117,12 @@ public class ListaTaxas extends Activity {
                 Taxas taxa = taxas.get(position);
             }
         });
+    }
+
+    @Override
+    public void onReceiveData(List<Taxas> data) {
+        this.taxas = data;
+        //Collections.reverse(medidas);
+        onChangedAdapter(taxas);
     }
 }

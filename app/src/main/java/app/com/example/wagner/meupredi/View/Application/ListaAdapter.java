@@ -1,6 +1,8 @@
 package app.com.example.wagner.meupredi.View.Application;
 
 import android.content.Context;
+import android.support.constraint.solver.widgets.ConstraintAnchor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,9 @@ public class ListaAdapter<T> extends ArrayAdapter {
     String type;
 
     public ListaAdapter(Context context, int textViewResourceId, List<T> objects, Class<T> parameterClass) {
-        super(context, textViewResourceId);
+
+        super(context, textViewResourceId, objects);
+        Log.d("TIPO ", String.valueOf(parameterClass));
         adapterList = objects;
         this.parameterClass = parameterClass;
         if(parameterClass == Taxas.class){
@@ -31,6 +35,7 @@ public class ListaAdapter<T> extends ArrayAdapter {
         else if(parameterClass == Medida.class){
             type = "Peso";
         }
+        Log.d("TIPO ", type);
     }
 
     @Override
@@ -48,8 +53,8 @@ public class ListaAdapter<T> extends ArrayAdapter {
         View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.lista_item, null);
-        TextView dateViewItem = (TextView) v.findViewById(R.id.text_date_item_lista);
-        TextView valueViewItem = (TextView) v.findViewById(R.id.text_item_lista);
+        TextView dateViewItem = v.findViewById(R.id.text_date_item_lista);
+        TextView valueViewItem = v.findViewById(R.id.text_item_lista);
 
         if(parameterClass == Taxas.class){
             List<Taxas> aux = (List<Taxas>) adapterList;
@@ -77,7 +82,6 @@ public class ListaAdapter<T> extends ArrayAdapter {
                     break;
             }
         }
-
         return v;
     }
 }

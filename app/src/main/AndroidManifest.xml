@@ -21,10 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--
-        <activity android:name=".View.Account.TelaLoginSplash"
-            android:screenOrientation="portrait"/>
-        -->
+
         <activity android:name=".View.Account.TelaLogin"
             android:screenOrientation="portrait"/>
         <activity android:name=".View.Account.CriarConta"
@@ -72,14 +69,24 @@
         <activity android:name=".View.Application.PopGlicoses"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".View.Application.Tabs.Informativo.TabGlicosesJejum" />
-        <activity android:name=".View.Application.Tabs.Informativo.TabGlicosesHemoglobinaGlicada" />
-        <activity android:name=".View.Application.Tabs.Informativo.TabGlicosesApos75g" />
-        <activity android:name=".View.Application.ListaMedidas" />
-        <activity android:name=".View.Application.ListaTaxas" />
-        <activity android:name=".View.Application.Tabs.Taxas.TabGlicoseJejumEdit" />
-        <activity android:name=".View.Application.Tabs.Taxas.TabGlicose75gEdit" />
-        <activity android:name=".View.Application.Tabs.Taxas.TabHemoglobinaGlicadaEdit" />
-        <activity android:name=".View.Application.CartaoMedida" />
+        <activity android:name=".View.Application.Tabs.Informativo.TabGlicosesJejum"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.Tabs.Informativo.TabGlicosesHemoglobinaGlicada"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.Tabs.Informativo.TabGlicosesApos75g"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.ListaMedidas"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.ListaTaxas"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.Tabs.Taxas.TabGlicoseJejumEdit"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.Tabs.Taxas.TabGlicose75gEdit"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.Tabs.Taxas.TabHemoglobinaGlicadaEdit"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Application.CartaoMedida"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CustomTheme" />
     </application>
 </manifest>

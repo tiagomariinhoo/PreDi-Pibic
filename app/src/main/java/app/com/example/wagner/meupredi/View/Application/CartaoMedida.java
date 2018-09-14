@@ -37,11 +37,6 @@ public class CartaoMedida extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        getWindow().setLayout((int) ( width*.8), (int) (height*.5));
-
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         medida = (Medida) getIntent().getExtras().get("Medida");
 
