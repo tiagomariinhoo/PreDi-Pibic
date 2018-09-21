@@ -88,5 +88,8 @@
         <activity android:name=".View.Application.CartaoMedida"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".View.Application.CartaoTaxas"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CustomTheme"/>
     </application>
 </manifest>

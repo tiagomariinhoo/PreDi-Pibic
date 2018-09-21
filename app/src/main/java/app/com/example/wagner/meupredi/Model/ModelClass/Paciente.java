@@ -147,8 +147,8 @@ public class Paciente implements Serializable {
         return hemoglobinaGlicolisada;
     }
 
-    public void setHemoglobinaGlicolisada(double hemoglobinaglicolisada) {
-        this.hemoglobinaGlicolisada = hemoglobinaglicolisada;
+    public void setHemoglobinaGlicolisada(double hemoglobinaGlicolisada) {
+        this.hemoglobinaGlicolisada = hemoglobinaGlicolisada;
     }
 
     public double getGlicose75g() {

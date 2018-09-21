@@ -1,5 +1,6 @@
 package app.com.example.wagner.meupredi.Model.ModelClass;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +10,7 @@ import java.util.Locale;
  * Created by Pichau on 02/07/2017.
  */
 
-public class Taxas {
+public class Taxas implements Serializable {
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
     private String dateTaxas; // serves as ID

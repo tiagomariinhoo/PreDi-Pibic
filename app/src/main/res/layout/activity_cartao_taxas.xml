@@ -168,6 +168,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/edit_text_editar_apos75g_na_lista"
         app:layout_constraintStart_toStartOf="@+id/edit_text_editar_apos75g_na_lista"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_apos75g_na_lista" />

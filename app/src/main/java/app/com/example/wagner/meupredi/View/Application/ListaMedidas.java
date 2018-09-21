@@ -31,12 +31,12 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
 public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
 
     private Paciente paciente;
+    private ImageView informacao;
     private android.widget.ListView listaDePesos;
+    private RadioGroup radioGroupMedidas;
     private ListaAdapter<Medida> adapter;
     private List<Medida> medidas;
-    private ImageView informacao;
     private AlertDialog.Builder alertaDuvidas, chamadaCartaoMedida;
-    private RadioGroup radioGroupMedidas;
     private ListenerRegistration listListener;
 
     @Override
@@ -85,7 +85,7 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
             public void onClick(View v) {
                 alertaDuvidas = new AlertDialog.Builder(ListaMedidas.this);
                 alertaDuvidas.setTitle("Informativo");
-                alertaDuvidas.setMessage("Clicando em alguma Taxa na lista, você poderá altera-la ou exclui-la\n");
+                alertaDuvidas.setMessage("Clicando em alguma Medida na lista, você poderá altera-la ou exclui-la\n");
                 // Caso EDITAR
                 alertaDuvidas.setNegativeButton("VOLTAR",
                         new DialogInterface.OnClickListener() {
@@ -159,7 +159,6 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
     public void onReceiveData(List<Medida> data){
         this.medidas = data;
         //Collections.reverse(medidas);
-
         addListeners(medidas);
         onChangedAdapter(medidas);
     }

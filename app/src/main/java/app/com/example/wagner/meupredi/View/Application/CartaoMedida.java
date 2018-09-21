@@ -34,9 +34,6 @@ public class CartaoMedida extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cartao_medida);
 
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         paciente = (Paciente) getIntent().getExtras().get("Paciente");
         medida = (Medida) getIntent().getExtras().get("Medida");
 
