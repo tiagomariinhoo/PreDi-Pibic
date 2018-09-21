@@ -4,11 +4,7 @@
         android:width="1dp"
         android:color="@color/colorBackground" />
 
-    <solid android:color="@color/colorConfirm" />
-
-    <!-- pressed -->
-    <item android:drawable="@drawable/borda_curvada_verde_escura"
-        android:state_pressed="true"/>
+    <solid android:color="@color/colorConfirmClick" />
 
     <padding
         android:left="1dp"

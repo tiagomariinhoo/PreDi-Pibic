@@ -54,7 +54,6 @@ public class TelaLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         PacienteUpdater.onEnd(); // makes sure PacienteUpdater stops when going to the login screen
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_tela_login);
 
 
@@ -99,7 +98,6 @@ public class TelaLogin extends AppCompatActivity {
         mostrarSenha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
                 if(!isChecked) {
                     senha.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 } else {
@@ -143,9 +141,10 @@ public class TelaLogin extends AppCompatActivity {
                 if(manterConectado.isChecked()) {
                     editor.putString("PrefUsuario", usuario.getText().toString());
                     editor.putString("PrefSenha", senha.getText().toString());
-
                     editor.commit();
                 }
+
+                btnLogin.setEnabled(false); // Evitar 2 ou + cliques no botão de login
 
                 //verifica credenciais do usuario
                 String user,pass;
@@ -157,16 +156,14 @@ public class TelaLogin extends AppCompatActivity {
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             if (queryDocumentSnapshots.isEmpty()) {
                                 Toast.makeText(getApplicationContext(), "Usuário inválido!", Toast.LENGTH_LONG).show();
+                                btnLogin.setEnabled(true);
                             } else {
                                 //se estiverem corretas, faz o login
                                 Paciente paciente = queryDocumentSnapshots.toObjects(Paciente.class).get(0);
-
                                 setInfoAndFinish(paciente);
-
                             }
                         }
                     });
-
             }
         });
 

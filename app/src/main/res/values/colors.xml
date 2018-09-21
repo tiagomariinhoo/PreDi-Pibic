@@ -5,6 +5,7 @@
     <color name="colorAccent">#ff4081</color>
     <color name="colorHeadNavigation">#2c3e50</color>
     <color name="colorConfirm">#27ae60</color>
+    <color name="colorConfirmClick">#3A27ae60</color>
     <color name="colorCancel">#ff0000</color>
     <color name="colorVermelho">#ff5e57</color>
     <color name="colorBranco">#ecf0f1</color>

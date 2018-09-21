@@ -9,7 +9,7 @@
     android:background="@drawable/borda_curvada_branca">
 
     <EditText
-        android:id="@+id/edit_text_editar_peso_na_lista"
+        android:id="@+id/edit_text_editar_jejum_na_lista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <EditText
-        android:id="@+id/edit_text_editar_circunferencia_na_lista"
+        android:id="@+id/edit_text_editar_apos75g_na_lista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_peso_na_lista" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_jejum_na_lista" />
 
     <TextView
         android:id="@+id/textView17"
@@ -48,7 +48,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Edite ou exclua essa Medição!"
+        android:text="Edite ou exclua essas taxas!"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,13 +61,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="kg"
+        android:text="mg/dL"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_peso_na_lista"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_jejum_na_lista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_peso_na_lista"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_editar_peso_na_lista" />
+        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_jejum_na_lista"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_editar_jejum_na_lista" />
 
     <TextView
         android:id="@+id/textView22"
@@ -77,33 +77,30 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="cm"
+        android:text="mg/dL"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_apos75g_na_lista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_circunferencia_na_lista"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_editar_circunferencia_na_lista" />
+        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_apos75g_na_lista"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_editar_apos75g_na_lista" />
 
     <ImageView
-        android:id="@+id/btn_excluir_peso_lista_pesos"
+        android:id="@+id/btn_excluir_peso_lista_taxas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:background="@mipmap/ic_deletar_item_lista"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView31"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@mipmap/ic_deletar_item_lista" />
 
     <ImageView
-        android:id="@+id/btn_editar_peso_lista_pesos"
+        android:id="@+id/btn_editar_peso_lista_taxas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -115,8 +112,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textView31"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_circunferencia_na_lista"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_glicada_na_lista"
         app:srcCompat="@mipmap/ic_editar_bola" />
 
     <TextView
@@ -130,9 +126,9 @@
         android:textAllCaps="true"
         android:textColor="@color/colorBackground"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_editar_peso_lista_pesos"
-        app:layout_constraintEnd_toStartOf="@+id/btn_editar_peso_lista_pesos"
-        app:layout_constraintTop_toTopOf="@+id/btn_editar_peso_lista_pesos" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_editar_peso_lista_taxas"
+        app:layout_constraintEnd_toStartOf="@+id/btn_editar_peso_lista_taxas"
+        app:layout_constraintTop_toTopOf="@+id/btn_editar_peso_lista_taxas" />
 
     <TextView
         android:id="@+id/textView26"
@@ -145,20 +141,51 @@
         android:textAllCaps="true"
         android:textColor="@color/colorBackground"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_excluir_peso_lista_pesos"
-        app:layout_constraintStart_toEndOf="@+id/btn_excluir_peso_lista_pesos"
-        app:layout_constraintTop_toTopOf="@+id/btn_excluir_peso_lista_pesos" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_excluir_peso_lista_taxas"
+        app:layout_constraintStart_toEndOf="@+id/btn_excluir_peso_lista_taxas"
+        app:layout_constraintTop_toTopOf="@+id/btn_excluir_peso_lista_taxas" />
 
     <TextView
         android:id="@+id/textView31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="|"
         android:textColor="@color/colorBranco"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_editar_circunferencia_na_lista"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_editar_circunferencia_na_lista"
-        tools:layout_editor_absoluteY="172dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_editar_glicada_na_lista"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_editar_glicada_na_lista"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_glicada_na_lista"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/edit_text_editar_glicada_na_lista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_editar_apos75g_na_lista"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_editar_apos75g_na_lista"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_editar_apos75g_na_lista" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="%"
+        android:textColor="@color/colorBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_editar_glicada_na_lista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toEndOf="@+id/edit_text_editar_glicada_na_lista"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_editar_glicada_na_lista" />
 
 </android.support.constraint.ConstraintLayout>

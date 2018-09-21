@@ -59,4 +59,10 @@ public abstract class TaxasController {
         return TaxasDAO.deleteTaxas(taxas);
     }
 
+    public static Task<Void> eraseLastInfo(Taxas medida){
+        Log.d("Id peso : ", String.valueOf(medida.getDateTaxas()));
+        return TaxasDAO.deleteTaxas(medida);
+        //return db.eraseLastInfoPeso(peso);
+    }
+
 }

@@ -92,10 +92,10 @@ public class Medida implements Serializable {
     }
 
     public String printPeso(){
-        return String.format("%.2f mg/dL", peso);
+        return String.format("%.2f kg", peso);
     }
     public String printCircunferencia(){
-        return String.format("%.2f mg/dL", circunferencia);
+        return String.format("%.2f cm", circunferencia);
     }
 
     @Override
