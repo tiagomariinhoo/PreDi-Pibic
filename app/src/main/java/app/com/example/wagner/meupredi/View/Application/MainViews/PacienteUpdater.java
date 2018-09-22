@@ -2,6 +2,7 @@ package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.util.Log;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -21,14 +22,17 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
+import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 import app.com.example.wagner.meupredi.View.Application.TaxasListener;
 
 public final class PacienteUpdater {
 
     private static List<MedidaListener> medidaListeners = new ArrayList<>();
     private static List<TaxasListener> taxasListeners = new ArrayList<>();
+    private static List<PacienteListener> pacienteListeners = new ArrayList<>();
     private static ListenerRegistration medidaSnapshot;
     private static ListenerRegistration taxasSnapshot;
+    private static ListenerRegistration pacienteSnapshot;
     private static Paciente paciente;
     private static Medida lastMedida;
     private static Taxas lastTaxas;
@@ -52,10 +56,10 @@ public final class PacienteUpdater {
                         medida = new Medida("1900-01-01_00:00:00", 0, 0, paciente.getEmail());
                     }
 
-                    paciente.setPeso(medida.getPeso());
-                    paciente.setCircunferencia(medida.getCircunferencia());
-                    paciente.setImc(imcAtualizado());
-                    PacienteController.atualizarPaciente(paciente);
+                    //paciente.setPeso(medida.getPeso());
+                    //paciente.setCircunferencia(medida.getCircunferencia());
+                    //paciente.setImc(imcAtualizado());
+                    //PacienteController.atualizarPaciente(paciente);
                     onUpdate(medida);
                 }
             });
@@ -74,9 +78,25 @@ public final class PacienteUpdater {
                     } else{
                         taxas = new Taxas("1900-01-01_00:00:00", paciente.getEmail(), 0, 0, 0, 0);
                     }
-                    paciente.setTaxas(taxas);
-                    PacienteController.atualizarPaciente(paciente);
+                    //paciente.setTaxas(taxas);
+                    //PacienteController.atualizarPaciente(paciente);
                     onUpdate(taxas);
+                }
+            });
+
+        pacienteSnapshot = PacienteController.getPacienteListener(paciente)
+            .addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    if(e != null){
+                        Log.d("Firebase Error: ", e.getMessage());
+                        return;
+                    }
+                    if(documentSnapshot.exists()) {
+                        Log.d("Paciente", " Atualizado");
+                        onUpdate(documentSnapshot.toObject(Paciente.class));
+                    }
+                    else pacienteSnapshot.remove();
                 }
             });
     }
@@ -92,6 +112,13 @@ public final class PacienteUpdater {
         }
     }
 
+    private static void onUpdate(Paciente pac){
+        paciente = pac;
+        for(PacienteListener listener : pacienteListeners){
+            listener.onChangePaciente(pac);
+        }
+    }
+
     private static void onUpdate(Taxas taxas){
         lastTaxas = taxas;
         for(TaxasListener listener : taxasListeners){
@@ -104,6 +131,11 @@ public final class PacienteUpdater {
         listener.onChangeMedida(lastMedida);
     }
 
+    public static void addListener(PacienteListener listener){
+        pacienteListeners.add(listener);
+        listener.onChangePaciente(paciente);
+    }
+
     public static void addListener(TaxasListener listener){
         taxasListeners.add(listener);
         listener.onChangeTaxas(lastTaxas);
@@ -113,14 +145,19 @@ public final class PacienteUpdater {
         medidaListeners.remove(listener);
     }
 
+    public static void removeListener(PacienteListener listener){
+        pacienteListeners.remove(listener);
+    }
+
     public static void removeListener(TaxasListener listener){
         taxasListeners.remove(listener);
     }
 
     public static void onEnd(){
-        if(medidaSnapshot != null && taxasSnapshot != null) {
+        if(medidaSnapshot != null && taxasSnapshot != null && pacienteSnapshot != null) {
             medidaSnapshot.remove();
             taxasSnapshot.remove();
+            pacienteSnapshot.remove();
         }
     }
 

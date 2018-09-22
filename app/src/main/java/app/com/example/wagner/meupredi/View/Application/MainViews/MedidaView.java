@@ -50,13 +50,14 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaMedidas;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
+import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 
 /**
  * Created by Tiago on 27/06/2017.
  */
 
 public class MedidaView extends AppCompatActivity implements OnChartGestureListener,
-        OnChartValueSelectedListener, MedidaListener, LiveUpdateHelper<Medida> {
+        OnChartValueSelectedListener, PacienteListener, LiveUpdateHelper<Medida> {
 
     private LineChart mChart;
     private TextView dataUltimaMedicao, TextListaPesosTela;
@@ -108,7 +109,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         mChart.setScaleEnabled(true);
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
-
+        mChart.setPinchZoom(true);
         mChart.getAxisLeft().setDrawGridLines(false);
         mChart.getXAxis().setDrawGridLines(false);
 
@@ -585,8 +586,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     }
 
     @Override
-    public void onChangeMedida(Medida medida) {
-        novoPeso.setHint(String.format("%.2f", medida.getPeso()));
-        novoCirc.setHint(String.format("%.2f", medida.getCircunferencia()));
+    public void onChangePaciente(Paciente paciente) {
+        novoPeso.setHint(String.format("%.2f", paciente.getPeso()));
+        novoCirc.setHint(String.format("%.2f", paciente.getCircunferencia()));
     }
 }

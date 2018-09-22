@@ -2,6 +2,7 @@ package app.com.example.wagner.meupredi.Database;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -34,6 +35,10 @@ public abstract class PacienteDAO {
 
     public static Task<DocumentSnapshot> getPaciente(String email){
         return myRef.document(email).get();
+    }
+
+    public static DocumentReference listenOnPaciente(Paciente paciente){
+        return myRef.document(paciente.getEmail());
     }
 
     public static Query authPaciente(String email, String senha){

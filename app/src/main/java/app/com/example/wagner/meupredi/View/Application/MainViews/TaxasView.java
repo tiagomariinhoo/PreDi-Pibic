@@ -33,9 +33,11 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -44,6 +46,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaTaxas;
+import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 import app.com.example.wagner.meupredi.View.Application.PopGlicoses;
 import app.com.example.wagner.meupredi.View.Application.TaxasListener;
 
@@ -52,7 +55,7 @@ import app.com.example.wagner.meupredi.View.Application.TaxasListener;
  */
 
 public class TaxasView extends AppCompatActivity implements OnChartGestureListener,
-        OnChartValueSelectedListener, TaxasListener {
+        OnChartValueSelectedListener, PacienteListener, LiveUpdateHelper<Taxas> {
 
     private Paciente paciente;
     private RadioGroup radioGroupGraficoTaxas;
@@ -62,6 +65,8 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
     private ImageView chamadaInformativo, listarTaxas;
     private Button atualizarTaxas;
     private LineChart mChart;
+    private ListenerRegistration graphListener;
+    private List<Taxas> taxas = new ArrayList<>();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -74,12 +79,13 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
         //(Paciente) getIntent().getExtras().get("Paciente");
         paciente = PacienteUpdater.getPaciente();
+
         Log.d("TELA TAXAS : " , "<<<<<");
         Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
         Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
         Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
 
-        listarTaxas = (ImageView) findViewById(R.id.btn_chamada_listar_taxas);
+        listarTaxas = findViewById(R.id.btn_chamada_listar_taxas);
 
         glicoseJejum = findViewById(R.id.text_glicoseJejumAtual_taxas);
         glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicoseJejum()));
@@ -100,6 +106,15 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
         tituloJejum = findViewById(R.id.text_titulo_jejum_tela_axas);
         titulo75g = findViewById(R.id.text_titulo_75g_tela_taxas);
         tituloGlicada = findViewById(R.id.text_glicada_titulo_tela_taxas);
+
+        PacienteUpdater.addListener(this);
+
+        radioGroupGraficoTaxas = findViewById(R.id.radioGroupGraficoTaxas);
+
+        graphListener = TaxasController.getDadosGrafico(this, paciente);
+
+        //carrega o gráfico vazio pra evitar delay para inicializar a tela
+        mudarGrafico();
 
         findViewById(R.id.tela_taxas).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,13 +201,11 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                     String gJFormatada = String.format(Locale.ENGLISH, "%.2f", gJAtualizada);
                     Double gJDoPaciente = Double.parseDouble(gJFormatada);
 
-                    glicoseJejum.setText(String.valueOf(gJDoPaciente) + " mg/dL");
+                    //glicoseJejum.setText(String.valueOf(gJDoPaciente) + " mg/dL");
                     Log.d("GJejum : ", glicoseJejum.getText().toString());
 
                     paciente.setGlicoseJejum(gJDoPaciente);
 
-                } else {
-                    paciente.setGlicoseJejum(0);
                 }
 
                 if(novaGlicose75.getText().toString().length() != 0) {
@@ -215,14 +228,12 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                     String g75Formatada = String.format(Locale.ENGLISH, "%.2f", g75Atualizada);
                     Double g75DoPaciente = Double.parseDouble(g75Formatada);
 
-                    glicose75.setText(String.valueOf(g75DoPaciente) + " mg/dL");
+                    //glicose75.setText(String.valueOf(g75DoPaciente) + " mg/dL");
 
                     Log.d("Gli75 : ", glicose75.getText().toString());
 
                     paciente.setGlicose75g(g75DoPaciente);
 
-                } else {
-                    paciente.setGlicose75g(0);
                 }
 
                 if(novaHemoglobinaGlicolisada.getText().toString().length() != 0) {
@@ -244,14 +255,12 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                     String hgFormatada = String.format(Locale.ENGLISH, "%.2f", hgAtualizada);
                     Double hgDoPaciente = Double.parseDouble(hgFormatada);
 
-                    hemoglobinaGlicolisada.setText(String.valueOf(hgDoPaciente) + " mg/dL");
+                    //hemoglobinaGlicolisada.setText(String.valueOf(hgDoPaciente) + " %%");
 
                     Log.d("HG : ", hemoglobinaGlicolisada.getText().toString());
 
                     paciente.setHemoglobinaGlicolisada(hgDoPaciente);
 
-                } else {
-                    paciente.setHemoglobinaGlicolisada(0);
                 }
 
                 //atualiza dados no banco de taxas e nos dados do paciente
@@ -266,7 +275,7 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                 /*Intent intent = new Intent(TaxasView.this, Perfil.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);*/
-                finish();
+                //finish();
 
                 /*
                 Fragment fragment = new Fragment();
@@ -285,41 +294,29 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
             }
         });
 
+        radioGroupGraficoTaxas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                mudarGrafico();
+            }
+        });
+    }
+
+    private void mudarGrafico(){
+
         mChart = (LineChart) findViewById(R.id.linechart_taxas);
+
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
 
-        // add data
-        TaxasController.getAllTaxas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Taxas> taxas = queryDocumentSnapshots.toObjects(Taxas.class);
-                List<Entry> yVals = new ArrayList<>();
-                List<String> xVals = new ArrayList<>();
-
-                for(int i = 0; i < taxas.size(); ++i){
-                    float valor = (float)taxas.get(i).getGlicoseJejum();
-                    Log.d("MEDIDAS: ", taxas.get(i).toString());
-                    yVals.add(new Entry(valor, i));
-                    xVals.add("");
-                }
-
-                setData(xVals, yVals);
-
-            }
-        });
-
-        // get the legend (only possible after setting data)
-        Legend l = mChart.getLegend();
-
-        // modify the legend ...
-        // l.setPosition(LegendPosition.LEFT_OF_CHART);
-        l.setForm(Legend.LegendForm.LINE);
+        // add data pesos
+        if(!taxas.isEmpty())
+            setData();
 
         // no description text
         mChart.setDescription("");
-        mChart.setNoDataTextDescription("Você precisa inserir dados para gerar o gráfico");
+        mChart.setNoDataText("Você precisa inserir dados para gerar o gráfico");
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -329,15 +326,15 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
         mChart.setScaleEnabled(true);
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
-
+        mChart.setPinchZoom(true);
         mChart.getAxisLeft().setDrawGridLines(false);
         mChart.getXAxis().setDrawGridLines(false);
 
-        LimitLine upper_limit = new LimitLine(140f, "Glicose75g Ideal");
+        /*LimitLine upper_limit = new LimitLine(140f, "Glicose75g Ideal");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        upper_limit.setTextSize(10f);
+        upper_limit.setTextSize(10f);*/
 
         /*LimitLine lower_limit = new LimitLine(144f, "Glicose Ideal");
         lower_limit.setLineWidth(4f);
@@ -347,10 +344,22 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.addLimitLine(upper_limit);
+        //leftAxis.addLimitLine(upper_limit);
         //leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(200f);
-        leftAxis.setAxisMinValue(60f);
+        //altera valores máximos e mínimos do gráfico de acordo com o tipo de dado
+        switch (radioGroupGraficoTaxas.getCheckedRadioButtonId()) {
+            case R.id.radioApos75g_grafico_taxas:
+                changeGraphLimits(200f, 60f);
+            break;
+
+            case R.id.radioGlicada_grafico_taxas:
+                changeGraphLimits(10f, 0f);
+            break;
+
+            default:
+                changeGraphLimits(180f, 40f);
+            break;
+        }
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(true);
@@ -367,14 +376,69 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
         //  dont forget to refresh the drawing
         mChart.invalidate();
+
     }
 
-    private void setData(List<String> xVals, List<Entry> yVals) {
+    private void changeGraphLimits(float max, float min){
+        mChart.getAxisLeft().mAxisRange = max-min;
+        mChart.getAxisRight().mAxisRange = max-min;
+        //mChart.setVisibleYRangeMaximum(180f, YAxis.AxisDependency.LEFT);
+        //mChart.setVisibleYRangeMaximum(180f, YAxis.AxisDependency.RIGHT);
+        mChart.getAxisLeft().setAxisMaxValue(max);
+        mChart.getAxisLeft().setAxisMinValue(min);
+
+        mChart.getAxisRight().setAxisMaxValue(max);
+        mChart.getAxisRight().setAxisMinValue(min);
+    }
+
+    @Override
+    public void onReceiveData(List<Taxas> data) {
+        this.taxas = data;
+        Collections.reverse(taxas);
+        mudarGrafico();
+    }
+
+    private void setData() {
+
+        List<Entry> yVals = new ArrayList<>();
+        List<String> xVals = new ArrayList<>();
+
+        for (int i = 0; i < taxas.size(); ++i) {
+            float valor;
+            switch (radioGroupGraficoTaxas.getCheckedRadioButtonId()){
+                case R.id.radioApos75g_grafico_taxas:
+                    valor = (float) taxas.get(i).getGlicose75g();
+                break;
+
+                case R.id.radioGlicada_grafico_taxas:
+                    valor = (float) taxas.get(i).getHemoglobinaGlico();
+                break;
+
+                default:
+                    valor = (float) taxas.get(i).getGlicoseJejum();
+                break;
+            }
+
+            yVals.add(new Entry(valor, i));
+            xVals.add("");
+        }
 
         LineDataSet set1;
 
         // create a dataset and give it a type
-        set1 = new LineDataSet(yVals, "Glicose em Jejum");
+        switch (radioGroupGraficoTaxas.getCheckedRadioButtonId()){
+            case R.id.radioApos75g_grafico_taxas:
+                set1 = new LineDataSet(yVals, "Glicose após 75g");
+            break;
+
+            case R.id.radioGlicada_grafico_taxas:
+                set1 = new LineDataSet(yVals, "Hemoglobina Glicada");
+            break;
+
+            default:
+                set1 = new LineDataSet(yVals, "Glicose em Jejum");
+            break;
+        }
 
         set1.setFillAlpha(90);
         //set1.setFillColor(Color.RED);
@@ -390,7 +454,7 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
         set1.setValueTextSize(9f);
         set1.setDrawFilled(true);
 
-        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1); // add the datasets
 
         // create a data object with the datasets
@@ -398,13 +462,30 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
         // set data
         mChart.setData(data);
+
+        // get the legend (only possible after setting data)
+        Legend l = mChart.getLegend();
+
+        // modify the legend ...
+        // l.setPosition(LegendPosition.LEFT_OF_CHART);
+        l.setForm(Legend.LegendForm.LINE);
     }
 
     @Override
-    public void onChangeTaxas(Taxas taxas) {
-        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", taxas.getGlicoseJejum()));
-        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", taxas.getGlicose75g()));
-        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", taxas.getHemoglobinaGlico()));
+    public void onChangePaciente(Paciente paciente) {
+        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicoseJejum()));
+        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicose75g()));
+        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", paciente.getHemoglobinaGlicolisada()));
+    }
+
+    @Override
+    protected void onPause() {
+        if(isFinishing()){
+            Log.d("Listener ", "Removido");
+            PacienteUpdater.removeListener(this);
+            if(graphListener != null) graphListener.remove();
+        }
+        super.onPause();
     }
 
     @Override

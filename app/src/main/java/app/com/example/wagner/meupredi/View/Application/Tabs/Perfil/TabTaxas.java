@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.TaxasView;
-import app.com.example.wagner.meupredi.View.Application.TaxasListener;
+import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
 
@@ -19,7 +20,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
  * Created by wagne on 12/02/2018.
  */
 
-public class TabTaxas extends Activity implements TaxasListener {
+public class TabTaxas extends Activity implements PacienteListener {
 
     private TextView chamadaAtualizarTaxas, valor_glicoseJejum, valor_glicose75g , valor_hemoglobina_glicolisada;
     private Paciente paciente;
@@ -39,14 +40,9 @@ public class TabTaxas extends Activity implements TaxasListener {
 
         PacienteUpdater.addListener(this);
 
-        Double hg = paciente.getHemoglobinaGlicolisada();
-        valor_hemoglobina_glicolisada.setText(hg.toString()+" mg/dL");
-
-        Double gl75 = paciente.getGlicose75g();
-        valor_glicose75g.setText(gl75.toString()+" mg/dL");
-
-        Double jejum = paciente.getGlicoseJejum();
-        valor_glicoseJejum.setText(jejum.toString()+" mg/dL");
+        valor_hemoglobina_glicolisada.setText(String.format(Locale.getDefault(), "%.2f %%", paciente.getHemoglobinaGlicolisada()));
+        valor_glicose75g.setText(String.format(Locale.getDefault(), "%.2f mg/dL", paciente.getGlicose75g()));
+        valor_glicoseJejum.setText(String.format(Locale.getDefault(), "%.2f  mg/dL", paciente.getGlicoseJejum()));
 
         chamadaAtualizarTaxas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +55,9 @@ public class TabTaxas extends Activity implements TaxasListener {
     }
 
     @Override
-    public void onChangeTaxas(Taxas taxas) {
-        valor_hemoglobina_glicolisada.setText(String.format("%.2f", taxas.getHemoglobinaGlico()));
-        valor_glicose75g.setText(String.format("%.2f", taxas.getGlicose75g()));
-        valor_glicoseJejum.setText(String.format("%.2f", taxas.getGlicoseJejum()));
+    public void onChangePaciente(Paciente paciente) {
+        valor_hemoglobina_glicolisada.setText(String.format(Locale.getDefault(), "%.2f %%", paciente.getHemoglobinaGlicolisada()));
+        valor_glicose75g.setText(String.format(Locale.getDefault(), "%.2f mg/dL", paciente.getGlicose75g()));
+        valor_glicoseJejum.setText(String.format(Locale.getDefault(), "%.2f  mg/dL", paciente.getGlicoseJejum()));
     }
 }

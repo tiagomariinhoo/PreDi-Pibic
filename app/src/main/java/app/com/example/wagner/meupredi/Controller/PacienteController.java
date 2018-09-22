@@ -1,6 +1,7 @@
 package app.com.example.wagner.meupredi.Controller;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -22,8 +23,12 @@ public abstract class PacienteController {
         return PacienteDAO.updatePaciente(paciente);//db.modelAtualizarPaciente(paciente);
     }
 
-    public Task<QuerySnapshot> getAllPacientes(){
+    public static Task<QuerySnapshot> getAllPacientes(){
       return PacienteDAO.getAllPacientes();//db.modelGetAllUsers();
+    }
+
+    public static DocumentReference getPacienteListener(Paciente paciente){
+        return PacienteDAO.listenOnPaciente(paciente);
     }
 
     public static Task<DocumentSnapshot> getPaciente(String email){

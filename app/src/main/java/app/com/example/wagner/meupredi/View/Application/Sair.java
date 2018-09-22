@@ -16,6 +16,7 @@ import android.widget.TextView;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
 
 /**
@@ -63,6 +64,7 @@ public class Sair extends Activity {
 
                 editor.clear();
                 editor.commit();
+                PacienteUpdater.onEnd();
 
                 Intent intent = new Intent(Sair.this, TelaLogin.class);
                 startActivity(intent);
