@@ -45,12 +45,14 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaTaxas;
 import app.com.example.wagner.meupredi.View.Application.PopGlicoses;
+import app.com.example.wagner.meupredi.View.Application.TaxasListener;
 
 /**
  * Created by LeandroDias1 on 25/07/2017.
  */
 
-public class TaxasView extends AppCompatActivity implements OnChartGestureListener, OnChartValueSelectedListener {
+public class TaxasView extends AppCompatActivity implements OnChartGestureListener,
+        OnChartValueSelectedListener, TaxasListener {
 
     private Paciente paciente;
     private RadioGroup radioGroupGraficoTaxas;
@@ -70,7 +72,8 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        //(Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();
         Log.d("TELA TAXAS : " , "<<<<<");
         Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
         Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
@@ -79,11 +82,11 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
         listarTaxas = (ImageView) findViewById(R.id.btn_chamada_listar_taxas);
 
         glicoseJejum = findViewById(R.id.text_glicoseJejumAtual_taxas);
-        glicoseJejum.setText(String.valueOf(paciente.getGlicoseJejum()) + " mg/dL");
+        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicoseJejum()));
         glicose75 = findViewById(R.id.text_glicose75gAtual_taxas);
-        glicose75.setText(String.valueOf(paciente.getGlicose75g()) + " mg/dL");
+        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicose75g()));
         hemoglobinaGlicolisada = findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
-        hemoglobinaGlicolisada.setText(String.valueOf(paciente.getHemoglobinaGlicolisada()) + " %");
+        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", paciente.getHemoglobinaGlicolisada()));
 
         chamadaInformativo = findViewById(R.id.image_informativo_glicoses);
 
@@ -395,6 +398,13 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
         // set data
         mChart.setData(data);
+    }
+
+    @Override
+    public void onChangeTaxas(Taxas taxas) {
+        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", taxas.getGlicoseJejum()));
+        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", taxas.getGlicose75g()));
+        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", taxas.getHemoglobinaGlico()));
     }
 
     @Override
