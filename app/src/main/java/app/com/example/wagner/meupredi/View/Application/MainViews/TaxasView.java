@@ -55,7 +55,7 @@ import app.com.example.wagner.meupredi.View.Application.TaxasListener;
  */
 
 public class TaxasView extends AppCompatActivity implements OnChartGestureListener,
-        OnChartValueSelectedListener, PacienteListener, LiveUpdateHelper<Taxas> {
+        OnChartValueSelectedListener, TaxasListener, LiveUpdateHelper<Taxas> {
 
     private Paciente paciente;
     private RadioGroup radioGroupGraficoTaxas;
@@ -472,10 +472,10 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
     }
 
     @Override
-    public void onChangePaciente(Paciente paciente) {
-        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicoseJejum()));
-        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicose75g()));
-        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", paciente.getHemoglobinaGlicolisada()));
+    public void onChangeTaxas(Taxas taxas) {
+        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", taxas.getGlicoseJejum()));
+        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", taxas.getGlicose75g()));
+        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", taxas.getHemoglobinaGlico()));
     }
 
     @Override

@@ -9,10 +9,12 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.TaxasView;
 import app.com.example.wagner.meupredi.View.Application.PacienteListener;
+import app.com.example.wagner.meupredi.View.Application.TaxasListener;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
 
@@ -20,7 +22,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;
  * Created by wagne on 12/02/2018.
  */
 
-public class TabTaxas extends Activity implements PacienteListener {
+public class TabTaxas extends Activity implements TaxasListener {
 
     private TextView chamadaAtualizarTaxas, valor_glicoseJejum, valor_glicose75g , valor_hemoglobina_glicolisada;
     private Paciente paciente;
@@ -55,9 +57,9 @@ public class TabTaxas extends Activity implements PacienteListener {
     }
 
     @Override
-    public void onChangePaciente(Paciente paciente) {
-        valor_hemoglobina_glicolisada.setText(String.format(Locale.getDefault(), "%.2f %%", paciente.getHemoglobinaGlicolisada()));
-        valor_glicose75g.setText(String.format(Locale.getDefault(), "%.2f mg/dL", paciente.getGlicose75g()));
-        valor_glicoseJejum.setText(String.format(Locale.getDefault(), "%.2f  mg/dL", paciente.getGlicoseJejum()));
+    public void onChangeTaxas(Taxas taxas) {
+        valor_hemoglobina_glicolisada.setText(String.format(Locale.getDefault(), "%.2f %%", taxas.getHemoglobinaGlico()));
+        valor_glicose75g.setText(String.format(Locale.getDefault(), "%.2f mg/dL", taxas.getGlicose75g()));
+        valor_glicoseJejum.setText(String.format(Locale.getDefault(), "%.2f  mg/dL", taxas.getGlicoseJejum()));
     }
 }

@@ -56,10 +56,6 @@ public final class PacienteUpdater {
                         medida = new Medida("1900-01-01_00:00:00", 0, 0, paciente.getEmail());
                     }
 
-                    //paciente.setPeso(medida.getPeso());
-                    //paciente.setCircunferencia(medida.getCircunferencia());
-                    //paciente.setImc(imcAtualizado());
-                    //PacienteController.atualizarPaciente(paciente);
                     onUpdate(medida);
                 }
             });
@@ -78,8 +74,7 @@ public final class PacienteUpdater {
                     } else{
                         taxas = new Taxas("1900-01-01_00:00:00", paciente.getEmail(), 0, 0, 0, 0);
                     }
-                    //paciente.setTaxas(taxas);
-                    //PacienteController.atualizarPaciente(paciente);
+
                     onUpdate(taxas);
                 }
             });
@@ -159,18 +154,5 @@ public final class PacienteUpdater {
             taxasSnapshot.remove();
             pacienteSnapshot.remove();
         }
-    }
-
-    //recalcula imc
-    private static double imcAtualizado(){
-        double imc;
-        if (paciente.getPeso() > 0 && paciente.getAltura() > 0) {
-            imc = paciente.getPeso()/(paciente.getAltura()*paciente.getAltura());
-            String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
-            imc = Double.parseDouble(imcFormatado);
-        } else {
-            imc = 0;
-        }
-        return imc;
     }
 }

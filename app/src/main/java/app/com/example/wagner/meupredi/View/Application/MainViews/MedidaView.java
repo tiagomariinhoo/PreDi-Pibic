@@ -57,7 +57,7 @@ import app.com.example.wagner.meupredi.View.Application.PacienteListener;
  */
 
 public class MedidaView extends AppCompatActivity implements OnChartGestureListener,
-        OnChartValueSelectedListener, PacienteListener, LiveUpdateHelper<Medida> {
+        OnChartValueSelectedListener, MedidaListener, LiveUpdateHelper<Medida> {
 
     private LineChart mChart;
     private TextView dataUltimaMedicao, TextListaPesosTela;
@@ -374,8 +374,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
                                 novoPeso.setText("");
                                 novoCirc.setText("");
-                                novoPeso.setHint(String.format("%.2f", paciente.getPeso()));
-                                novoCirc.setHint(String.format("%.2f", paciente.getCircunferencia()));
 
                                 try {
                                     InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -586,8 +584,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     }
 
     @Override
-    public void onChangePaciente(Paciente paciente) {
-        novoPeso.setHint(String.format("%.2f", paciente.getPeso()));
-        novoCirc.setHint(String.format("%.2f", paciente.getCircunferencia()));
+    public void onChangeMedida(Medida medida) {
+        novoPeso.setHint(String.format("%.2f", medida.getPeso()));
+        novoCirc.setHint(String.format("%.2f", medida.getCircunferencia()));
     }
 }
