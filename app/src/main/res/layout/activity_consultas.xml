@@ -2,15 +2,16 @@
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradiente_plano_de_fundo">
 
-
     <TextView
         android:id="@+id/text_contador_consultas"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/gradiente_branco"
         android:padding="8dp"
         android:text="Consultas ( 0 )"
@@ -18,7 +19,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_consultas_tipo_exame" />
 
     <TextView
         android:id="@+id/textView47"
@@ -155,10 +157,9 @@
     <ImageView
         android:id="@+id/btn_agendar_nova_consulta"
         android:layout_width="70sp"
-        android:layout_height="70sp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@mipmap/ic_adicionar_rosa"
@@ -174,7 +175,6 @@
         android:layout_width="240dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/white"
         android:gravity="center_vertical"
@@ -184,6 +184,7 @@
         android:textColorHint="#95afc0"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_horario_consulta_marcada"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView50"
         app:layout_constraintTop_toBottomOf="@+id/btn_horario_consulta_marcada" />
 

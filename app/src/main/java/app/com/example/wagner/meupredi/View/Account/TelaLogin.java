@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,9 @@ public class TelaLogin extends AppCompatActivity {
     EditText usuario, senha;
     Button btnLogin;
     TextView textCriar;
-    CheckBox mostrarSenha, manterConectado;
+    Switch manterConectado;
+    CheckBox mostrarSenha;
+    //CheckBox mostrarSenha, manterConectado;
     ConstraintLayout tela;
     TextView esqueceuSenha;
 
@@ -59,7 +62,8 @@ public class TelaLogin extends AppCompatActivity {
 
         usuario = (EditText) findViewById(R.id.edit_usuario_login);
         senha = (EditText) findViewById(R.id.edit_senha_login);
-        manterConectado = (CheckBox) findViewById(R.id.checkBox_manter_conectado_login);
+        //manterConectado = (CheckBox) findViewById(R.id.checkBox_manter_conectado_login);
+        manterConectado = (Switch) findViewById(R.id.checkBox_manter_conectado_login);
         btnLogin = (Button) findViewById(R.id.btn_login);
         textCriar = (TextView) findViewById(R.id.text_criar_conta);
         mostrarSenha = (CheckBox) findViewById(R.id.checkBox_senha_login);
