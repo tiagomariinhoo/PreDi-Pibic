@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/gradiente_plano_de_fundo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_continuar_tutorial2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/doctor2" />
+
+    <TextView
+        android:id="@+id/btn_continuar_tutorial2"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/borda_curvada_verde"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Continuar"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Voltar"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_continuar_tutorial2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_continuar_tutorial2" />
+
+    <TextView
+        android:id="@+id/msg_tutorial_relatorio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borda_curvada_branca"
+        android:padding="8dp"
+        android:textColor="@color/colorBackground"
+        android:text="Inicialmente, o sistema precisa analisar sua taxa de Glicemia em Jejum, de acordo com o valor dela, vamos definir o próximo passo."
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_variavel_relatorio"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borda_curvada_branca"
+        android:text="Glicose Jejum"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/msg_tutorial_relatorio"
+        app:layout_constraintTop_toBottomOf="@+id/msg_tutorial_relatorio" />
+
+    <ListView
+        android:id="@+id/lista_relatorio_variavel"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="25dp"
+        android:isScrollContainer="false"
+        app:layout_constraintEnd_toEndOf="@+id/text_variavel_relatorio"
+        app:layout_constraintStart_toStartOf="@+id/text_variavel_relatorio"
+        app:layout_constraintTop_toTopOf="@+id/text_variavel_relatorio">
+
+    </ListView>
+
+</android.support.constraint.ConstraintLayout>
