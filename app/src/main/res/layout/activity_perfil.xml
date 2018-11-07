@@ -152,4 +152,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_sair_conta" />
 
+    <ImageView
+        android:id="@+id/image_info_perfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@mipmap/ic_informativo_taxas_chamada"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/ic_informativo_taxas_chamada" />
+
+
 </android.support.constraint.ConstraintLayout>
