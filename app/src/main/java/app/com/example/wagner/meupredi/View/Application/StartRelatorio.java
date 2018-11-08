@@ -6,17 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 
 public class StartRelatorio extends AppCompatActivity {
 
     private TextView msgBalao, btnContinuar, btnVoltar;
+    private Paciente paciente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_start_relatorio);
+
+        paciente = (Paciente) getIntent().getExtras().get("Paciente");
 
         msgBalao = findViewById(R.id.msg_tutorial_relatorio);
         btnContinuar = findViewById(R.id.btn_continuar_tutorial1);
@@ -41,6 +45,5 @@ public class StartRelatorio extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }
