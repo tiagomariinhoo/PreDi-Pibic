@@ -17,6 +17,7 @@ import app.com.example.wagner.meupredi.Model.InferenceMotor.Motor;
 import app.com.example.wagner.meupredi.Model.InferenceMotor.VariableMap;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 public class PopNotific extends Activity {
 
@@ -34,7 +35,7 @@ public class PopNotific extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 

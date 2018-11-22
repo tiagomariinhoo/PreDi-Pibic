@@ -3,16 +3,20 @@ package app.com.example.wagner.meupredi.Controller;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.Date;
 
 import javax.annotation.Nullable;
 
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
-import app.com.example.wagner.meupredi.Database.TaxasDAO;
 import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
@@ -22,21 +26,33 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 public abstract class TaxasController {
 
+    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("pacientes");
+
+    private static CollectionReference getRef(String email){
+        return myRef.document(email).collection("taxas");
+    }
+
     public static Task<Void> addTaxas(Paciente paciente){
-        //db.modelAtualizarTaxas(paciente);
-        return TaxasDAO.createTaxas(paciente);
+        Taxas taxas = new Taxas(new Date(), paciente.getEmail(), paciente.getGlicose75g(),
+                paciente.getGlicoseJejum(), paciente.getColesterol(), paciente.getHemoglobinaGlicolisada());
+        return getRef(paciente.getEmail()).document(taxas.getDateTaxas()).set(taxas);
     }
 
     public static Task<Void> editTaxas(Taxas taxas){
-        return TaxasDAO.updateTaxas(taxas);
+        return getRef(taxas.getEmailPaciente()).document(taxas.getDateTaxas()).set(taxas, SetOptions.merge());
     }
 
-    public static Task<QuerySnapshot> getTaxas(Paciente paciente){
-        return TaxasDAO.getTaxas(paciente);
+    public static Task<QuerySnapshot> getAllTaxas(Paciente paciente){
+        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).get();
+    }
+
+    public static Query graphTaxas(Paciente paciente){
+        //sempre dar reverse nesse resultado, pq ele é ordenado pela data ao contrário de como o gráfico deve receber
+        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(5);
     }
 
     public static ListenerRegistration getDadosGrafico(LiveUpdateHelper<Taxas> current, Paciente paciente){
-        return TaxasDAO.graphMedidas(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        return graphTaxas(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (e != null) Log.d("Firebase Error: ", e.getMessage());
@@ -47,22 +63,20 @@ public abstract class TaxasController {
         });
     }
 
+    public static Task<QuerySnapshot> getTaxas(Paciente paciente){
+        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1).get();
+    }
+
     public static Query getLastInfoTaxas(Paciente paciente){
-        return TaxasDAO.getLastTaxas(paciente);
+        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1);
     }
 
-    public static Task<QuerySnapshot> getAllTaxas(Paciente paciente){
-        return TaxasDAO.getAllTaxas(paciente);
-    }
-
-    public static Task<Void> eraseLastInfoTaxas(Taxas taxas){
-        return TaxasDAO.deleteTaxas(taxas);
-    }
-
-    public static Task<Void> eraseLastInfo(Taxas medida){
-        Log.d("Id peso : ", String.valueOf(medida.getDateTaxas()));
-        return TaxasDAO.deleteTaxas(medida);
-        //return db.eraseLastInfoPeso(peso);
+    public static Task<Void> eraseLastInfo(Taxas taxas){
+        Log.d("Id taxas : ", String.valueOf(taxas.getDateTaxas()));
+        taxas.setFlagTaxa(0);
+        return getRef(taxas.getEmailPaciente())
+                .document(taxas.getDateTaxas())
+                .set(taxas, SetOptions.merge());
     }
 
 }

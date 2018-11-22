@@ -58,7 +58,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultas);
         // Função abaixo i0mpede que o teclado seja chamado para o edit text quando a tela abrir

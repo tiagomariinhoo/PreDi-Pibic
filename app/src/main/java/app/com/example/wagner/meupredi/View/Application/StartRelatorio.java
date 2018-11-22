@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 public class StartRelatorio extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class StartRelatorio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_start_relatorio);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         msgBalao = findViewById(R.id.msg_tutorial_relatorio);
         btnContinuar = findViewById(R.id.btn_continuar_tutorial1);

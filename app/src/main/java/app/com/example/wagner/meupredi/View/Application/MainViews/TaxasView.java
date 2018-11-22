@@ -77,8 +77,7 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //(Paciente) getIntent().getExtras().get("Paciente");
-        paciente = PacienteUpdater.getPaciente();
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         Log.d("TELA TAXAS : " , "<<<<<");
         Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));

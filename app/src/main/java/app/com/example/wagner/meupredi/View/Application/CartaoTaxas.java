@@ -19,6 +19,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 public class CartaoTaxas extends Activity {
 
@@ -34,7 +35,7 @@ public class CartaoTaxas extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cartao_taxas);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
         taxa = (Taxas) getIntent().getExtras().get("Taxas");
 
         editJejum = findViewById(R.id.edit_text_editar_jejum_na_lista);

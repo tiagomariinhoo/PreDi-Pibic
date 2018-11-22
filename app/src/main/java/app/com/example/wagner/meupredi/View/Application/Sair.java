@@ -36,7 +36,7 @@ public class Sair extends Activity {
 
         setContentView(R.layout.sair);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         sairSIM = (Button) findViewById(R.id.btn_sair_sim_fragment);
         sairNAO = (TextView) findViewById(R.id.btn_sair_nao_fragment);

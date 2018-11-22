@@ -20,6 +20,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.ConsultaView;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_consultas_perfil;
 
@@ -41,7 +42,7 @@ public class TabConsultas extends Activity implements LiveUpdateHelper<Consulta>
         super.onCreate(savedInstanceState);
         setContentView(tab_consultas_perfil);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         listaDeConsultas = (ListView) findViewById(R.id.lista_consultas);
         chamadaConsultas = (TextView) findViewById(R.id.tab_perfil_consultas);

@@ -1,12 +1,14 @@
 package app.com.example.wagner.meupredi.Controller;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
-import app.com.example.wagner.meupredi.Database.PacienteDAO;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 /**
@@ -15,28 +17,35 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 
 public abstract class PacienteController {
 
+    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("pacientes");
+
     public static Task<Void> addPaciente(Paciente paciente){
-        return PacienteDAO.createPaciente(paciente);//db.modelAddPaciente(paciente);
+
+        return myRef.document(paciente.getEmail())
+                    .set(paciente);
+
     }
 
     public static Task<Void> atualizarPaciente(Paciente paciente){
-        return PacienteDAO.updatePaciente(paciente);//db.modelAtualizarPaciente(paciente);
-    }
 
-    public static Task<QuerySnapshot> getAllPacientes(){
-      return PacienteDAO.getAllPacientes();//db.modelGetAllUsers();
+        return myRef.document(paciente.getEmail())
+                    .set(paciente, SetOptions.merge());
+
     }
 
     public static DocumentReference getPacienteListener(Paciente paciente){
-        return PacienteDAO.listenOnPaciente(paciente);
+        return myRef.document(paciente.getEmail());
+    }
+
+    public static Task<QuerySnapshot> getAllPacientes(){
+        return myRef.get();
     }
 
     public static Task<DocumentSnapshot> getPaciente(String email){
-        return PacienteDAO.getPaciente(email);
+        return myRef.document(email).get();
     }
 
     public static Query verificarLogin(String email, String senha){
-        return PacienteDAO.authPaciente(email, senha);
+        return myRef.whereEqualTo("senha", senha).whereEqualTo("email", email);
     }
-
 }

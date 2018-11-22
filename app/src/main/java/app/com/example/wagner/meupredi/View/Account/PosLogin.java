@@ -23,6 +23,7 @@ import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
 
 /**
@@ -55,7 +56,7 @@ public class PosLogin extends AppCompatActivity {
         circunferecia.setRawInputType(Configuration.KEYBOARD_QWERTY);
         concluir = (Button) findViewById(R.id.btn_concluir_poslogin);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         nomeUsuario.setText("Sr(a). " + paciente.getNome());
 

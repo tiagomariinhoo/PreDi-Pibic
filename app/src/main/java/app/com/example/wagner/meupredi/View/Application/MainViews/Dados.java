@@ -43,7 +43,7 @@ public class Dados extends AppCompatActivity {
         altura = (EditText) findViewById(R.id.edit_altura_dados);
         altura.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         //se o usuario ja preencheu algum dado, preenche como hint
         if(paciente.getNome().length() != 0) {

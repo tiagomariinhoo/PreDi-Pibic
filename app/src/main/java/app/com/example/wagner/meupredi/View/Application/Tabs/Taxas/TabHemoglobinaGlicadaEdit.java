@@ -16,6 +16,7 @@ import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.TaxasView;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_hemoglobina_glicada_taxas;
@@ -33,7 +34,7 @@ public class TabHemoglobinaGlicadaEdit extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(tab_hemoglobina_glicada_taxas);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         hemoglobinaGlicolisada = findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
         hemoglobinaGlicolisada.setText(String.valueOf(paciente.getHemoglobinaGlicolisada()) + " %");

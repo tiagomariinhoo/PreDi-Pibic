@@ -1,9 +1,11 @@
 package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.app.ActivityGroup;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,6 +24,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.Dicas;
+import app.com.example.wagner.meupredi.View.Application.ListaTaxas;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
 import app.com.example.wagner.meupredi.View.Application.Sair;
 import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabConsultas;
@@ -38,8 +42,9 @@ import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
 public class Perfil extends ActivityGroup {
 
     private TextView nomeUsuario;
-    private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair;
+    private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair, informacao;
     private Paciente paciente;
+    private AlertDialog.Builder alertaDuvidas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +58,10 @@ public class Perfil extends ActivityGroup {
         iconeAlerta = (ImageView) findViewById(R.id.image_alerta_notificacoes_perfil);
         iconeSair = (ImageView) findViewById(R.id.image_sair_perfil);
         nomeUsuario = (TextView) findViewById(R.id.text_nome_usuario);
+        informacao = (ImageView)findViewById(R.id.image_informacao_perfil);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         nomeUsuario.setText(paciente.getNome().split(" ")[0]);
         /*
@@ -134,6 +141,36 @@ public class Perfil extends ActivityGroup {
         descritor.setContent(intent);
         descritor.setIndicator("CONSULTAS");
         abas.addTab(descritor);
+
+
+        informacao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertaDuvidas = new AlertDialog.Builder(Perfil.this);
+                alertaDuvidas.setTitle("Informativo");
+                alertaDuvidas.setMessage("Clicando em alguma Taxa na lista, você poderá altera-la ou exclui-la\n");
+                // Caso EDITAR
+                alertaDuvidas.setNegativeButton("VOLTAR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Toast.makeText(Perfil.this, "Clique para editar ou remover uma taxa da lista!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                /* Caso REMOVER
+                alertaPesoSelecionado.setPositiveButton("REMOVER",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });*/
+                alertaDuvidas.create().show();
+            }
+        });
+
+
+
     }
 
     public void onNotify(Consulta consulta){

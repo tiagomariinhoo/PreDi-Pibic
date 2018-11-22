@@ -27,6 +27,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 public class ListaTaxas extends Activity implements LiveUpdateHelper<Taxas> {
 
@@ -45,7 +46,7 @@ public class ListaTaxas extends Activity implements LiveUpdateHelper<Taxas> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_taxas);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         listaDeTaxas = findViewById(R.id.lista_taxas);
         radioTaxasGroup = findViewById(R.id.radioTaxas);

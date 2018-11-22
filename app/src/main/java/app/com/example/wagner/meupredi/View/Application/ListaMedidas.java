@@ -46,7 +46,7 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
         setContentView(R.layout.activity_lista_pesos);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         listaDePesos = findViewById(R.id.lista_pesos);
         informacao = findViewById(R.id.image_informacao_lista_medidas);

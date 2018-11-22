@@ -16,6 +16,7 @@ import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.TaxasView;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_glicose_jejum_taxas;
@@ -33,7 +34,7 @@ public class TabGlicoseJejumEdit extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(tab_glicose_jejum_taxas);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         atualizar = findViewById(R.id.btn_atualizar_taxas_jejum);
 

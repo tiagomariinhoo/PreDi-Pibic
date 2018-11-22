@@ -178,8 +178,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //paciente = (Paciente) getIntent().getExtras().get("Paciente");
-        paciente = PacienteUpdater.getPaciente();
+        //paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         imc = (paciente.getPeso() / (paciente.getAltura() * paciente.getAltura()));
 

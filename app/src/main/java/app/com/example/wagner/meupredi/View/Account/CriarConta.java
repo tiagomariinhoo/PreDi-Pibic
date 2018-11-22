@@ -210,9 +210,9 @@ public class CriarConta extends AppCompatActivity {
         //verifica se todos os campos estao preenchidos
         if(nomeCompleto.length() == 0) {
             Toast.makeText(getApplicationContext(), "Insira um nome válido!", Toast.LENGTH_SHORT).show();
-        } else if(dataCadastro.length() == 0){
+        } else if(dataCadastro.length() == 0 || !dataCadastro.matches("\\d\\d/\\d\\d/\\d\\d\\d\\d")){
             data.setText("");
-            Toast.makeText(getApplicationContext(), "Data em formato inválido! Por favor, digite no formato ddmmaaaa.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Data em formato inválido!\nPor favor, digite no formato dd/mm/aaaa.", Toast.LENGTH_SHORT).show();
         } else if(senhaCadastro.length() == 0) {
             Toast.makeText(getApplicationContext(), "Insira uma senha válida!", Toast.LENGTH_SHORT).show();
         } else if(senhaCadastro.equals(conSenhaCadastro)) {
@@ -230,8 +230,6 @@ public class CriarConta extends AppCompatActivity {
             Paciente paciente = new Paciente(nomeCompleto, senhaCadastro, emailCadastro, sexoCadastro, idadeAux, -1);
 
             //verifica opcao de sexo selecionada
-
-            dataCadastro = dataCadastro.substring(0, 2) + "/" + dataCadastro.substring(2, 4) + "/" + dataCadastro.substring(4, dataCadastro.length());
             paciente.setNascimento(dataCadastro);
 
             //DEBUG: imprime todos os dados do paciente
@@ -241,6 +239,7 @@ public class CriarConta extends AppCompatActivity {
             Log.d("Email: ", paciente.getEmail());
             Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
             Log.d("Nascimento: ", paciente.getNascimento());
+            Log.d("Data Cadastro", dataCadastro);
             Log.d("Idade : ", String.valueOf(paciente.getIdade()));
             Log.d("Circunferencia : ", String.valueOf(paciente.getCircunferencia()));
             Log.d("Peso : ", String.valueOf(paciente.getPeso()));

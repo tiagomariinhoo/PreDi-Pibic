@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 /**
  * Created by leandro on 10/04/18.
@@ -43,7 +44,7 @@ public class PesoIdeal extends Activity  {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         if(paciente.getSexo().equals("M")){
             if(paciente.getCircunferencia() < 94){

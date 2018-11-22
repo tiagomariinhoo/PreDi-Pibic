@@ -18,6 +18,8 @@ import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
+
 import android.support.v7.app.AlertDialog.Builder;
 
 public class CartaoMedida extends Activity {
@@ -34,7 +36,7 @@ public class CartaoMedida extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cartao_medida);
 
-        paciente = (Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
         medida = (Medida) getIntent().getExtras().get("Medida");
 
         editPeso = findViewById(R.id.edit_text_editar_peso_na_lista);
