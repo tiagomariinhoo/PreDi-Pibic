@@ -91,5 +91,8 @@
         <activity android:name=".View.Application.CartaoTaxas"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".View.Application.StartRelatorio" />
+        <activity android:name=".View.Application.InfoRelatorio" />
+        <activity android:name=".View.Application.FinalRelatorio" />
     </application>
 </manifest>

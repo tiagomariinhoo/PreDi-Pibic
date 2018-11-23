@@ -51,7 +51,7 @@
         app:layout_constraintTop_toTopOf="@+id/btn_continuar_tutorial2" />
 
     <TextView
-        android:id="@+id/msg_tutorial_relatorio"
+        android:id="@+id/msg_tutorial_relatorio_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -83,8 +83,8 @@
         android:textSize="14dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/msg_tutorial_relatorio"
-        app:layout_constraintTop_toBottomOf="@+id/msg_tutorial_relatorio" />
+        app:layout_constraintStart_toStartOf="@+id/msg_tutorial_relatorio_info"
+        app:layout_constraintTop_toBottomOf="@+id/msg_tutorial_relatorio_info" />
 
     <ListView
         android:id="@+id/lista_relatorio_variavel"

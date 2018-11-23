@@ -23,12 +23,12 @@ public class StartRelatorio extends AppCompatActivity {
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
-        msgBalao = findViewById(R.id.msg_tutorial_relatorio);
+        msgBalao = findViewById(R.id.msg_tutorial_relatorio_start);
         btnContinuar = findViewById(R.id.btn_continuar_tutorial1);
         btnVoltar = findViewById(R.id.text_voltar_tutorial1);
 
-        String mensagem = "Bem vindo ao Tutorial do meuPredi, vamos explicar e diagnósticar seu status físico " +
-                "com relação a doença Prédiabetes, por favor aperte em Continuar";
+        String mensagem = "Bem vindo ao Tutorial do meuPredi, vamos explicar e diagnósticar seu status físico. " +
+                "\nPor favor aperte em Continuar";
 
         msgBalao.setText(mensagem);
 

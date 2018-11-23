@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="@+id/btn_continuar_tutorial1" />
 
     <TextView
-        android:id="@+id/msg_tutorial_relatorio"
+        android:id="@+id/msg_tutorial_relatorio_start"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"

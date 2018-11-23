@@ -32,7 +32,7 @@ public class Motor extends Activity {
     static List<Triple<String, String, Double>> atoms = new ArrayList<>();
     static Set<String> conclusions = new HashSet<>();
     static Set<Triple<String, String, Double>> histConclusions = new HashSet<>();
-    static String history;
+    static String history = "";
     static VariableMap vm;
     static Context context;
 
@@ -81,40 +81,6 @@ public class Motor extends Activity {
         }
         atoms.addAll(auxAtoms);
         reader.close();
-    }
-
-    public void addRule() throws IOException {
-        BufferedWriter output = new BufferedWriter(new FileWriter(filepath, true));
-        System.out.println("Rule Format: SE ... ENTAO ...");
-        System.out.print("New Rule: ");
-        String line = scan.nextLine();
-        while(!line.matches("SE .+ ENTAO [^(OU)]+")) {
-            System.out.println("Unacceptable Rule, try again!\nNew Rule:");
-            line = scan.nextLine();
-        }
-        output.write(line+System.lineSeparator());
-        output.close();
-    }
-    public void deleteRule() throws IOException {
-        listRules();
-        System.out.print("Select rule to be removed: ");
-        int lineToRemove = scan.nextInt();
-        scan.nextLine();
-
-        File input = new File(filepath);
-        File tempFile = new File(auxFilepath);
-        BufferedReader reader = new BufferedReader(new FileReader(input));
-        PrintWriter writer = new PrintWriter(new FileWriter(tempFile));
-
-        String currentLine;
-
-        for(int i = 1; (currentLine = reader.readLine()) != null; i++)
-            if(i == lineToRemove) continue;
-            else writer.write(currentLine.trim() + System.getProperty("line.separator"));
-        writer.close();
-        reader.close();
-        input.delete();
-        if(tempFile.renameTo(input)) System.out.println("Rule successfully removed");
     }
 
     //TOP-DOWN
@@ -167,7 +133,7 @@ public class Motor extends Activity {
                     if(f.getLeft().matches("\"(.*)\"")) conclusions.add(f.getLeft());
                 });*/
 
-                history += sent.getWholeCondition()+" => "+getHistory(aux);
+                history += sent.getWholeCondition()+" ~> "+getHistory(aux);
 
                 sentences.remove(sent);
                 atoms.removeAll(histConclusions);
@@ -204,8 +170,12 @@ public class Motor extends Activity {
 
     public void printList(List<String> list) {
         for(int k = 0; k < list.size(); k++){
-            System.out.println(list.get(k));
+            Log.d("PRINT LIST", list.get(k));
         }
         //list.forEach(a -> System.out.println(a));
+    }
+
+    public static void printHistory(){
+        Log.d("HISTORY", history);
     }
 }

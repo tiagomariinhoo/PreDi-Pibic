@@ -60,6 +60,7 @@ public class PopNotific extends Activity {
 
             msg = Motor.askQuestions();
             Log.d("Msg atual: ", msg);
+            Motor.printHistory();
 
         getWindow().setLayout((int) ( width*.8), (int) (height*.50));
 
@@ -71,7 +72,6 @@ public class PopNotific extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PopNotific.this, StartRelatorio.class);
-                intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
         });
