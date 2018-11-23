@@ -4,10 +4,14 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +20,6 @@ import java.util.Locale;
 
 import javax.annotation.Nullable;
 
-import app.com.example.wagner.meupredi.Database.ConsultaDAO;
 import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
@@ -30,8 +33,20 @@ public abstract class ConsultaController {
 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
+    private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("pacientes");
+
+    private static CollectionReference getRef(String email){
+        return myRef.document(email).collection("consultas");
+    }
+
     public static Task<Void> addEvento(Paciente paciente, Consulta consulta){
-        return ConsultaDAO.createConsulta(paciente, consulta);
+        return getRef(paciente.getEmail()).document(consulta.getDate()+"_"+consulta.getTime())
+                .set(consulta);
+    }
+
+    public static Task<Void> editConsulta(Paciente paciente, Consulta consulta){
+        return getRef(paciente.getEmail()).document(consulta.getDate()+"_"+consulta.getTime())
+                .set(consulta, SetOptions.merge());
     }
 
     /**
@@ -42,11 +57,33 @@ public abstract class ConsultaController {
      */
 
     public static Task<QuerySnapshot> getAllConsultas(Paciente paciente){
-        return ConsultaDAO.getAllConsultas(paciente);
+        SimpleDateFormat dateFormatAux = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String currentDate = dateFormatAux.format(new Date());
+        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+                .orderBy("time", Query.Direction.ASCENDING)
+                .whereGreaterThanOrEqualTo("date", currentDate)
+                .get();
+    }
+
+    public static Query getConsultasListener(Paciente paciente){
+        SimpleDateFormat dateFormatAux = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String currentDate = dateFormatAux.format(new Date());
+        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+                .orderBy("time", Query.Direction.ASCENDING)
+                .whereGreaterThanOrEqualTo("date", currentDate);
+    }
+
+    public static Task<QuerySnapshot> getConsulta(Paciente paciente){
+        SimpleDateFormat dateFormatAux = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String currentDate = dateFormatAux.format(new Date());
+        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+                .orderBy("time", Query.Direction.ASCENDING)
+                .whereGreaterThanOrEqualTo("date", currentDate)
+                .limit(1).get();
     }
 
     public static ListenerRegistration getLiveConsultas(LiveUpdateHelper<Consulta> current, Paciente paciente){
-        return ConsultaDAO.getLiveConsultas(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        return getConsultasListener(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (e != null) Log.d("Firebase Error: ", e.getMessage());
@@ -67,7 +104,7 @@ public abstract class ConsultaController {
      */
 
     public static void notifyConsulta(Perfil current, Paciente paciente){
-        ConsultaDAO.getConsulta(paciente).addOnSuccessListener(current, new OnSuccessListener<QuerySnapshot>() {
+        getConsulta(paciente).addOnSuccessListener(current, new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()){
