@@ -23,9 +23,9 @@
         android:id="@+id/image_alerta_notificacoes_perfil"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp"
         android:background="@mipmap/ic_alerta_rosa"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/notify_perfil_btm"
         app:srcCompat="@mipmap/ic_alerta_rosa" />

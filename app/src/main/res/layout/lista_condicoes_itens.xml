@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/lista_layout_consultas">
+
+    <TextView
+        android:id="@+id/text_consulta_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/gradiente_branco"
+        android:gravity="center_vertical"
+        android:hint="Consulta"
+        android:paddingLeft="16dp"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:textSize="14dp" />
+
+</RelativeLayout>

@@ -21,6 +21,7 @@ public class Taxas implements Serializable {
     private double hemoglobinaGlico;
     private int flagTaxa = 1;
 
+
     public Taxas(String dateTaxas, String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
         this(emailPaciente, glicose75g, glicoseJejum, colesterol, hemoglobinaGlico);
         this.dateTaxas = dateTaxas;

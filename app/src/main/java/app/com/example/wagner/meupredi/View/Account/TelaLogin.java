@@ -59,7 +59,6 @@ public class TelaLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_login);
 
-
         usuario = (EditText) findViewById(R.id.edit_usuario_login);
         senha = (EditText) findViewById(R.id.edit_senha_login);
         //manterConectado = (CheckBox) findViewById(R.id.checkBox_manter_conectado_login);

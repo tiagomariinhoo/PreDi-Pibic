@@ -61,24 +61,6 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
         });
 
         listListener = MedidaController.getDadosGrafico(this, paciente);
-/*
-        MedidaController.getAllMedidas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                List<Medida> medidas = queryDocumentSnapshots.toObjects(Medida.class);
-                onChangedAdapter(medidas);
-                listaDePesos.setAdapter(adapter);
-                radioGroupMedidas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        onChangedAdapter(medidas);
-                        listaDePesos.setAdapter(adapter);
-                    }
-                });
-                addListeners(medidas);
-            }
-        });*/
 
         informacao.setOnClickListener(new View.OnClickListener() {
             @Override
