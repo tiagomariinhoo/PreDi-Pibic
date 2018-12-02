@@ -1,6 +1,7 @@
 package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -178,7 +179,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         imc = (paciente.getPeso() / (paciente.getAltura() * paciente.getAltura()));
@@ -236,7 +236,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
             public void onClick(View v) {
                 Intent intent = new Intent(MedidaView.this, ListaMedidas.class);
                 intent.putExtra("Paciente", paciente);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeScaleUpAnimation(v, 0, 0, v.getWidth(), v.getHeight()).toBundle());
             }
         });
 

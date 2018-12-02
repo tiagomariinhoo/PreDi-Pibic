@@ -1,6 +1,7 @@
 package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -171,7 +172,7 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
             public void onClick(View view) {
                 Intent intent = new Intent(TaxasView.this, ListaTaxas.class);
                 intent.putExtra("Paciente", paciente);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeScaleUpAnimation(view, 0, 0, view.getWidth(), view.getHeight()).toBundle());
             }
         });
 
