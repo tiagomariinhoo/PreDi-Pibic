@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_info_relatorio"
     android:background="@drawable/gradiente_plano_de_fundo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,6 +32,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="Continuar"
+        android:onClick="onCardClick"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/colorBranco"
@@ -68,36 +70,78 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/text_variavel_relatorio"
+    <RelativeLayout
+        android:id="@+id/main_activity_card"
+        android:background="@drawable/borda_curvada_branca"
+        android:padding="5dp"
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/borda_curvada_branca"
-        android:text="Glicose Jejum"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/colorBackground"
-        android:textSize="14dp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/msg_tutorial_relatorio_info"
-        app:layout_constraintTop_toBottomOf="@+id/msg_tutorial_relatorio_info" />
+        app:layout_constraintTop_toBottomOf="@+id/msg_tutorial_relatorio_info" >
 
-    <ListView
-        android:id="@+id/lista_relatorio_variavel"
-        android:layout_width="0dp"
-        android:layout_height="220dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="25dp"
-        android:isScrollContainer="false"
-        app:layout_constraintEnd_toEndOf="@+id/text_variavel_relatorio"
-        app:layout_constraintStart_toStartOf="@+id/text_variavel_relatorio"
-        app:layout_constraintTop_toTopOf="@+id/text_variavel_relatorio">
+        <RelativeLayout
+            android:id="@+id/main_activity_card_front"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
-    </ListView>
+            <TextView
+                android:id="@+id/text_variavel_relatorio_front"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Glicose Jejum"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorBackground"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <ListView
+                android:id="@+id/lista_relatorio_variavel_front"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="25dp"
+                android:isScrollContainer="false"
+                app:layout_constraintEnd_toEndOf="@+id/text_variavel_relatorio_front"
+                app:layout_constraintStart_toStartOf="@+id/text_variavel_relatorio_front"
+                app:layout_constraintTop_toTopOf="@+id/text_variavel_relatorio_front" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_activity_card_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text_variavel_relatorio_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Glicose 75g"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorBackground"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <ListView
+                android:id="@+id/lista_relatorio_variavel_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="25dp"
+                android:isScrollContainer="false"
+                app:layout_constraintEnd_toEndOf="@+id/text_variavel_relatorio_back"
+                app:layout_constraintStart_toStartOf="@+id/text_variavel_relatorio_back"
+                app:layout_constraintTop_toTopOf="@+id/text_variavel_relatorio_back" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
