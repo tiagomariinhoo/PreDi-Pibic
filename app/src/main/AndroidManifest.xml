@@ -23,7 +23,11 @@
         </activity>
 
         <activity android:name=".View.Account.TelaLogin"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
         <activity android:name=".View.Account.CriarConta"
             android:screenOrientation="portrait"/>
         <activity android:name=".View.Account.PosLogin"
@@ -94,5 +98,14 @@
         <activity android:name=".View.Application.StartRelatorio" />
         <activity android:name=".View.Application.InfoRelatorio" />
         <activity android:name=".View.Application.FinalRelatorio" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="app.com.example.wagner.meupredi.file_provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider" />
+        </provider>
     </application>
 </manifest>

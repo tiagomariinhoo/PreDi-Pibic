@@ -163,5 +163,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@mipmap/ic_informativo_taxas_chamada" />
 
+    <ImageView
+        android:id="@+id/image_share_cda"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/ic_share_cda"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        app:layout_constraintStart_toEndOf="@+id/notify_perfil_btm"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_share_cda" />
+
 
 </android.support.constraint.ConstraintLayout>

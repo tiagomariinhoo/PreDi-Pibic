@@ -8,13 +8,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -24,7 +29,6 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.Dicas;
-import app.com.example.wagner.meupredi.View.Application.ListaTaxas;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
 import app.com.example.wagner.meupredi.View.Application.Sair;
 import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabConsultas;
@@ -42,9 +46,10 @@ import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
 public class Perfil extends ActivityGroup {
 
     private TextView nomeUsuario;
-    private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair, informacao;
+    private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair, informacao, shareCda;
     private Paciente paciente;
     private AlertDialog.Builder alertaDuvidas;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,7 @@ public class Perfil extends ActivityGroup {
         iconeSair = (ImageView) findViewById(R.id.image_sair_perfil);
         nomeUsuario = (TextView) findViewById(R.id.text_nome_usuario);
         informacao = (ImageView)findViewById(R.id.image_informacao_perfil);
-
+        shareCda = (ImageView) findViewById(R.id.image_share_cda);
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
@@ -109,6 +114,17 @@ public class Perfil extends ActivityGroup {
                 Intent intent = new Intent(Perfil.this, PopNotific.class);
                 intent.putExtra("Paciente", paciente);
                 startActivity(intent);
+            }
+        });
+
+        shareCda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    cda();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -190,6 +206,28 @@ public class Perfil extends ActivityGroup {
     public void onBackPressed(){
         Intent intent = new Intent(Perfil.this, TelaLogin.class);
         startActivity(intent);
+    }
+
+    void cda() throws IOException {
+        Log.e("TEST", "THIS RAN YO!");
+        File sharedFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "cda.txt");
+        Uri fileUri = FileProvider.getUriForFile(this, "app.com.example.wagner.meupredi.file_provider", sharedFile);
+        Log.e("TEST", String.valueOf(sharedFile.exists()));
+        //nomeUsuario.setText(fileUri.toString());
+        if (fileUri != null) {
+            // Construct a ShareIntent with link to image
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            shareIntent.setType("*/*");
+            // Launch sharing dialog for image
+            startActivity(Intent.createChooser(shareIntent, "Share CDA"));
+        } else {
+
+            Log.e("SharingError", "null URI");
+            // ...sharing failed, handle error
+
+        }
     }
 
 }
