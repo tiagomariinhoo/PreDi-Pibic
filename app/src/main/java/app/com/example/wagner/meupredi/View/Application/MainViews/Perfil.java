@@ -211,7 +211,7 @@ public class Perfil extends ActivityGroup {
 
     void cda() throws IOException {
         Log.e("TEST", "THIS RAN YO!");
-        File sharedFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "cda.txt");
+        File sharedFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "cda.xml");
         if(sharedFile.createNewFile()) {
             FileOutputStream fos = new FileOutputStream(sharedFile);
             fos.write("MeuPokemonGo".getBytes());
@@ -224,7 +224,7 @@ public class Perfil extends ActivityGroup {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
-            shareIntent.setType("*/*");
+            shareIntent.setType("application/xml");
             // Launch sharing dialog for image
             startActivity(Intent.createChooser(shareIntent, "Share CDA"));
         } else {
