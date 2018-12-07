@@ -19,6 +19,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -211,6 +212,10 @@ public class Perfil extends ActivityGroup {
     void cda() throws IOException {
         Log.e("TEST", "THIS RAN YO!");
         File sharedFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "cda.txt");
+        if(sharedFile.createNewFile()) {
+            FileOutputStream fos = new FileOutputStream(sharedFile);
+            fos.write("MeuPokemonGo".getBytes());
+        }
         Uri fileUri = FileProvider.getUriForFile(this, "app.com.example.wagner.meupredi.file_provider", sharedFile);
         Log.e("TEST", String.valueOf(sharedFile.exists()));
         //nomeUsuario.setText(fileUri.toString());
