@@ -24,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -214,61 +215,37 @@ public class Perfil extends ActivityGroup {
     }
 
     void cda(Paciente paciente) throws IOException {
-        Log.e("TEST", "THIS RAN YO!");
-        String path = Environment.DIRECTORY_DOCUMENTS;
+        String cdaPath = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getPath() + "/";
+        Log.d("CDA PATH", cdaPath);
+
+        //Usando lib para gerar o CDA
         createCDA cdaDoc = new createCDA();
-        cdaDoc.Cda(paciente, path);
+        cdaDoc.Cda(paciente, cdaPath);
 
-        /*
-        File file = new File(local("ArquivoSemNome.xml"));
-        Log.d("File", file.getAbsolutePath());
-        FileInputStream fis = new FileInputStream(file);
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader br = new BufferedReader(isr);
-        String line;
-        StringBuilder text = new StringBuilder();
-        while((line = br.readLine()) != null){
-            text.append(line);
-        }
-        file.delete();
-        File sharedFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "cda.xml");
-        if(sharedFile.createNewFile()) {
-            sharedFile.createNewFile();
-            try (FileOutputStream fos = new FileOutputStream(sharedFile)) {
-                byte[] bytes = text.toString().getBytes();
-                fos.write("aaaaa".getBytes());
+        //Arquivo gerado pela lib do CDA
+        File aux = new File(cdaPath, "ArquivoSemNome");
+
+        //Arquivo que vai ser compartilhado
+        File cda = new File(cdaPath, "CDA.xml");
+
+        //Deletando possível arquivo anteriormente compartilhado
+        if(cda.exists()) cda.delete();
+
+        //Renomeando o arquivo gerado para o nome do arquivo a ser compartilhado
+        //e
+        //Compartilhando o arquivo
+        if(aux.renameTo(cda) && cda.exists()){
+            Uri fileUri = FileProvider.getUriForFile(this, "app.com.example.wagner.meupredi.file_provider", cda);
+            if (fileUri != null) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+                shareIntent.setType("application/xml");
+                startActivity(Intent.createChooser(shareIntent, "Compartilhar CDA"));
+            } else {
+                Log.e("SharingError", "null URI");
             }
-        }*/
-        //AQUI
-     /*   File sharedFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "cda.xml");
-        if(sharedFile.createNewFile()) {
-            FileOutputStream fos = new FileOutputStream(sharedFile);
-            fos.write("MeuPokemonGo".getBytes());
         }
-        Uri fileUri = FileProvider.getUriForFile(this, "app.com.example.wagner.meupredi.file_provider", sharedFile);
-        Log.e("TEST", String.valueOf(sharedFile.exists()));
-        //nomeUsuario.setText(fileUri.toString());
-        if (fileUri != null) {
-            // Construct a ShareIntent with link to image
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
-            shareIntent.setType("application/xml");
-            // Launch sharing dialog for image
-            startActivity(Intent.createChooser(shareIntent, "Share CDA"));
-        } else {
-
-            Log.e("SharingError", "null URI");
-            // ...sharing failed, handle error
-
-        }*/
-    }
-
-    private String local(String filename){
-        File direct = new File("");
-        File file = new File(""+direct.getAbsolutePath()+"/XML_FILES");
-        file.mkdir();
-        return file.getAbsolutePath()+"/"+filename;
     }
 
 }

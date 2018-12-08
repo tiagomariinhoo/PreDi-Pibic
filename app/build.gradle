@@ -30,6 +30,8 @@ repositories {
 dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
     implementation files('libs/CDACliente.jar')
+    implementation group: 'com.sun.xml.parsers', name: 'jaxp-ri', version: '1.4.5'//Thanks for using https://jar-download.com
+
 }
 
 allprojects {
