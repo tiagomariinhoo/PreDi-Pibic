@@ -232,19 +232,22 @@ public class Perfil extends ActivityGroup {
         if(cda.exists()) cda.delete();
 
         //Renomeando o arquivo gerado para o nome do arquivo a ser compartilhado
-        //e
-        //Compartilhando o arquivo
         if(aux.renameTo(cda) && cda.exists()){
-            Uri fileUri = FileProvider.getUriForFile(this, "app.com.example.wagner.meupredi.file_provider", cda);
-            if (fileUri != null) {
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
-                shareIntent.setType("application/xml");
-                startActivity(Intent.createChooser(shareIntent, "Compartilhar CDA"));
-            } else {
-                Log.e("SharingError", "null URI");
-            }
+            //Compartilhando o arquivo
+            share(cda);
+        }
+    }
+
+    void share(File file){
+        Uri fileUri = FileProvider.getUriForFile(this, "app.com.example.wagner.meupredi.file_provider", file);
+        if (fileUri != null) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            shareIntent.setType("application/xml");
+            startActivity(Intent.createChooser(shareIntent, "Compartilhar CDA"));
+        } else {
+            Log.e("SharingError", "null URI");
         }
     }
 
