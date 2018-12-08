@@ -167,11 +167,10 @@
         android:id="@+id/image_share_cda"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="@mipmap/ic_share_cda"
         android:actionProviderClass="android.widget.ShareActionProvider"
-        app:layout_constraintStart_toEndOf="@+id/notify_perfil_btm"
+        android:background="@mipmap/ic_share_cda"
+        app:layout_constraintEnd_toStartOf="@+id/image_perfil_dados"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_share_cda" />
 
