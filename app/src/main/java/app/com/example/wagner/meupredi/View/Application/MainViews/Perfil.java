@@ -229,12 +229,16 @@ public class Perfil extends ActivityGroup {
         File cda = new File(cdaPath, "CDA.xml");
 
         //Deletando possível arquivo anteriormente compartilhado
-        if(cda.exists()) cda.delete();
-
+        if(cda.exists()) {
+            if (!cda.delete())
+                Log.e("DeletingError", "Failed to delete old CDA file");
+        }
         //Renomeando o arquivo gerado para o nome do arquivo a ser compartilhado
-        if(aux.renameTo(cda) && cda.exists()){
+        if(aux.renameTo(cda)){
             //Compartilhando o arquivo
-            share(cda);
+            if(cda.exists()) share(cda);
+        } else{
+            Log.e("RenamingError", "Failed to rename to CDA file");
         }
     }
 
