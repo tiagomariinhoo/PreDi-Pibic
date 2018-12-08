@@ -29,7 +29,7 @@ repositories {
 }
 dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
-    implementation files('C:/Users/julio/StudioProjects/PreDi-Pibic-CDA/.idea/libraries/CDACliente.jar')
+    implementation files('libs/CDACliente.jar')
 }
 
 allprojects {
