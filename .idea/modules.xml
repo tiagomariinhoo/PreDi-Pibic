@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PreDi-Pibic.iml" filepath="$PROJECT_DIR$/PreDi-Pibic.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/PreDi-Pibic.iml" filepath="$PROJECT_DIR$/.idea/PreDi-Pibic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PreDi-Pibic-CDA.iml" filepath="$PROJECT_DIR$/.idea/PreDi-Pibic-CDA.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

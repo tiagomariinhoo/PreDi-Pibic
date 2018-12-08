@@ -18,12 +18,16 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import app.com.example.wagner.meupredi.Controller.CDA.createCDA;
 import app.com.example.wagner.meupredi.Controller.ConsultaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
@@ -122,7 +126,7 @@ public class Perfil extends ActivityGroup {
             @Override
             public void onClick(View view) {
                 try {
-                    cda();
+                    cda(paciente);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -209,9 +213,34 @@ public class Perfil extends ActivityGroup {
         startActivity(intent);
     }
 
-    void cda() throws IOException {
+    void cda(Paciente paciente) throws IOException {
         Log.e("TEST", "THIS RAN YO!");
+        String path = Environment.DIRECTORY_DOCUMENTS;
+        createCDA cdaDoc = new createCDA();
+        cdaDoc.Cda(paciente, path);
+
+        /*
+        File file = new File(local("ArquivoSemNome.xml"));
+        Log.d("File", file.getAbsolutePath());
+        FileInputStream fis = new FileInputStream(file);
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+        String line;
+        StringBuilder text = new StringBuilder();
+        while((line = br.readLine()) != null){
+            text.append(line);
+        }
+        file.delete();
         File sharedFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "cda.xml");
+        if(sharedFile.createNewFile()) {
+            sharedFile.createNewFile();
+            try (FileOutputStream fos = new FileOutputStream(sharedFile)) {
+                byte[] bytes = text.toString().getBytes();
+                fos.write("aaaaa".getBytes());
+            }
+        }*/
+        //AQUI
+     /*   File sharedFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "cda.xml");
         if(sharedFile.createNewFile()) {
             FileOutputStream fos = new FileOutputStream(sharedFile);
             fos.write("MeuPokemonGo".getBytes());
@@ -232,7 +261,14 @@ public class Perfil extends ActivityGroup {
             Log.e("SharingError", "null URI");
             // ...sharing failed, handle error
 
-        }
+        }*/
+    }
+
+    private String local(String filename){
+        File direct = new File("");
+        File file = new File(""+direct.getAbsolutePath()+"/XML_FILES");
+        file.mkdir();
+        return file.getAbsolutePath()+"/"+filename;
     }
 
 }
