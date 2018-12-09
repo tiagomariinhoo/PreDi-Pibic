@@ -168,9 +168,12 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:actionProviderClass="android.widget.ShareActionProvider"
         android:background="@mipmap/ic_share_cda"
-        app:layout_constraintEnd_toStartOf="@+id/image_perfil_dados"
+        app:layout_constraintEnd_toStartOf="@+id/text_titulo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/image_alerta_notificacoes_perfil"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_share_cda" />
 
