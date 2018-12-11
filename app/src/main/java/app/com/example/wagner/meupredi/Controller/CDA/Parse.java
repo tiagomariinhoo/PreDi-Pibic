@@ -45,7 +45,7 @@ public class Parse {
 		Patient patient = new Patient();
 	//	patient.setId(pacienteApp.getId());
 		patient.setName(pacienteApp.getNome());
-		patient.setBirth(pacienteApp.getNascimento());
+		patient.setBirth(pacienteApp.getNascimento().replace("//", ""));
 		return patient;
 		
 	}
