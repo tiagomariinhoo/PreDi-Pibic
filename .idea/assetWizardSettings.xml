@@ -13,6 +13,32 @@
                       <PersistentState>
                         <option name="children">
                           <map>
+                            <entry key="actionbar">
+                              <value>
+                                <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="clipartAsset">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="url" value="jar:file:/home/leandro/.local/share/umake/android/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_open_in_new_black_24dp.xml" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="outputName" value="ic_share_cda" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
                             <entry key="launcherLegacy">
                               <value>
                                 <PersistentState>
@@ -23,7 +49,8 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="95a5a6" />
+                                                <entry key="color" value="ffffff" />
+                                                <entry key="paddingPercent" value="10" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -34,7 +61,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/home/leandro/Downloads/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_clear_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/home/leandro/.local/share/umake/android/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_share_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -44,10 +71,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundColor" value="ff5c70" />
+                                      <entry key="backgroundColor" value="809091" />
                                       <entry key="cropped" value="true" />
-                                      <entry key="iconShape" value="NONE" />
-                                      <entry key="outputName" value="ic_remover_item" />
+                                      <entry key="iconShape" value="CIRCLE" />
+                                      <entry key="outputName" value="ic_share_white" />
                                     </map>
                                   </option>
                                 </PersistentState>

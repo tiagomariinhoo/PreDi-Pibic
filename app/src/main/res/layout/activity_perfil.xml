@@ -30,6 +30,7 @@
         app:layout_constraintTop_toTopOf="@+id/notify_perfil_btm"
         app:srcCompat="@mipmap/ic_alerta_rosa" />
 
+
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="250dp"
@@ -176,6 +177,5 @@
         app:layout_constraintStart_toEndOf="@+id/image_alerta_notificacoes_perfil"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_share_cda" />
-
 
 </android.support.constraint.ConstraintLayout>

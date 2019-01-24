@@ -122,6 +122,21 @@ public class CriarConta extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
+
+                if(month < 10){
+                    if(dayOfMonth < 10){
+                        String dataNasc = "0" + dayOfMonth + "/0" + month + "/" + year;
+                    }
+                    else{
+                        String dataNasc = dayOfMonth + "/0" + month + "/" + year;
+                    }
+                }
+                else{
+                    if(dayOfMonth < 10){
+                        String dataNasc = "0" + dayOfMonth + "/" + month + "/" + year;
+                    }
+                    String dataNasc = dayOfMonth + "/" + month + "/" + year;
+                }
                 String dataNasc = dayOfMonth + "/" + month + "/" + year;
                 idadeAux = Calendar.getInstance().get(Calendar.YEAR) - year;
                 Calendar calendarioAtual = Calendar.getInstance();
@@ -210,8 +225,7 @@ public class CriarConta extends AppCompatActivity {
         //verifica se todos os campos estao preenchidos
         if(nomeCompleto.length() == 0) {
             Toast.makeText(getApplicationContext(), "Insira um nome válido!", Toast.LENGTH_SHORT).show();
-        } else if(dataCadastro.length() == 0 || !dataCadastro.matches("\\d\\d/\\d\\d/\\d\\d\\d\\d")){
-            data.setText("");
+        } else if(dataCadastro.length() == 0 || !dataCadastro.matches("(\\d?\\d)/(\\d?\\d)/\\d\\d\\d\\d")){
             Toast.makeText(getApplicationContext(), "Data em formato inválido!\nPor favor, digite no formato dd/mm/aaaa.", Toast.LENGTH_SHORT).show();
         } else if(senhaCadastro.length() == 0) {
             Toast.makeText(getApplicationContext(), "Insira uma senha válida!", Toast.LENGTH_SHORT).show();

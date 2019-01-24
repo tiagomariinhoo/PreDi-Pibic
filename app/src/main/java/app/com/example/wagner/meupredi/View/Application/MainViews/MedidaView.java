@@ -35,7 +35,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
@@ -44,14 +43,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaMedidas;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
-import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 
 /**
  * Created by Tiago on 27/06/2017.
@@ -76,17 +73,17 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         if(atual == "Peso") {
             checkPeso.setChecked(true);
             checkCircunferecia.setChecked(false);
-            mudarGrafico();
+            mudarGrafico(paciente);
         }
         else {
             checkPeso.setChecked(false);
             checkCircunferecia.setChecked(true);
             //mChart.setData(new LineData());
-            mudarGrafico();
+            mudarGrafico(paciente);
         }
       }
 
-    private void mudarGrafico(){
+    private void mudarGrafico(Paciente paciente){
 
         mChart = (LineChart) findViewById(R.id.linechart_tela_peso);
 
@@ -114,14 +111,20 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         mChart.getAxisLeft().setDrawGridLines(false);
         mChart.getXAxis().setDrawGridLines(false);
 
-        double h = paciente.getAltura();
+        double h = this.paciente.getAltura();
         double pesoAux = 24.9 * h * h;
         LimitLine upper_limit;
         if(checkPeso.isChecked()) {
             upper_limit = new LimitLine((float) pesoAux, "Peso Ideal");
         }
         else{
-            upper_limit = new LimitLine((float) pesoAux, "Circ. Ideal");
+            if(paciente.getSexo() == "M"){
+                upper_limit = new LimitLine(90, "Circ. Ideal");
+            }
+            else {
+                upper_limit = new LimitLine(80, "Circ. Ideal");
+            }
+
         }
 
         upper_limit.setLineWidth(4f);
@@ -132,10 +135,10 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
         LimitLine lower_limit;
         if(checkPeso.isChecked()) {
-            lower_limit = new LimitLine(50f, "Peso Ideal");
+            lower_limit = new LimitLine(50f, "");
         }
         else{
-            lower_limit = new LimitLine(50f, "Circ. Ideal");
+            lower_limit = new LimitLine(-1, "");
         }
 
         lower_limit.setLineWidth(4f);
@@ -202,7 +205,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         graphListener = MedidaController.getDadosGrafico(this, paciente);
 
         //carrega o gráfico vazio pra evitar delay para inicializar a tela
-        mudarGrafico();
+        mudarGrafico(paciente);
 
         PacienteUpdater.addListener(this);
 
@@ -274,17 +277,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                 //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a uma casa decimal)
                 pesoAtual = pesoAtual.replace(',', '.');
                 circAtual = circAtual.replace(',', '.');
-/*
-                if(!pesoAtual.equals(".") && !circAtual.equals(".")){
 
-                    Toast.makeText(Peso.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Peso.this, Perfil.class);
-                    intent.putExtra("Paciente", paciente);
-                    //finish();
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
-*/
                 Log.d("CircAtual : ", circAtual);
                 Log.d("Peso Atual : ", pesoAtual);
                 Double pesoAtualizado = 0.0;
@@ -295,10 +288,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
                 } catch(Exception e){
                     Toast.makeText(MedidaView.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                    /*Intent intent = new Intent(MedidaView.this, Perfil.class);
-                    intent.putExtra("Paciente", paciente);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);*/
                     finish();
                 }
 
@@ -351,23 +340,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
                                     //atualiza o peso e o imc do paciente no banco
                                     MedidaController.addMedida(paciente);
-/*
-                                    PacienteController.atualizarPaciente(paciente).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(getApplicationContext(), "Peso atualizado com sucesso!", Toast.LENGTH_SHORT).show();
 
-                                            Log.d("MEDIDAS: ", String.valueOf(paciente.getCircunferencia()));
-                                        }
-                                    });
-*/
-/*
-                                    Intent intent = new Intent(MedidaView.this, MedidaView.class);
-                                    intent.putExtra("Paciente", paciente);
-                                    //finish();
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-*/
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Peso inválido!", Toast.LENGTH_SHORT).show();
                                 }
@@ -422,7 +395,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     public void onReceiveData(List<Medida> data){
         this.medidas = data;
         Collections.reverse(medidas);
-        mudarGrafico();
+        mudarGrafico(paciente);
     }
 
     private void setData() {
