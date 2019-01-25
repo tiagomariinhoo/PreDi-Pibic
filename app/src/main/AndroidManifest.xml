@@ -98,6 +98,10 @@
         <activity android:name=".View.Application.StartRelatorio" />
         <activity android:name=".View.Application.InfoRelatorio" />
         <activity android:name=".View.Application.FinalRelatorio" />
+        <activity android:name=".View.Application.Popups.PopConquista"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CustomTheme"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="app.com.example.wagner.meupredi.file_provider"

@@ -49,6 +49,8 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaMedidas;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
+import app.com.example.wagner.meupredi.View.Application.PesoIdeal;
+import app.com.example.wagner.meupredi.View.Application.Popups.PopConquista;
 
 /**
  * Created by Tiago on 27/06/2017.
@@ -133,9 +135,10 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         upper_limit.setTextColor(R.color.colorAccent);
         upper_limit.setTextSize(10f);
 
+        pesoAux = 18.6 * h * h;
         LimitLine lower_limit;
         if(checkPeso.isChecked()) {
-            lower_limit = new LimitLine(50f, "");
+            lower_limit = new LimitLine((float) pesoAux, "");
         }
         else{
             lower_limit = new LimitLine(-1, "");
@@ -222,7 +225,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
         novoPeso.setRawInputType(Configuration.KEYBOARD_QWERTY);
         novoCirc.setRawInputType(Configuration.KEYBOARD_QWERTY);
-
 
         findViewById(R.id.tela_peso).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -353,6 +355,12 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                                     inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                                 } catch (NullPointerException e) {
                                     //caso o teclado ja esteja escondido
+                                }
+
+                                if(paciente.getPeso() <= (24.9 * paciente.getAltura() * paciente.getAltura())
+                                        && paciente.getPeso() >= (18.6 * paciente.getAltura() * paciente.getAltura())){
+                                    Intent intent = new Intent(MedidaView.this, PopConquista.class);
+                                    startActivity(intent);
                                 }
                             }
                         });
