@@ -3,6 +3,7 @@ package app.com.example.wagner.meupredi.View.Application;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
@@ -11,8 +12,16 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
 
 public class InfoRelatorio extends AppCompatActivity {
 
-    private TextView msgBalao, variavelAtual, btnContinuar, btnVoltar;
+    private TextView msgBalao, btnContinuar, btnVoltar;
+    private ListView listaInfo;
     private Paciente paciente;
+
+    private enum Variaveis{
+        //Obs: se alguma dessas for desnecessária para o informativo, pode retirar
+        //isso vai servir pra checar a variável que está sendo analisada atualmente
+        //e para saber qual é a próxima variável ao clicar no botão
+        Glicose75g, GlicoseJejum, Hemoglobina, Peso, Circunferencia
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,18 +32,31 @@ public class InfoRelatorio extends AppCompatActivity {
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         msgBalao = findViewById(R.id.msg_tutorial_relatorio_info);
-        //variavelAtual = findViewById(R.id.text_variavel_relatorio);
+        btnContinuar = findViewById(R.id.btn_continuar_tutorial2);
 
+        Variaveis variavelAtual = Variaveis.GlicoseJejum; // a variável que está sendo analisada
+
+        carregarGlicoseJejum();
+
+        btnContinuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flipCard();
+            }
+        });
+
+    }
+
+    /*
+    * Carrega os dados necessários para o diagnóstico da glicose em jejum
+    * nos componentes da tela.
+    * TODO: completar esse método e criar métodos similares para as outras variáveis
+    * */
+    private void carregarGlicoseJejum(){
         String mensagem = "Inicialmente, o sistema precisa analisar sua taxa de Glicemia em Jejum," +
                 " de acordo com o valor dela, vamos definir o próximo passo.";
-
         msgBalao.setText(mensagem);
-
-        String nomeVariavelAtual = "Glicose em Jejum";
-        //variavelAtual.setText(nomeVariavelAtual);
-
         double glicoseJejum = paciente.getGlicoseJejum();
-
     }
 
     public void onCardClick(View view) {
