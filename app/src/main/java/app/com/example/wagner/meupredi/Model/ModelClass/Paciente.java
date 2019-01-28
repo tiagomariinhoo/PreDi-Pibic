@@ -117,6 +117,7 @@ public class Paciente implements Serializable {
 
     public void setPeso(double peso) {
         this.peso = peso;
+        updateImc();
     }
 
     public double getAltura() {
@@ -125,6 +126,7 @@ public class Paciente implements Serializable {
 
     public void setAltura(double altura) {
         this.altura = altura;
+        updateImc();
     }
 
     public double getImc() {
@@ -179,6 +181,11 @@ public class Paciente implements Serializable {
         this.glicoseJejum = glicoseJejum;
         this.colesterol = colesterol;
         this.hemoglobinaGlicolisada = hemoglobinaGlicolisada;
+    }
+
+    private void updateImc(){
+        if(altura != 0) this.imc = peso/(altura*altura);
+        else this.imc = peso; //assume altura como 1, caso seja 0
     }
 
     //metodo chamado na classe MenuPrincipal para verificar situacao do paciente

@@ -45,7 +45,7 @@ public class InfoRelatorio extends AppCompatActivity {
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                flipCard();
+                carregarGlicoseJejum();
             }
         });
 
@@ -60,7 +60,7 @@ public class InfoRelatorio extends AppCompatActivity {
         String mensagem = "Inicialmente, o sistema precisa analisar sua taxa de Glicemia em Jejum," +
                 " de acordo com o valor dela, vamos definir o próximo passo.";
         msgBalao.setText(mensagem);
-
+        //TODO: trocar esses aqui pra TextView
         String caso1 = "Glicemia Normal";
         String caso2 = "Glicemia entre 100 e 125 mg/dL";
         String caso3 = "Glicemia acima de 126 mg/dL";
@@ -72,7 +72,32 @@ public class InfoRelatorio extends AppCompatActivity {
 
         listaInfo.setAdapter(new ArrayAdapter(this, R.layout.lista_condicoes_itens, lista));
 
-        double glicoseJejum = paciente.getGlicoseJejum();
+        btnContinuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double glicoseAtual = paciente.getGlicoseJejum();
+                String valorAtual = "Glicemia atual: " + glicoseAtual;
+                lista.add(valorAtual);
+                String mensagem;
+                if(glicoseAtual < 100){
+                    //TODO: ver se essa mensagem ficou boa
+                    mensagem = "Sua glicemia atual está boa, mas devem ser feitas novas " +
+                            "avaliações a cada 3 anos ou conforme o risco";
+                    btnContinuar.setVisibility(View.INVISIBLE);
+                } else if(glicoseAtual >= 100 && glicoseAtual <= 125){
+                    //TODO: ver se essa mensagem ficou boa
+                    mensagem = "Seu valor de glicemia em jejum apresenta possibilidade " +
+                            "de diabetes, então iremos avaliar o seu ultimo teste de tolerância a " +
+                            "glicose cadastrado";
+                } else{
+                    //TODO: ver se essa mensagem ficou boa
+                    mensagem = "Sua glicemia está muito alta, você deve procurar um médico";
+                    btnContinuar.setVisibility(View.INVISIBLE);
+                }
+
+                msgBalao.setText(mensagem);
+            }
+        });
 
     }
 
