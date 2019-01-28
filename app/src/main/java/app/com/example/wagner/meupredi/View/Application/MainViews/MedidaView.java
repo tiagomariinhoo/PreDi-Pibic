@@ -217,11 +217,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         novoPeso.setHint(String.format("%.2f", peso_atual));
         novoCirc.setHint(String.format("%.2f", circ_atual));
 
-        //TODO: criar calculo de meta
-        //TODO: criar atributo de meta para guardar o peso que o paciente devera alcancar
-
-        //meta = (TextView) findViewById(R.id.text_meta_valor_peso);
-
         novoPeso.setRawInputType(Configuration.KEYBOARD_QWERTY);
         novoCirc.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
@@ -264,11 +259,12 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                 String circAtual = novoCirc.getText().toString();
 
                 // Verificar se algum dos campos não foi preenchido
-                if (circAtual.length() == 0) {
-                    circAtual = circ_atual.toString();
-                }
                 if (pesoAtual.length() == 0) {
-                    pesoAtual = peso_atual.toString();
+                    pesoAtual = novoPeso.getHint().toString();
+                }
+                if (circAtual.length() == 0) {
+
+                    circAtual = novoCirc.getHint().toString();
                 }
 
                 //pega string da data atual
@@ -355,11 +351,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                                 } catch (NullPointerException e) {
                                     //caso o teclado ja esteja escondido
                                 }
-
-
                                 Intent intent = new Intent(MedidaView.this, PopConquista.class);
                                 startActivity(intent);
-
                             }
                         });
                 alertaNovaMedicao.create().show();

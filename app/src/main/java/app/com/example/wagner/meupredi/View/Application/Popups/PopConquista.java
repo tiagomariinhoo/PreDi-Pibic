@@ -33,7 +33,7 @@ public class PopConquista extends Activity {
 
         getWindow().setLayout((int) ( width*.70), (int) (height*.5));
 
-        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
+        paciente = PacienteUpdater.getPaciente();
 
         imgPopUp = findViewById(R.id.image_pop_up_conquista);
         tituloPopUp = findViewById(R.id.text_titulo_pop_up_conquista);
