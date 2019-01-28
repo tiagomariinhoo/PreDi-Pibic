@@ -19,12 +19,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView41"
+        app:layout_constraintTop_toBottomOf="@+id/text_titulo_pop_up_conquista"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/exclamacao" />
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/text_titulo_pop_up_conquista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

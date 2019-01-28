@@ -50,7 +50,7 @@ import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaMedidas;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
 import app.com.example.wagner.meupredi.View.Application.PesoIdeal;
-import app.com.example.wagner.meupredi.View.Application.Popups.PopConquista;
+import app.com.example.wagner.meupredi.View.Application.PopConquista;
 
 /**
  * Created by Tiago on 27/06/2017.
@@ -357,11 +357,10 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                                     //caso o teclado ja esteja escondido
                                 }
 
-                                if(paciente.getPeso() <= (24.9 * paciente.getAltura() * paciente.getAltura())
-                                        && paciente.getPeso() >= (18.6 * paciente.getAltura() * paciente.getAltura())){
-                                    Intent intent = new Intent(MedidaView.this, PopConquista.class);
-                                    startActivity(intent);
-                                }
+
+                                Intent intent = new Intent(MedidaView.this, PopConquista.class);
+                                startActivity(intent);
+
                             }
                         });
                 alertaNovaMedicao.create().show();
