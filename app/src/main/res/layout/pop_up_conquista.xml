@@ -9,18 +9,13 @@
 
     <ImageView
         android:id="@+id/image_pop_up_conquista"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/trofeu"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:padding="40dp"
+        android:background="@drawable/borda_curvada_verde_base_reta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_titulo_pop_up_conquista"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/trofeu" />
 
     <TextView
@@ -28,17 +23,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
         android:text="Parabéns!"
         android:textAllCaps="false"
-        android:textColor="#c23616"
+        android:textColor="@color/colorConfirm"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/image_pop_up_conquista" />
 
     <TextView
         android:id="@+id/text_msg_conquista"
@@ -47,23 +42,35 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:padding="8dp"
         android:text="Você atingiu um objetivo!"
         android:textAlignment="center"
         android:textColor="@color/colorBackground"
         android:textStyle="bold"
-        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_pop_up_conquista" />
+        app:layout_constraintTop_toBottomOf="@+id/text_titulo_pop_up_conquista" />
 
-    <ImageView
+    <Button
         android:id="@+id/image_close_popup_conquista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/borda_curvada_fundo_azul"
+        android:gravity="center_vertical"
+        android:text="Ok"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_msg_conquista"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
 </android.support.constraint.ConstraintLayout>

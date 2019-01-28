@@ -49,8 +49,7 @@ import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaMedidas;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
-import app.com.example.wagner.meupredi.View.Application.PesoIdeal;
-import app.com.example.wagner.meupredi.View.Application.PopConquista;
+import app.com.example.wagner.meupredi.View.Application.Popups.PopConquista;
 
 /**
  * Created by Tiago on 27/06/2017.

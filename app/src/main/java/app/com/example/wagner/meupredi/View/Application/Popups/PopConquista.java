@@ -1,9 +1,10 @@
-package app.com.example.wagner.meupredi.View.Application;
+package app.com.example.wagner.meupredi.View.Application.Popups;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +14,8 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
 
 public class PopConquista extends Activity {
 
-    private ImageView imgPopUp, closePopUp;
+    private ImageView imgPopUp;
+    private Button closePopUp;
     private TextView tituloPopUp, msgPopUp;
     private Paciente paciente;
 
@@ -29,7 +31,7 @@ public class PopConquista extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) ( width*.65), (int) (height*.6));
+        getWindow().setLayout((int) ( width*.70), (int) (height*.5));
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
@@ -52,7 +54,7 @@ public class PopConquista extends Activity {
 
         closePopUp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 finish();
             }
         });

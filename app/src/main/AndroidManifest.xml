@@ -100,7 +100,7 @@
         <activity android:name=".View.Application.FinalRelatorio" />
         <activity android:name=".View.Application.Popups.PopConquista"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.CustomTheme"/>
+            android:theme="@style/AppTheme.CustomTheme" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
