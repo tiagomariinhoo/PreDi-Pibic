@@ -3,8 +3,12 @@ package app.com.example.wagner.meupredi.View.Application;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
@@ -31,9 +35,9 @@ public class InfoRelatorio extends AppCompatActivity {
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
-        msgBalao = findViewById(R.id.msg_tutorial_relatorio_info);
-        btnContinuar = findViewById(R.id.btn_continuar_tutorial2);
-
+        msgBalao = findViewById(R.id.msg_tutorial_relatorio_info); // Vai indicar o contexto
+        btnContinuar = findViewById(R.id.btn_continuar_tutorial2); // Proxima pagina (nó da arvore)
+        listaInfo = findViewById(R.id.lista_relatorio_variavel_front);
         Variaveis variavelAtual = Variaveis.GlicoseJejum; // a variável que está sendo analisada
 
         carregarGlicoseJejum();
@@ -56,8 +60,26 @@ public class InfoRelatorio extends AppCompatActivity {
         String mensagem = "Inicialmente, o sistema precisa analisar sua taxa de Glicemia em Jejum," +
                 " de acordo com o valor dela, vamos definir o próximo passo.";
         msgBalao.setText(mensagem);
+
+        String caso1 = "Glicemia Normal";
+        String caso2 = "Glicemia entre 100 e 125 mg/dL";
+        String caso3 = "Glicemia acima de 126 mg/dL";
+
+        List<String> lista = new ArrayList();
+        lista.add(caso1);
+        lista.add(caso2);
+        lista.add(caso3);
+
+        listaInfo.setAdapter(new ArrayAdapter(this, R.layout.lista_condicoes_itens, lista));
+
         double glicoseJejum = paciente.getGlicoseJejum();
+
     }
+
+    private void carregarGlicose75g(){
+
+    }
+
 
     public void onCardClick(View view) {
         flipCard();
