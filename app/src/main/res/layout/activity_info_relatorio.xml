@@ -32,7 +32,6 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="Continuar"
-        android:onClick="onCardClick"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/colorBranco"
@@ -97,7 +96,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/colorBackground"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
             <ListView

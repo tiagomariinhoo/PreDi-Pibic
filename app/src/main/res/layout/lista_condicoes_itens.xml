@@ -6,16 +6,18 @@
     android:id="@+id/lista_layout_consultas">
 
     <TextView
-        android:id="@+id/text_consulta_item"
+        android:id="@+id/text_condicao_item"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/gradiente_branco"
         android:gravity="center_vertical"
         android:hint="Consulta"
-        android:paddingLeft="16dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:textAlignment="center"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textColor="@color/colorBackground"
-        android:textSize="14dp" />
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
