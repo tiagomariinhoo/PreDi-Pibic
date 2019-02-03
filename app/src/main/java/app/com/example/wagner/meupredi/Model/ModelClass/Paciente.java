@@ -1,11 +1,11 @@
-        package app.com.example.wagner.meupredi.Model.ModelClass;
+package app.com.example.wagner.meupredi.Model.ModelClass;
 
-        import android.content.Context;
-        import android.util.Log;
-        import android.widget.Toast;
-        import java.io.Serializable;
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+import java.io.Serializable;
 
-        /**
+/**
  * Created by wagne on 31/03/2017.
  */
 

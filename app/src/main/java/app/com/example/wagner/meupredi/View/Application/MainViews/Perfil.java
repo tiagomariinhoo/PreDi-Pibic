@@ -81,8 +81,8 @@ public class Perfil extends ActivityGroup {
         * GONE - Both space and widget is invisible.
          */
         iconeAlerta.setVisibility(View.VISIBLE);
-        int AlertaFlag = 1;
-        if(AlertaFlag == 1){
+        int AlertaFlag = 1;//??????????
+        if(AlertaFlag == 1){//?????????
             notificacoes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -170,8 +170,8 @@ public class Perfil extends ActivityGroup {
             public void onClick(View v) {
                 alertaDuvidas = new AlertDialog.Builder(Perfil.this);
                 alertaDuvidas.setTitle("Informativo");
+                //TODO: colocar algum informativo aqui, pq esse é da lista de taxas
                 alertaDuvidas.setMessage("Clicando em alguma Taxa na lista, você poderá altera-la ou exclui-la\n");
-                // Caso EDITAR
                 alertaDuvidas.setNegativeButton("VOLTAR",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -179,14 +179,6 @@ public class Perfil extends ActivityGroup {
                                 //Toast.makeText(Perfil.this, "Clique para editar ou remover uma taxa da lista!", Toast.LENGTH_LONG).show();
                             }
                         });
-                /* Caso REMOVER
-                alertaPesoSelecionado.setPositiveButton("REMOVER",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });*/
                 alertaDuvidas.create().show();
             }
         });

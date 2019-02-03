@@ -43,7 +43,6 @@ public class CriarConta extends AppCompatActivity {
     private CheckBox boxSenha;
     private EditText nome, email, senha, conSenha;
     private Spinner sexo;
-    private ConstraintLayout tela;
     private Button criarConta;
     private TextView data;
     private DatePickerDialog.OnDateSetListener dataNascimento;
@@ -70,7 +69,6 @@ public class CriarConta extends AppCompatActivity {
 
         criarConta = (Button) findViewById(R.id.btn_criar_conta);
         cancelar = (TextView) findViewById(R.id.btn_cancelar);
-        tela = (ConstraintLayout) findViewById(R.id.tela_criar_conta);
         Calendar.getInstance();
 
         findViewById(R.id.tela_criar_conta).setOnClickListener(new View.OnClickListener() {
@@ -78,11 +76,13 @@ public class CriarConta extends AppCompatActivity {
             public void onClick(View v) {
                 if(getCurrentFocus()!=null && getCurrentFocus() instanceof EditText){
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(nome.getWindowToken(), 0);
-                    imm.hideSoftInputFromWindow(email.getWindowToken(), 0);
-                    imm.hideSoftInputFromWindow(data.getWindowToken(), 0);
-                    imm.hideSoftInputFromWindow(senha.getWindowToken(), 0);
-                    imm.hideSoftInputFromWindow(conSenha.getWindowToken(), 0);
+                    if(imm != null) {
+                        imm.hideSoftInputFromWindow(nome.getWindowToken(), 0);
+                        imm.hideSoftInputFromWindow(email.getWindowToken(), 0);
+                        imm.hideSoftInputFromWindow(data.getWindowToken(), 0);
+                        imm.hideSoftInputFromWindow(senha.getWindowToken(), 0);
+                        imm.hideSoftInputFromWindow(conSenha.getWindowToken(), 0);
+                    }
                 }
             }
         });
@@ -121,23 +121,22 @@ public class CriarConta extends AppCompatActivity {
 
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                //mês vem de 0 a 11, então +1 pra corrigir na exibição
                 month += 1;
+                String dataNasc = "";
+                //caso seja d/MM/yyyy
+                if(dayOfMonth < 10) dataNasc += "0"+dayOfMonth;
+                else dataNasc += dayOfMonth;
+                dataNasc += "/";
 
-                if(month < 10){
-                    if(dayOfMonth < 10){
-                        String dataNasc = "0" + dayOfMonth + "/0" + month + "/" + year;
-                    }
-                    else{
-                        String dataNasc = dayOfMonth + "/0" + month + "/" + year;
-                    }
-                }
-                else{
-                    if(dayOfMonth < 10){
-                        String dataNasc = "0" + dayOfMonth + "/" + month + "/" + year;
-                    }
-                    String dataNasc = dayOfMonth + "/" + month + "/" + year;
-                }
-                String dataNasc = dayOfMonth + "/" + month + "/" + year;
+                //caso seja dd/M/yyyy
+                if(month < 10) dataNasc += "0"+month;
+                else dataNasc += month;
+                dataNasc += "/";
+
+                //concatena o ano no final da data
+                dataNasc += year;
+
                 idadeAux = Calendar.getInstance().get(Calendar.YEAR) - year;
                 Calendar calendarioAtual = Calendar.getInstance();
                 if (calendarioAtual.get(Calendar.MONTH) > month
@@ -232,7 +231,7 @@ public class CriarConta extends AppCompatActivity {
         } else if(senhaCadastro.equals(conSenhaCadastro)) {
             Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
 
-            Log.d("Idade Criar Conta: ", String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - ano));
+            Log.d("Idade Criar Conta", String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - ano));
 
             String sexoCadastro = sexo.getSelectedItem().toString();
 
@@ -247,21 +246,21 @@ public class CriarConta extends AppCompatActivity {
             paciente.setNascimento(dataCadastro);
 
             //DEBUG: imprime todos os dados do paciente
-            Log.d("Criando: ", "criar conta");
-            Log.d("Nome : ", paciente.getNome());
-            Log.d("Senha : ", paciente.getSenha());
-            Log.d("Email: ", paciente.getEmail());
-            Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
-            Log.d("Nascimento: ", paciente.getNascimento());
+            Log.d("Criando", "criar conta");
+            Log.d("Nome", paciente.getNome());
+            Log.d("Senha", paciente.getSenha());
+            Log.d("Email", paciente.getEmail());
+            Log.d("Sexo", String.valueOf(paciente.getSexo()));
+            Log.d("Nascimento", paciente.getNascimento());
             Log.d("Data Cadastro", dataCadastro);
-            Log.d("Idade : ", String.valueOf(paciente.getIdade()));
-            Log.d("Circunferencia : ", String.valueOf(paciente.getCircunferencia()));
-            Log.d("Peso : ", String.valueOf(paciente.getPeso()));
-            Log.d("Altura : ", String.valueOf(paciente.getAltura()));
-            Log.d("IMC : ", String.valueOf(paciente.getImc()));
-            Log.d("GlicoseJejum : ", String.valueOf(paciente.getGlicoseJejum()));
-            Log.d("Glicose75g : ", String.valueOf(paciente.getGlicose75g()));
-            Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
+            Log.d("Idade", String.valueOf(paciente.getIdade()));
+            Log.d("Circunferencia", String.valueOf(paciente.getCircunferencia()));
+            Log.d("Peso", String.valueOf(paciente.getPeso()));
+            Log.d("Altura", String.valueOf(paciente.getAltura()));
+            Log.d("IMC", String.valueOf(paciente.getImc()));
+            Log.d("GlicoseJejum", String.valueOf(paciente.getGlicoseJejum()));
+            Log.d("Glicose75g", String.valueOf(paciente.getGlicose75g()));
+            Log.d("Colesterol", String.valueOf(paciente.getColesterol()));
 
             PacienteController.addPaciente(paciente)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

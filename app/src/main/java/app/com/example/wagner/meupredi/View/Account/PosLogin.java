@@ -174,7 +174,7 @@ public class PosLogin extends AppCompatActivity {
                 }
 
                 //pega peso cadastrado pelo paciente na tela e insere em sua respectiva tabela no banco
-                if(pesoCadastro.length() != 0){
+                if(pesoCadastro.length() != 0 || circunferenciaCadastro.length() != 0){
                     MedidaController.addMedida(paciente);
                 }
 

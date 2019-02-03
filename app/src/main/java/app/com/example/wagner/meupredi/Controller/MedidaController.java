@@ -33,6 +33,7 @@ public abstract class MedidaController {
     }
 
     public static Task<Void> addMedida(Paciente paciente){
+        PacienteController.atualizarPaciente(paciente);
         Medida medida = new Medida(new Date(), paciente.getPeso(), paciente.getCircunferencia(), paciente.getEmail());
         return getRef(paciente.getEmail()).document(medida.getDateMedida()).set(medida);
     }

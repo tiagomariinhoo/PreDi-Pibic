@@ -68,6 +68,7 @@ public final class PacienteUpdater {
                         Log.d("Firebase Error: ", e.getMessage());
                         return;
                     }
+                    Log.d("Got Taxas", Integer.toString(queryDocumentSnapshots.size()));
                     Taxas taxas;
                     if (!queryDocumentSnapshots.isEmpty()){
                         taxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);

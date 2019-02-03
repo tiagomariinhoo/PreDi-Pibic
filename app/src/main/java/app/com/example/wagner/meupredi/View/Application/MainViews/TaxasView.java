@@ -121,9 +121,11 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
             public void onClick(View v) {
                 if(getCurrentFocus()!=null && getCurrentFocus() instanceof EditText){
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(novaGlicose75.getWindowToken(), 0);
-                    imm.hideSoftInputFromWindow(novaGlicoseJejum.getWindowToken(), 0);
-                    imm.hideSoftInputFromWindow(novaHemoglobinaGlicolisada.getWindowToken(), 0);
+                    if(imm != null) {
+                        imm.hideSoftInputFromWindow(novaGlicose75.getWindowToken(), 0);
+                        imm.hideSoftInputFromWindow(novaGlicoseJejum.getWindowToken(), 0);
+                        imm.hideSoftInputFromWindow(novaHemoglobinaGlicolisada.getWindowToken(), 0);
+                    }
                     tituloJejum.setTextColor(getResources().getColor(R.color.colorBranco));
                     titulo75g.setTextColor(getResources().getColor(R.color.colorBranco));
                     tituloGlicada.setTextColor(getResources().getColor(R.color.colorBranco));
