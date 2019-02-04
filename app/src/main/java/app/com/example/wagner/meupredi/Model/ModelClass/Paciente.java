@@ -3,6 +3,9 @@ package app.com.example.wagner.meupredi.Model.ModelClass;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.Timestamp;
+
 import java.io.Serializable;
 
 /**
@@ -16,6 +19,7 @@ public class Paciente implements Serializable {
     private String email;
     private String sexo;
     private String nascimento;
+    private Timestamp dataNascimento;
     private int idade;
     private int ultimaDica;
     private double circunferencia;
