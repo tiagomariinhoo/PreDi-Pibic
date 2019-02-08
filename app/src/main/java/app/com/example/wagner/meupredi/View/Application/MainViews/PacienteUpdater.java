@@ -2,6 +2,7 @@ package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -124,17 +125,41 @@ public final class PacienteUpdater {
 
     public static void addListener(MedidaListener listener){
         medidaListeners.add(listener);
-        listener.onChangeMedida(lastMedida);
+        if(lastMedida != null) {
+            listener.onChangeMedida(lastMedida);
+        }
+        else {
+            MedidaController.getMedida(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    lastMedida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
+                    listener.onChangeMedida(lastMedida);
+                }
+            });
+        }
     }
 
     public static void addListener(PacienteListener listener){
         pacienteListeners.add(listener);
-        listener.onChangePaciente(paciente);
+        if(paciente != null) {
+            listener.onChangePaciente(paciente);
+        }
     }
 
     public static void addListener(TaxasListener listener){
         taxasListeners.add(listener);
-        listener.onChangeTaxas(lastTaxas);
+        if(lastTaxas != null) {
+            listener.onChangeTaxas(lastTaxas);
+        }
+        else {
+            TaxasController.getTaxas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    lastTaxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);
+                    listener.onChangeTaxas(lastTaxas);
+                }
+            });
+        }
     }
 
     public static void removeListener(MedidaListener listener){

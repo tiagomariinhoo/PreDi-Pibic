@@ -61,16 +61,6 @@ public class TelaLogin extends AppCompatActivity {
 
         manterConectado.setChecked(usuario.getText().length() > 0 && senha.getText().length() > 0);
 
-        //se existirem informacoes salvas, tenta fazer login
-        if(manterConectado.isChecked()) {
-            btnLogin.post(new Runnable() {
-                @Override
-                public void run() {
-                    btnLogin.performClick();
-                }
-            });
-        }
-
         findViewById(R.id.tela_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +134,16 @@ public class TelaLogin extends AppCompatActivity {
                     });
             }
         });
+
+        //se existirem informacoes salvas, tenta fazer login
+        if(manterConectado.isChecked()) {
+            btnLogin.post(new Runnable() {
+                @Override
+                public void run() {
+                    btnLogin.performClick();
+                }
+            });
+        }
 
         esqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override

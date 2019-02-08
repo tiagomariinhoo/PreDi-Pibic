@@ -60,13 +60,14 @@ public class InfoRelatorio extends AppCompatActivity {
                 else {
                     //TODO: verificar pq o botão de voltar ta colocando a face pra a qual ele deveria voltar no lugar da atual antes de voltar
                     CardFace newCard = estados.get(flipCount - 1);
-                    if (flipCount % 2 != 0) {
-                        newCard.setBack();
-                    } else {
-                        newCard.setFront();
-                    }
+                    Log.d("Flip Count", String.valueOf(flipCount));
                     if (flipCount <= estados.size() - 1) btnContinuar.setVisibility(View.VISIBLE);
                     flipCard(false);
+                    if (flipCount % 2 != 0) {
+                        newCard.setFront();
+                    } else {
+                        newCard.setBack();
+                    }
                 }
             }
         });
@@ -218,7 +219,7 @@ public class InfoRelatorio extends AppCompatActivity {
         //TODO: verificar pq o botão de voltar ta colocando a face pra a qual ele deveria voltar no lugar da atual antes de voltar
         View cardFront;
         View cardBack;
-        if(flipCount%2 == 0) {
+        if(flipCount%2 == 0 || !forward) {
             cardFront = findViewById(R.id.main_activity_card_front);
             cardBack = findViewById(R.id.main_activity_card_back);
         } else{
