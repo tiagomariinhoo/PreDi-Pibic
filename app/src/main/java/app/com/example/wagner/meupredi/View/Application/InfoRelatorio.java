@@ -23,6 +23,7 @@ public class InfoRelatorio extends AppCompatActivity {
     private int flipCount = 0;
     boolean testarGlicose75g = false;
     boolean testarHemoglobina = false;
+    private boolean firstBack = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +61,15 @@ public class InfoRelatorio extends AppCompatActivity {
                 else {
                     //TODO: verificar pq o botão de voltar ta colocando a face pra a qual ele deveria voltar no lugar da atual antes de voltar
                     CardFace newCard = estados.get(flipCount - 1);
-                    Log.d("Flip Count", String.valueOf(flipCount));
+                    if(!firstBack) {
+                        if (flipCount % 2 == 0) {
+                            newCard.setBack();
+                        } else {
+                            newCard.setFront();
+                        }
+                    }
                     if (flipCount <= estados.size() - 1) btnContinuar.setVisibility(View.VISIBLE);
                     flipCard(false);
-                    if (flipCount % 2 != 0) {
-                        newCard.setFront();
-                    } else {
-                        newCard.setBack();
-                    }
                 }
             }
         });
@@ -219,7 +221,7 @@ public class InfoRelatorio extends AppCompatActivity {
         //TODO: verificar pq o botão de voltar ta colocando a face pra a qual ele deveria voltar no lugar da atual antes de voltar
         View cardFront;
         View cardBack;
-        if(flipCount%2 == 0 || !forward) {
+        if((flipCount%2 == 0 && forward) || (flipCount%2 == 1 && !forward)) {
             cardFront = findViewById(R.id.main_activity_card_front);
             cardBack = findViewById(R.id.main_activity_card_back);
         } else{
@@ -232,8 +234,10 @@ public class InfoRelatorio extends AppCompatActivity {
         if (!forward) {
             flipAnimation.reverse();
             --flipCount;
+            firstBack = false;
         } else{
             ++flipCount;
+            firstBack = true;
         }
 
         rootLayout.startAnimation(flipAnimation);
