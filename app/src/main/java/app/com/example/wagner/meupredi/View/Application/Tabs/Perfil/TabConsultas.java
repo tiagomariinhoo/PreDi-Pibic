@@ -55,7 +55,6 @@ public class TabConsultas extends Activity implements LiveUpdateHelper<Consulta>
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TabConsultas.this, ConsultaView.class);
-                intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
         });

@@ -218,7 +218,6 @@ public class InfoRelatorio extends AppCompatActivity {
 
     private void flipCard(boolean forward) {
         View rootLayout = findViewById(R.id.main_activity_card);
-        //TODO: verificar pq o botão de voltar ta colocando a face pra a qual ele deveria voltar no lugar da atual antes de voltar
         View cardFront;
         View cardBack;
         if((flipCount%2 == 0 && forward) || (flipCount%2 == 1 && !forward)) {

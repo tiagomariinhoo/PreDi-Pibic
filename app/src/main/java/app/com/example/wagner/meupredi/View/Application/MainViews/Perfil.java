@@ -81,17 +81,17 @@ public class Perfil extends ActivityGroup {
         * GONE - Both space and widget is invisible.
          */
         iconeAlerta.setVisibility(View.VISIBLE);
-        int AlertaFlag = 1;//??????????
-        if(AlertaFlag == 1){//?????????
-            notificacoes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Perfil.this, Dicas.class);
-                    intent.putExtra("Paciente", paciente);
-                    startActivity(intent);
-                }
-            });
-        }
+
+        //TODO: adicionar novas dicas, quando for posível
+        // (dicas podem ser atualizadas com uma função chamada por algum gerenciador do firebase
+        // qnd houverem dicas novas)
+        notificacoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Perfil.this, Dicas.class);
+                startActivity(intent);
+            }
+        });
 
         ConsultaController.notifyConsulta(this, paciente);
 
@@ -99,7 +99,6 @@ public class Perfil extends ActivityGroup {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Perfil.this, Dados.class);
-                intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
         });
@@ -108,7 +107,6 @@ public class Perfil extends ActivityGroup {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Perfil.this, Sair.class);
-                intent.putExtra("Paciente", paciente);
                 startActivity(intent);
                 finish();
             }
@@ -118,7 +116,6 @@ public class Perfil extends ActivityGroup {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Perfil.this, PopNotific.class);
-                intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
         });
@@ -140,7 +137,6 @@ public class Perfil extends ActivityGroup {
         TabHost.TabSpec descritor = abas.newTabSpec("aba1");
 
         Intent intent = new Intent(this, TabTaxas.class);
-        intent.putExtra("Paciente", paciente);
 
         descritor.setContent(intent);
         descritor.setIndicator("TAXAS");
@@ -149,7 +145,6 @@ public class Perfil extends ActivityGroup {
         descritor = abas.newTabSpec("aba2");
 
         intent = new Intent(this, TabCorpo.class);
-        intent.putExtra("Paciente", paciente);
 
         descritor.setContent(intent);
         descritor.setIndicator("CORPO");
@@ -158,7 +153,6 @@ public class Perfil extends ActivityGroup {
         descritor = abas.newTabSpec("aba3");
 
         intent = new Intent(this, TabConsultas.class);
-        intent.putExtra("Paciente", paciente);
 
         descritor.setContent(intent);
         descritor.setIndicator("CONSULTAS");

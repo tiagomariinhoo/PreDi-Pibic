@@ -144,9 +144,6 @@ public class Dados extends AppCompatActivity {
                     }
                 });
 
-                /*Intent intent = new Intent(Dados.this, Perfil.class);
-                intent.putExtra("Paciente", paciente);
-                startActivity(intent);*/
                 finish();
             }
         });

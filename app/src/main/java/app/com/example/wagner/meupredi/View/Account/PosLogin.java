@@ -80,7 +80,6 @@ public class PosLogin extends AppCompatActivity {
         if(paciente.getPeso() > 0 && paciente.getAltura() > 0 && paciente.getCircunferencia() > 0) {
 
             Intent intent = new Intent(PosLogin.this, Perfil.class);
-            intent.putExtra("Paciente", paciente);
             finish();
             startActivity(intent);
         }
@@ -212,7 +211,6 @@ public class PosLogin extends AppCompatActivity {
                 Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
 
                 Intent intent = new Intent(PosLogin.this, Perfil.class);
-                intent.putExtra("Paciente", paciente);
                 finish();
                 startActivity(intent);
             }

@@ -50,7 +50,6 @@ public class TabTaxas extends Activity implements TaxasListener {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TabTaxas.this, TaxasView.class);
-                intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
         });
@@ -58,8 +57,10 @@ public class TabTaxas extends Activity implements TaxasListener {
 
     @Override
     public void onChangeTaxas(Taxas taxas) {
-        valor_hemoglobina_glicolisada.setText(String.format(Locale.getDefault(), "%.2f %%", taxas.getHemoglobinaGlico()));
-        valor_glicose75g.setText(String.format(Locale.getDefault(), "%.2f mg/dL", taxas.getGlicose75g()));
-        valor_glicoseJejum.setText(String.format(Locale.getDefault(), "%.2f  mg/dL", taxas.getGlicoseJejum()));
+        if (taxas != null){
+            valor_hemoglobina_glicolisada.setText(String.format(Locale.getDefault(), "%.2f %%", taxas.getHemoglobinaGlico()));
+            valor_glicose75g.setText(String.format(Locale.getDefault(), "%.2f mg/dL", taxas.getGlicose75g()));
+            valor_glicoseJejum.setText(String.format(Locale.getDefault(), "%.2f  mg/dL", taxas.getGlicoseJejum()));
+        }
     }
 }

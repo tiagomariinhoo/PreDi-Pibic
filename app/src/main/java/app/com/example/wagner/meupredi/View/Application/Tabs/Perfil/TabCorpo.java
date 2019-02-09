@@ -136,9 +136,11 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
 
     @Override
     public void onChangeMedida(Medida medida) {
-        pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", medida.getPeso()));
-        ultimaMedicao.setText("Ultima medição: " + medida.printDate());
-        ultimaMedicao.setVisibility(View.VISIBLE);
+        if(medida != null) {
+            pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", medida.getPeso()));
+            ultimaMedicao.setText("Ultima medição: " + medida.printDate());
+            ultimaMedicao.setVisibility(View.VISIBLE);
+        }
     }
 
 }

@@ -66,9 +66,6 @@ public class TabHemoglobinaGlicadaEdit extends Activity {
                         hgAtualizada = Double.parseDouble(novaHG);
                     } catch(Exception e){
                         Toast.makeText(TabHemoglobinaGlicadaEdit.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                        /*Intent intent = new Intent(TaxasView.this, Perfil.class);
-                        intent.putExtra("Paciente", paciente);
-                        startActivity(intent);*/
                         finish();
                     }
                     String hgFormatada = String.format(Locale.ENGLISH, "%.2f", hgAtualizada);

@@ -63,9 +63,6 @@ public class TabGlicose75gEdit extends Activity {
                 g75Atualizada = Double.parseDouble(novaG75);
             } catch(Exception e){
                 Toast.makeText(TabGlicose75gEdit.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                        /*Intent intent = new Intent(TaxasView.this, Perfil.class);
-                        intent.putExtra("Paciente", paciente);
-                        startActivity(intent);*/
                 finish();
             }
 

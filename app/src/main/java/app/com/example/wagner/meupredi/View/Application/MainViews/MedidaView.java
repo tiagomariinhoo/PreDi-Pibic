@@ -71,7 +71,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     private AlertDialog.Builder alertaNovaMedicao;
 
     private void inverterCheckBox(String atual){
-        if(atual == "Peso") {
+        if(atual.equals("Peso")) {
             checkPeso.setChecked(true);
             checkCircunferecia.setChecked(false);
             mudarGrafico(paciente);
@@ -119,7 +119,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
             upper_limit = new LimitLine((float) pesoAux, "Peso Ideal");
         }
         else{
-            if(paciente.getSexo() == "M"){
+            if(paciente.getSexo().equals("M")){
                 upper_limit = new LimitLine(90, "Circ. Ideal");
             }
             else {
@@ -225,7 +225,9 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
             public void onClick(View v) {
                 if (getCurrentFocus() != null && getCurrentFocus() instanceof EditText) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(novoPeso.getWindowToken(), 0);
+                    if(imm != null) {
+                        imm.hideSoftInputFromWindow(novoPeso.getWindowToken(), 0);
+                    }
                 }
             }
         });
@@ -234,7 +236,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MedidaView.this, ListaMedidas.class);
-                intent.putExtra("Paciente", paciente);
                 startActivity(intent, ActivityOptions.makeScaleUpAnimation(v, 0, 0, v.getWidth(), v.getHeight()).toBundle());
             }
         });
@@ -243,7 +244,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MedidaView.this, ListaMedidas.class);
-                intent.putExtra("Paciente", paciente);
                 startActivity(intent);
             }
         });
@@ -277,8 +277,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
                 Log.d("CircAtual : ", circAtual);
                 Log.d("Peso Atual : ", pesoAtual);
-                Double pesoAtualizado = 0.0;
-                Double circAtualizado = 0.0;
+                double pesoAtualizado = 0.0;
+                double circAtualizado = 0.0;
                 try{
                     pesoAtualizado = Double.parseDouble(pesoAtual);
                     circAtualizado = Double.parseDouble(circAtual);
@@ -289,16 +289,14 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                 }
 
                 String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
-                Double pesoDoPaciente = Double.parseDouble(pesoFormatado);
+                double pesoDoPaciente = Double.parseDouble(pesoFormatado);
 
                 String circFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
-                Double circDoPaciente = Double.parseDouble(circFormatado);
+                double circDoPaciente = Double.parseDouble(circFormatado);
 
-                int dia = dataRegistro.get(GregorianCalendar.DAY_OF_MONTH);
-                String mes = nomeDoMes(dataRegistro.get(GregorianCalendar.MONTH));
+                String dia = String.format("%02d", dataRegistro.get(GregorianCalendar.DAY_OF_MONTH));
+                String mes = String.format("%02d", dataRegistro.get(GregorianCalendar.MONTH)+1);
                 int ano = dataRegistro.get(GregorianCalendar.YEAR);
-
-                dataUltimaMedicao.setText(dia + ", " + mes + ", " + ano);
 
                 alertaNovaMedicao = new AlertDialog.Builder(MedidaView.this);
                 alertaNovaMedicao.setTitle("Atenção!");
@@ -322,14 +320,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                             public void onClick(DialogInterface dialog, int which) {
 
                                 if (pesoDoPaciente > 0 && circDoPaciente > 0) {
-                                    //atualiza valor na tela
-                                    if (pesoDoPaciente == null) {
-                                        novoPeso.setText(String.valueOf(0));
-                                    }
-
-                                    if (circDoPaciente == null) {
-                                        novoCirc.setText(String.valueOf(0));
-                                    }
 
                                     //atualiza peso no objeto
                                     paciente.setPeso(pesoDoPaciente);
@@ -438,7 +428,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         set1.setValueTextSize(9f);
         set1.setDrawFilled(true);
 
-        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1); // add the datasets
 
         // create a data object with the datasets
@@ -559,5 +549,10 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     public void onChangeMedida(Medida medida) {
         novoPeso.setHint(String.format("%.2f", medida.getPeso()));
         novoCirc.setHint(String.format("%.2f", medida.getCircunferencia()));
+        String novaData = medida.printDate();
+        String aux[] = novaData.split("/");
+        //TODO: definir o fotmato correto dessa data
+        novaData = aux[0]+", "+nomeDoMes(Integer.valueOf(aux[1])-1)+", "+aux[2];
+        dataUltimaMedicao.setText(novaData);
     }
 }

@@ -98,25 +98,26 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="64dp"
-        android:hint="Junho, 14, 2018"
-        android:textColorHint="@color/colorBranco"
+        android:text="Junho, 14, 2018"
+        android:textColor="@color/colorBranco"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView42"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="kg"
         android:textColor="@color/colorBranco"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_registrar_valor_peso"
         app:layout_constraintEnd_toStartOf="@+id/text_registrar_valor_circunferencia"
-        app:layout_constraintLeft_toRightOf="@+id/text_registrar_valor_peso"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/text_registrar_valor_peso"
         app:layout_constraintTop_toTopOf="@+id/text_registrar_valor_peso"
         app:layout_constraintVertical_bias="1.0" />
 

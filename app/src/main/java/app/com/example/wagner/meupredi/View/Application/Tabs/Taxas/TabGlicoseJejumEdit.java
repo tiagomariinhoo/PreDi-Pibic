@@ -67,9 +67,6 @@ public class TabGlicoseJejumEdit extends Activity {
                         gJAtualizada = Double.parseDouble(novaGJ);
                     } catch(Exception e){
                         Toast.makeText(TabGlicoseJejumEdit.this, "Por favor, digite os dados corretamente!", Toast.LENGTH_LONG).show();
-                        /*Intent intent = new Intent(TaxasView.this, Perfil.class);
-                        intent.putExtra("Paciente", paciente);
-                        startActivity(intent);*/
                         finish();
                     }
                     String gJFormatada = String.format(Locale.ENGLISH, "%.2f", gJAtualizada);

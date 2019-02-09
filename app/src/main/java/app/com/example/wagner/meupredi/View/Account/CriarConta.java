@@ -123,20 +123,8 @@ public class CriarConta extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //mês vem de 0 a 11, então +1 pra corrigir na exibição
                 month += 1;
-                String dataNasc = "";
-                //caso seja d/MM/yyyy
-                if(dayOfMonth < 10) dataNasc += "0"+dayOfMonth;
-                else dataNasc += dayOfMonth;
-                dataNasc += "/";
 
-                //caso seja dd/M/yyyy
-                if(month < 10) dataNasc += "0"+month;
-                else dataNasc += month;
-                dataNasc += "/";
-
-                //concatena o ano no final da data
-                dataNasc += year;
-
+                String dataNasc = String.format("%02d/%02d/%04d", dayOfMonth, month, year);
                 idadeAux = Calendar.getInstance().get(Calendar.YEAR) - year;
                 Calendar calendarioAtual = Calendar.getInstance();
                 if (calendarioAtual.get(Calendar.MONTH) > month
