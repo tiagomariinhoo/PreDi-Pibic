@@ -1,33 +1,22 @@
 package app.com.example.wagner.meupredi.Model.ModelClass;
 
-import android.util.Log;
+import com.google.firebase.Timestamp;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class Medida implements Serializable {
     //private final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault());
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
-    private String dateMedida; // serves as ID
+    private Timestamp dateMedida; // serves as ID
     private double peso;
     private double circunferencia;
     private int flagMedida = 1;
     private String emailPaciente;
 
-    public Medida(String dateMedida, double peso, double circunferencia, String emailPaciente) {
-        this(peso, circunferencia, emailPaciente);
-        this.dateMedida = dateMedida;
-    }
-    //yyyy-MM-dd HH:mm:ss.S
-    public Medida(Date dateMedida, double peso, double circunferencia, String emailPaciente) {
-        this(peso, circunferencia, emailPaciente);
-        this.dateMedida = dateFormat.format(dateMedida);
-    }
-
-    private Medida(double peso, double circunferencia, String emailPaciente) {
+    public Medida(double peso, double circunferencia, String emailPaciente) {
+        this.dateMedida = Timestamp.now();
         this.peso = peso;
         this.circunferencia = circunferencia;
         this.emailPaciente = emailPaciente;
@@ -51,28 +40,22 @@ public class Medida implements Serializable {
         this.circunferencia = circunferencia;
     }
 
-    public String getDateMedida() {
+    public String stringDate() {
+        return Long.toString(dateMedida.getSeconds())+Integer.toString(dateMedida.getNanoseconds());
+    }
+
+    public Timestamp getDateMedida(){
         return dateMedida;
     }
 
     public String printDate(){
         SimpleDateFormat printDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            return printDateFormat.format(dateFormat.parse(dateMedida));
-        } catch (ParseException e) {
-            Log.d("Parsing Error", e.getMessage());
-        }
-        return "";
+        return printDateFormat.format(dateMedida.toDate());
     }
 
     public String printTime(){
         SimpleDateFormat printTimeFormat = new SimpleDateFormat("HH:mm:ss");
-        try {
-            return printTimeFormat.format(dateFormat.parse(dateMedida));
-        } catch (ParseException e) {
-            Log.d("Parsing Error", e.getMessage());
-        }
-        return "";
+        return printTimeFormat.format(dateMedida.toDate());
     }
 
     public int getFlagMedida() {

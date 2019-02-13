@@ -54,7 +54,7 @@ public final class PacienteUpdater {
                     if (!queryDocumentSnapshots.isEmpty()) {
                         medida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
                     } else {
-                        medida = new Medida("1900-01-01_00:00:00", 0, 0, paciente.getEmail());
+                        medida = new Medida(0.0, 0.0, paciente.getEmail());
                     }
 
                     onUpdate(medida);

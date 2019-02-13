@@ -12,8 +12,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import java.util.Date;
-
 import javax.annotation.Nullable;
 
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
@@ -34,12 +32,12 @@ public abstract class MedidaController {
 
     public static Task<Void> addMedida(Paciente paciente){
         PacienteController.atualizarPaciente(paciente);
-        Medida medida = new Medida(new Date(), paciente.getPeso(), paciente.getCircunferencia(), paciente.getEmail());
-        return getRef(paciente.getEmail()).document(medida.getDateMedida()).set(medida);
+        Medida medida = new Medida(paciente.getPeso(), paciente.getCircunferencia(), paciente.getEmail());
+        return getRef(paciente.getEmail()).document(medida.stringDate()).set(medida);
     }
 
     public static Task<Void> editMedida(Medida medida){
-        return getRef(medida.getEmailPaciente()).document(medida.getDateMedida()).set(medida, SetOptions.merge());
+        return getRef(medida.getEmailPaciente()).document(medida.stringDate()).set(medida, SetOptions.merge());
     }
 
     public static Task<QuerySnapshot> getAllMedidas(Paciente paciente){
@@ -72,10 +70,10 @@ public abstract class MedidaController {
     }
 
     public static Task<Void> eraseLastInfo(Medida medida){
-        Log.d("Id peso : ", String.valueOf(medida.getDateMedida()));
+        Log.d("Id peso : ", String.valueOf(medida.stringDate()));
         medida.setFlagMedida(0);
         return getRef(medida.getEmailPaciente())
-                .document(medida.getDateMedida())
+                .document(medida.stringDate())
                 .set(medida, SetOptions.merge());
     }
 }
