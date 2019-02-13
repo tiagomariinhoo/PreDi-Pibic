@@ -132,7 +132,10 @@ public final class PacienteUpdater {
             MedidaController.getMedida(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    lastMedida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
+                    if(!queryDocumentSnapshots.isEmpty())
+                        lastMedida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
+                    else
+                        new Medida(0.0, 0.0, paciente.getEmail());
                     listener.onChangeMedida(lastMedida);
                 }
             });
@@ -155,7 +158,10 @@ public final class PacienteUpdater {
             TaxasController.getTaxas(paciente).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    lastTaxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);
+                    if(!queryDocumentSnapshots.isEmpty())
+                        lastTaxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);
+                    else
+                        lastTaxas = new Taxas("1900-01-01_00:00:00", paciente.getEmail(), 0, 0, 0, 0);
                     listener.onChangeTaxas(lastTaxas);
                 }
             });
