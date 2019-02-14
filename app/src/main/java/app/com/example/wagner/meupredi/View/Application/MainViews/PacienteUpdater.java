@@ -135,7 +135,7 @@ public final class PacienteUpdater {
                     if(!queryDocumentSnapshots.isEmpty())
                         lastMedida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
                     else
-                        new Medida(0.0, 0.0, paciente.getEmail());
+                        new Medida("1900-01-01_00:00:00", 0, 0, paciente.getEmail());
                     listener.onChangeMedida(lastMedida);
                 }
             });
