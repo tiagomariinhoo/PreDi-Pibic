@@ -2,6 +2,9 @@ package app.com.example.wagner.meupredi.Model.ModelClass;
 
 import android.util.Log;
 
+import com.google.firebase.Timestamp;
+
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,33 +13,23 @@ import java.util.Locale;
 /**
  * Created by LeandroDias1 on 05/03/2018.
  */
-
 public class Consulta {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
     private String titulo;
     private String local;
-    private String date;
+    private Timestamp date;
+
     private String time;
 
     public Consulta(){}
 
     public Consulta(String titulo, String local, Date date) {
-        this(titulo, local);
-        this.date = dateFormat.format(date);
-        this.time = timeFormat.format(date);
-    }
-
-    public Consulta(String titulo, String local, String date, String time) {
-        this(titulo, local);
-        this.date = date;
-        this.time = time;
-    }
-
-    private Consulta(String titulo, String local) {
+        this.date = Timestamp.now();
         this.titulo = titulo;
         this.local = local;
     }
+
 
     public String getTitulo() {
         return titulo;
@@ -54,12 +47,12 @@ public class Consulta {
         this.local = local;
     }
 
-    public String getDate() {
-        return date;
+    public String stringDate() {
+        return Long.toString(date.getSeconds())+Integer.toString(date.getNanoseconds());
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public Timestamp getDate() {
+        return date;
     }
 
     public String getTime() {
@@ -72,17 +65,16 @@ public class Consulta {
 
     public String printingDate(){
         SimpleDateFormat printDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            return printDateFormat.format(dateFormat.parse(date));
-        } catch (ParseException e) {
-            Log.d("Parsing Error", e.getMessage());
-        }
-        return "";
-        //(new StringBuilder(this.date).reverse().toString().replace("-", "/"));
+        return printDateFormat.format(date.toDate());
     }
+
+    /*@Override
+    public String toString(){
+        return this.titulo + " - " + this.printingDate() + " - " + this.time + " - " + this.local;
+    }*/
 
     @Override
     public String toString(){
-        return this.titulo + " - " + this.printingDate() + " - " + this.time + " - " + this.local;
+        return this.titulo + " - " + this.printingDate() + " - " + this.local;
     }
 }

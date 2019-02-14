@@ -74,7 +74,7 @@ public final class PacienteUpdater {
                     if (!queryDocumentSnapshots.isEmpty()){
                         taxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);
                     } else{
-                        taxas = new Taxas("1900-01-01_00:00:00", paciente.getEmail(), 0, 0, 0, 0);
+                        taxas = new Taxas( paciente.getEmail(), 0.0, 0.0, 0.0, 0.0);
                     }
 
                     onUpdate(taxas);
@@ -161,7 +161,7 @@ public final class PacienteUpdater {
                     if(!queryDocumentSnapshots.isEmpty())
                         lastTaxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);
                     else
-                        lastTaxas = new Taxas("1900-01-01_00:00:00", paciente.getEmail(), 0, 0, 0, 0);
+                        lastTaxas = new Taxas(paciente.getEmail(), 0.0, 0.0, 0.0, 0.0);
                     listener.onChangeTaxas(lastTaxas);
                 }
             });

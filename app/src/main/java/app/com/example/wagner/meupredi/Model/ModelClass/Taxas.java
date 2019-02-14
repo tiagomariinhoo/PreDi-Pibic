@@ -1,5 +1,7 @@
 package app.com.example.wagner.meupredi.Model.ModelClass;
 
+import com.google.firebase.Timestamp;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,7 +15,7 @@ import java.util.Locale;
 public class Taxas implements Serializable {
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
-    private String dateTaxas; // serves as ID
+    private Timestamp dateTaxas; // serves as ID
     private String emailPaciente;
     private double glicose75g;
     private double glicoseJejum;
@@ -22,7 +24,7 @@ public class Taxas implements Serializable {
     private int flagTaxa = 1;
 
 
-    public Taxas(String dateTaxas, String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
+    /*public Taxas(String dateTaxas, String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
         this(emailPaciente, glicose75g, glicoseJejum, colesterol, hemoglobinaGlico);
         this.dateTaxas = dateTaxas;
     }
@@ -30,9 +32,10 @@ public class Taxas implements Serializable {
     public Taxas(Date dateTaxas, String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
         this(emailPaciente, glicose75g, glicoseJejum, colesterol, hemoglobinaGlico);
         this.dateTaxas = dateFormat.format(dateTaxas);
-    }
+    }*/
 
-    private Taxas(String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
+    public Taxas(String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
+        this.dateTaxas = Timestamp.now();
         this.emailPaciente = emailPaciente;
         this.glicose75g = glicose75g;
         this.glicoseJejum = glicoseJejum;
@@ -90,7 +93,11 @@ public class Taxas implements Serializable {
         this.colesterol = colesterol;
     }
 
-    public String getDateTaxas() {
+    public String stringDate() {
+        return Long.toString(dateTaxas.getSeconds())+Integer.toString(dateTaxas.getNanoseconds());
+    }
+
+    public Timestamp getDateTaxas() {
         return dateTaxas;
     }
 
@@ -105,7 +112,7 @@ public class Taxas implements Serializable {
         return String.format("%.2f %%", hemoglobinaGlico);
     }
 
-    public String printDate(){
+    /*public String printDate(){
         SimpleDateFormat printFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         try {
             return printFormat.format(dateFormat.parse(dateTaxas));
@@ -114,6 +121,12 @@ public class Taxas implements Serializable {
         }
 
         return "";
+    }*/
+
+    public String printDate(){
+        SimpleDateFormat printFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return printFormat.format(dateTaxas.toDate());
+
     }
 
 }

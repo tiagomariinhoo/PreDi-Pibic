@@ -33,13 +33,13 @@ public abstract class TaxasController {
     }
 
     public static Task<Void> addTaxas(Paciente paciente){
-        Taxas taxas = new Taxas(new Date(), paciente.getEmail(), paciente.getGlicose75g(),
+        Taxas taxas = new Taxas(paciente.getEmail(), paciente.getGlicose75g(),
                 paciente.getGlicoseJejum(), paciente.getColesterol(), paciente.getHemoglobinaGlicolisada());
-        return getRef(paciente.getEmail()).document(taxas.getDateTaxas()).set(taxas);
+        return getRef(paciente.getEmail()).document(taxas.stringDate()).set(taxas);
     }
 
     public static Task<Void> editTaxas(Taxas taxas){
-        return getRef(taxas.getEmailPaciente()).document(taxas.getDateTaxas()).set(taxas, SetOptions.merge());
+        return getRef(taxas.getEmailPaciente()).document(taxas.stringDate()).set(taxas, SetOptions.merge());
     }
 
     public static Task<QuerySnapshot> getAllTaxas(Paciente paciente){
@@ -75,7 +75,7 @@ public abstract class TaxasController {
         Log.d("Id taxas : ", String.valueOf(taxas.getDateTaxas()));
         taxas.setFlagTaxa(0);
         return getRef(taxas.getEmailPaciente())
-                .document(taxas.getDateTaxas())
+                .document(taxas.stringDate())
                 .set(taxas, SetOptions.merge());
     }
 
