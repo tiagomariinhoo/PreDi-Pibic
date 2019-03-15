@@ -24,16 +24,6 @@ public class Taxas implements Serializable {
     private int flagTaxa = 1;
 
 
-    /*public Taxas(String dateTaxas, String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
-        this(emailPaciente, glicose75g, glicoseJejum, colesterol, hemoglobinaGlico);
-        this.dateTaxas = dateTaxas;
-    }
-
-    public Taxas(Date dateTaxas, String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
-        this(emailPaciente, glicose75g, glicoseJejum, colesterol, hemoglobinaGlico);
-        this.dateTaxas = dateFormat.format(dateTaxas);
-    }*/
-
     public Taxas(String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
         this.dateTaxas = Timestamp.now();
         this.emailPaciente = emailPaciente;
@@ -112,16 +102,6 @@ public class Taxas implements Serializable {
         return String.format("%.2f %%", hemoglobinaGlico);
     }
 
-    /*public String printDate(){
-        SimpleDateFormat printFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        try {
-            return printFormat.format(dateFormat.parse(dateTaxas));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return "";
-    }*/
 
     public String printDate(){
         SimpleDateFormat printFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

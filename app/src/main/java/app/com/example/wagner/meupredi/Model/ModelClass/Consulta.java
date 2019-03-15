@@ -20,12 +20,12 @@ public class Consulta {
     private String local;
     private Timestamp date;
 
-    private String time;
 
     public Consulta(){}
 
     public Consulta(String titulo, String local, Date date) {
-        this.date = Timestamp.now();
+        this.date = new Timestamp(date);
+        Log.e("TEST NANOSEOND", Integer.toString(this.date.getNanoseconds()));
         this.titulo = titulo;
         this.local = local;
     }
@@ -48,30 +48,17 @@ public class Consulta {
     }
 
     public String stringDate() {
-        return Long.toString(date.getSeconds())+Integer.toString(date.getNanoseconds());
+        return String.format("%010d%09d", date.getSeconds(), date.getNanoseconds());
     }
 
     public Timestamp getDate() {
         return date;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String printingDate(){
         SimpleDateFormat printDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return printDateFormat.format(date.toDate());
     }
-
-    /*@Override
-    public String toString(){
-        return this.titulo + " - " + this.printingDate() + " - " + this.time + " - " + this.local;
-    }*/
 
     @Override
     public String toString(){

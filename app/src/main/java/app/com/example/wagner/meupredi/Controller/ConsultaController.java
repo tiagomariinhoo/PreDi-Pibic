@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -59,8 +60,7 @@ public abstract class ConsultaController {
 
     public static Task<QuerySnapshot> getAllConsultas(Paciente paciente){
         Date today = getTimeCalendar();
-        SimpleDateFormat dateFormatAux = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String currentDate = dateFormatAux.format(today);
+        Timestamp currentDate = new Timestamp(today);
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate)
                 .get();
@@ -68,8 +68,7 @@ public abstract class ConsultaController {
 
     public static Query getConsultasListener(Paciente paciente){
         Date today = getTimeCalendar();
-        SimpleDateFormat dateFormatAux = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String currentDate = dateFormatAux.format(today);
+        Timestamp currentDate = new Timestamp(today);
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate);
     }
@@ -77,8 +76,7 @@ public abstract class ConsultaController {
 
     public static Task<QuerySnapshot> getConsulta(Paciente paciente){
         Date today = getTimeCalendar();
-        SimpleDateFormat dateFormatAux = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String currentDate = dateFormatAux.format(today);
+        Timestamp currentDate = new Timestamp(today);
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate)
                 .limit(1).get();
