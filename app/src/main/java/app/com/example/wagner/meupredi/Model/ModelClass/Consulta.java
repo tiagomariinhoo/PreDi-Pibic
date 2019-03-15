@@ -16,6 +16,7 @@ import java.util.Locale;
 public class Consulta {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+    private String id;
     private String titulo;
     private String local;
     private Timestamp date;
@@ -63,5 +64,13 @@ public class Consulta {
     @Override
     public String toString(){
         return this.titulo + " - " + this.printingDate() + " - " + this.local;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

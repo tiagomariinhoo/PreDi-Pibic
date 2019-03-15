@@ -14,6 +14,7 @@ public class Medida implements Serializable {
     private double circunferencia;
     private int flagMedida = 1;
     private String emailPaciente;
+    private String id;
 
     public Medida(double peso, double circunferencia, String emailPaciente) {
         this.dateMedida = Timestamp.now();
@@ -46,6 +47,14 @@ public class Medida implements Serializable {
 
     public Timestamp getDateMedida(){
         return dateMedida;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String printDate(){
@@ -86,7 +95,5 @@ public class Medida implements Serializable {
         return String.format(Locale.getDefault(),
                 "Peso: %.2f kg -- Circunferência: %.2f cm", this.peso, this.circunferencia);
     }
-
-
 
 }

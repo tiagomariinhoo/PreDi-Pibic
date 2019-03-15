@@ -17,6 +17,7 @@ public class Taxas implements Serializable {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
     private Timestamp dateTaxas; // serves as ID
     private String emailPaciente;
+    private String id;
     private double glicose75g;
     private double glicoseJejum;
     private double colesterol;
@@ -82,6 +83,10 @@ public class Taxas implements Serializable {
     public void setColesterol(double colesterol) {
         this.colesterol = colesterol;
     }
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public String stringDate() {
         return Long.toString(dateTaxas.getSeconds())+Integer.toString(dateTaxas.getNanoseconds());
