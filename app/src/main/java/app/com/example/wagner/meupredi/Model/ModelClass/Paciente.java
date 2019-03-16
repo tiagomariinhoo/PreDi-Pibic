@@ -7,10 +7,7 @@ import android.widget.Toast;
 import com.google.firebase.Timestamp;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by wagne on 31/03/2017.
@@ -22,7 +19,7 @@ public class Paciente implements Serializable {
     private String senha;
     private String email;
     private String sexo;
-    private Timestamp dataNascimento;
+    private Timestamp nascimento;
     private int ultimaDica;
     private double circunferencia;
     private double peso;
@@ -35,13 +32,13 @@ public class Paciente implements Serializable {
 
     public Paciente() {}
 
-    public Paciente(String nome, String senha, String email, String sexo, Timestamp dataNascimento, int ultimaDica) {
+    public Paciente(String nome, String senha, String email, String sexo, Timestamp nascimento, int ultimaDica) {
 
         this.nome = nome;
         this.senha = senha;
         this.email = email;
         this.sexo = sexo;
-        this.dataNascimento = dataNascimento;
+        this.nascimento = nascimento;
         this.circunferencia = 0;
         this.peso = 0;
         this.altura = 0;
@@ -69,17 +66,17 @@ public class Paciente implements Serializable {
         this.sexo = sexo;
     }
 
-    public Timestamp getDataNascimento() {
-        return dataNascimento;
+    public Timestamp getNascimento() {
+        return nascimento;
     }
 
-    public void setDataNascimento(Timestamp dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setNascimento(Timestamp nascimento) {
+        this.nascimento = nascimento;
     }
 
     public String printNascimento(){
         SimpleDateFormat printFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return printFormat.format(dataNascimento.toDate());
+        return printFormat.format(nascimento.toDate());
     }
 
     public String getNome() {

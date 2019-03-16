@@ -61,7 +61,7 @@ public class Dados extends AppCompatActivity {
             nome.setHint(paciente.getNome());
         }
 
-        if(paciente.getDataNascimento() != null) {
+        if(paciente.getNascimento() != null) {
             data.setHint(paciente.printNascimento());
         } else {
             data.setHint("data de nascimento não cadastrada");
@@ -72,7 +72,7 @@ public class Dados extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar calendario = Calendar.getInstance();
-                calendario.setTime(paciente.getDataNascimento().toDate());
+                calendario.setTime(paciente.getNascimento().toDate());
                 int ano = calendario.get(Calendar.YEAR);
                 int mes = calendario.get(Calendar.MONTH);
                 int dia = calendario.get(Calendar.DAY_OF_MONTH);
@@ -139,7 +139,7 @@ public class Dados extends AppCompatActivity {
                 String dataNascAtual = data.getText().toString();
 
                 if(dataNascAtual.length() != 0 && timestampNasc != null) {
-                    paciente.setDataNascimento(timestampNasc);
+                    paciente.setNascimento(timestampNasc);
                     data.setHint(String.valueOf(paciente.printNascimento()));
                     data.setText("");
                 }
