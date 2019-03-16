@@ -1,19 +1,28 @@
 package app.com.example.wagner.meupredi.View.Application.MainViews;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.PacienteController;
@@ -22,11 +31,13 @@ import app.com.example.wagner.meupredi.R;
 
 public class Dados extends AppCompatActivity {
 
-    EditText nome;
-    EditText idade;
-    EditText altura;
-    Button atualizar;
-    Paciente paciente;
+    private EditText nome;
+    private TextView data;
+    private EditText altura;
+    private Button atualizar;
+    private Paciente paciente;
+    private Timestamp timestampNasc;
+    private DatePickerDialog.OnDateSetListener dataNascimento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +48,8 @@ public class Dados extends AppCompatActivity {
 
         nome = (EditText) findViewById(R.id.edit_nome_dados);
 
-        idade = (EditText) findViewById(R.id.edit_idade_dados);
-        idade.setRawInputType(Configuration.KEYBOARD_QWERTY);
+        data = (TextView) findViewById(R.id.edit_nascimento_dados);
+        data.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
         altura = (EditText) findViewById(R.id.edit_altura_dados);
         altura.setRawInputType(Configuration.KEYBOARD_QWERTY);
@@ -50,13 +61,49 @@ public class Dados extends AppCompatActivity {
             nome.setHint(paciente.getNome());
         }
 
-        if(paciente.getIdade() != -1) {
-            idade.setHint(String.valueOf(paciente.getIdade()) + " anos");
+        if(paciente.getDataNascimento() != null) {
+            data.setHint(paciente.printNascimento());
         } else {
-            idade.setHint("idade não cadastrada");
+            data.setHint("data de nascimento não cadastrada");
         }
 
-        if(paciente.getAltura() != -1.0) {
+        // ABRIR DIALOG DE INSERIR DATA DE NASCIMENTO
+        data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendario = Calendar.getInstance();
+                calendario.setTime(paciente.getDataNascimento().toDate());
+                int ano = calendario.get(Calendar.YEAR);
+                int mes = calendario.get(Calendar.MONTH);
+                int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(Dados.this,
+                        android.R.style.Theme_Holo_Light_Dialog,
+                        dataNascimento, ano, mes, dia);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        dataNascimento = new DatePickerDialog.OnDateSetListener(){
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                //mês vem de 0 a 11, então +1 pra corrigir na exibição
+                month += 1;
+                String dataNasc = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month, year);
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    timestampNasc = new Timestamp(format.parse(dataNasc));
+                } catch (ParseException e) {
+                    timestampNasc = null;
+                    Log.e("Parse Error", "timestampNasc Dados");
+                }
+                data.setText(dataNasc);
+            }
+        };
+
+        if(paciente.getAltura() != 0) {
             altura.setHint(String.valueOf(paciente.getAltura()) + " m");
         } else {
             altura.setHint("altura não cadastrada");
@@ -67,7 +114,7 @@ public class Dados extends AppCompatActivity {
             public void onClick(View v) {
                 if(getCurrentFocus()!=null && getCurrentFocus() instanceof EditText){
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(idade.getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(data.getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(altura.getWindowToken(), 0);
                 }
             }
@@ -89,16 +136,12 @@ public class Dados extends AppCompatActivity {
                 }
 
                 //atualizar idade
-                String idadeAtual = idade.getText().toString();
+                String dataNascAtual = data.getText().toString();
 
-                if(idadeAtual.length() != 0) {
-                    try {
-                        paciente.setIdade(Integer.parseInt(idadeAtual));
-                        idade.setHint(String.valueOf(paciente.getIdade()));
-                        idade.setText("");
-                    } catch(NumberFormatException e) {
-                        Toast.makeText(getApplicationContext(),"Idade em formato incorreto!",Toast.LENGTH_SHORT).show();
-                    }
+                if(dataNascAtual.length() != 0 && timestampNasc != null) {
+                    paciente.setDataNascimento(timestampNasc);
+                    data.setHint(String.valueOf(paciente.printNascimento()));
+                    data.setText("");
                 }
 
                 //atualiza altura

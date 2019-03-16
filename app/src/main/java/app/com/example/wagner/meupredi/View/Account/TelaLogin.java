@@ -158,7 +158,6 @@ public class TelaLogin extends AppCompatActivity {
         PacienteUpdater.onStart(paciente);
 
         Intent it = new Intent(TelaLogin.this, PosLogin.class);
-        it.putExtra("Paciente", paciente);
         it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(it);
         finish();

@@ -53,7 +53,7 @@
         android:textColor="@color/colorBranco"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_idade_dados" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_nascimento_dados" />
 
     <EditText
         android:id="@+id/edit_altura_dados"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_idade_dados"
+        android:id="@+id/text_nascimento_dados"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -94,27 +94,28 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorBarraTituloRoxa"
-        android:text="Idade:"
+        android:text="Data de Nascimento:"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_nome_dados" />
 
-    <EditText
-        android:id="@+id/edit_idade_dados"
+    <TextView
+        android:id="@+id/edit_nascimento_dados"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
         android:background="#fff"
         android:ems="10"
-        android:inputType="textPersonName"
         android:nextFocusDown="@+id/edit_altura_dado"
+        android:textColor="@color/colorBackground"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_idade_dados" />
+        app:layout_constraintTop_toBottomOf="@+id/text_nascimento_dados" />
 
     <Button
         android:id="@+id/btn_atualizar_dado"
