@@ -4,7 +4,9 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -15,6 +17,7 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -40,12 +43,13 @@ public abstract class ConsultaController {
     }
 
     public static Task<Void> addEvento(Paciente paciente, Consulta consulta){
-        return getRef(paciente.getEmail()).document(consulta.getDate()+"_"+consulta.getTime())
-                .set(consulta);
+        DocumentReference doc = getRef(paciente.getEmail()).document();
+        consulta.setId(doc.getId());
+        return doc.set(consulta);
     }
 
     public static Task<Void> editConsulta(Paciente paciente, Consulta consulta){
-        return getRef(paciente.getEmail()).document(consulta.getDate()+"_"+consulta.getTime())
+        return getRef(paciente.getEmail()).document(consulta.getId())
                 .set(consulta, SetOptions.merge());
     }
 
@@ -57,29 +61,34 @@ public abstract class ConsultaController {
      */
 
     public static Task<QuerySnapshot> getAllConsultas(Paciente paciente){
-        SimpleDateFormat dateFormatAux = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String currentDate = dateFormatAux.format(new Date());
+        Date today = getTimeCalendar();
+        Timestamp currentDate = new Timestamp(today);
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
-                .orderBy("time", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate)
                 .get();
     }
 
     public static Query getConsultasListener(Paciente paciente){
-        SimpleDateFormat dateFormatAux = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String currentDate = dateFormatAux.format(new Date());
+        Date today = getTimeCalendar();
+        Timestamp currentDate = new Timestamp(today);
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
-                .orderBy("time", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate);
     }
 
+
     public static Task<QuerySnapshot> getConsulta(Paciente paciente){
-        SimpleDateFormat dateFormatAux = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String currentDate = dateFormatAux.format(new Date());
+        Date today = getTimeCalendar();
+        Timestamp currentDate = new Timestamp(today);
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
-                .orderBy("time", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate)
                 .limit(1).get();
+    }
+
+    private static Date getTimeCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        return calendar.getTime();
     }
 
     public static ListenerRegistration getLiveConsultas(LiveUpdateHelper<Consulta> current, Paciente paciente){
@@ -132,5 +141,6 @@ public abstract class ConsultaController {
         }
         return null;
     }
+
 
 }

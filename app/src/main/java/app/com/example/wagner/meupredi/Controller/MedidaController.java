@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -12,10 +13,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import java.util.Date;
-
 import javax.annotation.Nullable;
 
+import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
@@ -34,12 +34,15 @@ public abstract class MedidaController {
 
     public static Task<Void> addMedida(Paciente paciente){
         PacienteController.atualizarPaciente(paciente);
-        Medida medida = new Medida(new Date(), paciente.getPeso(), paciente.getCircunferencia(), paciente.getEmail());
-        return getRef(paciente.getEmail()).document(medida.getDateMedida()).set(medida);
+        Medida medida = new Medida(paciente.getPeso(), paciente.getCircunferencia(), paciente.getEmail());
+        DocumentReference doc = getRef(paciente.getEmail()).document();
+        medida.setId(doc.getId());
+        return doc.set(medida);
     }
 
     public static Task<Void> editMedida(Medida medida){
-        return getRef(medida.getEmailPaciente()).document(medida.getDateMedida()).set(medida, SetOptions.merge());
+
+        return getRef(medida.getEmailPaciente()).document(medida.getId()).set(medida,SetOptions.merge());
     }
 
     public static Task<QuerySnapshot> getAllMedidas(Paciente paciente){
@@ -72,10 +75,10 @@ public abstract class MedidaController {
     }
 
     public static Task<Void> eraseLastInfo(Medida medida){
-        Log.d("Id peso : ", String.valueOf(medida.getDateMedida()));
+        Log.d("Id peso : ", String.valueOf(medida.stringDate()));
         medida.setFlagMedida(0);
         return getRef(medida.getEmailPaciente())
-                .document(medida.getDateMedida())
+                .document(medida.getId())
                 .set(medida, SetOptions.merge());
     }
 }

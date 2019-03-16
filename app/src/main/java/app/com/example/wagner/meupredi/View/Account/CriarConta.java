@@ -2,13 +2,11 @@ package app.com.example.wagner.meupredi.View.Account;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,15 +24,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.PacienteController;
-import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 
@@ -43,12 +43,9 @@ public class CriarConta extends AppCompatActivity {
     private CheckBox boxSenha;
     private EditText nome, email, senha, conSenha;
     private Spinner sexo;
-    private Button criarConta;
     private TextView data;
     private DatePickerDialog.OnDateSetListener dataNascimento;
-    private int ano, dia, mes;
-    private int idadeAux;
-    private Calendar calendario;
+    private Timestamp timestampNasc;
     TextView cancelar;
 
     @Override
@@ -62,12 +59,12 @@ public class CriarConta extends AppCompatActivity {
         nome = (EditText) findViewById(R.id.edit_nome_completo);
         email = (EditText) findViewById(R.id.edit_endereco_email);
         sexo = (Spinner) findViewById(R.id.spinner_sexo_postlogin);
-        data = (TextView) findViewById(R.id.edit_idade_criar);
+        data = (TextView) findViewById(R.id.edit_nascimento_criar);
         data.setRawInputType(Configuration.KEYBOARD_QWERTY);
         senha = (EditText) findViewById(R.id.edit_senha_cadastro);
         conSenha = (EditText) findViewById(R.id.edit_novamente_senha);
 
-        criarConta = (Button) findViewById(R.id.btn_criar_conta);
+        Button criarConta = (Button) findViewById(R.id.btn_criar_conta);
         cancelar = (TextView) findViewById(R.id.btn_cancelar);
         Calendar.getInstance();
 
@@ -104,10 +101,10 @@ public class CriarConta extends AppCompatActivity {
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calendario = Calendar.getInstance();
-                ano = calendario.get(Calendar.YEAR);
-                mes = calendario.get(Calendar.MONTH);
-                dia = calendario.get(Calendar.DAY_OF_MONTH);
+                Calendar calendario = Calendar.getInstance();
+                int ano = calendario.get(Calendar.YEAR);
+                int mes = calendario.get(Calendar.MONTH);
+                int dia = calendario.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(CriarConta.this,
                         android.R.style.Theme_Holo_Light_Dialog,
@@ -123,14 +120,13 @@ public class CriarConta extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //mês vem de 0 a 11, então +1 pra corrigir na exibição
                 month += 1;
-
-                String dataNasc = String.format("%02d/%02d/%04d", dayOfMonth, month, year);
-                idadeAux = Calendar.getInstance().get(Calendar.YEAR) - year;
-                Calendar calendarioAtual = Calendar.getInstance();
-                if (calendarioAtual.get(Calendar.MONTH) > month
-                    || (calendarioAtual.get(Calendar.MONTH)) == month
-                    && calendarioAtual.get(Calendar.DAY_OF_MONTH) > dayOfMonth) {
-                    idadeAux--;
+                String dataNasc = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month, year);
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    timestampNasc = new Timestamp(format.parse(dataNasc));
+                } catch (ParseException e) {
+                    timestampNasc = null;
+                    Log.e("Parse Error", "timestampNasc CriarConta");
                 }
                 data.setText(dataNasc);
             }
@@ -212,14 +208,12 @@ public class CriarConta extends AppCompatActivity {
         //verifica se todos os campos estao preenchidos
         if(nomeCompleto.length() == 0) {
             Toast.makeText(getApplicationContext(), "Insira um nome válido!", Toast.LENGTH_SHORT).show();
-        } else if(dataCadastro.length() == 0 || !dataCadastro.matches("(\\d?\\d)/(\\d?\\d)/\\d\\d\\d\\d")){
+        } else if(timestampNasc == null){
             Toast.makeText(getApplicationContext(), "Data em formato inválido!\nPor favor, digite no formato dd/mm/aaaa.", Toast.LENGTH_SHORT).show();
         } else if(senhaCadastro.length() == 0) {
             Toast.makeText(getApplicationContext(), "Insira uma senha válida!", Toast.LENGTH_SHORT).show();
         } else if(senhaCadastro.equals(conSenhaCadastro)) {
             Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
-
-            Log.d("Idade Criar Conta", String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - ano));
 
             String sexoCadastro = sexo.getSelectedItem().toString();
 
@@ -228,10 +222,7 @@ public class CriarConta extends AppCompatActivity {
             }
 
             //configuracao padrao de usuario
-            Paciente paciente = new Paciente(nomeCompleto, senhaCadastro, emailCadastro, sexoCadastro, idadeAux, -1);
-
-            //verifica opcao de sexo selecionada
-            paciente.setNascimento(dataCadastro);
+            Paciente paciente = new Paciente(nomeCompleto, senhaCadastro, emailCadastro, sexoCadastro, timestampNasc, -1);
 
             //DEBUG: imprime todos os dados do paciente
             Log.d("Criando", "criar conta");
@@ -239,9 +230,7 @@ public class CriarConta extends AppCompatActivity {
             Log.d("Senha", paciente.getSenha());
             Log.d("Email", paciente.getEmail());
             Log.d("Sexo", String.valueOf(paciente.getSexo()));
-            Log.d("Nascimento", paciente.getNascimento());
-            Log.d("Data Cadastro", dataCadastro);
-            Log.d("Idade", String.valueOf(paciente.getIdade()));
+            Log.d("Nascimento", paciente.printNascimento());
             Log.d("Circunferencia", String.valueOf(paciente.getCircunferencia()));
             Log.d("Peso", String.valueOf(paciente.getPeso()));
             Log.d("Altura", String.valueOf(paciente.getAltura()));

@@ -3,7 +3,14 @@ package app.com.example.wagner.meupredi.Model.ModelClass;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.Timestamp;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by wagne on 31/03/2017.
@@ -15,8 +22,7 @@ public class Paciente implements Serializable {
     private String senha;
     private String email;
     private String sexo;
-    private String nascimento;
-    private int idade;
+    private Timestamp dataNascimento;
     private int ultimaDica;
     private double circunferencia;
     private double peso;
@@ -29,21 +35,21 @@ public class Paciente implements Serializable {
 
     public Paciente() {}
 
-    public Paciente(String nome, String senha, String email, String sexo, int idade, int ultimaDica) {
+    public Paciente(String nome, String senha, String email, String sexo, Timestamp dataNascimento, int ultimaDica) {
 
         this.nome = nome;
         this.senha = senha;
         this.email = email;
         this.sexo = sexo;
-        this.idade = idade;
+        this.dataNascimento = dataNascimento;
         this.circunferencia = 0;
         this.peso = 0;
         this.altura = 0;
-        this.imc = -1;
-        this.glicose75g = -1;
-        this.glicoseJejum = -1;
-        this.colesterol = -1;
-        this.hemoglobinaGlicolisada = -1;
+        this.imc = 0;
+        this.glicose75g = 0;
+        this.glicoseJejum = 0;
+        this.colesterol = 0;
+        this.hemoglobinaGlicolisada = 0;
         this.ultimaDica = ultimaDica;
     }
 
@@ -63,12 +69,17 @@ public class Paciente implements Serializable {
         this.sexo = sexo;
     }
 
-    public String getNascimento() {
-        return nascimento;
+    public Timestamp getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setNascimento(String nascimento) {
-        this.nascimento = nascimento;
+    public void setDataNascimento(Timestamp dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String printNascimento(){
+        SimpleDateFormat printFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return printFormat.format(dataNascimento.toDate());
     }
 
     public String getNome() {
@@ -93,14 +104,6 @@ public class Paciente implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
     }
 
     public double getCircunferencia() {

@@ -34,7 +34,6 @@ public class PosLogin extends AppCompatActivity {
 
     public static final String PREFS_NAME = "Preferences";
     private TextView nomeUsuario;
-    private EditText idade;
     private EditText altura;
     private EditText peso;
     private EditText circunferecia;
@@ -66,8 +65,7 @@ public class PosLogin extends AppCompatActivity {
         Log.d("Senha : ", paciente.getSenha());
         Log.d("Email: ", paciente.getEmail());
         Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
-        Log.d("Nascimento: ", paciente.getNascimento());
-        Log.d("Idade : ", String.valueOf(paciente.getIdade()));
+        Log.d("Nascimento: ", paciente.printNascimento());
         Log.d("Circunferencia : ", String.valueOf(paciente.getCircunferencia()));
         Log.d("Peso : ", String.valueOf(paciente.getPeso()));
         Log.d("Altura : ", String.valueOf(paciente.getAltura()));
@@ -89,7 +87,6 @@ public class PosLogin extends AppCompatActivity {
             public void onClick(View v) {
                 if(getCurrentFocus()!=null && getCurrentFocus() instanceof EditText){
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    //imm.hideSoftInputFromWindow(idade.getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(altura.getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(peso.getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(circunferecia.getWindowToken(), 0);
@@ -103,7 +100,6 @@ public class PosLogin extends AppCompatActivity {
 
                 Boolean flag = false;
 
-                //String idadeCadastro = idade.getText().toString();
                 String alturaCadastro = altura.getText().toString();
                 String pesoCadastro = peso.getText().toString();
                 String circunferenciaCadastro = circunferecia.getText().toString();
@@ -200,8 +196,7 @@ public class PosLogin extends AppCompatActivity {
                 Log.d("Senha : ", paciente.getSenha());
                 Log.d("Email: ", paciente.getEmail());
                 Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
-                Log.d("Nascimento: ", paciente.getNascimento());
-                //Log.d("Idade : ", String.valueOf(paciente.get_idade()));
+                Log.d("Nascimento: ", paciente.printNascimento());
                 Log.d("Circunferencia : ", String.valueOf(paciente.getCircunferencia()));
                 Log.d("Peso : ", String.valueOf(paciente.getPeso()));
                 Log.d("Altura : ", String.valueOf(paciente.getAltura()));

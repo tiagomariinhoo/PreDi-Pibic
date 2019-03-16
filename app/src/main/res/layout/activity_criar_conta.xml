@@ -77,7 +77,7 @@
         android:layout_marginStart="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:nextFocusDown="@+id/edit_idade_criar"
+        android:nextFocusDown="@+id/edit_nascimento_criar"
         android:textColor="@color/colorBackground"
         app:layout_constraintLeft_toRightOf="@+id/imageView12"
         app:layout_constraintTop_toBottomOf="@+id/text_endereco_email"
@@ -207,7 +207,7 @@
         android:textColor="@color/colorBackground"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_endereco_email"
-        app:layout_constraintRight_toLeftOf="@+id/edit_idade_criar"
+        app:layout_constraintRight_toLeftOf="@+id/edit_nascimento_criar"
         android:layout_marginRight="8dp"
         app:layout_constraintHorizontal_bias="0.0" />
 
@@ -224,7 +224,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/text_idade_criar"
+        android:id="@+id/text_nascimento_criar"
         android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
@@ -232,6 +232,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="Data de Nascimento"
+        android:textAlignment="center"
         android:textColor="@color/colorBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -241,20 +242,19 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/edit_idade_criar"
+        android:id="@+id/edit_nascimento_criar"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="0dp"
         android:ems="10"
         android:hint="dd/MM/aaaa"
-        android:inputType="textPersonName"
         android:textAlignment="center"
         android:nextFocusDown="@+id/edit_senha_cadastro"
         android:textColor="@color/colorBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/text_idade_criar"
-        app:layout_constraintLeft_toLeftOf="@+id/text_idade_criar"
-        app:layout_constraintRight_toRightOf="@+id/text_idade_criar"
-        app:layout_constraintTop_toTopOf="@+id/text_idade_criar"
+        app:layout_constraintBottom_toBottomOf="@+id/text_nascimento_criar"
+        app:layout_constraintLeft_toLeftOf="@+id/text_nascimento_criar"
+        app:layout_constraintRight_toRightOf="@+id/text_nascimento_criar"
+        app:layout_constraintTop_toTopOf="@+id/text_nascimento_criar"
         app:layout_constraintVertical_bias="1.0" />
 
 
