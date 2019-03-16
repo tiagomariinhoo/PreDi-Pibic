@@ -79,7 +79,7 @@ public abstract class TaxasController {
         Log.d("Id taxas : ", String.valueOf(taxas.getDateTaxas()));
         taxas.setFlagTaxa(0);
         return getRef(taxas.getEmailPaciente())
-                .document(taxas.stringDate())
+                .document(taxas.getId())
                 .set(taxas, SetOptions.merge());
     }
 

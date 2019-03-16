@@ -78,7 +78,7 @@ public abstract class MedidaController {
         Log.d("Id peso : ", String.valueOf(medida.stringDate()));
         medida.setFlagMedida(0);
         return getRef(medida.getEmailPaciente())
-                .document(medida.stringDate())
+                .document(medida.getId())
                 .set(medida, SetOptions.merge());
     }
 }
