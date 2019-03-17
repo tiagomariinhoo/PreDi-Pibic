@@ -178,15 +178,13 @@ public class PosLogin extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(),"Sucesso ao editar!",Toast.LENGTH_LONG).show();
-                            Log.d("Sucesso"," Sucesso");
+                            Log.d("Sucesso","Editar pos-login");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(),"Erro ao editar!",Toast.LENGTH_LONG).show();
-                            Log.d("Erro"," Erro");
+                            Log.e("Erro","Editar pos-login");
                         }
                     });
 

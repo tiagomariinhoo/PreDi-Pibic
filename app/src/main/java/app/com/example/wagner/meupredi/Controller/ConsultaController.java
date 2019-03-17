@@ -61,42 +61,50 @@ public abstract class ConsultaController {
      */
 
     public static Task<QuerySnapshot> getAllConsultas(Paciente paciente){
-        Date today = getTimeCalendar();
-        Timestamp currentDate = new Timestamp(today);
+        Timestamp currentDate = Timestamp.now();
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate)
                 .get();
     }
 
-    public static Query getConsultasListener(Paciente paciente){
-        Date today = getTimeCalendar();
-        Timestamp currentDate = new Timestamp(today);
+    public static Query getFutureConsultasListener(Paciente paciente){
+        Timestamp currentDate = Timestamp.now();
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate);
     }
 
+    public static Query getPastConsultasListener(Paciente paciente){
+        Timestamp currentDate = Timestamp.now();
+        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+                .whereLessThan("date", currentDate);
+    }
+
 
     public static Task<QuerySnapshot> getConsulta(Paciente paciente){
-        Date today = getTimeCalendar();
-        Timestamp currentDate = new Timestamp(today);
+        Timestamp currentDate = Timestamp.now();
         return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate)
                 .limit(1).get();
     }
 
-    private static Date getTimeCalendar() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        return calendar.getTime();
-    }
-
     public static ListenerRegistration getLiveConsultas(LiveUpdateHelper<Consulta> current, Paciente paciente){
-        return getConsultasListener(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        return getFutureConsultasListener(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (e != null) Log.d("Firebase Error: ", e.getMessage());
-                if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                if(queryDocumentSnapshots != null) {
+                    current.onReceiveData(queryDocumentSnapshots.toObjects(Consulta.class));
+                }
+            }
+        });
+    }
+
+    public static ListenerRegistration getLivePastConsultas(LiveUpdateHelper<Consulta> current, Paciente paciente){
+        return getPastConsultasListener(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (e != null) Log.d("Firebase Error: ", e.getMessage());
+                if(queryDocumentSnapshots != null) {
                     current.onReceiveData(queryDocumentSnapshots.toObjects(Consulta.class));
                 }
             }
@@ -116,7 +124,7 @@ public abstract class ConsultaController {
         getConsulta(paciente).addOnSuccessListener(current, new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()){
+                if(queryDocumentSnapshots != null){
                     if(!queryDocumentSnapshots.isEmpty()) {
                         Consulta mostRecent = queryDocumentSnapshots.toObjects(Consulta.class).get(0);
 
@@ -124,7 +132,7 @@ public abstract class ConsultaController {
                         long plusOneDay = (1000 * 60 * 60 * 24);
                         sevenDaysFromNow.setTime(sevenDaysFromNow.getTime() + plusOneDay * 7);
 
-                        if (getDateObject(mostRecent).before(sevenDaysFromNow)) {
+                        if (mostRecent.getDate().toDate().before(sevenDaysFromNow)) {
                             current.onNotify(mostRecent);
                         }
                     }
@@ -133,14 +141,11 @@ public abstract class ConsultaController {
         });
     }
 
-    public static Date getDateObject(Consulta consulta) {
-        try {
-            return dateFormat.parse(consulta.printingDate());
-        } catch (ParseException e) {
-            Log.d("DataParseError: ", e.getMessage());
-        }
-        return null;
+    public static Task<Void> delete(Consulta consulta){
+        Log.d("Id peso : ", String.valueOf(consulta.getId()));
+        return getRef(consulta.getEmailPaciente())
+                .document(consulta.getId())
+                .delete();
     }
-
 
 }

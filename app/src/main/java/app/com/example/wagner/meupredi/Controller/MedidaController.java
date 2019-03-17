@@ -38,7 +38,7 @@ public abstract class MedidaController {
 
     public static Task<Void> addMedida(Paciente paciente){
         PacienteController.atualizarPaciente(paciente);
-        Medida medida = new Medida(paciente.getPeso(), paciente.getCircunferencia(), paciente.getEmail());
+        Medida medida = new Medida(paciente.getEmail(), paciente.getPeso(), paciente.getCircunferencia());
         DocumentReference doc = getRef(paciente.getEmail()).document();
         medida.setId(doc.getId());
         return doc.set(medida);
@@ -83,7 +83,7 @@ public abstract class MedidaController {
     }
 
     public static Task<Void> eraseLastInfo(Medida medida){
-        Log.d("Id peso : ", String.valueOf(medida.stringDate()));
+        Log.d("Id peso : ", String.valueOf(medida.getId()));
         medida.setFlagMedida(0);
         return getRef(medida.getEmailPaciente())
                 .document(medida.getId())

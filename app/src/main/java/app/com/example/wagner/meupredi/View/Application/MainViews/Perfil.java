@@ -188,7 +188,7 @@ public class Perfil extends ActivityGroup {
                 .setSmallIcon(R.mipmap.ic_coracao)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_coracao))
                 .setContentTitle("Notification from PreDi!")
-                .setContentText("Você tem uma consulta em " + dateFormat.format(ConsultaController.getDateObject(consulta)) + ", dê uma verificada!");
+                .setContentText("Você tem uma consulta em " + dateFormat.format(consulta.getDate().toDate()) + ", dê uma verificada!");
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, notificationBuilder.build());

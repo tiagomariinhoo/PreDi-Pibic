@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -51,9 +52,8 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     private ListView listaDeConsultas;
     private ListenerRegistration listListener;
 
-    private ArrayList<String> arraylist;
+    private List<Consulta> consultas;
     private ArrayAdapter<String> adapter;
-    private String[] items = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +75,30 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
         //ConsultaController controllerAgenda = new ConsultaController(ConsultaView.this);
 
         //arraylist = new ArrayList<>(Arrays.asList(items));
-        contadorConsultas.setText("Consultas");
+        contadorConsultas.setText("Consultas Anteriores");
         listaDeConsultas.setAdapter(new ArrayAdapter<String>(this, R.layout.lista_consultas_item,
                                     R.id.text_consulta_item, adapterList(new ArrayList<Consulta>())));
 
-        listListener = ConsultaController.getLiveConsultas(this, paciente);
+        listListener = ConsultaController.getLivePastConsultas(this, paciente);
+
+        listaDeConsultas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Consulta consulta = consultas.get(position);
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                dataTime.setTime(consulta.getDate().toDate());
+                date = dateFormat.format(consulta.getDate().toDate());
+                shortTime = timeFormat.format(consulta.getDate().toDate());
+                time = shortTime + ":00";
+
+                nomeNovaConsulta.setText(consulta.getLocal());
+                btnMarcarData.setText(date);
+                btnMarcarHorario.setText(shortTime);
+                tipoNovaConsulta.setText(consulta.getTitulo());
+            }
+        });
 
         local = "";
         agendarNovaConsulta.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +124,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
                     alertaNovaConsulta.setTitle("Atenção!");
 
                     alertaNovaConsulta.setMessage("Verifique se as informações da sua nova consulta estão corretas e confirme." +
-                            "\n" + "Nova Consulta em " + local + ", " + date + ", às " + shortTime + ".");
+                            "\n" + "Nova Consulta em " + local + ", " + date + " às " + shortTime + ".");
 
                     // Caso Não
                     alertaNovaConsulta.setNegativeButton("CANCELAR",
@@ -126,7 +145,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
 
                                     //arraylist.add(local+" - "+shortDate+" - "+shortTime);
                                     newDate = convertDate();
-                                    Consulta consulta = new Consulta(tipoExame, local, newDate);
+                                    Consulta consulta = new Consulta(paciente.getEmail(), tipoExame, local, newDate);
 
                                     ConsultaController.addEvento(paciente, consulta);
                                     finish();
@@ -139,7 +158,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
             }
         });
 
-        btnMarcarData .setOnClickListener(new View.OnClickListener() {
+        btnMarcarData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateData();
@@ -232,10 +251,11 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
 
     @Override
     public void onReceiveData(List<Consulta> consultas) {
+        this.consultas = consultas;
         adapter = new ArrayAdapter<String>(ConsultaView.this, R.layout.lista_consultas_item,
                 R.id.text_consulta_item, adapterList(consultas));
 
         listaDeConsultas.setAdapter(adapter);
-        contadorConsultas.setText("Consultas ("+adapterList(consultas).size()+")");
+        contadorConsultas.setText("Consultas Anteriores ("+adapterList(consultas).size()+")");
     }
 }

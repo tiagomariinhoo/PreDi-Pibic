@@ -54,7 +54,7 @@ public final class PacienteUpdater {
                     if (!queryDocumentSnapshots.isEmpty()) {
                         medida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
                     } else {
-                        medida = new Medida(0.0, 0.0, paciente.getEmail());
+                        medida = new Medida(paciente.getEmail(), 0.0, 0.0);
                     }
 
                     onUpdate(medida);
@@ -135,7 +135,7 @@ public final class PacienteUpdater {
                     if(!queryDocumentSnapshots.isEmpty())
                         lastMedida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
                     else
-                        new Medida(0.0, 0.0, paciente.getEmail());
+                        new Medida(paciente.getEmail(), 0.0, 0.0);
                     listener.onChangeMedida(lastMedida);
                 }
             });

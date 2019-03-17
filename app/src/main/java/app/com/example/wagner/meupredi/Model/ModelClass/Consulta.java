@@ -14,9 +14,9 @@ import java.util.Locale;
  * Created by LeandroDias1 on 05/03/2018.
  */
 public class Consulta {
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+
     private String id;
+    private String emailPaciente;
     private String titulo;
     private String local;
     private Timestamp date;
@@ -24,9 +24,9 @@ public class Consulta {
 
     public Consulta(){}
 
-    public Consulta(String titulo, String local, Date date) {
+    public Consulta(String emailPaciente, String titulo, String local, Date date) {
         this.date = new Timestamp(date);
-        Log.e("TEST NANOSEOND", Integer.toString(this.date.getNanoseconds()));
+        this.emailPaciente = emailPaciente;
         this.titulo = titulo;
         this.local = local;
     }
@@ -48,12 +48,12 @@ public class Consulta {
         this.local = local;
     }
 
-    public String stringDate() {
-        return String.format("%010d%09d", date.getSeconds(), date.getNanoseconds());
-    }
-
     public Timestamp getDate() {
         return date;
+    }
+
+    public void setDate(Timestamp date){
+        this.date = date;
     }
 
     public String printingDate(){
@@ -72,5 +72,13 @@ public class Consulta {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getEmailPaciente() {
+        return emailPaciente;
+    }
+
+    public void setEmailPaciente(String emailPaciente) {
+        this.emailPaciente = emailPaciente;
     }
 }

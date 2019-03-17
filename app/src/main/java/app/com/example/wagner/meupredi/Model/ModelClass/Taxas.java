@@ -14,14 +14,13 @@ import java.util.Locale;
 
 public class Taxas implements Serializable {
 
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
-    private Timestamp dateTaxas; // serves as ID
-    private String emailPaciente;
     private String id;
+    private String emailPaciente;
     private double glicose75g;
     private double glicoseJejum;
     private double colesterol;
     private double hemoglobinaGlico;
+    private Timestamp dateTaxas;
     private int flagTaxa = 1;
 
 
@@ -87,10 +86,6 @@ public class Taxas implements Serializable {
     public String getId() { return id; }
 
     public void setId(String id) { this.id = id; }
-
-    public String stringDate() {
-        return Long.toString(dateTaxas.getSeconds())+Integer.toString(dateTaxas.getNanoseconds());
-    }
 
     public Timestamp getDateTaxas() {
         return dateTaxas;

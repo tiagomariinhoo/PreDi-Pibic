@@ -7,16 +7,16 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class Medida implements Serializable {
-    //private final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault());
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
-    private Timestamp dateMedida; // serves as ID
+
+    private String id;
+    private String emailPaciente;
     private double peso;
     private double circunferencia;
+    private Timestamp dateMedida;
     private int flagMedida = 1;
-    private String emailPaciente;
-    private String id;
 
-    public Medida(double peso, double circunferencia, String emailPaciente) {
+
+    public Medida(String emailPaciente, double peso, double circunferencia) {
         this.dateMedida = Timestamp.now();
         this.peso = peso;
         this.circunferencia = circunferencia;
@@ -41,10 +41,6 @@ public class Medida implements Serializable {
         this.circunferencia = circunferencia;
     }
 
-    public String stringDate() {
-        return Long.toString(dateMedida.getSeconds())+Integer.toString(dateMedida.getNanoseconds());
-    }
-
     public Timestamp getDateMedida(){
         return dateMedida;
     }
@@ -60,11 +56,6 @@ public class Medida implements Serializable {
     public String printDate(){
         SimpleDateFormat printDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return printDateFormat.format(dateMedida.toDate());
-    }
-
-    public String printTime(){
-        SimpleDateFormat printTimeFormat = new SimpleDateFormat("HH:mm:ss");
-        return printTimeFormat.format(dateMedida.toDate());
     }
 
     public int getFlagMedida() {
@@ -86,6 +77,7 @@ public class Medida implements Serializable {
     public String printPeso(){
         return String.format("%.2f kg", peso);
     }
+
     public String printCircunferencia(){
         return String.format("%.2f cm", circunferencia);
     }

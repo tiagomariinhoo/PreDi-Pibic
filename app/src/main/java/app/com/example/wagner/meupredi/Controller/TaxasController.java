@@ -81,7 +81,7 @@ public abstract class TaxasController {
     }
 
     public static Task<Void> eraseLastInfo(Taxas taxas){
-        Log.d("Id taxas : ", String.valueOf(taxas.getDateTaxas()));
+        Log.d("Id taxas : ", taxas.getId());
         taxas.setFlagTaxa(0);
         return getRef(taxas.getEmailPaciente())
                 .document(taxas.getId())
