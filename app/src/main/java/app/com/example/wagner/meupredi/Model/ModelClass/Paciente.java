@@ -8,6 +8,8 @@ import com.google.firebase.Timestamp;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by wagne on 31/03/2017.
@@ -77,6 +79,20 @@ public class Paciente implements Serializable {
     public String printNascimento(){
         SimpleDateFormat printFormat = new SimpleDateFormat("dd/MM/yyyy");
         return printFormat.format(nascimento.toDate());
+    }
+
+    public int idade(){
+        Calendar today = Calendar.getInstance();
+        Calendar nasc = Calendar.getInstance();
+        nasc.setTime(nascimento.toDate());
+
+        int years = today.get(Calendar.YEAR) - nasc.get(Calendar.YEAR);
+        if(today.get(Calendar.MONTH) < nasc.get(Calendar.MONTH)
+        || today.get(Calendar.DAY_OF_MONTH) < nasc.get(Calendar.DAY_OF_MONTH)){
+            years--;
+        }
+        
+        return years;
     }
 
     public String getNome() {

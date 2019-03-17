@@ -114,7 +114,7 @@ public class ListaMedidas extends Activity implements LiveUpdateHelper<Medida>{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(ListaMedidas.this, CartaoMedida.class);
-                                intent.putExtra("Medida", medida);
+                                intent.putExtra("Id Medida", medida.getId());
                                 startActivity(intent);
                             }
                         });

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -12,6 +13,9 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -58,8 +62,8 @@ public abstract class MedidaController {
         return graphMedidas(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (e != null) Log.d("Firebase Error: ", e.getMessage());
-                if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                if (e != null) Log.e("Firebase Error: ", e.getMessage());
+                if(queryDocumentSnapshots != null) {
                     current.onReceiveData(queryDocumentSnapshots.toObjects(Medida.class));
                 }
             }
@@ -72,6 +76,10 @@ public abstract class MedidaController {
 
     public static Query getLastInfoMedida(Paciente paciente){
         return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1);
+    }
+
+    public static Task<DocumentSnapshot> getSpecificMedida(Paciente paciente, String id){
+        return getRef(paciente.getEmail()).document(id).get();
     }
 
     public static Task<Void> eraseLastInfo(Medida medida){

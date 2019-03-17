@@ -59,7 +59,6 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
             @Override
             public void onClick(View v) {
                 Intent chamadaPeso = new Intent(TabCorpo.this, MedidaView.class);
-                chamadaPeso.putExtra("Paciente", paciente);
                 startActivity(chamadaPeso);
             }
         });
@@ -68,7 +67,6 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
             @Override
             public void onClick(View v) {
                 Intent chamadaPeso = new Intent(TabCorpo.this, MedidaView.class);
-                chamadaPeso.putExtra("Paciente", paciente);
                 startActivity(chamadaPeso);
             }
         });
@@ -77,7 +75,6 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
             @Override
             public void onClick(View v) {
                 Intent chamadaTabelaImc = new Intent(TabCorpo.this, TabelaImc.class);
-                chamadaTabelaImc.putExtra("Paciente", paciente);
                 startActivity(chamadaTabelaImc);
             }
         });
@@ -86,7 +83,6 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
             @Override
             public void onClick(View v) {
                 Intent chamadaPesoIdeal = new Intent(TabCorpo.this, PesoIdeal.class);
-                chamadaPesoIdeal.putExtra("Paciente", paciente);
                 startActivity(chamadaPesoIdeal);
             }
         });

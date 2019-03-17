@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -59,8 +60,8 @@ public abstract class TaxasController {
         return graphTaxas(paciente).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (e != null) Log.d("Firebase Error: ", e.getMessage());
-                if(queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                if (e != null) Log.e("Firebase Error: ", e.getMessage());
+                if(queryDocumentSnapshots != null) {
                     current.onReceiveData(queryDocumentSnapshots.toObjects(Taxas.class));
                 }
             }
@@ -73,6 +74,10 @@ public abstract class TaxasController {
 
     public static Query getLastInfoTaxas(Paciente paciente){
         return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1);
+    }
+
+    public static Task<DocumentSnapshot> getSpecificTaxas(Paciente paciente, String id){
+        return getRef(paciente.getEmail()).document(id).get();
     }
 
     public static Task<Void> eraseLastInfo(Taxas taxas){

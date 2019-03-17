@@ -132,7 +132,7 @@ public class ListaTaxas extends Activity implements LiveUpdateHelper<Taxas> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(ListaTaxas.this, CartaoTaxas.class);
-                                intent.putExtra("Taxas", taxa);
+                                intent.putExtra("Id Taxas", taxa.getId());
                                 startActivity(intent);
                             }
                         });
