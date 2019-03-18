@@ -18,7 +18,6 @@ import java.util.Date;
 public class Paciente implements Serializable {
 
     private String nome;
-    private String senha;
     private String email;
     private String sexo;
     private Timestamp nascimento;
@@ -34,10 +33,9 @@ public class Paciente implements Serializable {
 
     public Paciente() {}
 
-    public Paciente(String nome, String senha, String email, String sexo, Timestamp nascimento, int ultimaDica) {
+    public Paciente(String nome, String email, String sexo, Timestamp nascimento, int ultimaDica) {
 
         this.nome = nome;
-        this.senha = senha;
         this.email = email;
         this.sexo = sexo;
         this.nascimento = nascimento;
@@ -101,14 +99,6 @@ public class Paciente implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getEmail() {
@@ -205,7 +195,8 @@ public class Paciente implements Serializable {
     }
 
     //metodo chamado na classe MenuPrincipal para verificar situacao do paciente
-    public void calculo_diabetes(Context context) {
+    //TODO: mudar retorno pra string para ser usano no resultado do relatório
+    public void calculoDiabetes(Context context) {
 
         //TODO: ajustar este método para os novos atributos
 

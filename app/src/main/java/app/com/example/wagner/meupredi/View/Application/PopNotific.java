@@ -50,7 +50,7 @@ public class PopNotific extends Activity {
         userVariables.put("idade", Double.parseDouble("50"));
 
         String msg = "teste";
-
+        //TODO: passar a usar a função calculoDiabetes na classe Paciente
             Motor.setMap(new VariableMap(userVariables), getApplicationContext());
             try{
                 Motor.readDatabase();

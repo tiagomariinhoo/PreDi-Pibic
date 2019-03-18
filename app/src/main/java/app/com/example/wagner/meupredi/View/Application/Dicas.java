@@ -21,15 +21,16 @@ public class Dicas extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dicas);
+        setContentView(R.layout.croqui);
 
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
+        //DisplayMetrics dm = new DisplayMetrics();
+        //getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        getWindow().setLayout((int) ( width*.8), (int) (height*.75));
+        //int width = dm.widthPixels;
+        //int height = dm.heightPixels;
+
+        //getWindow().setLayout((int) ( width*.8), (int) (height*.75));
 
 
     }

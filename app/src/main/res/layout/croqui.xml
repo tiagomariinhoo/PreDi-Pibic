@@ -3,74 +3,135 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradiente_branco">
+    android:background="@drawable/gradiente_azul">
 
-    <ImageView
-        android:id="@+id/image_pop_up_conquista"
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="Dicas e Recomendações"
+        android:textColor="@color/colorBranco"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupDicasAgua"
         android:layout_width="0dp"
-        android:layout_height="170dp"
-        android:padding="40dp"
-        android:background="@color/colorConfirm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trofeu" />
-
-    <TextView
-        android:id="@+id/text_titulo_pop_up_conquista"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif"
-        android:text="Parabéns!"
-        android:textAllCaps="false"
-        android:textColor="@color/colorConfirm"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_pop_up_conquista" />
-
-    <TextView
-        android:id="@+id/text_msg_conquista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:padding="8dp"
-        android:text="Você atingiu um objetivo!"
-        android:textAlignment="center"
-        android:textColor="@color/colorBackground"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_titulo_pop_up_conquista" />
-
-    <Button
-        android:id="@+id/image_close_popup_conquista"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/borda_curvada_fundo_azul"
-        android:gravity="center_vertical"
-        android:text="Ok"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/colorBranco"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:background="@drawable/borda_curvada_branca"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_msg_conquista"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioAgua1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Tome um copo de água ao acordar!"
+            android:textColor="@color/colorBackground"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Começar o dia tomando um copo de água ajuda a limpar o organismo e ativar o seu metabolismo."
+            android:textColor="@color/colorBackground" />
+
+        <RadioButton
+            android:id="@+id/radioAgua2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Redução de peso"
+            android:textColor="@color/colorBackground"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Beber água diminui a retenção de líquidos, ajuda na queima de gorduras e calorias."
+            android:textColor="@color/colorBackground" />
+
+        <RadioButton
+            android:id="@+id/radioAgua3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Controle da Temperatura do corpo"
+            android:textColor="@color/colorBackground"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="A água ajuda a regular nossa temperatura corporal por meio do suor. Ela mantém nossa temperatura estável, mesmo com variações climáticas extremas."
+            android:textColor="@color/colorBackground" />
+
+        <RadioButton
+            android:id="@+id/radioAgua4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Digestão"
+            android:textColor="@color/colorBackground"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Beber água ajuda a regular o intestino, pois o sistema digestivo necessita de uma boa quantidade de água para fazer a digestão de forma adequada. Com frequência, beber água resolve os problemas de acidez estomacal."
+            android:textColor="@color/colorBackground" />
+
+        <RadioButton
+            android:id="@+id/radioAgua5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Elasticidade e tonicidade da pele"
+            android:textColor="@color/colorBackground"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="A ingestão de líquidos ajuda a manter a pele hidratada de dentro para fora, deixando-a mais vigorosa e com brilho."
+            android:textColor="@color/colorBackground" />
+
+        <RadioButton
+            android:id="@+id/radioAgua6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eliminar as toxinas"
+            android:textColor="@color/colorBackground"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Tomar um copão de água com limão pela manhã ajuda a reidratar o corpo e auxilia na digestão, ajudando a eliminar as toxinas do corpo."
+            android:textColor="@color/colorBackground" />
+
+
+    </RadioGroup>
+
+
+
 
 </android.support.constraint.ConstraintLayout>

@@ -22,6 +22,7 @@ public class Taxas implements Serializable {
     private double hemoglobinaGlico;
     private Timestamp dateTaxas;
     private int flagTaxa = 1;
+    //TODO: criar um booleano pra indicar se foi deletado em vez de usar int
 
 
     public Taxas(String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){

@@ -14,6 +14,7 @@ public class Medida implements Serializable {
     private double circunferencia;
     private Timestamp dateMedida;
     private int flagMedida = 1;
+    //TODO: criar um booleano pra indicar se foi deletado em vez de usar int
 
 
     public Medida(String emailPaciente, double peso, double circunferencia) {

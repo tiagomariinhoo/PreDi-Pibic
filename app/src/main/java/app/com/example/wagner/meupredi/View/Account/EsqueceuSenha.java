@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import app.com.example.wagner.meupredi.Controller.PacienteController;
@@ -43,6 +44,9 @@ public class EsqueceuSenha extends AppCompatActivity {
         email = (EditText) findViewById(R.id.edit_email_esqueceu);
         tela = (ConstraintLayout) findViewById(R.id.tela_esqueceu_senha);
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+
         findViewById(R.id.tela_esqueceu_senha).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +60,11 @@ public class EsqueceuSenha extends AppCompatActivity {
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                auth.sendPasswordResetEmail(email.getText().toString().toLowerCase());
+                Toast.makeText(getApplicationContext(), "Email de recuperação de senha enviado!", Toast.LENGTH_LONG).show();
 
+                finish();
+/*
                 //verificando existencia do email no banco de dados
                 PacienteController.getPaciente(email.getText().toString().trim())
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -70,6 +78,7 @@ public class EsqueceuSenha extends AppCompatActivity {
                             }
                         }
                     });
+*/
 
             }
         });
@@ -83,24 +92,4 @@ public class EsqueceuSenha extends AppCompatActivity {
 
     }
 
-    public void enviarEmail(Paciente paciente){
-        //setando dados da mensagem
-        String sender = email.getText().toString().trim();
-        String subject = "MeuPreDi: recuperar senha";
-        String message = "Sr(a) " + paciente.getNome().toString()
-                + ", a opção de reenvio de senha foi solicitada com seu email. "
-                + "Se você não fez essa solicitação, desconsidere esta mensagem.\n\n"
-                + "Senha: " + paciente.getSenha().toString()
-                + "\n\nEquipe MeuPreDi";
-
-        //criando objeto do email
-        SendMail sm = new SendMail(getApplicationContext(), sender, subject, message);
-
-        //enviando email
-        sm.execute();
-
-        Toast.makeText(getApplicationContext(), "Email de recuperação de senha enviado!", Toast.LENGTH_LONG).show();
-
-        finish();
-    }
 }

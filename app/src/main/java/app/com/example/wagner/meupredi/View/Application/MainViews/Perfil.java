@@ -108,7 +108,6 @@ public class Perfil extends ActivityGroup {
             public void onClick(View v) {
                 Intent intent = new Intent(Perfil.this, Sair.class);
                 startActivity(intent);
-                finish();
             }
         });
 

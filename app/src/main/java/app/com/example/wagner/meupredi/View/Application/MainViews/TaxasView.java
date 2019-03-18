@@ -259,7 +259,6 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                 TaxasController.addTaxas(paciente);
 
                 Toast.makeText(getApplicationContext(),"Taxas atualizadas com sucesso!",Toast.LENGTH_SHORT).show();
-                paciente.calculo_diabetes(getApplicationContext());
                 novaGlicoseJejum.setText("");
                 novaGlicose75.setText("");
                 novaHemoglobinaGlicolisada.setText("");

@@ -22,9 +22,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.text.ParseException;
@@ -46,7 +54,11 @@ public class CriarConta extends AppCompatActivity {
     private TextView data;
     private DatePickerDialog.OnDateSetListener dataNascimento;
     private Timestamp timestampNasc;
-    TextView cancelar;
+    private TextView cancelar;
+    private FirebaseAuth auth;
+
+    //TODO: senha não ta aparecendo escondida por padrão e checkbox de esconder não está funcionando
+    //TODO: talvez fazer cadastro que não seja só email e senha após o primeiro login seja melhor
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +66,8 @@ public class CriarConta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_criar_conta);
+
+        auth = FirebaseAuth.getInstance();
 
         boxSenha = (CheckBox) findViewById(R.id.checkedConSenha);
         nome = (EditText) findViewById(R.id.edit_nome_completo);
@@ -168,27 +182,44 @@ public class CriarConta extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //TODO: verificar email ao cadastrar (enviar email de confirmacao)
+                //TODO: verificar email ao cadastrar (enviar email de confirmacao)?
 
                 String nomeCompleto = nome.getText().toString();
-                String emailCadastro = email.getText().toString();
-                String dataCadastro = data.getText().toString();
+                String emailCadastro = email.getText().toString().toLowerCase();
                 String senhaCadastro = senha.getText().toString();
                 String conSenhaCadastro = conSenha.getText().toString();
+
                 //fazer checagem de email antes evita erro do firebase
-                if(emailCadastro.length() == 0){
+                if(emailCadastro.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Insira um email válido!", Toast.LENGTH_SHORT).show();
+                } else if(senhaCadastro.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Insira uma senha válida!", Toast.LENGTH_SHORT).show();
+                } else if(!senhaCadastro.equals(conSenhaCadastro)){
+                    Toast.makeText(getApplicationContext(), "Insira senhas iguais", Toast.LENGTH_SHORT).show();
+                } else if(nomeCompleto.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Insira um nome válido!", Toast.LENGTH_SHORT).show();
+                } else if(timestampNasc == null) {
+                    Toast.makeText(getApplicationContext(), "Data em formato inválido!\nPor favor, digite no formato dd/MM/aaaa.", Toast.LENGTH_SHORT).show();
                 } else {
-                    //verificando se email ja foi cadastrado
-                    PacienteController.getPaciente(emailCadastro)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    auth.createUserWithEmailAndPassword(emailCadastro, senhaCadastro)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if (documentSnapshot != null && !documentSnapshot.exists()) {
-                                    //email não cadastrado
-                                    novoPaciente(nomeCompleto, emailCadastro, dataCadastro, senhaCadastro, conSenhaCadastro);
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("createUserWithEmail", "success, user: " + emailCadastro);
+                                    novoPaciente(nomeCompleto, emailCadastro, timestampNasc);
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "Email já cadastrado!", Toast.LENGTH_LONG).show();
+                                    if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
+                                        //senha fraca (menos de 6 digitos)
+                                        String reason = ((FirebaseAuthWeakPasswordException) task.getException()).getReason();
+                                        Toast.makeText(CriarConta.this, reason, Toast.LENGTH_LONG).show();
+                                    } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                        //email já faz parte de uma conta
+                                        Toast.makeText(CriarConta.this, "Email já possui uma conta associada", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        //email digitado inválido
+                                        Toast.makeText(CriarConta.this, "Email inválido", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }
                         });
@@ -204,59 +235,45 @@ public class CriarConta extends AppCompatActivity {
         });
     }
 
-    private void novoPaciente(String nomeCompleto, String emailCadastro, String dataCadastro, String senhaCadastro, String conSenhaCadastro){
+    private void novoPaciente(String nomeCompleto, String emailCadastro, Timestamp dataNasc){
         //verifica se todos os campos estao preenchidos
-        if(nomeCompleto.length() == 0) {
-            Toast.makeText(getApplicationContext(), "Insira um nome válido!", Toast.LENGTH_SHORT).show();
-        } else if(timestampNasc == null){
-            Toast.makeText(getApplicationContext(), "Data em formato inválido!\nPor favor, digite no formato dd/mm/aaaa.", Toast.LENGTH_SHORT).show();
-        } else if(senhaCadastro.length() == 0) {
-            Toast.makeText(getApplicationContext(), "Insira uma senha válida!", Toast.LENGTH_SHORT).show();
-        } else if(senhaCadastro.equals(conSenhaCadastro)) {
-            Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+        String sexoCadastro = sexo.getSelectedItem().toString();
 
-            String sexoCadastro = sexo.getSelectedItem().toString();
-
-            if (!sexoCadastro.equals("M") && !sexoCadastro.equals("F")) {
-                sexoCadastro = "";
-            }
-
-            //configuracao padrao de usuario
-            Paciente paciente = new Paciente(nomeCompleto, senhaCadastro, emailCadastro, sexoCadastro, timestampNasc, -1);
-
-            //DEBUG: imprime todos os dados do paciente
-            Log.d("Criando", "criar conta");
-            Log.d("Nome", paciente.getNome());
-            Log.d("Senha", paciente.getSenha());
-            Log.d("Email", paciente.getEmail());
-            Log.d("Sexo", String.valueOf(paciente.getSexo()));
-            Log.d("Nascimento", paciente.printNascimento());
-            Log.d("Circunferencia", String.valueOf(paciente.getCircunferencia()));
-            Log.d("Peso", String.valueOf(paciente.getPeso()));
-            Log.d("Altura", String.valueOf(paciente.getAltura()));
-            Log.d("IMC", String.valueOf(paciente.getImc()));
-            Log.d("GlicoseJejum", String.valueOf(paciente.getGlicoseJejum()));
-            Log.d("Glicose75g", String.valueOf(paciente.getGlicose75g()));
-            Log.d("Colesterol", String.valueOf(paciente.getColesterol()));
-
-            PacienteController.addPaciente(paciente)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Registro inserido com sucesso!", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Erro ao inserir o registro!", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            finish();
-
-        } else {
-            Toast.makeText(getApplicationContext(), "Insira senhas iguais!", Toast.LENGTH_LONG).show();
+        if (!sexoCadastro.equals("M") && !sexoCadastro.equals("F")) {
+            sexoCadastro = "";
         }
+
+        //configuracao padrao de usuario
+        Paciente paciente = new Paciente(nomeCompleto, emailCadastro, sexoCadastro, dataNasc, -1);
+
+        //DEBUG: imprime todos os dados do paciente
+        Log.d("Criando", "criar conta");
+        Log.d("Nome", paciente.getNome());
+        Log.d("Email", paciente.getEmail());
+        Log.d("Sexo", String.valueOf(paciente.getSexo()));
+        Log.d("Nascimento", paciente.printNascimento());
+        Log.d("Circunferencia", String.valueOf(paciente.getCircunferencia()));
+        Log.d("Peso", String.valueOf(paciente.getPeso()));
+        Log.d("Altura", String.valueOf(paciente.getAltura()));
+        Log.d("IMC", String.valueOf(paciente.getImc()));
+        Log.d("GlicoseJejum", String.valueOf(paciente.getGlicoseJejum()));
+        Log.d("Glicose75g", String.valueOf(paciente.getGlicose75g()));
+        Log.d("Colesterol", String.valueOf(paciente.getColesterol()));
+
+        PacienteController.addPaciente(paciente)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), "Erro ao cadastrar usuário!", Toast.LENGTH_LONG).show();
+                }
+            });
+
+        finish();
     }
 }

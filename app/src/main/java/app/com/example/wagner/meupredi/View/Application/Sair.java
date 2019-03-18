@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
@@ -62,7 +64,7 @@ public class Sair extends Activity {
                 editor.clear();
                 editor.commit();
                 PacienteUpdater.onEnd();
-
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(Sair.this, TelaLogin.class);
                 startActivity(intent);
                 finish();

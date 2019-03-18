@@ -315,36 +315,36 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
                 // Caso Sim
                 alertaNovaMedicao.setPositiveButton("CONFIRMAR",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                                if (pesoDoPaciente > 0 && circDoPaciente > 0) {
+                            if (pesoDoPaciente > 0 || circDoPaciente > 0) {
 
-                                    //atualiza peso no objeto
-                                    paciente.setPeso(pesoDoPaciente);
-                                    paciente.setCircunferencia(circDoPaciente);
+                                //atualiza peso no objeto
+                                paciente.setPeso(pesoDoPaciente);
+                                paciente.setCircunferencia(circDoPaciente);
 
-                                    //atualiza o peso e o imc do paciente no banco
-                                    MedidaController.addMedida(paciente);
+                                //atualiza o peso e o imc do paciente no banco
+                                MedidaController.addMedida(paciente);
 
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Peso inválido!", Toast.LENGTH_SHORT).show();
-                                }
-
-                                novoPeso.setText("");
-                                novoCirc.setText("");
-
-                                try {
-                                    InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                                } catch (NullPointerException e) {
-                                    //caso o teclado ja esteja escondido
-                                }
-                                Intent intent = new Intent(MedidaView.this, PopConquista.class);
-                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Peso inválido!", Toast.LENGTH_SHORT).show();
                             }
-                        });
+
+                            novoPeso.setText("");
+                            novoCirc.setText("");
+
+                            try {
+                                InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            } catch (NullPointerException e) {
+                                //caso o teclado ja esteja escondido
+                            }
+                            Intent intent = new Intent(MedidaView.this, PopConquista.class);
+                            startActivity(intent);
+                        }
+                    });
                 alertaNovaMedicao.create().show();
             }
         });

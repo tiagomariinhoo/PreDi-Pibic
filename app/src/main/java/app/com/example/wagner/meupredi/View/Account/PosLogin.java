@@ -62,7 +62,6 @@ public class PosLogin extends AppCompatActivity {
         //DEBUG: imprime dados do usuario pegos do banco
         Log.d("Se ja existe: ", "poslogin");
         Log.d("Nome : ", paciente.getNome());
-        Log.d("Senha : ", paciente.getSenha());
         Log.d("Email: ", paciente.getEmail());
         Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
         Log.d("Nascimento: ", paciente.printNascimento());
@@ -191,7 +190,6 @@ public class PosLogin extends AppCompatActivity {
                 //DEBUG: imprime os dados do paciente para verificar se estao corretos
                 Log.d("Sincronizado: ", "poslogin");
                 Log.d("Nome : ", paciente.getNome());
-                Log.d("Senha : ", paciente.getSenha());
                 Log.d("Email: ", paciente.getEmail());
                 Log.d("Sexo: ", String.valueOf(paciente.getSexo()));
                 Log.d("Nascimento: ", paciente.printNascimento());
