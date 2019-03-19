@@ -50,12 +50,12 @@ public abstract class MedidaController {
     }
 
     public static Task<QuerySnapshot> getAllMedidas(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).get();
+        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).get();
     }
 
     public static Query graphMedidas(Paciente paciente){
         //sempre dar reverse nesse resultado, pq ele é ordenado pela data ao contrário de como o gráfico deve receber
-        return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).orderBy("dateMedida", Query.Direction.DESCENDING).limit(5);
+        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateMedida", Query.Direction.DESCENDING).limit(5);
     }
 
     public static ListenerRegistration getDadosGrafico(LiveUpdateHelper<Medida> current, Paciente paciente){
@@ -71,11 +71,11 @@ public abstract class MedidaController {
     }
 
     public static Task<QuerySnapshot> getMedida(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1).get();
+        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1).get();
     }
 
     public static Query getLastInfoMedida(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("flagMedida", 1).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1);
+        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1);
     }
 
     public static Task<DocumentSnapshot> getSpecificMedida(Paciente paciente, String id){
@@ -84,7 +84,7 @@ public abstract class MedidaController {
 
     public static Task<Void> eraseLastInfo(Medida medida){
         Log.d("Id peso : ", String.valueOf(medida.getId()));
-        medida.setFlagMedida(0);
+        medida.setDeleted(true);
         return getRef(medida.getEmailPaciente())
                 .document(medida.getId())
                 .set(medida, SetOptions.merge());

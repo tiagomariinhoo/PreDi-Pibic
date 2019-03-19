@@ -48,12 +48,12 @@ public abstract class TaxasController {
     }
 
     public static Task<QuerySnapshot> getAllTaxas(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).get();
+        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).get();
     }
 
     public static Query graphTaxas(Paciente paciente){
         //sempre dar reverse nesse resultado, pq ele é ordenado pela data ao contrário de como o gráfico deve receber
-        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(5);
+        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(5);
     }
 
     public static ListenerRegistration getDadosGrafico(LiveUpdateHelper<Taxas> current, Paciente paciente){
@@ -69,11 +69,11 @@ public abstract class TaxasController {
     }
 
     public static Task<QuerySnapshot> getTaxas(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1).get();
+        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1).get();
     }
 
     public static Query getLastInfoTaxas(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("flagTaxa", 1).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1);
+        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1);
     }
 
     public static Task<DocumentSnapshot> getSpecificTaxas(Paciente paciente, String id){
@@ -82,7 +82,7 @@ public abstract class TaxasController {
 
     public static Task<Void> eraseLastInfo(Taxas taxas){
         Log.d("Id taxas : ", taxas.getId());
-        taxas.setFlagTaxa(0);
+        taxas.setDeleted(true);
         return getRef(taxas.getEmailPaciente())
                 .document(taxas.getId())
                 .set(taxas, SetOptions.merge());

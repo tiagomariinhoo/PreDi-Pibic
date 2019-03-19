@@ -53,7 +53,6 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     private ListenerRegistration listListener;
 
     private List<Consulta> consultas;
-    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultas);
-        // Função abaixo i0mpede que o teclado seja chamado para o edit text quando a tela abrir
+        // Função abaixo impede que o teclado seja chamado para o edit text quando a tela abrir
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         nomeNovaConsulta = (EditText) findViewById(R.id.editText_nome_nova_consulta);
@@ -72,9 +71,6 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
         agendarNovaConsulta = (ImageView) findViewById(R.id.btn_agendar_nova_consulta);
         listaDeConsultas = (ListView) findViewById(R.id.lista_consultas);
 
-        //ConsultaController controllerAgenda = new ConsultaController(ConsultaView.this);
-
-        //arraylist = new ArrayList<>(Arrays.asList(items));
         contadorConsultas.setText("Consultas Anteriores");
         listaDeConsultas.setAdapter(new ArrayAdapter<String>(this, R.layout.lista_consultas_item,
                                     R.id.text_consulta_item, adapterList(new ArrayList<Consulta>())));
@@ -100,7 +96,6 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
             }
         });
 
-        local = "";
         agendarNovaConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,15 +136,12 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Toast.makeText(ConsultaView.this, "Nova consulta agendada!", Toast.LENGTH_SHORT).show();
-                                    // FAZER FUNÇÃO DE ADICIONAR NOVA CONSULTA EM LISTA DE CONSULTAS MARCADAS
 
-                                    //arraylist.add(local+" - "+shortDate+" - "+shortTime);
                                     newDate = convertDate();
                                     Consulta consulta = new Consulta(paciente.getEmail(), tipoExame, local, newDate);
 
                                     ConsultaController.addEvento(paciente, consulta);
                                     finish();
-
                                 }
                             });
 
@@ -252,7 +244,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     @Override
     public void onReceiveData(List<Consulta> consultas) {
         this.consultas = consultas;
-        adapter = new ArrayAdapter<String>(ConsultaView.this, R.layout.lista_consultas_item,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ConsultaView.this, R.layout.lista_consultas_item,
                 R.id.text_consulta_item, adapterList(consultas));
 
         listaDeConsultas.setAdapter(adapter);

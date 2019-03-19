@@ -45,7 +45,4 @@ public abstract class PacienteController {
         return myRef.document(email).get();
     }
 
-    public static Query verificarLogin(String email, String senha){
-        return myRef.whereEqualTo("senha", senha).whereEqualTo("email", email);
-    }
 }

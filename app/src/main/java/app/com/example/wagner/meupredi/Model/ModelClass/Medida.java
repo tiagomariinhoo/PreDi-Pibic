@@ -13,9 +13,7 @@ public class Medida implements Serializable {
     private double peso;
     private double circunferencia;
     private Timestamp dateMedida;
-    private int flagMedida = 1;
-    //TODO: criar um booleano pra indicar se foi deletado em vez de usar int
-
+    private boolean deleted = false;
 
     public Medida(String emailPaciente, double peso, double circunferencia) {
         this.dateMedida = Timestamp.now();
@@ -59,14 +57,6 @@ public class Medida implements Serializable {
         return printDateFormat.format(dateMedida.toDate());
     }
 
-    public int getFlagMedida() {
-        return flagMedida;
-    }
-
-    public void setFlagMedida(int flagMedida) {
-        this.flagMedida = flagMedida;
-    }
-
     public String getEmailPaciente() {
         return emailPaciente;
     }
@@ -89,4 +79,11 @@ public class Medida implements Serializable {
                 "Peso: %.2f kg -- Circunferência: %.2f cm", this.peso, this.circunferencia);
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }

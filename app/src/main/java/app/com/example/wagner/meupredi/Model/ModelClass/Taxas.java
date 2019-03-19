@@ -21,9 +21,7 @@ public class Taxas implements Serializable {
     private double colesterol;
     private double hemoglobinaGlico;
     private Timestamp dateTaxas;
-    private int flagTaxa = 1;
-    //TODO: criar um booleano pra indicar se foi deletado em vez de usar int
-
+    private boolean deleted = false;
 
     public Taxas(String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
         this.dateTaxas = Timestamp.now();
@@ -35,14 +33,6 @@ public class Taxas implements Serializable {
     }
 
     public Taxas(){}
-
-    public int getFlagTaxa() {
-        return flagTaxa;
-    }
-
-    public void setFlagTaxa(int flagTaxa) {
-        this.flagTaxa = flagTaxa;
-    }
 
     public double getHemoglobinaGlico() {
         return hemoglobinaGlico;
@@ -110,4 +100,11 @@ public class Taxas implements Serializable {
 
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }
