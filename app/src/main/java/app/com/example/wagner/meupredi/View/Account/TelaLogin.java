@@ -40,7 +40,6 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
 
 public class TelaLogin extends AppCompatActivity {
 
-    public static final String PREFS_NAME = "Preferences";
     private EditText usuario, senha;
     private Button btnLogin;
     private TextView textCriar;
@@ -155,6 +154,11 @@ public class TelaLogin extends AppCompatActivity {
 
     private void setInfoAndFinish(Paciente paciente){
         PacienteUpdater.onStart(paciente);
+
+        SharedPreferences prefs = getSharedPreferences("Preferences", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("Manter conectado", manterConectado.isChecked());
+        editor.apply();
 
         Intent it = new Intent(TelaLogin.this, PosLogin.class);
         it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

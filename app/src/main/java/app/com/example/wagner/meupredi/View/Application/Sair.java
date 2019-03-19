@@ -27,9 +27,8 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
 
 public class Sair extends Activity {
 
-    CheckBox manterConectado;
     Button sairSIM;
-    TextView voltar, sairNAO;
+    TextView sairNAO;
     Paciente paciente;
 
     @Override
@@ -42,11 +41,6 @@ public class Sair extends Activity {
 
         sairSIM = (Button) findViewById(R.id.btn_sair_sim_fragment);
         sairNAO = (TextView) findViewById(R.id.btn_sair_nao_fragment);
-        //manterConectado = (CheckBox) findViewById(R.id.checkBox_manter_conectado_login);
-        //manterConectado.setChecked(false);
-
-        final SharedPreferences settings = this.getSharedPreferences(TelaLogin.PREFS_NAME, 0);
-        final SharedPreferences.Editor editor = settings.edit();
 
         sairNAO.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,11 +52,11 @@ public class Sair extends Activity {
         sairSIM.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
-
+            public void onClick(View v) {
+                SharedPreferences prefs = getSharedPreferences("Preferences", 0);
+                SharedPreferences.Editor editor = prefs.edit();
                 editor.clear();
-                editor.commit();
+                editor.apply();
                 PacienteUpdater.onEnd();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(Sair.this, TelaLogin.class);

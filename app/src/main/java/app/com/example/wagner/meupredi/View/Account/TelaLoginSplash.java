@@ -1,6 +1,7 @@
 package app.com.example.wagner.meupredi.View.Account;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +24,6 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
 
 public class TelaLoginSplash extends AppCompatActivity{
 
-    private static int SPLASH_TIME_OUT = 2000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -32,13 +31,15 @@ public class TelaLoginSplash extends AppCompatActivity{
         setContentView(R.layout.activity_tela_login_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        int SPLASH_TIME_OUT = 2000;
         FirebaseAuth auth = FirebaseAuth.getInstance();
-
         auth.setLanguageCode("pt-BR");
-
         FirebaseUser user = auth.getCurrentUser();
 
-        if(user != null){
+        SharedPreferences prefs = getSharedPreferences("Preferences", 0);
+        boolean autoLogin = prefs.getBoolean("Manter conectado", false);
+
+        if(user != null && autoLogin){
             //checa se o usuário já está logado
             PacienteController.getPaciente(user.getEmail()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
@@ -51,7 +52,11 @@ public class TelaLoginSplash extends AppCompatActivity{
                     }
                 }
             });
-        } else {
+        }else {
+            if(user != null && !autoLogin){
+                auth.signOut();
+            }
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
