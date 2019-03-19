@@ -18,13 +18,8 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -65,7 +60,7 @@ public class Perfil extends ActivityGroup {
 
         coracao = (ImageView) findViewById(R.id.image_perfil_coracao);
         configuracoes = (ImageView) findViewById(R.id.image_perfil_dados);
-        notificacoes = (ImageView) findViewById(R.id.notify_perfil_btm);
+        notificacoes = (ImageView) findViewById(R.id.notify_perfil_btn);
         iconeAlerta = (ImageView) findViewById(R.id.image_alerta_notificacoes_perfil);
         iconeSair = (ImageView) findViewById(R.id.image_sair_perfil);
         nomeUsuario = (TextView) findViewById(R.id.text_nome_usuario);

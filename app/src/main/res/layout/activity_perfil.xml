@@ -8,7 +8,7 @@
     android:background="@color/colorBackground">
 
     <ImageView
-        android:id="@+id/notify_perfil_btm"
+        android:id="@+id/notify_perfil_btn"
         android:layout_width="47dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -27,7 +27,7 @@
         android:background="@mipmap/ic_alerta_rosa"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/notify_perfil_btm"
+        app:layout_constraintTop_toTopOf="@+id/notify_perfil_btn"
         app:srcCompat="@mipmap/ic_alerta_rosa" />
 
 
