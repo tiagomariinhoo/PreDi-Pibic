@@ -97,7 +97,7 @@ public class PosLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Boolean flag = false;
+                boolean flag = false;
 
                 String alturaCadastro = altura.getText().toString();
                 String pesoCadastro = peso.getText().toString();
@@ -111,15 +111,15 @@ public class PosLogin extends AppCompatActivity {
 
                     //formata a string para transformar corretamente para double (substitui virgula por ponto e limita a duas casas decimais)
                     alturaCadastro = alturaCadastro.replace(',', '.');
-                    Double alturaAtualizada = Double.parseDouble(alturaCadastro);
+                    double alturaAtualizada = Double.parseDouble(alturaCadastro);
 
                     //transforma em metros
-                    while(alturaAtualizada > 10) {
+                    while(alturaAtualizada >= 10) {
                         alturaAtualizada /= 10;
                     }
 
                     String alturaFormatada = String.format(Locale.ENGLISH, "%.3f", alturaAtualizada);
-                    Double alturaDoPaciente = Double.parseDouble(alturaFormatada);
+                    double alturaDoPaciente = Double.parseDouble(alturaFormatada);
 
                     //atualiza altura no objeto
                     paciente.setAltura(alturaDoPaciente);
