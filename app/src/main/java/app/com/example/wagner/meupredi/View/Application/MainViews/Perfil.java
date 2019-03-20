@@ -61,7 +61,7 @@ public class Perfil extends ActivityGroup {
         coracao = (ImageView) findViewById(R.id.image_perfil_coracao);
         configuracoes = (ImageView) findViewById(R.id.image_perfil_dados);
         notificacoes = (ImageView) findViewById(R.id.notify_perfil_btn);
-        iconeAlerta = (ImageView) findViewById(R.id.image_alerta_notificacoes_perfil);
+        iconeAlerta = (ImageView) findViewById(R.id.notify_alert_btn);
         iconeSair = (ImageView) findViewById(R.id.image_sair_perfil);
         nomeUsuario = (TextView) findViewById(R.id.text_nome_usuario);
         informacao = (ImageView)findViewById(R.id.image_informacao_perfil);
@@ -159,7 +159,7 @@ public class Perfil extends ActivityGroup {
                 alertaDuvidas = new AlertDialog.Builder(Perfil.this);
                 alertaDuvidas.setTitle("Informativo");
                 //TODO: colocar algum informativo aqui, pq esse é da lista de taxas
-                alertaDuvidas.setMessage("Clicando em alguma Taxa na lista, você poderá altera-la ou exclui-la\n");
+                alertaDuvidas.setMessage("Selecione uma tab para obter informações do usuário ou pressione o coração para obter um diagnóstico feito com as informações atuais.");
                 alertaDuvidas.setNegativeButton("VOLTAR",
                         new DialogInterface.OnClickListener() {
                             @Override

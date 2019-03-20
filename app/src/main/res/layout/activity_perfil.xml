@@ -9,15 +9,26 @@
 
     <ImageView
         android:id="@+id/notify_perfil_btn"
-        android:layout_width="47dp"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@mipmap/ic_notificacoes_planet"
+        android:src="@mipmap/ic_dica"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_notificacoes_planet" />
+        app:srcCompat="@mipmap/ic_dica" />
+
+    <ImageView
+        android:id="@+id/notify_alert_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleY="-1"
+        android:translationX="-1.5dp"
+        android:src="@mipmap/ic_dica_notificacao"
+        app:layout_constraintStart_toStartOf="@+id/notify_perfil_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_dica_notificacao" />
 
     <ImageView
         android:id="@+id/image_alerta_notificacoes_perfil"
@@ -25,7 +36,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="40dp"
         android:background="@mipmap/ic_alerta_rosa"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/notify_perfil_btn"
         app:srcCompat="@mipmap/ic_alerta_rosa" />
@@ -174,7 +185,7 @@
         android:background="@mipmap/ic_share_cda"
         app:layout_constraintEnd_toStartOf="@+id/text_titulo"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/image_alerta_notificacoes_perfil"
+        app:layout_constraintStart_toEndOf="@+id/notify_perfil_btn"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_share_cda" />
 
