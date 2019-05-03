@@ -57,22 +57,6 @@ public class EsqueceuSenha extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Email de recuperação de senha enviado!", Toast.LENGTH_LONG).show();
 
                 finish();
-/*
-                //verificando existencia do email no banco de dados
-                PacienteController.getPaciente(email.getText().toString().trim())
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if(documentSnapshot != null && documentSnapshot.exists()) {
-                                Paciente paciente = documentSnapshot.toObject(Paciente.class);
-                                enviarEmail(paciente);
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Email não cadatrado ou inválido!", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-*/
-
             }
         });
 

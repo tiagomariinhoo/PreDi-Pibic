@@ -189,8 +189,7 @@ public class Paciente implements Serializable {
         else this.imc = peso; //assume altura como 1, caso seja 0
     }
 
-    //metodo chamado na classe MenuPrincipal para verificar situacao do paciente
-    //TODO: mudar retorno pra string para ser usano no resultado do relatório
+    //metodo chamado na classe PopNotific para verificar situacao do paciente
     public String calculoDiabetes() {
 
         String mensagem;
