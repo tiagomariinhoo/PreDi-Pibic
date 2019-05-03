@@ -31,6 +31,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -205,6 +206,8 @@ public class CriarConta extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Log.d("createUserWithEmail", "success, user: " + emailCadastro);
                                     novoPaciente(nomeCompleto, emailCadastro, timestampNasc);
+                                    FirebaseUser user = task.getResult().getUser();
+                                    user.sendEmailVerification();
                                 } else {
                                     if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
                                         //senha fraca (menos de 6 digitos)

@@ -115,17 +115,21 @@ public class TelaLogin extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = task.getResult().getUser();
-                                    PacienteController.getPaciente(user.getEmail()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            if (documentSnapshot.exists()) {
-                                                Paciente paciente = documentSnapshot.toObject(Paciente.class);
-                                                setInfoAndFinish(paciente);
-                                            } else {
-                                                showLoginError("Email não cadastrado no banco de dados");
+                                    if(user.isEmailVerified()) {
+                                        PacienteController.getPaciente(user.getEmail()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                if (documentSnapshot.exists()) {
+                                                    Paciente paciente = documentSnapshot.toObject(Paciente.class);
+                                                    setInfoAndFinish(paciente);
+                                                } else {
+                                                    showLoginError("Email não cadastrado no banco de dados");
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+                                    } else {
+                                        showLoginError("Email não confirmado\nFavor checar a sua caixa de entrada");
+                                    }
                                 } else {
                                     if (task.getException() instanceof FirebaseAuthInvalidUserException) {
                                         showLoginError("Email não cadastrado");
