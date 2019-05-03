@@ -1,4 +1,4 @@
-package app.com.example.wagner.meupredi.Model.ModelClass;
+package app.com.example.wagner.meupredi.Model;
 
 import com.google.firebase.Timestamp;
 

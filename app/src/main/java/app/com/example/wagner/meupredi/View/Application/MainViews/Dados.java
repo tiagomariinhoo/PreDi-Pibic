@@ -26,7 +26,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.PacienteController;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 
 public class Dados extends AppCompatActivity {

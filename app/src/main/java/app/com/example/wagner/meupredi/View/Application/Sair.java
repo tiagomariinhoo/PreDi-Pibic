@@ -5,21 +5,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
-import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
 
 /**
  * Created by LeandroDias1 on 18/04/2017.

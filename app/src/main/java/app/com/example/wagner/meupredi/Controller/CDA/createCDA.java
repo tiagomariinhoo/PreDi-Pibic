@@ -1,24 +1,19 @@
 package app.com.example.wagner.meupredi.Controller.CDA;
 
-import android.os.Environment;
 import android.util.Log;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
 
 import br.com.multcare.ClinicalDocument;
 import br.com.multcare.bean.Authenticator;
 import br.com.multcare.bean.Exams;
 import br.com.multcare.bean.Header;
-import br.com.multcare.bean.HealthHistoric;
 import br.com.multcare.bean.LaboratoryExams;
 import br.com.multcare.bean.Patient;
 import br.com.multcare.bean.Related;
 import br.com.multcare.bean.ResponsibleParty;
-import br.com.multcare.validator.ValidateCDA;
 
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Paciente;
 
 public class createCDA {
 

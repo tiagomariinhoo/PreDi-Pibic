@@ -14,11 +14,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Controller.TaxasController;
-import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
+import app.com.example.wagner.meupredi.Model.Paciente;
+import app.com.example.wagner.meupredi.Model.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 

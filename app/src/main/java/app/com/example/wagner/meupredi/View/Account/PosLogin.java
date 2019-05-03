@@ -21,7 +21,7 @@ import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Controller.MedidaController;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;

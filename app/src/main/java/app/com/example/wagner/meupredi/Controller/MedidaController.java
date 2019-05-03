@@ -14,15 +14,11 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nullable;
 
-import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
+import app.com.example.wagner.meupredi.Model.Paciente;
+import app.com.example.wagner.meupredi.Model.Medida;
 
 /**
  * Created by tico_ on 31/01/2018.

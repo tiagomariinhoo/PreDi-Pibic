@@ -13,9 +13,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 
-import app.com.example.wagner.meupredi.Model.InferenceMotor.Motor;
-import app.com.example.wagner.meupredi.Model.InferenceMotor.VariableMap;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
@@ -49,24 +47,11 @@ public class PopNotific extends Activity {
         userVariables.put("glicemia2h", paciente.getGlicose75g());
         userVariables.put("idade", Double.parseDouble("50"));
 
-        String msg = "teste";
-        //TODO: passar a usar a função calculoDiabetes na classe Paciente
-            Motor.setMap(new VariableMap(userVariables), getApplicationContext());
-            try{
-                Motor.readDatabase();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-
-            msg = Motor.askQuestions();
-            Log.d("Msg atual: ", msg);
-            Motor.printHistory();
-
         getWindow().setLayout((int) ( width*.8), (int) (height*.50));
 
         relatorio = (TextView) findViewById(R.id.text_pop_notific_relatorio);
 
-        relatorio.setText(msg);
+        relatorio.setText(paciente.calculoDiabetes());
 
         chamadaExplicativoDiagnostico.setOnClickListener(new View.OnClickListener() {
             @Override

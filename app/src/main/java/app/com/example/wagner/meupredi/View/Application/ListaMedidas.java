@@ -13,17 +13,13 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import app.com.example.wagner.meupredi.Controller.MedidaController;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
+import app.com.example.wagner.meupredi.Model.Paciente;
+import app.com.example.wagner.meupredi.Model.Medida;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;

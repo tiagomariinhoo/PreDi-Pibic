@@ -14,13 +14,11 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import java.util.Date;
-
 import javax.annotation.Nullable;
 
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
-import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Taxas;
+import app.com.example.wagner.meupredi.Model.Paciente;
 
 /**
  * Created by tico_ on 31/01/2018.

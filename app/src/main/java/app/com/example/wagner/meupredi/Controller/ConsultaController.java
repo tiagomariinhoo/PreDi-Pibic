@@ -15,16 +15,14 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import javax.annotation.Nullable;
 
-import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Consulta;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
 import app.com.example.wagner.meupredi.View.Application.MainViews.Perfil;
 

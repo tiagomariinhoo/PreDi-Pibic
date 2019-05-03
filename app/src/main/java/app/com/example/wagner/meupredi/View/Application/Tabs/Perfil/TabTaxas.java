@@ -8,12 +8,11 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
+import app.com.example.wagner.meupredi.Model.Paciente;
+import app.com.example.wagner.meupredi.Model.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MainViews.TaxasView;
-import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 import app.com.example.wagner.meupredi.View.Application.TaxasListener;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_taxas_perfil;

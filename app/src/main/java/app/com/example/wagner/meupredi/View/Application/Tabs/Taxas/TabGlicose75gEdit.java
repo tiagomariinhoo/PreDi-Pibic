@@ -14,10 +14,9 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
-import app.com.example.wagner.meupredi.View.Application.MainViews.TaxasView;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_glicose_apos75g_taxas;
 

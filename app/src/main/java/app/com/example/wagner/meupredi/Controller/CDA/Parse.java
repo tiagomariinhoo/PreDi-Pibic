@@ -11,7 +11,7 @@ import br.com.multcare.bean.Patient;
 import br.com.multcare.bean.Related;
 import br.com.multcare.bean.ResponsibleParty;
 
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Paciente;
 
 public class Parse {
 	

@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Medida;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;

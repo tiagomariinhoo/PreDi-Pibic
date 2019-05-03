@@ -12,16 +12,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.annotation.Nullable;
 
 import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Controller.TaxasController;
-import app.com.example.wagner.meupredi.Model.ModelClass.Medida;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
-import app.com.example.wagner.meupredi.Model.ModelClass.Taxas;
+import app.com.example.wagner.meupredi.Model.Medida;
+import app.com.example.wagner.meupredi.Model.Paciente;
+import app.com.example.wagner.meupredi.Model.Taxas;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
 import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 import app.com.example.wagner.meupredi.View.Application.TaxasListener;

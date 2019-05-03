@@ -30,8 +30,8 @@ import java.util.List;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.ConsultaController;
-import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Consulta;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 
 /**

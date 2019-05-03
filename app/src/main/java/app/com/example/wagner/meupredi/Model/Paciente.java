@@ -1,15 +1,10 @@
-package app.com.example.wagner.meupredi.Model.ModelClass;
-
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
+package app.com.example.wagner.meupredi.Model;
 
 import com.google.firebase.Timestamp;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by wagne on 31/03/2017.
@@ -196,68 +191,40 @@ public class Paciente implements Serializable {
 
     //metodo chamado na classe MenuPrincipal para verificar situacao do paciente
     //TODO: mudar retorno pra string para ser usano no resultado do relatório
-    public void calculoDiabetes(Context context) {
+    public String calculoDiabetes() {
 
-        //TODO: ajustar este método para os novos atributos
+        String mensagem;
 
-        Log.d("Começando ", "O CALCULOO");
-        if (getGlicoseJejum() >= 100 && getGlicoseJejum() <= 125) {
-            //Log.d("TTG!","");
-            Toast.makeText(context, "TTG", Toast.LENGTH_LONG).show();
-            if (getGlicose75g() < 140) {
-                //Log.d("GJA","");
-                Toast.makeText(context, "GJA!", Toast.LENGTH_LONG).show();
-            } else if (getGlicose75g() >= 140 && getGlicose75g() < 199) {
-                //Log.d("TDG"," Pré Diabetes");
-                //Log.d("MEV", "Por 6 meses");
-                Toast.makeText(context, "TDG Pré Diabetes, MEV por 6 meses!", Toast.LENGTH_LONG).show();
+        if(getGlicoseJejum() < 100){
+            //TODO: ver se essa mensagem ficou boa
+            mensagem = "Sua glicemia em jejum atual está boa, mas devem ser feitas novas " +
+                    "avaliações a cada 3 anos ou conforme o risco.";
+        } else if(getGlicoseJejum() >= 100 && getGlicoseJejum() <= 125){
 
-                if (getPeso() != -1 && getImc() >= 25) {
-                    double pct = (getPeso() * 100) / getPeso();
-                    pct = 100 - pct;
+            if(getGlicose75g() <= 199){
 
-                    boolean metas;
-
-                    if (pct > 5) metas = true;
-                    else metas = false;
-
-                    if (!metas) {
-                        boolean risco = false;
-
-                        if (getImc() >= 25 && getGlicose75g() >= 200 && getGlicoseJejum() >= 200)
-                            risco = true;
-
-                        if (!risco) {
-                            Log.d("Reforçar", "MEV por 6 meses");
-                            Toast.makeText(context, "Reforçar MEV por 6 meses", Toast.LENGTH_LONG).show();
-                            boolean metas2 = false;
-
-                            // TODO: 09/05/2017 Verificar esse metas2 pois será a parte do paciente de risco
-                            if (!metas2) {
-                                Log.d("MEV+", "Metformina");
-                            } else {
-                                Log.d("Acompanhamento", "A cada 6 meses");
-                            }
-                        } else {
-                            Toast.makeText(context, "Você está correndo risco! Acompanhamento a cada 6 meses com medida do HbA1c", Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        //Log.d("Acompanhamento", "A cada 6 meses com rastreamento anual");
-                        Toast.makeText(context, "Parabéns por conseguir perder mais do que 5% do seu peso! A cada 6 meses com rastreamento anual!", Toast.LENGTH_LONG).show();
-                    }
-
+                if(getHemoglobinaGlicolisada() < 5.7){
+                    //TODO: ver se essa mensagem ficou boa
+                    mensagem = "Há chance de Glicemia de Jejum Alterada, " +
+                            "você deve procurar um médico.";
+                } else if(getHemoglobinaGlicolisada() >= 5.7 && getHemoglobinaGlicolisada() <= 6.4){
+                    //TODO: ver se essa mensagem ficou boa
+                    mensagem = "Há um alto risco de pré-diabetes, você deve procurar um médico.";
+                } else{
+                    //TODO: ver se essa mensagem ficou boa
+                    mensagem = "Há alto risco de diabetes, você deve procurar um médido.";
                 }
 
-            } else if (getGlicose75g() >= 200) {
-                //Log.d("DM2 : ", "Avaliação e manejo do DM2");
-                Toast.makeText(context, "Sua glicose está muito alta! Avaliação e manejo do DM2", Toast.LENGTH_LONG).show();
+            } else{
+                //TODO: ver se essa mensagem ficou boa
+                mensagem = "Sua glicose após 75g está muito alta, você deve procurar um médico.";
             }
-        } else if (getGlicoseJejum() >= 126 || getGlicoseJejum() >= 200) {
-            Toast.makeText(context, "Sua glicose está muito alta! Avaliação de manejo do DM2", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(context, "Sua glicose está normal! Avaliação a cada 3 anos ou conforme o risco.", Toast.LENGTH_LONG).show();
+
+        } else{
+            //TODO: ver se essa mensagem ficou boa
+            mensagem = "Sua glicemia em jejum está muito alta, você deve procurar um médico.";
         }
 
-        Log.d("glicose75 g : ", String.valueOf(getGlicose75g()));
+        return mensagem;
     }
 }

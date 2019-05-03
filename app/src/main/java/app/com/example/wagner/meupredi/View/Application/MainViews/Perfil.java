@@ -25,8 +25,8 @@ import java.text.SimpleDateFormat;
 
 import app.com.example.wagner.meupredi.Controller.CDA.createCDA;
 import app.com.example.wagner.meupredi.Controller.ConsultaController;
-import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Consulta;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.Dicas;

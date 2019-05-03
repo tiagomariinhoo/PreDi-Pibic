@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.com.example.wagner.meupredi.Controller.ConsultaController;
-import app.com.example.wagner.meupredi.Model.ModelClass.Consulta;
-import app.com.example.wagner.meupredi.Model.ModelClass.Paciente;
+import app.com.example.wagner.meupredi.Model.Consulta;
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.ConsultaView;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
