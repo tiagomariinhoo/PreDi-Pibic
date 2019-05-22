@@ -30,6 +30,7 @@ import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.Dicas;
+import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
 import app.com.example.wagner.meupredi.View.Application.Sair;
 import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabConsultas;
@@ -44,7 +45,7 @@ import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
  */
 
 @Deprecated
-public class Perfil extends ActivityGroup {
+public class Perfil extends ActivityGroup implements PacienteListener {
 
     private TextView nomeUsuario;
     private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair, informacao, shareCda;
@@ -69,7 +70,8 @@ public class Perfil extends ActivityGroup {
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
-        nomeUsuario.setText(paciente.getNome().split(" ")[0]);
+        PacienteUpdater.addListener(this);
+
         /*
         *Difference between INVISIBLE and GONE.
         * INVISIBLE - The widget will be invisible but space for the widget will be show.
@@ -171,8 +173,6 @@ public class Perfil extends ActivityGroup {
             }
         });
 
-
-
     }
 
     public void onNotify(Consulta consulta){
@@ -235,5 +235,18 @@ public class Perfil extends ActivityGroup {
         }
     }
 
+    @Override
+    protected void onPause() {
+        if(isFinishing()){
+            Log.d("Listener ", "Removido");
+            PacienteUpdater.removeListener(this);
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onChangePaciente(Paciente paciente) {
+        nomeUsuario.setText(paciente.getNome().split(" ")[0]);
+    }
 }
 
