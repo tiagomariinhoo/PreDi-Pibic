@@ -66,7 +66,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
     private CheckBox checkPeso, checkCircunferecia;
     private Paciente paciente;
     private List<Medida> medidas = new ArrayList<>();
-    private double imc;
     private ListenerRegistration graphListener;
     private AlertDialog.Builder alertaNovaMedicao;
 
@@ -112,7 +111,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         mChart.getAxisLeft().setDrawGridLines(false);
         mChart.getXAxis().setDrawGridLines(false);
 
-        double h = this.paciente.getAltura();
+        double h = paciente.getAltura();
         double pesoAux = 24.9 * h * h;
         LimitLine upper_limit;
         if(checkPeso.isChecked()) {
@@ -186,8 +185,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
-        imc = (paciente.getPeso() / (paciente.getAltura() * paciente.getAltura()));
-
         TextListaPesosTela = (TextView) findViewById(R.id.text_chamada_lista_pesos_tela);
         chamadaListaPesos = (ImageView) findViewById(R.id.image_chamar_pesos_tela_peso);
 
@@ -210,12 +207,6 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         mudarGrafico(paciente);
 
         PacienteUpdater.addListener(this);
-
-        Double peso_atual = paciente.getPeso();
-        Double circ_atual = paciente.getCircunferencia();
-
-        novoPeso.setHint(String.format("%.2f", peso_atual));
-        novoCirc.setHint(String.format("%.2f", circ_atual));
 
         novoPeso.setRawInputType(Configuration.KEYBOARD_QWERTY);
         novoCirc.setRawInputType(Configuration.KEYBOARD_QWERTY);

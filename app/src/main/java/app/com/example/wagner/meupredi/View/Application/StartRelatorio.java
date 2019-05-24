@@ -13,15 +13,12 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
 public class StartRelatorio extends AppCompatActivity {
 
     private TextView msgBalao, btnContinuar, btnVoltar;
-    private Paciente paciente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_start_relatorio);
-
-        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         msgBalao = findViewById(R.id.msg_tutorial_relatorio_start);
         btnContinuar = findViewById(R.id.btn_continuar_tutorial1);
@@ -44,6 +41,7 @@ public class StartRelatorio extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(StartRelatorio.this, InfoRelatorio.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

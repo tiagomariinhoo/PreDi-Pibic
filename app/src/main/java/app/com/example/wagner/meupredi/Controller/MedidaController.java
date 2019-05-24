@@ -2,6 +2,7 @@ package app.com.example.wagner.meupredi.Controller;
 
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -67,7 +68,7 @@ public abstract class MedidaController {
     }
 
     public static Task<QuerySnapshot> getMedida(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1).get();
+        return getLastInfoMedida(paciente).get();
     }
 
     public static Query getLastInfoMedida(Paciente paciente){

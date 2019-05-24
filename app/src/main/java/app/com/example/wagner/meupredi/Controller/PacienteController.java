@@ -8,7 +8,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import app.com.example.wagner.meupredi.Model.Medida;
 import app.com.example.wagner.meupredi.Model.Paciente;
+import app.com.example.wagner.meupredi.Model.Taxas;
 
 /**
  * Created by tico_ on 31/01/2018.

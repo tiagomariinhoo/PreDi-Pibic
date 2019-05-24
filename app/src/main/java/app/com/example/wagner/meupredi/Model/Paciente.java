@@ -177,11 +177,9 @@ public class Paciente implements Serializable {
         this.hemoglobinaGlicolisada = taxas.getHemoglobinaGlico();
     }
 
-    public void setTaxas(double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlicolisada){
-        this.glicose75g = glicose75g;
-        this.glicoseJejum = glicoseJejum;
-        this.colesterol = colesterol;
-        this.hemoglobinaGlicolisada = hemoglobinaGlicolisada;
+    public void setMedida(Medida medida){
+        this.setPeso(medida.getPeso());
+        this.circunferencia = medida.getCircunferencia();
     }
 
     private void updateImc(){

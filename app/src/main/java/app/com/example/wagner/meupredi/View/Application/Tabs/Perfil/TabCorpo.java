@@ -50,11 +50,6 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
         PacienteUpdater.addListener((PacienteListener) this);
         PacienteUpdater.addListener((MedidaListener) this);
 
-        pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getPeso()));
-        imcAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getImc()));
-
-        setImcStatus();
-
         pesoAtual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

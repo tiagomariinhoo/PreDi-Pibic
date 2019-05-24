@@ -33,6 +33,7 @@ public abstract class TaxasController {
     }
 
     public static Task<Void> addTaxas(Paciente paciente){
+        PacienteController.atualizarPaciente(paciente);
         Taxas taxas = new Taxas(paciente.getEmail(), paciente.getGlicose75g(),
                 paciente.getGlicoseJejum(), paciente.getColesterol(), paciente.getHemoglobinaGlicolisada());
         DocumentReference doc = getRef(paciente.getEmail()).document();
@@ -67,7 +68,7 @@ public abstract class TaxasController {
     }
 
     public static Task<QuerySnapshot> getTaxas(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1).get();
+        return getLastInfoTaxas(paciente).get();
     }
 
     public static Query getLastInfoTaxas(Paciente paciente){

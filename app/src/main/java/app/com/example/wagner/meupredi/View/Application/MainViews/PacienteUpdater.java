@@ -73,7 +73,7 @@ public final class PacienteUpdater {
                     if (!queryDocumentSnapshots.isEmpty()){
                         taxas = queryDocumentSnapshots.toObjects(Taxas.class).get(0);
                     } else{
-                        taxas = new Taxas( paciente.getEmail(), 0.0, 0.0, 0.0, 0.0);
+                        taxas = new Taxas(paciente.getEmail(), 0.0, 0.0, 0.0, 0.0);
                     }
 
                     onUpdate(taxas);
@@ -134,7 +134,7 @@ public final class PacienteUpdater {
                     if(!queryDocumentSnapshots.isEmpty())
                         lastMedida = queryDocumentSnapshots.toObjects(Medida.class).get(0);
                     else
-                        new Medida(paciente.getEmail(), 0.0, 0.0);
+                        lastMedida = new Medida(paciente.getEmail(), 0.0, 0.0);
                     listener.onChangeMedida(lastMedida);
                 }
             });
@@ -180,9 +180,13 @@ public final class PacienteUpdater {
     }
 
     public static void onEnd(){
-        if(medidaSnapshot != null && taxasSnapshot != null && pacienteSnapshot != null) {
+        if(medidaSnapshot != null) {
             medidaSnapshot.remove();
+        }
+        if(taxasSnapshot != null){
             taxasSnapshot.remove();
+        }
+        if(pacienteSnapshot != null) {
             pacienteSnapshot.remove();
         }
     }
