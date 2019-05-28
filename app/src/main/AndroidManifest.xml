@@ -59,7 +59,7 @@
         <activity android:name=".View.Application.TabelaImc"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
-        <activity android:name=".View.Application.PesoIdeal"
+        <activity android:name=".View.Application.Popups.PopIMC"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.Dicas"
@@ -98,6 +98,9 @@
         <activity android:name=".View.Application.InfoRelatorio" />
         <activity android:name=".View.Application.FinalRelatorio" />
         <activity android:name=".View.Application.Popups.PopConquista"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".View.Application.Popups.DicasPredi"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme" />
 

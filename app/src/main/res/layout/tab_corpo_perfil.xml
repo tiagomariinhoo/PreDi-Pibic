@@ -4,55 +4,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorBranco">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente_branco">
 
     <TextView
-        android:id="@+id/text_tab_corpo_atualizar_peso2"
+        android:id="@+id/textView27"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/gradiente_verde"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_peso_atual"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_peso_atual" />
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/borda_retangular_sombra"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_tab_corpo_peso_atual" />
 
     <TextView
         android:id="@+id/text_tab_corpo_atualizar_peso"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginRight="11dp"
-        android:background="@drawable/gradiente_branco"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/borda_retangular_sombra"
+        android:text="Atualize seu peso"
+        android:gravity="start"
+        android:textSize="18sp"
+        android:textColor="@color/colorBackground"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:textAlignment="textStart"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_peso_atual"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_peso_atual" />
-
-    <TextView
-        android:id="@+id/text_tab_corpo_atualizar2_peso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Atualize seu Peso"
-        android:textColor="#3c40c6"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_peso_atual"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.521" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/text_tab_corpo_peso_atual"
         android:layout_width="100dp"
         android:layout_height="60dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradiente_verde"
+        android:background="@drawable/borda_retangular_sombra_vermelha"
         android:gravity="center_vertical"
-        android:text="00,00 "
+        android:text="00,00"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
         android:textSize="30sp"
@@ -61,107 +56,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_tab_corpo_tabela_imc2"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/gradiente_cooper"
-        android:text=""
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_imc_atual"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_imc_atual" />
-
-    <TextView
-        android:id="@+id/text_tab_corpo_tabela_imc"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginRight="11dp"
-        android:background="@drawable/gradiente_branco"
-        android:text=""
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_imc_atual"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_imc_atual" />
-
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="IMC"
-        android:textColor="#000"
-        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_imc_atual"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_imc_atual"
-        app:layout_constraintHorizontal_bias="0.502" />
-
-    <TextView
-        android:id="@+id/text_tab_corpo_peso_ultima_medicao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Ultima medição: dd/MM/aaaa"
-        android:visibility="invisible"
-        app:layout_constraintLeft_toLeftOf="@+id/text_tab_corpo_atualizar2_peso"
-        app:layout_constraintRight_toRightOf="@+id/text_tab_corpo_atualizar2_peso"
-        app:layout_constraintTop_toBottomOf="@+id/text_tab_corpo_atualizar2_peso" />
-
-    <TextView
-        android:id="@+id/text_tab_corpo_imc_atual"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/gradiente_cooper"
-        android:gravity="center_vertical"
-        android:text="00,00"
-        android:textAlignment="center"
-        android:textColor="@color/colorBranco"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_tab_corpo_peso_atual" />
-
-    <TextView
         android:id="@+id/text_chamada_info_imc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="30dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
+        android:background="@drawable/borda_retangular_sombra_vermelha"
+        android:gravity="center_vertical"
         android:text="Informativo sobre IMC"
-        android:textColor="#575fcf"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_tab_corpo_tabela_imc" />
-
-    <TextView
-        android:id="@+id/text_tab_corpo_status_imc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
-        android:text=" - "
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toRightOf="@+id/text_tab_corpo_imc_atual"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+        android:paddingLeft="8dp"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/text_qual_meu_peso_ideal"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/text_qual_meu_peso_ideal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Qual é meu peso ideal?"
-        android:textColor="#575fcf"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_tab_corpo_imc_atual" />
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/borda_retangular_sombra_vermelha"
+        android:gravity="center_vertical"
+
+        android:paddingLeft="8dp"
+        android:text="Qual é meu IMC?"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView27"
+        app:layout_constraintEnd_toStartOf="@+id/text_chamada_info_imc"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView37"
@@ -178,18 +102,114 @@
         app:layout_constraintRight_toRightOf="@+id/text_tab_corpo_peso_atual"
         app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_peso_atual" />
 
-    <TextView
-        android:id="@+id/textView27"
+    <ImageView
+        android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
-        android:text="kg / m²"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:background="@mipmap/ic_update_data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_update_data" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/borda_retangular_sombra"
+        android:text="Circunferência"
+        android:paddingRight="8dp"
+        android:textColor="@color/colorBackground"
+        android:textAlignment="textEnd"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView55"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView56"
+        app:layout_constraintTop_toTopOf="@+id/textView27"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/borda_retangular_magenta_borda_branca"
+        android:gravity="center_vertical"
+        android:text="00,00  "
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView27" />
+
+    <TextView
+        android:id="@+id/textView56"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="cm   "
         android:textColor="@color/colorBranco"
         android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="@+id/text_tab_corpo_imc_atual"
-        app:layout_constraintRight_toRightOf="@+id/text_tab_corpo_imc_atual"
-        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_imc_atual" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView55"
+        app:layout_constraintEnd_toEndOf="@+id/textView55"
+        app:layout_constraintTop_toTopOf="@+id/textView55" />
+
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/borda_retangular_sombra"
+        android:paddingRight="8dp"
+        android:text="Altura"
+        android:textColor="@color/colorBackground"
+        android:textAlignment="textEnd"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView59"
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borda_retangular_sombra_vermelha"
+        android:gravity="center_vertical"
+        android:text="0,00  "
+        android:textAlignment="center"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+    <TextView
+        android:id="@+id/textView59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="m   "
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView58"
+        app:layout_constraintEnd_toEndOf="@+id/textView58"
+        app:layout_constraintTop_toTopOf="@+id/textView58" />
+
+    <TextView
+        android:id="@+id/text_tab_corpo_peso_ultima_medicao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:text="Ultima medicao"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/text_tab_corpo_peso_atual"
+        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_atualizar_peso" />
+
 
 </android.support.constraint.ConstraintLayout>

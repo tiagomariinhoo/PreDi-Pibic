@@ -32,6 +32,7 @@ import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.Dicas;
 import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
+import app.com.example.wagner.meupredi.View.Application.Popups.DicasPredi;
 import app.com.example.wagner.meupredi.View.Application.Sair;
 import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabConsultas;
 import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabCorpo;
@@ -111,7 +112,7 @@ public class Perfil extends ActivityGroup implements PacienteListener {
         coracao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Perfil.this, PopNotific.class);
+                Intent intent = new Intent(Perfil.this, DicasPredi.class);
                 startActivity(intent);
             }
         });

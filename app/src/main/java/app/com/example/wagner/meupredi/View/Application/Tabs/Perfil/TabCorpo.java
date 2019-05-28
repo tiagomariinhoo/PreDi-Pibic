@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -16,7 +17,7 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
 import app.com.example.wagner.meupredi.View.Application.PacienteListener;
-import app.com.example.wagner.meupredi.View.Application.PesoIdeal;
+import app.com.example.wagner.meupredi.View.Application.Popups.PopIMC;
 import app.com.example.wagner.meupredi.View.Application.TabelaImc;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
@@ -27,8 +28,9 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
 
 public class TabCorpo extends Activity implements PacienteListener, MedidaListener {
 
-    private TextView pesoAtual, chamadaPeso, ultimaMedicao, imcAtual;
-    private TextView informativoIMC, pesoIdeal, statusIMC;
+    private TextView pesoAtual, ultimaMedicao;
+    private TextView chamadaPeso;
+    private TextView informativoIMC, pesoIdeal;
     private Paciente paciente;
 
     @Override
@@ -40,15 +42,15 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         pesoAtual = (TextView) findViewById(R.id.text_tab_corpo_peso_atual);
-        chamadaPeso = (TextView) findViewById(R.id.text_tab_corpo_atualizar_peso);
+        chamadaPeso = findViewById(R.id.text_tab_corpo_atualizar_peso);
         ultimaMedicao = (TextView) findViewById(R.id.text_tab_corpo_peso_ultima_medicao);
-        imcAtual = (TextView) findViewById(R.id.text_tab_corpo_imc_atual);
         informativoIMC = (TextView) findViewById(R.id.text_chamada_info_imc);
         pesoIdeal = (TextView) findViewById(R.id.text_qual_meu_peso_ideal);
-        statusIMC = (TextView) findViewById(R.id.text_tab_corpo_status_imc);
 
         PacienteUpdater.addListener((PacienteListener) this);
         PacienteUpdater.addListener((MedidaListener) this);
+
+        pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getPeso()));
 
         pesoAtual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,35 +79,11 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
         pesoIdeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chamadaPesoIdeal = new Intent(TabCorpo.this, PesoIdeal.class);
+                Intent chamadaPesoIdeal = new Intent(TabCorpo.this, PopIMC.class);
                 startActivity(chamadaPesoIdeal);
             }
         });
 
-    }
-
-    public void setImcStatus(){
-        if(paciente.getImc() <= 16.9){
-            statusIMC.setText("Muito abaixo do Peso");
-        }
-        else if(paciente.getImc() <= 18.4){
-            statusIMC.setText("Abaixo do peso");
-        }
-        else if(paciente.getImc() <= 24.9){
-            statusIMC.setText("Peso normal");
-        }
-        else if(paciente.getImc() <= 29.9){
-            statusIMC.setText("Acima do peso");
-        }
-        else if(paciente.getImc() <= 34.9){
-            statusIMC.setText("Obesidade I");
-        }
-        else if(paciente.getImc() <= 40){
-            statusIMC.setText("Obesidade II");
-        }
-        else{
-            statusIMC.setText("Obesidade III");
-        }
     }
 
     @Override
@@ -121,8 +99,6 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
     @Override
     public void onChangePaciente(Paciente paciente) {
         this.paciente = paciente;
-        imcAtual.setText(String.format(Locale.getDefault(), "%.2f",paciente.getImc()));
-        setImcStatus();
     }
 
     @Override
