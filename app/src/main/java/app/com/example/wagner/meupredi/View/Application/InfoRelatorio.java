@@ -197,7 +197,7 @@ public class InfoRelatorio extends AppCompatActivity {
         estados.add(first);
 
         double hemoglobinaAtual = paciente.getHemoglobinaGlicolisada();
-        String valorAtual = "Glicose atual: " + String.valueOf(hemoglobinaAtual).replace(".", ",") + "%";
+        String valorAtual = "HbA1c atual: " + String.valueOf(hemoglobinaAtual).replace(".", ",") + "%";
         lista.add(valorAtual);
         if(hemoglobinaAtual < 5.7){
             //TODO: ver se essa mensagem ficou boa
