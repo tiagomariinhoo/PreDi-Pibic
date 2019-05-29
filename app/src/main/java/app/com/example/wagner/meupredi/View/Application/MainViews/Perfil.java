@@ -86,7 +86,7 @@ public class Perfil extends ActivityGroup implements PacienteListener {
         notificacoes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Perfil.this, Dicas.class);
+                Intent intent = new Intent(Perfil.this, DicasPredi.class);
                 startActivity(intent);
             }
         });
@@ -112,7 +112,7 @@ public class Perfil extends ActivityGroup implements PacienteListener {
         coracao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Perfil.this, DicasPredi.class);
+                Intent intent = new Intent(Perfil.this, PopNotific.class);
                 startActivity(intent);
             }
         });

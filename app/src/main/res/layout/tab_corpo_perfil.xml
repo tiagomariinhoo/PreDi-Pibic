@@ -57,38 +57,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_chamada_info_imc"
-        android:layout_width="180dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/borda_retangular_sombra_vermelha"
-        android:gravity="center_vertical"
-        android:text="Informativo sobre IMC"
-        android:paddingLeft="8dp"
-        android:textColor="@color/colorBranco"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/text_qual_meu_peso_ideal"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
-        android:id="@+id/text_qual_meu_peso_ideal"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/borda_retangular_sombra_vermelha"
-        android:gravity="center_vertical"
-
-        android:paddingLeft="8dp"
-        android:text="Qual é meu IMC?"
-        android:textColor="@color/colorBranco"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/textView27"
-        app:layout_constraintEnd_toStartOf="@+id/text_chamada_info_imc"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
         android:id="@+id/textView37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,6 +70,17 @@
         app:layout_constraintLeft_toLeftOf="@+id/text_tab_corpo_peso_atual"
         app:layout_constraintRight_toRightOf="@+id/text_tab_corpo_peso_atual"
         app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_peso_atual" />
+
+    <TextView
+        android:id="@+id/text_tab_corpo_peso_ultima_medicao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:text="Ultima medicao"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/text_tab_corpo_peso_atual"
+        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_atualizar_peso" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -202,15 +181,36 @@
         app:layout_constraintTop_toTopOf="@+id/textView58" />
 
     <TextView
-        android:id="@+id/text_tab_corpo_peso_ultima_medicao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/text_qual_meu_peso_ideal"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:text="Ultima medicao"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/text_tab_corpo_peso_atual"
-        app:layout_constraintTop_toTopOf="@+id/text_tab_corpo_atualizar_peso" />
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/borda_retangular_sombra_vermelha"
+        android:gravity="center_vertical"
+
+        android:paddingLeft="8dp"
+        android:text="Qual é meu IMC?"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView27"
+        app:layout_constraintEnd_toStartOf="@+id/text_chamada_info_imc"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/text_chamada_info_imc"
+        android:layout_width="180dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/borda_retangular_sombra_vermelha"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="Informativo sobre IMC"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/text_qual_meu_peso_ideal"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

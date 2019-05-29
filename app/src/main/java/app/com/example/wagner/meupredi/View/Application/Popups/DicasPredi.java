@@ -56,9 +56,18 @@ public class DicasPredi extends Activity {
             image.setImageAlpha(R.mipmap.blue_alert);
             image.setBackgroundResource(R.mipmap.blue_alert);
             back.setBackgroundResource(R.drawable.borda_curvada_cima_amarela);
-            status.setText("Pré Diabetes" );
+            status.setText("Pré Diabetes");
             txtDica.setText("  Modificações positivas do estilo de vida podem ter papel decisivo na prevenção do diabetes!");
             continuar.setText("Continuar");
+            //setTextViews();
+            }
+
+            private void setTextViews(){
+                if(paciente.calculoStatus() == Paciente.StatusPaciente.PRE_DIABETES){
+                    status.setText("Pré Diabetes");
+                    txtDica.setText("  Modificações positivas do estilo de vida podem ter papel decisivo na prevenção do diabetes!");
+                    continuar.setText("Continuar");
+                }
             }
         });
 

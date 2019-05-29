@@ -187,41 +187,80 @@ public class Paciente implements Serializable {
         else this.imc = peso; //assume altura como 1, caso seja 0
     }
 
-    //metodo chamado na classe PopNotific para verificar situacao do paciente
-    public String calculoDiabetes() {
-
-        String mensagem;
+    public StatusPaciente calculoStatus() {
 
         if(getGlicoseJejum() < 100){
-            //TODO: ver se essa mensagem ficou boa
-            mensagem = "Sua glicemia em jejum atual está boa, mas devem ser feitas novas " +
-                    "avaliações a cada 3 anos ou conforme o risco.";
+
+            return StatusPaciente.GLICOSE_JEJUM_BOA;
+
         } else if(getGlicoseJejum() >= 100 && getGlicoseJejum() <= 125){
 
             if(getGlicose75g() <= 199){
 
                 if(getHemoglobinaGlicolisada() < 5.7){
-                    //TODO: ver se essa mensagem ficou boa
-                    mensagem = "Há chance de Glicemia de Jejum Alterada, " +
-                            "você deve procurar um médico.";
+
+                    return StatusPaciente.GLICOSE_JEJUM_ALTERADA;
+
                 } else if(getHemoglobinaGlicolisada() >= 5.7 && getHemoglobinaGlicolisada() <= 6.4){
-                    //TODO: ver se essa mensagem ficou boa
-                    mensagem = "Há um alto risco de pré-diabetes, você deve procurar um médico.";
+
+                    return StatusPaciente.PRE_DIABETES;
+
                 } else{
-                    //TODO: ver se essa mensagem ficou boa
-                    mensagem = "Há alto risco de diabetes, você deve procurar um médido.";
+
+                    return StatusPaciente.DIABETES;
+
                 }
 
             } else{
-                //TODO: ver se essa mensagem ficou boa
-                mensagem = "Sua glicose após 75g está muito alta, você deve procurar um médico.";
+
+                return StatusPaciente.GLICOSE_75G_ALTA;
+
             }
 
         } else{
-            //TODO: ver se essa mensagem ficou boa
-            mensagem = "Sua glicemia em jejum está muito alta, você deve procurar um médico.";
+
+            return StatusPaciente.GLICOSE_JEJUM_ALTA;
+
         }
 
-        return mensagem;
+    }
+
+    public void checkStatus(){
+        switch(this.calculoStatus()){
+            case DIABETES:
+
+                break;
+        }
+        if(this.calculoStatus() == StatusPaciente.DIABETES){
+
+        }
+    }
+
+    public enum StatusPaciente {
+        GLICOSE_JEJUM_BOA("Sua glicemia de jejum atual está boa, mas devem ser feitas " +
+                            "novas avaliações a cada 3 anos ou conforme o risco."),
+
+        GLICOSE_JEJUM_ALTERADA("Há chance de glicemia de jejum alterada, " +
+                            "você deve procurar um médico."),
+
+        GLICOSE_JEJUM_ALTA("Sua glicemia em jejum está muito alta, você deve " +
+                            "procurar um médico."),
+
+        GLICOSE_75G_ALTA("Sua glicemia 2 horas após sobrecarga com 75g de glicose está " +
+                            "muito alta, você deve procurar um médico."),
+
+        PRE_DIABETES("Há um alto risco de pré-diabetes, você deve procurar um médico."),
+
+        DIABETES("Há alto risco de diabetes, você deve procurar um médico.");
+
+        private String frase;
+
+        StatusPaciente(String frase){
+            this.frase = frase;
+        }
+
+        public String getFrase() {
+            return frase;
+        }
     }
 }

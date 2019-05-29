@@ -208,7 +208,7 @@ public class InfoRelatorio extends AppCompatActivity {
             mensagem = "Há um alto risco de pré-diabetes, você deve procurar um médico.";
         } else{
             //TODO: ver se essa mensagem ficou boa
-            mensagem = "Há alto risco de diabetes, você deve procurar um médido.";
+            mensagem = "Há alto risco de diabetes, você deve procurar um médico.";
         }
         CardFace second = new CardFace(mensagem, variavel, lista);
 

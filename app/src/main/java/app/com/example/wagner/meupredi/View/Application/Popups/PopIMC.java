@@ -7,6 +7,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
@@ -59,12 +61,12 @@ public class PopIMC extends Activity  {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
-        double imc = paciente.getImc();
+        paciente = PacienteUpdater.getPaciente();
+        String imc = String.format(Locale.getDefault(), "%.2f", paciente.getImc());
         msg = findViewById(R.id.txt_imc);
         fechar = findViewById(R.id.txt_fechar_imc);
 
-        String complemento = condicao_imc(imc);
+        String complemento = condicao_imc(paciente.getImc());
 
         msg.setText("Seu Índice de Massa Corporal é de " + imc + '\n' + complemento);
 

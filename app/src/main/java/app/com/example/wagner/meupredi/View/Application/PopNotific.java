@@ -21,7 +21,6 @@ public class PopNotific extends Activity {
 
     private TextView relatorio;
     private ImageView chamadaExplicativoDiagnostico;
-    private Map<String, Double> userVariables;
     private Paciente paciente;
 
     @Override
@@ -42,16 +41,11 @@ public class PopNotific extends Activity {
 
         chamadaExplicativoDiagnostico = findViewById(R.id.image_informacao_diagnostico);
 
-        userVariables = new HashMap<String, Double>();
-        userVariables.put("glicemiaJejum", paciente.getGlicoseJejum());
-        userVariables.put("glicemia2h", paciente.getGlicose75g());
-        userVariables.put("idade", Double.parseDouble("50"));
-
         getWindow().setLayout((int) ( width*.8), (int) (height*.50));
 
         relatorio = (TextView) findViewById(R.id.text_pop_notific_relatorio);
 
-        relatorio.setText(paciente.calculoDiabetes());
+        relatorio.setText(paciente.calculoStatus().getFrase());
 
         chamadaExplicativoDiagnostico.setOnClickListener(new View.OnClickListener() {
             @Override

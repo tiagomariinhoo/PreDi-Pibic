@@ -6,7 +6,9 @@ import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 /**
  * Created by leandro on 17/04/18.
@@ -22,7 +24,6 @@ public class Dicas extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.croqui);
-
 
         //DisplayMetrics dm = new DisplayMetrics();
         //getWindowManager().getDefaultDisplay().getMetrics(dm);
