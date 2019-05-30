@@ -34,4 +34,10 @@
         <item name="android:textColor">@color/colorBranco</item>
     </style>
 
+    <style name="TabWidgetTheme" parent="AppTheme">
+        <item name="android:textColorPrimary">@color/colorBranco</item>
+        <item name="android:textColorSecondary">@color/colorCinza</item>
+
+    </style>
+
 </resources>

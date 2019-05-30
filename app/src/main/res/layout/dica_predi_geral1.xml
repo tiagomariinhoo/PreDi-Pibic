@@ -66,60 +66,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
         android:text="Fechar"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/txt_continuar_predi_geral"
+        app:layout_constraintEnd_toStartOf="@+id/txt_continuar_predi_geral"
+        app:layout_constraintStart_toEndOf="@+id/txt_voltar_predi_geral" />
 
     <TextView
         android:id="@+id/txt_continuar_predi_geral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
         android:text="Continuar"
         android:textColor="@color/colorBackground"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <RadioButton
-        android:id="@+id/radio_btn_dicas_predi_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="false"
-        android:text=""
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RadioButton
-        android:id="@+id/radio_btn_dicas_predi_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:clickable="false"
-        android:text=""
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/radio_btn_dicas_predi_2" />
-
-    <RadioButton
-        android:id="@+id/radio_btn_dicas_predi_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:clickable="false"
-        android:text=""
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/radio_btn_dicas_predi_2" />
+        app:layout_constraintBottom_toBottomOf="@+id/img_continuar_predi_geral"
+        app:layout_constraintEnd_toStartOf="@+id/img_continuar_predi_geral"
+        app:layout_constraintTop_toTopOf="@+id/img_continuar_predi_geral" />
 
     <TextView
         android:id="@+id/txt_status_imc"
@@ -132,6 +96,47 @@
         android:textColor="@color/colorBranco"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/img_peso_ideal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_voltar_predi_geral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Voltar"
+        app:layout_constraintBottom_toBottomOf="@+id/img_voltar_predi_geral"
+        app:layout_constraintStart_toEndOf="@+id/img_voltar_predi_geral"
+        app:layout_constraintTop_toTopOf="@+id/img_voltar_predi_geral" />
+
+    <ImageView
+        android:id="@+id/img_continuar_predi_geral"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/ic_seta_direita" />
+
+    <ImageView
+        android:id="@+id/img_voltar_predi_geral"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/ic_seta_direita" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#bdc3c7"
+        app:layout_constraintBottom_toTopOf="@+id/img_voltar_predi_geral"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

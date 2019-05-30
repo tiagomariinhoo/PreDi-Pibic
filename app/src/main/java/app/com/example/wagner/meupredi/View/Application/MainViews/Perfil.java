@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -52,7 +53,7 @@ public class Perfil extends ActivityGroup implements PacienteListener {
     private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair, informacao, shareCda;
     private Paciente paciente;
     private AlertDialog.Builder alertaDuvidas;
-
+    private TabHost tabhost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +129,7 @@ public class Perfil extends ActivityGroup implements PacienteListener {
             }
         });
 
-        TabHost abas = (TabHost) findViewById(R.id.tabhost);
+        TabHost abas = findViewById(R.id.tabhost);
         abas.setup(this.getLocalActivityManager());
 
         TabHost.TabSpec descritor = abas.newTabSpec("aba1");
@@ -137,6 +138,7 @@ public class Perfil extends ActivityGroup implements PacienteListener {
 
         descritor.setContent(intent);
         descritor.setIndicator("TAXAS");
+
         abas.addTab(descritor);
 
         descritor = abas.newTabSpec("aba2");
@@ -154,7 +156,6 @@ public class Perfil extends ActivityGroup implements PacienteListener {
         descritor.setContent(intent);
         descritor.setIndicator("CONSULTAS");
         abas.addTab(descritor);
-
 
         informacao.setOnClickListener(new View.OnClickListener() {
             @Override

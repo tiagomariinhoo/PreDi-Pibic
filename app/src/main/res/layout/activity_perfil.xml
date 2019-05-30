@@ -43,8 +43,7 @@
 
     <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:background="@drawable/gradiente_branco"
+        android:layout_height="255dp"
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,9 +57,10 @@
         <TabHost
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/tabhost"
-            android:background="@drawable/gradiente_branco"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+
+            android:theme="@style/TabWidgetTheme">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,12 +70,14 @@
                 <TabWidget
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="50dp"
+                    android:background="@drawable/borda_curvada_cima_azul" />
 
                 <FrameLayout
                     android:id="@android:id/tabcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradiente_branco">
 
                 </FrameLayout>
             </LinearLayout>
@@ -168,8 +170,8 @@
         android:id="@+id/image_informacao_perfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="0dp"
         android:background="@mipmap/ic_informativo_taxas_chamada"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"

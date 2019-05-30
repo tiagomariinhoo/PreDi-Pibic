@@ -14,10 +14,9 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
 
 public class DicasPredi extends Activity {
 
-    private TextView tituloDica, txtDica, fechar, continuar, back, status;
-    private ImageView image;
+    private TextView tituloDica, txtDica, fechar, continuar, voltar, back, status;
+    private ImageView image, imgContinuar, imgVoltar;
     private Paciente paciente;
-    private RadioButton r1, r2, r3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,88 +33,37 @@ public class DicasPredi extends Activity {
         getWindow().setLayout((int) ( width*.80), (int) (height*.6));
 
         paciente = PacienteUpdater.getPaciente();
+        Paciente.StatusPaciente state = paciente.calculoStatus();
 
         fechar = findViewById(R.id.txt_fechar_imc);
         tituloDica = findViewById(R.id.txt_titulo_imc);
         txtDica = findViewById(R.id.txt_imc);
         back = findViewById(R.id.txt_backgroud_geral_dicas_predi);
         image = findViewById(R.id.img_peso_ideal);
-        r1 = findViewById(R.id.radio_btn_dicas_predi_1);
-        r2 = findViewById(R.id.radio_btn_dicas_predi_2);
-        r3 = findViewById(R.id.radio_btn_dicas_predi_3);
         continuar = findViewById(R.id.txt_continuar_predi_geral);
+        imgContinuar = findViewById(R.id.img_continuar_predi_geral);
+        voltar = findViewById(R.id.txt_voltar_predi_geral);
+        imgVoltar = findViewById(R.id.img_voltar_predi_geral);
         status = findViewById(R.id.txt_status_imc);
-
-        r1.setChecked(true);
-
-        r1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            r2.setChecked(false);
-            r3.setChecked(false);
-            image.setImageAlpha(R.mipmap.blue_alert);
-            image.setBackgroundResource(R.mipmap.blue_alert);
-            back.setBackgroundResource(R.drawable.borda_curvada_cima_amarela);
-            status.setText("Pré Diabetes");
-            txtDica.setText("  Modificações positivas do estilo de vida podem ter papel decisivo na prevenção do diabetes!");
-            continuar.setText("Continuar");
-            //setTextViews();
-            }
-
-            private void setTextViews(){
-                if(paciente.calculoStatus() == Paciente.StatusPaciente.PRE_DIABETES){
-                    status.setText("Pré Diabetes");
-                    txtDica.setText("  Modificações positivas do estilo de vida podem ter papel decisivo na prevenção do diabetes!");
-                    continuar.setText("Continuar");
-                }
-            }
-        });
-
-        r2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                r1.setChecked(false);
-                r3.setChecked(false);
-                image.setImageAlpha(R.mipmap.green_alert);
-                image.setBackgroundResource(R.mipmap.green_alert);
-                back.setBackgroundResource(R.drawable.borda_curvada_cima_verde);
-                status.setText("Saudável" );
-                txtDica.setText("Hábitos de vida mais saudáveis, como fazer uma dieta balanceada, rica em fibras, visando " +
-                        "um peso corporal cada vez mais próximo do ideal e ...");
-                continuar.setText("Continuar");
-            }
-        });
-
-        r3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                r1.setChecked(false);
-                r2.setChecked(false);
-                image.setImageAlpha(R.mipmap.ic_diabete_status);
-                image.setBackgroundResource(R.mipmap.ic_diabete_status);
-                back.setBackgroundResource(R.drawable.borda_curvada_cima_vermelha);
-                status.setText("Diabetes" );
-                txtDica.setText(" associada à atividade física de" +
-                        ", pelo menos, 150 minutos semanais, são capazes de reduzir seu risco de Diabetes em 58%!");
-                continuar.setText("");
-            }
-        });
 
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(r1.isChecked()){
-                  r1.setChecked(false);
-                  r2.setChecked(true);
-                  txtDica.setText(" Hábitos de vida mais saudáveis, como fazer uma dieta balanceada, rica em fibras, visando " +
-                          "um peso corporal cada vez mais próximo do ideal e ...");
+                setTextViews();
+            }
+            private void setTextViews(){
+
+                if(state == Paciente.StatusPaciente.DIABETES){
+                    status.setText("Diabetes");
+                    txtDica.setText("Na prática clínica diária, verificamos a existência de um grande número de pessoas" +
+                            " com DM2 que apresentam um significativo descontrole do perfil glicêmico, " +
+                            "situação essa que decorre da não utilização da automonitorização glicêmica. ");
+                    continuar.setText("Continuar");
                 }
-                else if(r2.isChecked()){
-                    r2.setChecked(false);
-                    r3.setChecked(true);
-                    txtDica.setText("associada à atividade física de" +
-                            ", pelo menos, 150 minutos semanais, são capazes de reduzir seu risco de Diabetes em 58%!");
-                    continuar.setText("");
+                else{
+                    status.setText("Pré Diabetes");
+                    txtDica.setText(" --------");
+                    continuar.setText("Continuar");
                 }
             }
         });

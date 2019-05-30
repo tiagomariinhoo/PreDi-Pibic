@@ -227,7 +227,8 @@
         android:text="Qual meu peso ideal?"
         android:textColor="@color/colorBranco"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="318dp" />
+        app:layout_constraintTop_toTopOf="@+id/checkBox_circunferencia_graf" />
 
 </android.support.constraint.ConstraintLayout>

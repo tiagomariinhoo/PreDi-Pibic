@@ -5,7 +5,7 @@
     android:padding="8dp"
     android:background="@color/colorBranco">
 
-    <TextView
+    <Button
         android:id="@+id/tab_perfil_consultas"
         android:layout_width="match_parent"
         android:layout_height="40dp"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class TabConsultas extends Activity implements LiveUpdateHelper<Consulta>
     private Paciente paciente;
     private ListView listaDeConsultas;
     private ArrayAdapter<String> adapter;
-    private TextView chamadaConsultas;
+    private Button chamadaConsultas;
     private ListenerRegistration listListener;
 
     @Override
@@ -44,8 +45,8 @@ public class TabConsultas extends Activity implements LiveUpdateHelper<Consulta>
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
-        listaDeConsultas = (ListView) findViewById(R.id.lista_consultas);
-        chamadaConsultas = (TextView) findViewById(R.id.tab_perfil_consultas);
+        listaDeConsultas = findViewById(R.id.lista_consultas);
+        chamadaConsultas = findViewById(R.id.tab_perfil_consultas);
         listaDeConsultas.setAdapter(new ArrayAdapter<String>(this, R.layout.lista_consultas_item,
                                     R.id.text_consulta_item, adapterList(new ArrayList<Consulta>())));
 
