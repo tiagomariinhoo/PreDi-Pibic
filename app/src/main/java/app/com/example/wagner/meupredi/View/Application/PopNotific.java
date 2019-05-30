@@ -19,7 +19,7 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
 
 public class PopNotific extends Activity {
 
-    private TextView relatorio;
+    private TextView relatorio, titulo, fechar;
     private ImageView chamadaExplicativoDiagnostico;
     private Paciente paciente;
 
@@ -40,18 +40,28 @@ public class PopNotific extends Activity {
         Log.d("Teste glicose 2h: ", String.valueOf(paciente.getGlicose75g()));
 
         chamadaExplicativoDiagnostico = findViewById(R.id.image_informacao_diagnostico);
+        fechar = findViewById(R.id.txt_fechar_motor_inferencia);
+        titulo = findViewById(R.id.txt_titulo_motor_inferencia);
 
-        getWindow().setLayout((int) ( width*.8), (int) (height*.50));
+        getWindow().setLayout((int) ( width*.8), (int) (height*.60));
 
         relatorio = (TextView) findViewById(R.id.text_pop_notific_relatorio);
 
-        relatorio.setText(paciente.calculoStatus().getFrase());
+        titulo.setText("Atenção!");
+        relatorio.setText(" " + paciente.calculoStatus().getFrase());
 
         chamadaExplicativoDiagnostico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PopNotific.this, StartRelatorio.class);
                 startActivity(intent);
+            }
+        });
+
+        fechar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

@@ -17,7 +17,7 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
  * Created by leandro on 10/04/18.
  */
 
-public class PopIMC extends Activity  {
+public class PopPesoIdeal extends Activity  {
 
     Paciente paciente;
     private TextView msg, fechar;
@@ -66,9 +66,13 @@ public class PopIMC extends Activity  {
         msg = findViewById(R.id.txt_imc);
         fechar = findViewById(R.id.txt_fechar_imc);
 
-        String complemento = condicao_imc(paciente.getImc());
+        String condicao = condicao_imc(paciente.getImc());
+        String pesoIdealMax = String.format(Locale.getDefault(), "%.2f", 18.5 * paciente.getAltura() * paciente.getAltura());
+        String pesoIdealMin = String.format(Locale.getDefault(), "%.2f", 24.9 * paciente.getAltura() * paciente.getAltura());
 
-        msg.setText("Seu Índice de Massa Corporal é de " + imc + '\n' + complemento);
+        msg.setText("   Seu Índice de Massa Corporal é de " + imc + "." + '\n' + "  Esse valor o coloca em uma " +
+                "faixa considerada como: " + condicao + "."+'\n' + "    Portanto, estima-se que seu peso ideal se encontra" +
+                "na faixa entre " + pesoIdealMin + "kg e " + pesoIdealMax + "kg .");
 
         fechar.setOnClickListener(new View.OnClickListener() {
             @Override

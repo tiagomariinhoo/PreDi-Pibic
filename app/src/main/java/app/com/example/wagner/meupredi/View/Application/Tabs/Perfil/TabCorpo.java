@@ -17,7 +17,7 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.MedidaView;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
 import app.com.example.wagner.meupredi.View.Application.PacienteListener;
-import app.com.example.wagner.meupredi.View.Application.Popups.PopIMC;
+import app.com.example.wagner.meupredi.View.Application.Popups.PopPesoIdeal;
 import app.com.example.wagner.meupredi.View.Application.TabelaImc;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
@@ -28,8 +28,8 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
 
 public class TabCorpo extends Activity implements PacienteListener, MedidaListener {
 
-    private TextView pesoAtual, ultimaMedicao;
-    private TextView chamadaPeso;
+    private TextView pesoAtual, circAtual, imcAtual, ultimaMedicao;
+    private Button chamadaPeso;
     private TextView informativoIMC, pesoIdeal;
     private Paciente paciente;
 
@@ -41,16 +41,20 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
-        pesoAtual = (TextView) findViewById(R.id.text_tab_corpo_peso_atual);
-        chamadaPeso = findViewById(R.id.text_tab_corpo_atualizar_peso);
+        pesoAtual = (TextView) findViewById(R.id.text_valor_hemoglobina_glicolisada_atual);
+        circAtual = (TextView) findViewById(R.id.text_valor_glicose_75g_atual);
+        imcAtual = (TextView) findViewById(R.id.text_valor_glicose_jejum_atual);
+        chamadaPeso = findViewById(R.id.btn_tab_medidas_atualizar);
         ultimaMedicao = (TextView) findViewById(R.id.text_tab_corpo_peso_ultima_medicao);
-        informativoIMC = (TextView) findViewById(R.id.text_chamada_info_imc);
+        informativoIMC = (TextView) findViewById(R.id.imageView10);
         pesoIdeal = (TextView) findViewById(R.id.text_qual_meu_peso_ideal);
 
         PacienteUpdater.addListener((PacienteListener) this);
         PacienteUpdater.addListener((MedidaListener) this);
 
         pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getPeso()));
+        circAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getCircunferencia()));
+        imcAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getImc()));
 
         pesoAtual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +83,7 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
         pesoIdeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chamadaPesoIdeal = new Intent(TabCorpo.this, PopIMC.class);
+                Intent chamadaPesoIdeal = new Intent(TabCorpo.this, PopPesoIdeal.class);
                 startActivity(chamadaPesoIdeal);
             }
         });
@@ -105,7 +109,7 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
     public void onChangeMedida(Medida medida) {
         if(medida != null) {
             pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", medida.getPeso()));
-            ultimaMedicao.setText("Ultima medição: " + medida.printDate());
+            ultimaMedicao.setText("Última medição: " + medida.printDate());
             ultimaMedicao.setVisibility(View.VISIBLE);
         }
     }

@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradiente_branco">
+    android:background="#ecf0f1">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_tab_medidas_atualizar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
@@ -18,43 +18,40 @@
         android:text="Atualize Suas Medidas"
         android:textColor="@color/colorBranco"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="0dp"
-        android:layout_height="95dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:background="@mipmap/ic_kg_1002"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_kg_1002" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="24dp"
+        android:background="@mipmap/ic_circ_tape2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_circ_tape2" />
 
     <TextView
-        android:id="@+id/textView27"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/borda_curvada_azul"
+        android:id="@+id/imageView10"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:background="@drawable/borda_curvada_laranja"
         android:gravity="center_vertical"
         android:text="IMC"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
-        android:textSize="36sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView9"
         app:layout_constraintEnd_toStartOf="@+id/imageView9"
@@ -62,50 +59,107 @@
         app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
     <TextView
-        android:id="@+id/textView28"
+        android:id="@+id/text_valor_hemoglobina_glicolisada_atual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00.00"
-        android:textColor="#e67e22"
-        android:textSize="30sp"
+        android:textColor="#1e90ff"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
         app:layout_constraintStart_toStartOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/textView55" />
+        app:layout_constraintTop_toTopOf="@+id/text_valor_glicose_75g_atual" />
 
     <TextView
-        android:id="@+id/textView55"
+        android:id="@+id/text_valor_glicose_75g_atual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0.00"
         android:textColor="#1e90ff"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView9"
         app:layout_constraintStart_toStartOf="@+id/imageView9"
         app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
     <TextView
-        android:id="@+id/textView56"
+        android:id="@+id/text_valor_glicose_jejum_atual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0.00"
         android:textColor="#1e90ff"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/textView27"
-        app:layout_constraintStart_toStartOf="@+id/textView27"
-        app:layout_constraintTop_toTopOf="@+id/textView28" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView10"
+        app:layout_constraintStart_toStartOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/text_valor_hemoglobina_glicolisada_atual" />
 
     <TextView
         android:id="@+id/textView57"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="kg"
         android:textColor="#1e90ff"
-        app:layout_constraintEnd_toEndOf="@+id/textView28"
-        app:layout_constraintStart_toStartOf="@+id/textView28"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_valor_hemoglobina_glicolisada_atual"
+        app:layout_constraintStart_toStartOf="@+id/text_valor_hemoglobina_glicolisada_atual"
+        app:layout_constraintTop_toBottomOf="@+id/text_valor_hemoglobina_glicolisada_atual" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cm"
+        android:textColor="#1e90ff"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_valor_glicose_75g_atual"
+        app:layout_constraintStart_toStartOf="@+id/text_valor_glicose_75g_atual"
+        app:layout_constraintTop_toBottomOf="@+id/text_valor_glicose_75g_atual" />
+
+    <TextView
+        android:id="@+id/text_qual_meu_peso_ideal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kg/m²"
+        android:textColor="#1e90ff"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_valor_glicose_jejum_atual"
+        app:layout_constraintStart_toStartOf="@+id/text_valor_glicose_jejum_atual"
+        app:layout_constraintTop_toBottomOf="@+id/text_valor_glicose_jejum_atual" />
+
+    <TextView
+        android:id="@+id/text_tab_corpo_peso_ultima_medicao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/btn_tab_medidas_atualizar"
+        app:layout_constraintEnd_toEndOf="@+id/btn_tab_medidas_atualizar"
+        app:layout_constraintStart_toStartOf="@+id/btn_tab_medidas_atualizar" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="1.5dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#bdc3c7"
+        app:layout_constraintBottom_toBottomOf="@+id/textView57"
+        app:layout_constraintEnd_toStartOf="@+id/imageView10"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView8" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="1.5dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#bdc3c7"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView14"
+        app:layout_constraintEnd_toStartOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView14" />
 
 </android.support.constraint.ConstraintLayout>

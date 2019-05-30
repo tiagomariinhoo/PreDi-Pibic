@@ -59,7 +59,7 @@
         <activity android:name=".View.Application.TabelaImc"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
-        <activity android:name=".View.Application.Popups.PopIMC"
+        <activity android:name=".View.Application.Popups.PopPesoIdeal"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.Dicas"

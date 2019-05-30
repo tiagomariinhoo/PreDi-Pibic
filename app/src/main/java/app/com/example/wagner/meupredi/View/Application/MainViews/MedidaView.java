@@ -50,6 +50,7 @@ import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaMedidas;
 import app.com.example.wagner.meupredi.View.Application.MedidaListener;
 import app.com.example.wagner.meupredi.View.Application.Popups.PopConquista;
+import app.com.example.wagner.meupredi.View.Application.Popups.PopPesoIdeal;
 
 /**
  * Created by Tiago on 27/06/2017.
@@ -59,7 +60,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         OnChartValueSelectedListener, MedidaListener, LiveUpdateHelper<Medida> {
 
     private LineChart mChart;
-    private TextView dataUltimaMedicao, TextListaPesosTela;
+    private TextView dataUltimaMedicao, TextListaPesosTela, txtPesoIdeal;
     private EditText novoCirc, novoPeso;
     private ImageView chamadaListaPesos;
     private Button atualizarPeso;
@@ -185,6 +186,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
+        txtPesoIdeal = findViewById(R.id.txt_medidas_peso_ideal);
+
         TextListaPesosTela = (TextView) findViewById(R.id.text_chamada_lista_pesos_tela);
         chamadaListaPesos = (ImageView) findViewById(R.id.image_chamar_pesos_tela_peso);
 
@@ -210,6 +213,14 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
         novoPeso.setRawInputType(Configuration.KEYBOARD_QWERTY);
         novoCirc.setRawInputType(Configuration.KEYBOARD_QWERTY);
+
+        txtPesoIdeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MedidaView.this, PopPesoIdeal.class);
+                startActivity(intent);
+            }
+        });
 
         findViewById(R.id.tela_peso).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -316,7 +327,7 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                                 paciente.setPeso(pesoDoPaciente);
                                 paciente.setCircunferencia(circDoPaciente);
 
-                                //atualiza o peso e o imc do paciente no banco
+                                //atualiza o peso e a circ do paciente no banco
                                 MedidaController.addMedida(paciente);
 
                             } else {

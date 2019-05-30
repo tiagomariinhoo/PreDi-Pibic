@@ -8,12 +8,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/borda_curvada_branca">
 
-
     <TextView
         android:id="@+id/txt_backgroud_geral_dicas_predi"
         android:layout_width="0dp"
         android:layout_height="120dp"
-        android:background="@drawable/borda_curvada_cima_azul"
+        android:background="@drawable/gradiente_azul_curvado_cima"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Classificação"
+        android:text="Peso Ideal"
         android:textColor="@color/colorBackground"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -52,10 +51,10 @@
         android:id="@+id/txt_imc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:text="text"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/colorBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +79,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="IMC"
-        android:textColor="@color/colorBranco"
+        android:textColor="@color/colorBackground"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/img_peso_ideal"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,45 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBranco">
+    android:background="@drawable/borda_curvada_branca">
 
     <TextView
-        android:id="@+id/textView30"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:background="@drawable/gradiente_azul"
-        android:gravity="center_vertical"
-        android:text="Relatório"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/colorBranco"
-        android:textSize="24dp"
-        android:textStyle="bold" />
+        android:id="@+id/backgroun_motor_inferencia"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:background="@drawable/gradiente_azul_curvado_cima"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/ic_relatorio_motor_inferencia"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backgroun_motor_inferencia"
+        app:layout_constraintVertical_bias="0.24000001" />
 
     <TextView
-        android:id="@+id/text_pop_notific_relatorio"
-        android:layout_width="match_parent"
+        android:id="@+id/txt_titulo_motor_inferencia"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
         android:textColor="@color/colorBackground"
-        android:textSize="18dp"
-        android:textAlignment="center"
-        android:padding="8dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView30"
-        android:text="TextView" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
     <ImageView
         android:id="@+id/image_informacao_diagnostico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
         android:background="@mipmap/ic_informativo_taxas_chamada"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroun_motor_inferencia"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@mipmap/ic_informativo_taxas_chamada" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/text_pop_notific_relatorio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:paddingLeft="8dp"
+        android:textColor="@color/colorBackground"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_titulo_motor_inferencia"
+        app:layout_constraintStart_toStartOf="@+id/txt_titulo_motor_inferencia"
+        app:layout_constraintTop_toBottomOf="@+id/txt_titulo_motor_inferencia" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Relatório"
+        android:textColor="@color/colorBackground"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView11"
+        app:layout_constraintEnd_toEndOf="@+id/imageView11"
+        app:layout_constraintStart_toStartOf="@+id/imageView11" />
+
+    <TextView
+        android:id="@+id/txt_fechar_motor_inferencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Fechar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

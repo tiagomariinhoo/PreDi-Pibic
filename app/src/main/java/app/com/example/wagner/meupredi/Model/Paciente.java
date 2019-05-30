@@ -240,18 +240,18 @@ public class Paciente implements Serializable {
         GLICOSE_JEJUM_BOA("Sua glicemia de jejum atual está boa, mas devem ser feitas " +
                             "novas avaliações a cada 3 anos ou conforme o risco."),
 
-        GLICOSE_JEJUM_ALTERADA("Há chance de glicemia de jejum alterada, " +
-                            "você deve procurar um médico."),
+        GLICOSE_JEJUM_ALTERADA("Seus dados indicam um quadro de glicemia de jejum alterada, " +
+                            "recomenda-se, nesse caso, ir ao médico assim que possível."),
 
-        GLICOSE_JEJUM_ALTA("Sua glicemia em jejum está muito alta, você deve " +
-                            "procurar um médico."),
+        GLICOSE_JEJUM_ALTA("Sua glicemia em jejum está muito alta, recomenda-se, " +
+                            "nesse caso, que procure um médico assim que possível."),
 
         GLICOSE_75G_ALTA("Sua glicemia 2 horas após sobrecarga com 75g de glicose está " +
                             "muito alta, você deve procurar um médico."),
 
-        PRE_DIABETES("Há um alto risco de pré-diabetes, você deve procurar um médico."),
+        PRE_DIABETES("Há um alto risco que você se encontre no quadro de pré-diabetes, recomenda-se ir ao médico."),
 
-        DIABETES("Há alto risco de diabetes, você deve procurar um médico.");
+        DIABETES("Há alto risco de diabetes, recomenda-se ir a um médico especialista para acompanhamento.");
 
         private String frase;
 
