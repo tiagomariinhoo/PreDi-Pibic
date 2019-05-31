@@ -48,7 +48,6 @@
         android:id="@+id/imageView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@mipmap/ic_g_jejum"
         app:layout_constraintBottom_toBottomOf="@+id/imageView9"
         app:layout_constraintEnd_toStartOf="@+id/imageView9"
@@ -133,5 +132,34 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_tab_taxas_atualizar"
         app:layout_constraintEnd_toEndOf="@+id/btn_tab_taxas_atualizar"
         app:layout_constraintStart_toStartOf="@+id/btn_tab_taxas_atualizar" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="1.5dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#bdc3c7"
+        app:layout_constraintBottom_toBottomOf="@+id/textView57"
+        app:layout_constraintEnd_toStartOf="@+id/imageView10"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView8" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="1.5dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#bdc3c7"
+        app:layout_constraintBottom_toBottomOf="@+id/text_qual_meu_peso_ideal"
+        app:layout_constraintEnd_toStartOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
 
 </android.support.constraint.ConstraintLayout>

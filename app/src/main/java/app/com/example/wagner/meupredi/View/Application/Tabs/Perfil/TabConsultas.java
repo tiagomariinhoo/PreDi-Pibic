@@ -1,6 +1,5 @@
 package app.com.example.wagner.meupredi.View.Application.Tabs.Perfil;
 
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.firebase.firestore.ListenerRegistration;
 
@@ -25,8 +23,6 @@ import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.ConsultaView;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
-
-import static app.com.example.wagner.meupredi.R.layout.tab_consultas_perfil;
 
 /**
  * Created by wagne on 12/02/2018.
@@ -48,7 +44,7 @@ public class TabConsultas extends Fragment implements LiveUpdateHelper<Consulta>
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         listaDeConsultas = view.findViewById(R.id.lista_consultas);
-        chamadaConsultas = view.findViewById(R.id.tab_perfil_consultas);
+        chamadaConsultas = view.findViewById(R.id.btn_tab_perfil_consultas);
         listaDeConsultas.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.lista_consultas_item,
                                     R.id.text_consulta_item, adapterList(new ArrayList<Consulta>())));
 

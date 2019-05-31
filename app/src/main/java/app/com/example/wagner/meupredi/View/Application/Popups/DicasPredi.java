@@ -55,11 +55,11 @@ public class DicasPredi extends Activity {
             return dicaPreDiabetes;
         }
         else{
-            image.setImageAlpha(R.mipmap.green_alert);
-            image.setBackgroundResource(R.mipmap.green_alert);
-            back.setBackgroundResource(R.drawable.borda_curvada_cima_verde);
+            //image.setImageAlpha(R.mipmap.green_alert);
+            //image.setBackgroundResource(R.mipmap.green_alert);
             status.setText("Regular");
             tituloDica.setText("Atenção!");
+            back.setBackgroundResource(R.drawable.borda_curvada_cima_verde);
             return dicaSaudavel;
         }
     }
@@ -80,7 +80,7 @@ public class DicasPredi extends Activity {
 
         paciente = PacienteUpdater.getPaciente();
         Paciente.StatusPaciente state = paciente.calculoStatus();
-        dicas = setDicas(state);
+
 
         fechar = findViewById(R.id.txt_fechar_imc);
         tituloDica = findViewById(R.id.txt_titulo_imc);
@@ -94,6 +94,10 @@ public class DicasPredi extends Activity {
         status = findViewById(R.id.txt_status_imc);
         position = 0;
 
+        dicas = setDicas(state);
+
+        txtDica.setText(dicas[position]);
+
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,17 +109,39 @@ public class DicasPredi extends Activity {
 
         });
 
+        imgContinuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(position < 3) {
+                    txtDica.setText(dicas[position]);
+                    position += 1;
+                }
+            }
+
+        });
 
         voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(position >= 0) {
+                if(position > 0) {
                     position -= 1;
                     txtDica.setText(dicas[position]);
                 }
             }
 
         });
+
+        imgVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(position > 0) {
+                    position -= 1;
+                    txtDica.setText(dicas[position]);
+                }
+            }
+
+        });
+
 
         fechar.setOnClickListener(new View.OnClickListener() {
             @Override

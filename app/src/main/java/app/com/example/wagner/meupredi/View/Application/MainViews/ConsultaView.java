@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,7 +43,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
 
     private Calendar dataTime = Calendar.getInstance();
     private TextView btnMarcarData, btnMarcarHorario, contadorConsultas;
-    private ImageView agendarNovaConsulta;
+    private Button agendarNovaConsulta;
     private EditText nomeNovaConsulta, tipoNovaConsulta;
     private AlertDialog.Builder alertaNovaConsulta;
     private String date = "-", time = "-", local = "-", shortDate = "-", shortTime = "-",  diaEscolhido = "", mesEscolhido = "", anoEscolhido = "", tipoExame = "";
@@ -68,7 +69,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
         btnMarcarData = (TextView) findViewById(R.id.btn_data_consulta_marcada);
         btnMarcarHorario = (TextView) findViewById(R.id.btn_horario_consulta_marcada);
         contadorConsultas = (TextView) findViewById(R.id.text_contador_consultas);
-        agendarNovaConsulta = (ImageView) findViewById(R.id.btn_agendar_nova_consulta);
+        agendarNovaConsulta = findViewById(R.id.btn_agendar_nova_consulta);
         listaDeConsultas = (ListView) findViewById(R.id.lista_consultas);
 
         contadorConsultas.setText("Consultas Anteriores");

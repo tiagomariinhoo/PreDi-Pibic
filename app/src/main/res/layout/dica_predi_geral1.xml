@@ -64,20 +64,23 @@
     <TextView
         android:id="@+id/txt_fechar_imc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
         android:text="Fechar"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_continuar_predi_geral"
-        app:layout_constraintEnd_toStartOf="@+id/txt_continuar_predi_geral"
-        app:layout_constraintStart_toEndOf="@+id/txt_voltar_predi_geral" />
+        app:layout_constraintEnd_toStartOf="@+id/img_continuar_predi_geral"
+        app:layout_constraintStart_toEndOf="@+id/img_voltar_predi_geral"
+        app:layout_constraintTop_toTopOf="@+id/txt_continuar_predi_geral" />
 
     <TextView
         android:id="@+id/txt_continuar_predi_geral"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text="Continuar"
+        android:gravity="center_vertical"
         android:textColor="@color/colorBackground"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -102,8 +105,9 @@
     <TextView
         android:id="@+id/txt_voltar_predi_geral"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text="Voltar"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/img_voltar_predi_geral"
         app:layout_constraintStart_toEndOf="@+id/img_voltar_predi_geral"
         app:layout_constraintTop_toTopOf="@+id/img_voltar_predi_geral" />
@@ -112,8 +116,8 @@
         android:id="@+id/img_continuar_predi_geral"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@mipmap/ic_seta_direita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@mipmap/ic_seta_direita" />
@@ -122,8 +126,8 @@
         android:id="@+id/img_voltar_predi_geral"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@mipmap/ic_seta_direita"
         android:rotation="180"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
