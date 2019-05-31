@@ -54,36 +54,24 @@
         android:layout_marginEnd="0dp"
         android:id="@+id/relativeLayout">
 
-        <TabHost
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/tabhost"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borda_curvada_cima_azul"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabSelectedTextColor="@color/colorBranco"
+            app:tabTextColor="@color/colorCinza"
+            app:tabIndicatorHeight="3dp"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            android:theme="@style/TabWidgetTheme">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
-
-                <TabWidget
-                    android:id="@android:id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/borda_curvada_cima_azul" />
-
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradiente_branco">
-
-                </FrameLayout>
-            </LinearLayout>
-
-        </TabHost>
-
+            android:layout_below="@+id/tab_layout"
+            android:layout_marginTop="0dp" />
+        
     </RelativeLayout>
 
     <ImageView

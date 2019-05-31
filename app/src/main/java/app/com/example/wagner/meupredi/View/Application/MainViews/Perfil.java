@@ -1,6 +1,5 @@
 package app.com.example.wagner.meupredi.View.Application.MainViews;
 
-import android.app.ActivityGroup;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,11 +7,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.FileProvider;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,11 +31,11 @@ import app.com.example.wagner.meupredi.Model.Consulta;
 import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
-import app.com.example.wagner.meupredi.View.Application.Dicas;
 import app.com.example.wagner.meupredi.View.Application.PacienteListener;
 import app.com.example.wagner.meupredi.View.Application.PopNotific;
 import app.com.example.wagner.meupredi.View.Application.Popups.DicasPredi;
 import app.com.example.wagner.meupredi.View.Application.Sair;
+import app.com.example.wagner.meupredi.View.Application.Tabs.TabAdapter;
 import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabConsultas;
 import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabCorpo;
 import app.com.example.wagner.meupredi.View.Application.Tabs.Perfil.TabTaxas;
@@ -47,7 +48,7 @@ import static app.com.example.wagner.meupredi.R.layout.activity_perfil;
  */
 
 @Deprecated
-public class Perfil extends ActivityGroup implements PacienteListener {
+public class Perfil extends FragmentActivity implements PacienteListener {
 
     private TextView nomeUsuario;
     private ImageView coracao, configuracoes, notificacoes, iconeAlerta, iconeSair, informacao, shareCda;
@@ -129,33 +130,16 @@ public class Perfil extends ActivityGroup implements PacienteListener {
             }
         });
 
-        TabHost abas = findViewById(R.id.tabhost);
-        abas.setup(this.getLocalActivityManager());
+        TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
+        adapter.add(new TabTaxas() , "TAXAS");
+        adapter.add(new TabCorpo(), "CORPO");
+        adapter.add(new TabConsultas(), "CONSULTAS");
 
-        TabHost.TabSpec descritor = abas.newTabSpec("aba1");
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(adapter);
 
-        Intent intent = new Intent(this, TabTaxas.class);
-
-        descritor.setContent(intent);
-        descritor.setIndicator("TAXAS");
-
-        abas.addTab(descritor);
-
-        descritor = abas.newTabSpec("aba2");
-
-        intent = new Intent(this, TabCorpo.class);
-
-        descritor.setContent(intent);
-        descritor.setIndicator("CORPO");
-        abas.addTab(descritor);
-
-        descritor = abas.newTabSpec("aba3");
-
-        intent = new Intent(this, TabConsultas.class);
-
-        descritor.setContent(intent);
-        descritor.setIndicator("CONSULTAS");
-        abas.addTab(descritor);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
 
         informacao.setOnClickListener(new View.OnClickListener() {
             @Override

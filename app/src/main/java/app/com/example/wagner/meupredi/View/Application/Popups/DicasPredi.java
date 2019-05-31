@@ -20,10 +20,10 @@ public class DicasPredi extends Activity {
     private ImageView image, imgContinuar, imgVoltar;
     private Paciente paciente;
     private int position;
-    private String[] dicaEscolhida;
+    private String[] dicas;
 
 
-    private String[] setDica(Paciente.StatusPaciente state){
+    private String[] setDicas(Paciente.StatusPaciente state){
 
         String[] dicaSaudavel = {"valor1", "valor2", "valor3"};
         String[] dicaPreDiabetes = {
@@ -39,27 +39,28 @@ public class DicasPredi extends Activity {
                         " de testes glicêmicos é a recomendação mais inteligente para a prática desse importante recurso. \n"};
 
         if(state == Paciente.StatusPaciente.DIABETES){
+            image.setImageAlpha(R.mipmap.ic_diabete_status);
+            image.setBackgroundResource(R.mipmap.ic_diabete_status);
+            back.setBackgroundResource(R.drawable.borda_curvada_cima_vermelha);
+            status.setText("Diabetes");
+            tituloDica.setText("Cuidado!");
             return dicaDiabetes;
         }
         else if(state == Paciente.StatusPaciente.PRE_DIABETES){
+            image.setImageAlpha(R.mipmap.blue_alert);
+            image.setBackgroundResource(R.mipmap.blue_alert);
+            back.setBackgroundResource(R.drawable.borda_curvada_cima_amarela);
+            status.setText("Pré Diabetes");
+            tituloDica.setText("Atenção!");
             return dicaPreDiabetes;
         }
         else{
-            return dicaSaudavel;
-        }
-    }
-
-    private void setTextViews(Paciente.StatusPaciente state, int position,  String[] dica){
-
-        if(state == Paciente.StatusPaciente.DIABETES){
-            status.setText("Diabetes");
-            tituloDica.setText("Cuidado!");
-            txtDica.setText(dica[position]);
-        }
-        else if(state == Paciente.StatusPaciente.PRE_DIABETES){
-            status.setText("Pré Diabetes");
+            image.setImageAlpha(R.mipmap.green_alert);
+            image.setBackgroundResource(R.mipmap.green_alert);
+            back.setBackgroundResource(R.drawable.borda_curvada_cima_verde);
+            status.setText("Regular");
             tituloDica.setText("Atenção!");
-            txtDica.setText(dica[position]);
+            return dicaSaudavel;
         }
     }
 
@@ -79,7 +80,7 @@ public class DicasPredi extends Activity {
 
         paciente = PacienteUpdater.getPaciente();
         Paciente.StatusPaciente state = paciente.calculoStatus();
-        dicaEscolhida = setDica(state);
+        dicas = setDicas(state);
 
         fechar = findViewById(R.id.txt_fechar_imc);
         tituloDica = findViewById(R.id.txt_titulo_imc);
@@ -96,8 +97,10 @@ public class DicasPredi extends Activity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTextViews(state, position, dicaEscolhida);
-                position += 1;
+                if(position < 3) {
+                    txtDica.setText(dicas[position]);
+                    position += 1;
+                }
             }
 
         });
@@ -106,8 +109,10 @@ public class DicasPredi extends Activity {
         voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                position -= 1;
-                setTextViews(state, position, dicaEscolhida);
+                if(position >= 0) {
+                    position -= 1;
+                    txtDica.setText(dicas[position]);
+                }
             }
 
         });

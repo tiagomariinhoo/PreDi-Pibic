@@ -1,10 +1,13 @@
 package app.com.example.wagner.meupredi.View.Application.Tabs.Perfil;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -26,7 +29,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_corpo_perfil;
  * Created by wagne on 12/02/2018.
  */
 
-public class TabCorpo extends Activity implements PacienteListener, MedidaListener {
+public class TabCorpo extends Fragment implements PacienteListener, MedidaListener {
 
     private TextView pesoAtual, circAtual, imcAtual, ultimaMedicao;
     private Button chamadaPeso;
@@ -34,20 +37,19 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
     private Paciente paciente;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(tab_corpo_perfil);
+        View view = inflater.inflate(R.layout.tab_corpo_perfil, container, false);
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
-        pesoAtual = (TextView) findViewById(R.id.text_valor_hemoglobina_glicolisada_atual);
-        circAtual = (TextView) findViewById(R.id.text_valor_glicose_75g_atual);
-        imcAtual = (TextView) findViewById(R.id.text_valor_glicose_jejum_atual);
-        chamadaPeso = findViewById(R.id.btn_tab_medidas_atualizar);
-        ultimaMedicao = (TextView) findViewById(R.id.text_tab_corpo_peso_ultima_medicao);
-        informativoIMC = (TextView) findViewById(R.id.imageView10);
-        pesoIdeal = (TextView) findViewById(R.id.text_qual_meu_peso_ideal);
+        pesoAtual = (TextView) view.findViewById(R.id.text_valor_hemoglobina_glicolisada_atual);
+        circAtual = (TextView) view.findViewById(R.id.text_valor_glicose_75g_atual);
+        imcAtual = (TextView) view.findViewById(R.id.text_valor_glicose_jejum_atual);
+        chamadaPeso = view.findViewById(R.id.btn_tab_medidas_atualizar);
+        ultimaMedicao = (TextView) view.findViewById(R.id.text_tab_corpo_peso_ultima_medicao);
+        informativoIMC = (TextView) view.findViewById(R.id.imageView10);
+        pesoIdeal = (TextView) view.findViewById(R.id.text_qual_meu_peso_ideal);
 
         PacienteUpdater.addListener((PacienteListener) this);
         PacienteUpdater.addListener((MedidaListener) this);
@@ -59,7 +61,7 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
         pesoAtual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chamadaPeso = new Intent(TabCorpo.this, MedidaView.class);
+                Intent chamadaPeso = new Intent(getActivity(), MedidaView.class);
                 startActivity(chamadaPeso);
             }
         });
@@ -67,7 +69,7 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
         chamadaPeso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chamadaPeso = new Intent(TabCorpo.this, MedidaView.class);
+                Intent chamadaPeso = new Intent(getActivity(), MedidaView.class);
                 startActivity(chamadaPeso);
             }
         });
@@ -75,7 +77,7 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
         informativoIMC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chamadaTabelaImc = new Intent(TabCorpo.this, TabelaImc.class);
+                Intent chamadaTabelaImc = new Intent(getActivity(), TabelaImc.class);
                 startActivity(chamadaTabelaImc);
             }
         });
@@ -83,16 +85,18 @@ public class TabCorpo extends Activity implements PacienteListener, MedidaListen
         pesoIdeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chamadaPesoIdeal = new Intent(TabCorpo.this, PopPesoIdeal.class);
+                Intent chamadaPesoIdeal = new Intent(getActivity(), PopPesoIdeal.class);
                 startActivity(chamadaPesoIdeal);
             }
         });
 
+        return view;
+
     }
 
     @Override
-    protected void onPause() {
-        if(isFinishing()){
+    public void onPause() {
+        if(getActivity().isFinishing()){
             Log.d("Listener ", "Removido");
             PacienteUpdater.removeListener((PacienteListener) this);
             PacienteUpdater.removeListener((MedidaListener) this);

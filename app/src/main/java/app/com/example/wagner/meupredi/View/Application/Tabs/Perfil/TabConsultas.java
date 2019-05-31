@@ -1,10 +1,13 @@
 package app.com.example.wagner.meupredi.View.Application.Tabs.Perfil;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -29,7 +32,7 @@ import static app.com.example.wagner.meupredi.R.layout.tab_consultas_perfil;
  * Created by wagne on 12/02/2018.
  */
 
-public class TabConsultas extends Activity implements LiveUpdateHelper<Consulta> {
+public class TabConsultas extends Fragment implements LiveUpdateHelper<Consulta> {
 
     private Paciente paciente;
     private ListView listaDeConsultas;
@@ -38,16 +41,15 @@ public class TabConsultas extends Activity implements LiveUpdateHelper<Consulta>
     private ListenerRegistration listListener;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(tab_consultas_perfil);
+        View view = inflater.inflate(R.layout.tab_consultas_perfil, container, false);
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
-        listaDeConsultas = findViewById(R.id.lista_consultas);
-        chamadaConsultas = findViewById(R.id.tab_perfil_consultas);
-        listaDeConsultas.setAdapter(new ArrayAdapter<String>(this, R.layout.lista_consultas_item,
+        listaDeConsultas = view.findViewById(R.id.lista_consultas);
+        chamadaConsultas = view.findViewById(R.id.tab_perfil_consultas);
+        listaDeConsultas.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.lista_consultas_item,
                                     R.id.text_consulta_item, adapterList(new ArrayList<Consulta>())));
 
         listListener = ConsultaController.getLiveConsultas(this, paciente);
@@ -55,15 +57,17 @@ public class TabConsultas extends Activity implements LiveUpdateHelper<Consulta>
         chamadaConsultas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TabConsultas.this, ConsultaView.class);
+                Intent intent = new Intent(getActivity(), ConsultaView.class);
                 startActivity(intent);
             }
         });
+
+        return view;
     }
 
     @Override
-    protected void onPause() {
-        if(isFinishing()){
+    public void onPause() {
+        if(getActivity().isFinishing()){
             if(listListener != null) listListener.remove();
         }
         super.onPause();
@@ -72,7 +76,7 @@ public class TabConsultas extends Activity implements LiveUpdateHelper<Consulta>
     @Override
     public void onReceiveData(List<Consulta> consultas) {
         Log.d("Got Consultas", Integer.toString(consultas.size()));
-        adapter = new ArrayAdapter<String>(TabConsultas.this, R.layout.lista_consultas_item,
+        adapter = new ArrayAdapter<String>(getActivity(), R.layout.lista_consultas_item,
                 R.id.text_consulta_item, adapterList(consultas));
 
         listaDeConsultas.setAdapter(adapter);
