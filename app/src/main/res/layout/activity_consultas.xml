@@ -12,18 +12,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/borda_retangular_sombra"
-        android:padding="8dp"
-        android:text="Consultas ( 0 )"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_agendar_nova_consulta" />
+        app:layout_constraintTop_toBottomOf="@+id/radio_group_consultas" />
 
     <TextView
         android:id="@+id/textView47"
@@ -159,7 +155,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/gradiente_branco"
@@ -199,5 +195,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_consultas_tipo_exame" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_consultas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borda_curvada_transparent"
+        android:orientation="horizontal"
+        android:layout_marginStart="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_agendar_nova_consulta" >
+
+        <RadioButton
+            android:id="@+id/radio_consultas_futuras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:paddingRight="8dp"
+            android:text="Futuras"
+            android:textColor="@color/colorBranco" />
+        <RadioButton
+            android:id="@+id/radio_consultas_anteriores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:paddingRight="8dp"
+            android:text="Anteriores"
+            android:textColor="@color/colorBranco" />
+
+
+    </RadioGroup>
 
 </android.support.constraint.ConstraintLayout>

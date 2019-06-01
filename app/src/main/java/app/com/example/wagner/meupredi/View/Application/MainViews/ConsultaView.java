@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     private Calendar dataTime = Calendar.getInstance();
     private TextView btnMarcarData, btnMarcarHorario, contadorConsultas;
     private Button agendarNovaConsulta;
+    private RadioGroup radioGroupConsultas;
     private EditText nomeNovaConsulta, tipoNovaConsulta;
     private AlertDialog.Builder alertaNovaConsulta;
     private String date = "-", time = "-", local = "-", shortDate = "-", shortTime = "-",  diaEscolhido = "", mesEscolhido = "", anoEscolhido = "", tipoExame = "";
@@ -64,13 +66,14 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
         // Função abaixo impede que o teclado seja chamado para o edit text quando a tela abrir
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        nomeNovaConsulta = (EditText) findViewById(R.id.editText_nome_nova_consulta);
-        tipoNovaConsulta = (EditText) findViewById(R.id.text_consultas_tipo_exame);
-        btnMarcarData = (TextView) findViewById(R.id.btn_data_consulta_marcada);
-        btnMarcarHorario = (TextView) findViewById(R.id.btn_horario_consulta_marcada);
-        contadorConsultas = (TextView) findViewById(R.id.text_contador_consultas);
+        nomeNovaConsulta = findViewById(R.id.editText_nome_nova_consulta);
+        tipoNovaConsulta = findViewById(R.id.text_consultas_tipo_exame);
+        btnMarcarData = findViewById(R.id.btn_data_consulta_marcada);
+        btnMarcarHorario = findViewById(R.id.btn_horario_consulta_marcada);
+        contadorConsultas = findViewById(R.id.text_contador_consultas);
         agendarNovaConsulta = findViewById(R.id.btn_agendar_nova_consulta);
-        listaDeConsultas = (ListView) findViewById(R.id.lista_consultas);
+        listaDeConsultas = findViewById(R.id.lista_consultas);
+        radioGroupConsultas = findViewById(R.id.radio_group_consultas);
 
         contadorConsultas.setText("Consultas Anteriores");
         listaDeConsultas.setAdapter(new ArrayAdapter<String>(this, R.layout.lista_consultas_item,

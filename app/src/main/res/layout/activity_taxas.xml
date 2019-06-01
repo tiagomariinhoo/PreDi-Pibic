@@ -306,6 +306,8 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
         android:background="@drawable/borda_curvada_transparent"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout3"
@@ -317,21 +319,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Em jejum "
+            android:text="Em jejum"
+            android:paddingRight="8dp"
             android:textColor="@color/colorBranco" />
 
         <RadioButton
             android:id="@+id/radioApos75g_grafico_taxas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Após 75g "
+            android:text="Após 75g"
+            android:paddingRight="8dp"
             android:textColor="@color/colorBranco" />
 
         <RadioButton
             android:id="@+id/radioGlicada_grafico_taxas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Glicada  "
+            android:text="Glicada"
+            android:paddingRight="8dp"
             android:textColor="@color/colorBranco" />
     </RadioGroup>
 
