@@ -46,6 +46,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     private TextView btnMarcarData, btnMarcarHorario, contadorConsultas;
     private Button agendarNovaConsulta;
     private RadioGroup radioGroupConsultas;
+    private String radioGroupText = "Anteriores";
     private EditText nomeNovaConsulta, tipoNovaConsulta;
     private AlertDialog.Builder alertaNovaConsulta;
     private String date = "-", time = "-", local = "-", shortDate = "-", shortTime = "-",  diaEscolhido = "", mesEscolhido = "", anoEscolhido = "", tipoExame = "";
@@ -181,11 +182,13 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
         switch (radioGroupConsultas.getCheckedRadioButtonId()) {
             case R.id.radio_consultas_futuras:
                 listListener.remove();
+                radioGroupText = "Futuras";
                 listListener = ConsultaController.getLiveConsultas(this, paciente);
             break;
 
             case R.id.radio_consultas_anteriores:
                 listListener.remove();
+                radioGroupText = "Anteriores";
                 listListener = ConsultaController.getLivePastConsultas(this, paciente);
             break;
         }
@@ -273,6 +276,6 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
                 R.id.text_consulta_item, adapterList(consultas));
 
         listaDeConsultas.setAdapter(adapter);
-        contadorConsultas.setText("Consultas Anteriores ("+adapterList(consultas).size()+")");
+        contadorConsultas.setText("Consultas "+ radioGroupText +" ("+adapterList(consultas).size()+")");
     }
 }
