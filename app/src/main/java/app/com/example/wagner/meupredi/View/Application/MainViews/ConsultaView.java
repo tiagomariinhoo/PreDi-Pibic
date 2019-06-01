@@ -168,6 +168,27 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
             }
         });
 
+        radioGroupConsultas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                mudarLista();
+            }
+        });
+
+    }
+
+    private void mudarLista(){
+        switch (radioGroupConsultas.getCheckedRadioButtonId()) {
+            case R.id.radio_consultas_futuras:
+                listListener.remove();
+                listListener = ConsultaController.getLiveConsultas(this, paciente);
+            break;
+
+            case R.id.radio_consultas_anteriores:
+                listListener.remove();
+                listListener = ConsultaController.getLivePastConsultas(this, paciente);
+            break;
+        }
     }
 
     private ArrayList<String> adapterList(List<Consulta> consultas){

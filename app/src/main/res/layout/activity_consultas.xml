@@ -213,7 +213,7 @@
             android:id="@+id/radio_consultas_futuras"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:paddingRight="8dp"
             android:text="Futuras"
             android:textColor="@color/colorBranco" />
