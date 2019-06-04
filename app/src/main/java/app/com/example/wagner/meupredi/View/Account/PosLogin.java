@@ -57,7 +57,7 @@ public class PosLogin extends AppCompatActivity {
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
-        nomeUsuario.setText("Sr(a). " + paciente.getNome());
+        nomeUsuario.setText(paciente.getNome());
 
         //DEBUG: imprime dados do usuario pegos do banco
         Log.d("Se ja existe: ", "poslogin");

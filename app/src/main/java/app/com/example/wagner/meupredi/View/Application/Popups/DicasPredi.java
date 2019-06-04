@@ -22,10 +22,14 @@ public class DicasPredi extends Activity {
     private int position;
     private String[] dicas;
 
-
     private String[] setDicas(Paciente.StatusPaciente state){
 
-        String[] dicaSaudavel = {"valor1", "valor2", "valor3"};
+        String[] dicaEstavel = {"Ser e estar saudável é uma condição na qual o " +
+                "funcionamento do organismo propicia ao homem viver " +
+                "em plena disposição, seja ela física ou mental.", "Neste sentido, o controle diário de certos hábitos e " +
+                "a busca constante pela qualidade de vida são itens " +
+                "indispensáveis para a manutenção da saúde do corpo e da mente.",
+                "Procure manter ou melhorar seu ritmo atual para aproveitar ao máximo o que a vida lhe oferece!"};
         String[] dicaPreDiabetes = {
                 "O DM2 pode ser prevenido ou, pelo menos, retardado, através de intervenção em portadores de pré-diabetes. \n",
                 "É preciso alterar seu estilo de vida, com modificação dos hábitos alimentares, redução do peso, de 5 a 10%,  caso  apresentem sobrepeso ou obesidade,",
@@ -57,10 +61,10 @@ public class DicasPredi extends Activity {
         else{
             //image.setImageAlpha(R.mipmap.green_alert);
             //image.setBackgroundResource(R.mipmap.green_alert);
-            status.setText("Regular");
+            status.setText("Estável!");
             tituloDica.setText("Atenção!");
             back.setBackgroundResource(R.drawable.borda_curvada_cima_verde);
-            return dicaSaudavel;
+            return dicaEstavel;
         }
     }
 
@@ -81,51 +85,36 @@ public class DicasPredi extends Activity {
         paciente = PacienteUpdater.getPaciente();
         Paciente.StatusPaciente state = paciente.calculoStatus();
 
-
         fechar = findViewById(R.id.txt_fechar_imc);
         tituloDica = findViewById(R.id.txt_titulo_imc);
         txtDica = findViewById(R.id.txt_imc);
         back = findViewById(R.id.txt_backgroud_geral_dicas_predi);
         image = findViewById(R.id.img_peso_ideal);
-        continuar = findViewById(R.id.txt_continuar_predi_geral);
         imgContinuar = findViewById(R.id.img_continuar_predi_geral);
-        voltar = findViewById(R.id.txt_voltar_predi_geral);
         imgVoltar = findViewById(R.id.img_voltar_predi_geral);
         status = findViewById(R.id.txt_status_imc);
         position = 0;
 
+        imgVoltar.setVisibility(View.INVISIBLE);
         dicas = setDicas(state);
-
         txtDica.setText(dicas[position]);
-
-        continuar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(position < 3) {
-                    txtDica.setText(dicas[position]);
-                    position += 1;
-                }
-            }
-
-        });
 
         imgContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(position < 3) {
-                    txtDica.setText(dicas[position]);
                     position += 1;
-                }
-            }
-
-        });
-
-        voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(position > 0) {
-                    position -= 1;
                     txtDica.setText(dicas[position]);
+                    if(position == 2){
+                        imgContinuar.setVisibility(View.INVISIBLE);
+                    } else if (position == 0) {
+                        imgVoltar.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        imgVoltar.setVisibility(View.VISIBLE);
+                        imgContinuar.setVisibility(View.VISIBLE);
+                    }
+
                 }
             }
 
@@ -137,11 +126,23 @@ public class DicasPredi extends Activity {
                 if(position > 0) {
                     position -= 1;
                     txtDica.setText(dicas[position]);
+                    imgVoltar.setVisibility(View.VISIBLE);
+                    if(position == 2){
+                        imgContinuar.setVisibility(View.INVISIBLE);
+                    } else if (position == 0) {
+                        imgVoltar.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        imgVoltar.setVisibility(View.VISIBLE);
+                        imgContinuar.setVisibility(View.VISIBLE);
+                    }
+                }
+                else{
+                    imgVoltar.setVisibility(View.INVISIBLE);
+                    imgContinuar.setVisibility(View.VISIBLE);
                 }
             }
-
         });
-
 
         fechar.setOnClickListener(new View.OnClickListener() {
             @Override

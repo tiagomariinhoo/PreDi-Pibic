@@ -14,9 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Seja Bem-Vindo!"
+        android:text="Bem-vindo ao meuPreDi"
         android:textColor="@color/colorBranco"
         android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -26,14 +27,16 @@
 
     <TextView
         android:id="@+id/mensagem_pos_login"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/activity_pos_login"
         android:textColor="@color/colorBranco"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/text_nome_usuario_poslogin"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_nome_usuario_poslogin" />
 
     <EditText
         android:id="@+id/edit_peso_poslogin"
@@ -87,15 +90,16 @@
         android:id="@+id/text_nome_usuario_poslogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
         android:text="Sr Fulano"
         android:textColor="@color/colorBranco"
         android:textSize="20sp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/text_bem_vindo_poslogin"
-        android:layout_marginLeft="8dp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_bem_vindo_poslogin" />
 
     <Button
         android:id="@+id/btn_concluir_poslogin"
@@ -105,9 +109,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/borda_curvada_verde"
-        android:drawableRight="@mipmap/ic_seta_direita_branca"
         android:gravity="center_vertical"
-        android:text="         PRÓXIMO"
+        android:text="PRÓXIMO"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
         android:textSize="18dp"
@@ -158,6 +161,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/text_altura_poslogin" />
+
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Modificações positivas do estilo de vida podem ter papel decisivo na prevenção do diabetes! "
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintBottom_toTopOf="@+id/btn_concluir_poslogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_altura_poslogin" />
 
 
 </android.support.constraint.ConstraintLayout>
