@@ -31,7 +31,7 @@ public class PopConquista extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) ( width*.70), (int) (height*.5));
+        getWindow().setLayout((int) ( width*.80), (int) (height*.6));
 
         paciente = PacienteUpdater.getPaciente();
 
@@ -48,8 +48,11 @@ public class PopConquista extends Activity {
         }
         else{
             tituloPopUp.setText("Fique atento!");
-            imgPopUp.setImageResource(R.drawable.exclamacao);
+            imgPopUp.setImageResource(R.mipmap.ic_exclamacao);
             msgPopUp.setText("Seu índice de Massa Corporal está fora do ideal para seu porte físico!");
+            double ideal = 24.9 * paciente.getAltura() * paciente.getAltura();
+            double diff_kg = Math.abs(paciente.getPeso() - ideal);
+            msgPopUp.setText("Você está a " + diff_kg + " do seu peso ideal, procure mudar sua rotina de alimentação.");
         }
 
         closePopUp.setOnClickListener(new View.OnClickListener() {
