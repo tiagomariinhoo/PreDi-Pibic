@@ -57,7 +57,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     private Paciente paciente;
 
     private ListView listaDeConsultas;
-    private ListaAdapterConsultas<Consulta> adapter;
+    private ListaAdapter<Consulta> adapter;
     private ListenerRegistration listListener;
 
     private List<Consulta> consultas;

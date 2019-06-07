@@ -20,7 +20,7 @@ import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdate
 public class PopPesoIdeal extends Activity  {
 
     Paciente paciente;
-    private TextView msg, fechar;
+    private TextView msg, fechar, status;
 
     String condicao_imc(double imc){
 
@@ -65,14 +65,16 @@ public class PopPesoIdeal extends Activity  {
         String imc = String.format(Locale.getDefault(), "%.2f", paciente.getImc());
         msg = findViewById(R.id.txt_imc);
         fechar = findViewById(R.id.txt_fechar_imc);
+        status = findViewById(R.id.txt_status_imc);
 
         String condicao = condicao_imc(paciente.getImc());
+        status.setText(condicao);
         String pesoIdealMax = String.format(Locale.getDefault(), "%.2f", 18.5 * paciente.getAltura() * paciente.getAltura());
         String pesoIdealMin = String.format(Locale.getDefault(), "%.2f", 24.9 * paciente.getAltura() * paciente.getAltura());
 
-        msg.setText("   Seu Índice de Massa Corporal é de " + imc + "." + '\n' + "  Esse valor o coloca em uma " +
-                "faixa considerada como: " + condicao + "."+'\n' + "    Portanto, estima-se que seu peso ideal se encontra" +
-                "na faixa entre " + pesoIdealMin + "kg e " + pesoIdealMax + "kg .");
+        msg.setText(" Seu Índice de Massa Corporal é de " + imc + "." + '\n' + " Esse valor o coloca em uma " +
+                "faixa considerada como: " + condicao + "."+'\n' + "Portanto, estima-se que seu peso ideal se encontra" +
+                "na faixa entre " + pesoIdealMax + "kg e " +  pesoIdealMin  + " kg.");
 
         fechar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -13,7 +13,7 @@
         android:background="@drawable/borda_retangular_sombra"
         android:gravity="center_vertical"
         android:padding="24dp"
-        android:text="Consulta "
+        android:text="Glicemia em Jejum"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/colorBackground"
@@ -28,20 +28,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="23/10/2019"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_consulta_item" />
+        app:layout_constraintTop_toTopOf="@+id/text_consulta_item"
+        tools:visibility="invisible" />
 
     <TextView
         android:id="@+id/text_horario_consulta_item_lista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:text="00:00"
+        android:layout_marginStart="8dp"
+        android:text="09:30"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/text_consulta_item"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/text_consulta_item"
+        app:layout_constraintTop_toBottomOf="@+id/text_data_consulta_item_lista" />
 
     <TextView
         android:id="@+id/text_local_consulta_item_lista"
@@ -49,9 +50,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
-        android:text="Hospital / Clinica"
-        app:layout_constraintBottom_toTopOf="@+id/text_horario_consulta_item_lista"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="Hospital Universitário"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/text_consulta_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="invisible" />
 
     <ImageView
         android:id="@+id/imageView20"
