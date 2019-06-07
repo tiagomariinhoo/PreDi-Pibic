@@ -23,7 +23,7 @@
         android:id="@+id/text_date_item_lista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"

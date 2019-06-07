@@ -1,21 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/lista_layout_consultas">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/gradiente_branco"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/text_consulta_item"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/gradiente_branco"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borda_retangular_sombra"
         android:gravity="center_vertical"
-        android:hint="Consulta"
-        android:paddingLeft="16dp"
+        android:padding="24dp"
+        android:text="Consulta "
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/colorBackground"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView20" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/text_data_consulta_item_lista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_consulta_item" />
+
+    <TextView
+        android:id="@+id/text_horario_consulta_item_lista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:text="00:00"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/text_consulta_item"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/text_local_consulta_item_lista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:text="Hospital / Clinica"
+        app:layout_constraintBottom_toTopOf="@+id/text_horario_consulta_item_lista"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="#bdc3c7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

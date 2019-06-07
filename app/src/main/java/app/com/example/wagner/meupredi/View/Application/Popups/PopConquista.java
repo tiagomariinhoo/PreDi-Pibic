@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
@@ -52,7 +54,9 @@ public class PopConquista extends Activity {
             msgPopUp.setText("Seu índice de Massa Corporal está fora do ideal para seu porte físico!");
             double ideal = 24.9 * paciente.getAltura() * paciente.getAltura();
             double diff_kg = Math.abs(paciente.getPeso() - ideal);
-            msgPopUp.setText("Você está a " + diff_kg + " do seu peso ideal, procure mudar sua rotina de alimentação.");
+            String msgFormat = String.format(Locale.getDefault(), "%.2f", diff_kg);
+
+            msgPopUp.setText("Você está a " + msgFormat + " do seu peso ideal, procure mudar sua rotina de alimentação.");
         }
 
         closePopUp.setOnClickListener(new View.OnClickListener() {

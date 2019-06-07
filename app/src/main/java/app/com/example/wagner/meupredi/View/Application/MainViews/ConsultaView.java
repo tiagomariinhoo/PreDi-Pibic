@@ -33,8 +33,11 @@ import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Controller.ConsultaController;
 import app.com.example.wagner.meupredi.Model.Consulta;
+import app.com.example.wagner.meupredi.Model.Medida;
 import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.ListaAdapter;
+import app.com.example.wagner.meupredi.View.Application.ListaAdapterConsultas;
 
 /**
  * Created by LeandroDias1 on 18/04/2017.
@@ -54,6 +57,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     private Paciente paciente;
 
     private ListView listaDeConsultas;
+    private ListaAdapterConsultas<Consulta> adapter;
     private ListenerRegistration listListener;
 
     private List<Consulta> consultas;
@@ -274,7 +278,6 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
         this.consultas = consultas;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(ConsultaView.this, R.layout.lista_consultas_item,
                 R.id.text_consulta_item, adapterList(consultas));
-
         listaDeConsultas.setAdapter(adapter);
         contadorConsultas.setText("Consultas "+ radioGroupText +" ("+adapterList(consultas).size()+")");
     }

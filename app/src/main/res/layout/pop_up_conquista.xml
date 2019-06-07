@@ -8,7 +8,7 @@
     android:background="@drawable/borda_curvada_branca">
 
     <ImageView
-        android:id="@+id/image_pop_up_conquista"
+        android:id="@+id/background_conquista"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:background="@drawable/borda_curvada_verde_base_reta"
@@ -31,7 +31,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView20" />
+        app:layout_constraintTop_toBottomOf="@+id/image_pop_up_conquista" />
 
     <TextView
         android:id="@+id/text_msg_conquista"
@@ -54,7 +54,6 @@
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/borda_curvada_azul"
@@ -68,23 +67,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_msg_conquista"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     <ImageView
-        android:id="@+id/imageView20"
+        android:id="@+id/image_pop_up_conquista"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/trofeu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_pop_up_conquista"
+        app:layout_constraintTop_toTopOf="@+id/background_conquista"
         app:layout_constraintVertical_bias="0.24000001"
-        app:srcCompat="@drawable/trofeu" />
+         />
 
 </android.support.constraint.ConstraintLayout>

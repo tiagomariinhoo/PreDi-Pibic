@@ -9,113 +9,127 @@
     tools:context="app.com.example.wagner.meupredi.View.Application.MainViews.Dados">
 
     <TextView
+        android:id="@+id/txt_dados_pessoais"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Dados pessoais"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBranco"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/text_nome_dados"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorBarraTituloRoxa"
         android:text="Nome:"
         android:textAlignment="center"
         android:textColor="#fff"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_instrucoes_dados" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_nome_dados"
+        app:layout_constraintEnd_toEndOf="@+id/text_nascimento_dados"
+        app:layout_constraintStart_toStartOf="@+id/text_nascimento_dados"
+        app:layout_constraintTop_toTopOf="@+id/edit_nome_dados" />
 
     <EditText
         android:id="@+id/edit_nome_dados"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:background="#fff"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/borda_retangular_sombra"
         android:ems="10"
+        android:padding="18dp"
+        android:hint="Nome completo"
         android:inputType="textMultiLine"
         android:nextFocusDown="@+id/edit_idade_dado"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_nome_dados" />
+        app:layout_constraintStart_toEndOf="@+id/text_nome_dados"
+        app:layout_constraintTop_toBottomOf="@+id/text_instrucoes_dados" />
 
     <TextView
         android:id="@+id/text_altura_dado"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorBarraTituloRoxa"
-        android:text="Altura (em metros):"
+        android:text="Altura:"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_nascimento_dados" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_altura_dados"
+        app:layout_constraintEnd_toEndOf="@+id/text_nascimento_dados"
+        app:layout_constraintStart_toStartOf="@+id/text_nascimento_dados"
+        app:layout_constraintTop_toTopOf="@+id/edit_altura_dados" />
 
     <EditText
         android:id="@+id/edit_altura_dados"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#fff"
+        android:background="@drawable/borda_retangular_sombra"
         android:ems="10"
+        android:hint="1.70 m"
+        android:padding="18dp"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_altura_dado" />
+        app:layout_constraintStart_toStartOf="@+id/edit_nascimento_dados"
+        app:layout_constraintTop_toBottomOf="@+id/edit_nascimento_dados" />
 
     <TextView
         android:id="@+id/text_instrucoes_dados"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:text="Atualize seus dados preenchendo o campo correspondente e clicando em ''ATUALIZAR'':"
+        android:textAlignment="center"
         android:textColor="@color/colorBranco"
         android:textSize="16sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_dados_pessoais" />
 
     <TextView
         android:id="@+id/text_nascimento_dados"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorBarraTituloRoxa"
-        android:text="Data de Nascimento:"
+        android:text="Data\n de Nascimento:"
         android:textAlignment="center"
         android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_nascimento_dados"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_nome_dados" />
+        app:layout_constraintTop_toTopOf="@+id/edit_nascimento_dados" />
 
     <TextView
         android:id="@+id/edit_nascimento_dados"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:gravity="center_vertical"
-        android:background="#fff"
+        android:background="@drawable/borda_retangular_sombra"
         android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="dd/mm/aaaa"
         android:nextFocusDown="@+id/edit_altura_dado"
-        android:textColor="@color/colorBackground"
+        android:padding="18dp"
         android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
+        android:textColor="@color/colorBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_nascimento_dados" />
+        app:layout_constraintStart_toEndOf="@+id/text_nascimento_dados"
+        app:layout_constraintTop_toBottomOf="@+id/edit_nome_dados" />
 
     <Button
         android:id="@+id/btn_atualizar_dado"
@@ -131,5 +145,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/textView56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="email:"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_altura_dados" />
+
 
 </android.support.constraint.ConstraintLayout>

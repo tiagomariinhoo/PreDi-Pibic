@@ -147,7 +147,8 @@ public class Perfil extends FragmentActivity implements PacienteListener {
                 alertaDuvidas = new AlertDialog.Builder(Perfil.this);
                 alertaDuvidas.setTitle("Informativo");
                 //TODO: colocar algum informativo aqui, pq esse é da lista de taxas
-                alertaDuvidas.setMessage("Selecione uma tab para obter informações do usuário ou pressione o coração para obter um diagnóstico feito com as informações atuais.");
+                alertaDuvidas.setMessage("Selecione uma tab para obter informações do usuário ou pressione o coração para " +
+                        "obter um pré diagnóstico feito com as informações atuais.");
                 alertaDuvidas.setNegativeButton("VOLTAR",
                         new DialogInterface.OnClickListener() {
                             @Override
