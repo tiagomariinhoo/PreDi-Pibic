@@ -46,9 +46,8 @@ public class ListaAdapter<T> extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View v, ViewGroup parent) {
 
-        View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.lista_item, null);
         TextView dateViewItem = v.findViewById(R.id.text_date_item_lista);

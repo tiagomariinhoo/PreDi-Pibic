@@ -29,10 +29,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="23/10/2019"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/text_consulta_item"
-        tools:visibility="invisible" />
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/text_horario_consulta_item_lista"
@@ -40,9 +40,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="09:30"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/text_consulta_item"
-        app:layout_constraintTop_toBottomOf="@+id/text_data_consulta_item_lista" />
+        app:layout_constraintTop_toBottomOf="@+id/text_data_consulta_item_lista"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/text_local_consulta_item_lista"
@@ -51,10 +52,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:text="Hospital Universitário"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/text_consulta_item"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:visibility="invisible" />
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/imageView20"

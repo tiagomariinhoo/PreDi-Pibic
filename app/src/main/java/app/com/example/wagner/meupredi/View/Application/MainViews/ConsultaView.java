@@ -57,7 +57,7 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     private Paciente paciente;
 
     private ListView listaDeConsultas;
-    private ListaAdapter<Consulta> adapter;
+    private ListaAdapterConsultas adapter;
     private ListenerRegistration listListener;
 
     private List<Consulta> consultas;
@@ -81,8 +81,8 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
         radioGroupConsultas = findViewById(R.id.radio_group_consultas);
 
         contadorConsultas.setText("Consultas Anteriores");
-        listaDeConsultas.setAdapter(new ArrayAdapter<String>(this, R.layout.lista_consultas_item,
-                                    R.id.text_consulta_item, adapterList(new ArrayList<Consulta>())));
+        listaDeConsultas.setAdapter(new ListaAdapterConsultas(this, R.layout.lista_consultas_item,
+                                    new ArrayList<Consulta>()));
 
         listListener = ConsultaController.getLivePastConsultas(this, paciente);
 
@@ -198,14 +198,6 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
         }
     }
 
-    private ArrayList<String> adapterList(List<Consulta> consultas){
-        ArrayList<String> auxConsultas = new ArrayList<>();
-        for(Consulta consulta : consultas){
-            auxConsultas.add(consulta.toString());
-        }
-        return auxConsultas;
-    }
-
     private void updateData(){
         new DatePickerDialog(ConsultaView.this, d, dataTime.get(Calendar.YEAR), dataTime.get(Calendar.MONTH), dataTime.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -276,9 +268,8 @@ public class ConsultaView extends Activity implements LiveUpdateHelper<Consulta>
     @Override
     public void onReceiveData(List<Consulta> consultas) {
         this.consultas = consultas;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ConsultaView.this, R.layout.lista_consultas_item,
-                R.id.text_consulta_item, adapterList(consultas));
+        adapter = new ListaAdapterConsultas(ConsultaView.this, R.layout.lista_consultas_item, consultas);
         listaDeConsultas.setAdapter(adapter);
-        contadorConsultas.setText("Consultas "+ radioGroupText +" ("+adapterList(consultas).size()+")");
+        contadorConsultas.setText("Consultas "+ radioGroupText +" ("+consultas.size()+")");
     }
 }

@@ -20,6 +20,7 @@ import app.com.example.wagner.meupredi.Controller.ConsultaController;
 import app.com.example.wagner.meupredi.Model.Consulta;
 import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.ListaAdapterConsultas;
 import app.com.example.wagner.meupredi.View.Application.MainViews.ConsultaView;
 import app.com.example.wagner.meupredi.View.Application.MainViews.LiveUpdateHelper;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
@@ -32,7 +33,7 @@ public class TabConsultas extends Fragment implements LiveUpdateHelper<Consulta>
 
     private Paciente paciente;
     private ListView listaDeConsultas;
-    private ArrayAdapter<String> adapter;
+    private ListaAdapterConsultas adapter;
     private Button chamadaConsultas;
     private ListenerRegistration listListener;
 
@@ -45,8 +46,7 @@ public class TabConsultas extends Fragment implements LiveUpdateHelper<Consulta>
 
         listaDeConsultas = view.findViewById(R.id.lista_consultas);
         chamadaConsultas = view.findViewById(R.id.btn_tab_perfil_consultas);
-        listaDeConsultas.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.lista_consultas_item,
-                                    R.id.text_consulta_item, adapterList(new ArrayList<Consulta>())));
+        listaDeConsultas.setAdapter(new ListaAdapterConsultas(getActivity(), R.layout.lista_consultas_item, new ArrayList<Consulta>()));
 
         listListener = ConsultaController.getLiveConsultas(this, paciente);
 
@@ -72,8 +72,7 @@ public class TabConsultas extends Fragment implements LiveUpdateHelper<Consulta>
     @Override
     public void onReceiveData(List<Consulta> consultas) {
         Log.d("Got Consultas", Integer.toString(consultas.size()));
-        adapter = new ArrayAdapter<String>(getActivity(), R.layout.lista_consultas_item,
-                R.id.text_consulta_item, adapterList(consultas));
+        adapter = new ListaAdapterConsultas(getActivity(), R.layout.lista_consultas_item, consultas);
 
         listaDeConsultas.setAdapter(adapter);
     }

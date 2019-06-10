@@ -61,6 +61,11 @@ public class Consulta {
         return printDateFormat.format(date.toDate());
     }
 
+    public String printingTime(){
+        SimpleDateFormat printDateFormat = new SimpleDateFormat("HH:mm");
+        return printDateFormat.format(date.toDate());
+    }
+
     @Override
     public String toString(){
         return this.titulo + " - " + this.printingDate() + " - " + this.local;
