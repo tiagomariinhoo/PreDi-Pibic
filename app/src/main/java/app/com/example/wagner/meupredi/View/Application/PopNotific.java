@@ -47,8 +47,21 @@ public class PopNotific extends Activity {
 
         relatorio = (TextView) findViewById(R.id.text_pop_notific_relatorio);
 
-        titulo.setText("Atenção!");
-        relatorio.setText(" " + paciente.calculoStatus().getFrase());
+        Paciente.StatusPaciente status = paciente.calculoStatus();
+
+        switch(status){
+            case DIABETES:
+                titulo.setText("Diabetes");
+                break;
+            case PRE_DIABETES:
+                titulo.setText("Pré-Diabetes");
+                break;
+            default:
+                titulo.setText("Regular");
+                break;
+        }
+
+        relatorio.setText(" " + status.getFrase());
 
         chamadaExplicativoDiagnostico.setOnClickListener(new View.OnClickListener() {
             @Override
