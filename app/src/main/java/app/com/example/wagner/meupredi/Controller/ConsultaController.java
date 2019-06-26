@@ -41,13 +41,13 @@ public abstract class ConsultaController {
     }
 
     public static Task<Void> addEvento(Paciente paciente, Consulta consulta){
-        DocumentReference doc = getRef(paciente.getEmail()).document();
+        DocumentReference doc = getRef(paciente.getUid()).document();
         consulta.setId(doc.getId());
         return doc.set(consulta);
     }
 
     public static Task<Void> editConsulta(Paciente paciente, Consulta consulta){
-        return getRef(paciente.getEmail()).document(consulta.getId())
+        return getRef(paciente.getUid()).document(consulta.getId())
                 .set(consulta, SetOptions.merge());
     }
 
@@ -60,27 +60,27 @@ public abstract class ConsultaController {
 
     public static Task<QuerySnapshot> getAllConsultas(Paciente paciente){
         Timestamp currentDate = Timestamp.now();
-        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+        return getRef(paciente.getUid()).orderBy("date", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate)
                 .get();
     }
 
     public static Query getFutureConsultasListener(Paciente paciente){
         Timestamp currentDate = Timestamp.now();
-        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+        return getRef(paciente.getUid()).orderBy("date", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate);
     }
 
     public static Query getPastConsultasListener(Paciente paciente){
         Timestamp currentDate = Timestamp.now();
-        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+        return getRef(paciente.getUid()).orderBy("date", Query.Direction.ASCENDING)
                 .whereLessThan("date", currentDate);
     }
 
 
     public static Task<QuerySnapshot> getConsulta(Paciente paciente){
         Timestamp currentDate = Timestamp.now();
-        return getRef(paciente.getEmail()).orderBy("date", Query.Direction.ASCENDING)
+        return getRef(paciente.getUid()).orderBy("date", Query.Direction.ASCENDING)
                 .whereGreaterThanOrEqualTo("date", currentDate)
                 .limit(1).get();
     }
@@ -141,7 +141,7 @@ public abstract class ConsultaController {
 
     public static Task<Void> delete(Consulta consulta){
         Log.d("Id peso : ", String.valueOf(consulta.getId()));
-        return getRef(consulta.getEmailPaciente())
+        return getRef(consulta.getUidPaciente())
                 .document(consulta.getId())
                 .delete();
     }

@@ -2,7 +2,6 @@ package app.com.example.wagner.meupredi.Controller;
 
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,30 +28,30 @@ public abstract class MedidaController {
 
     private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("pacientes");
 
-    private static CollectionReference getRef(String email){
-        return myRef.document(email).collection("medidas");
+    private static CollectionReference getRef(String uid){
+        return myRef.document(uid).collection("medidas");
     }
 
     public static Task<Void> addMedida(Paciente paciente){
         PacienteController.atualizarPaciente(paciente);
-        Medida medida = new Medida(paciente.getEmail(), paciente.getPeso(), paciente.getCircunferencia());
-        DocumentReference doc = getRef(paciente.getEmail()).document();
+        Medida medida = new Medida(paciente.getUid(), paciente.getPeso(), paciente.getCircunferencia());
+        DocumentReference doc = getRef(paciente.getUid()).document();
         medida.setId(doc.getId());
         return doc.set(medida);
     }
 
     public static Task<Void> editMedida(Medida medida){
 
-        return getRef(medida.getEmailPaciente()).document(medida.getId()).set(medida,SetOptions.merge());
+        return getRef(medida.getUidPaciente()).document(medida.getId()).set(medida,SetOptions.merge());
     }
 
     public static Task<QuerySnapshot> getAllMedidas(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).get();
+        return getRef(paciente.getUid()).whereEqualTo("deleted", false).get();
     }
 
     public static Query graphMedidas(Paciente paciente){
         //sempre dar reverse nesse resultado, pq ele é ordenado pela data ao contrário de como o gráfico deve receber
-        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateMedida", Query.Direction.DESCENDING).limit(5);
+        return getRef(paciente.getUid()).whereEqualTo("deleted", false).orderBy("dateMedida", Query.Direction.DESCENDING).limit(5);
     }
 
     public static ListenerRegistration getDadosGrafico(LiveUpdateHelper<Medida> current, Paciente paciente){
@@ -72,17 +71,17 @@ public abstract class MedidaController {
     }
 
     public static Query getLastInfoMedida(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1);
+        return getRef(paciente.getUid()).whereEqualTo("deleted", false).orderBy("dateMedida", Query.Direction.DESCENDING).limit(1);
     }
 
     public static Task<DocumentSnapshot> getSpecificMedida(Paciente paciente, String id){
-        return getRef(paciente.getEmail()).document(id).get();
+        return getRef(paciente.getUid()).document(id).get();
     }
 
     public static Task<Void> eraseLastInfo(Medida medida){
         Log.d("Id peso : ", String.valueOf(medida.getId()));
         medida.setDeleted(true);
-        return getRef(medida.getEmailPaciente())
+        return getRef(medida.getUidPaciente())
                 .document(medida.getId())
                 .set(medida, SetOptions.merge());
     }

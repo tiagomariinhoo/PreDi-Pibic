@@ -43,7 +43,7 @@ public class Parse {
 	
 	public Patient patientParser(Paciente pacienteApp){
 		Patient patient = new Patient();
-	//	patient.setId(pacienteApp.getId());
+	//	patient.setUid(pacienteApp.getUid());
 		patient.setName(pacienteApp.getNome());
 		patient.setBirth(pacienteApp.printNascimento().replace("//", ""));
 		return patient;
@@ -52,7 +52,7 @@ public class Parse {
 	
 	public Related relatedParse(Paciente pacienteApp){
 		Related related = new Related();
-	//	related.setID(Integer.toString(pacienteApp.getId()));
+	//	related.setID(Integer.toString(pacienteApp.getUid()));
 		related.setExtension("BB35");
 		related.setCode("RPLC");
 		related.setVersion("1");

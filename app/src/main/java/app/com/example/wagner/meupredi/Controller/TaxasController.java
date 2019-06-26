@@ -34,25 +34,25 @@ public abstract class TaxasController {
 
     public static Task<Void> addTaxas(Paciente paciente){
         PacienteController.atualizarPaciente(paciente);
-        Taxas taxas = new Taxas(paciente.getEmail(), paciente.getGlicose75g(),
+        Taxas taxas = new Taxas(paciente.getUid(), paciente.getGlicose75g(),
                 paciente.getGlicoseJejum(), paciente.getColesterol(), paciente.getHemoglobinaGlicolisada());
-        DocumentReference doc = getRef(paciente.getEmail()).document();
+        DocumentReference doc = getRef(paciente.getUid()).document();
         taxas.setId(doc.getId());
         return doc.set(taxas);
     }
 
     public static Task<Void> editTaxas(Taxas taxas){
 
-        return getRef(taxas.getEmailPaciente()).document(taxas.getId()).set(taxas,SetOptions.merge());
+        return getRef(taxas.getUidPaciente()).document(taxas.getId()).set(taxas,SetOptions.merge());
     }
 
     public static Task<QuerySnapshot> getAllTaxas(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).get();
+        return getRef(paciente.getUid()).whereEqualTo("deleted", false).get();
     }
 
     public static Query graphTaxas(Paciente paciente){
         //sempre dar reverse nesse resultado, pq ele é ordenado pela data ao contrário de como o gráfico deve receber
-        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(5);
+        return getRef(paciente.getUid()).whereEqualTo("deleted", false).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(5);
     }
 
     public static ListenerRegistration getDadosGrafico(LiveUpdateHelper<Taxas> current, Paciente paciente){
@@ -72,17 +72,17 @@ public abstract class TaxasController {
     }
 
     public static Query getLastInfoTaxas(Paciente paciente){
-        return getRef(paciente.getEmail()).whereEqualTo("deleted", false).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1);
+        return getRef(paciente.getUid()).whereEqualTo("deleted", false).orderBy("dateTaxas", Query.Direction.DESCENDING).limit(1);
     }
 
     public static Task<DocumentSnapshot> getSpecificTaxas(Paciente paciente, String id){
-        return getRef(paciente.getEmail()).document(id).get();
+        return getRef(paciente.getUid()).document(id).get();
     }
 
     public static Task<Void> eraseLastInfo(Taxas taxas){
         Log.d("Id taxas : ", taxas.getId());
         taxas.setDeleted(true);
-        return getRef(taxas.getEmailPaciente())
+        return getRef(taxas.getUidPaciente())
                 .document(taxas.getId())
                 .set(taxas, SetOptions.merge());
     }

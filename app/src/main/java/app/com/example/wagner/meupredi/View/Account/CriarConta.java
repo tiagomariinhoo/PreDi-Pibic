@@ -205,8 +205,8 @@ public class CriarConta extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Log.d("createUserWithEmail", "success, user: " + emailCadastro);
-                                    novoPaciente(nomeCompleto, emailCadastro, timestampNasc);
                                     FirebaseUser user = task.getResult().getUser();
+                                    novoPaciente(user, nomeCompleto, timestampNasc);
                                     user.sendEmailVerification();
                                 } else {
                                     if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
@@ -235,7 +235,7 @@ public class CriarConta extends AppCompatActivity {
         });
     }
 
-    private void novoPaciente(String nomeCompleto, String emailCadastro, Timestamp dataNasc){
+    private void novoPaciente(FirebaseUser user, String nomeCompleto, Timestamp dataNasc){
         //verifica se todos os campos estao preenchidos
         String sexoCadastro = sexo.getSelectedItem().toString();
 
@@ -244,12 +244,12 @@ public class CriarConta extends AppCompatActivity {
         }
 
         //configuracao padrao de usuario
-        Paciente paciente = new Paciente(nomeCompleto, emailCadastro, sexoCadastro, dataNasc, -1);
+        Paciente paciente = new Paciente(user.getUid(), nomeCompleto, sexoCadastro, dataNasc);
 
         //DEBUG: imprime todos os dados do paciente
         Log.d("Criando", "criar conta");
+        Log.d("UID", paciente.getUid());
         Log.d("Nome", paciente.getNome());
-        Log.d("Email", paciente.getEmail());
         Log.d("Sexo", String.valueOf(paciente.getSexo()));
         Log.d("Nascimento", paciente.printNascimento());
         Log.d("Circunferencia", String.valueOf(paciente.getCircunferencia()));
@@ -270,6 +270,8 @@ public class CriarConta extends AppCompatActivity {
             .addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    Log.d("SignUpError", e.getMessage());
+                    user.delete();
                     Toast.makeText(getApplicationContext(), "Erro ao cadastrar usuário!", Toast.LENGTH_LONG).show();
                 }
             });

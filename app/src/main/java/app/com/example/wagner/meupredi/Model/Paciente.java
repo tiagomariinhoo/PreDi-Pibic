@@ -12,11 +12,10 @@ import java.util.Calendar;
 
 public class Paciente implements Serializable {
 
+    private String uid;
     private String nome;
-    private String email;
     private String sexo;
     private Timestamp nascimento;
-    private int ultimaDica;
     private double circunferencia;
     private double peso;
     private double altura;
@@ -28,10 +27,10 @@ public class Paciente implements Serializable {
 
     public Paciente() {}
 
-    public Paciente(String nome, String email, String sexo, Timestamp nascimento, int ultimaDica) {
+    public Paciente(String uid, String nome, String sexo, Timestamp nascimento) {
 
+        this.uid = uid;
         this.nome = nome;
-        this.email = email;
         this.sexo = sexo;
         this.nascimento = nascimento;
         this.circunferencia = 0;
@@ -42,15 +41,22 @@ public class Paciente implements Serializable {
         this.glicoseJejum = 0;
         this.colesterol = 0;
         this.hemoglobinaGlicolisada = 0;
-        this.ultimaDica = ultimaDica;
     }
 
-    public int getUltimaDica() {
-        return ultimaDica;
+    public String getUid() {
+        return uid;
     }
 
-    public void setUltimaDica(int ultimaDica) {
-        this.ultimaDica = ultimaDica;
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getSexo() {
@@ -86,22 +92,6 @@ public class Paciente implements Serializable {
         }
         
         return years;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public double getCircunferencia() {

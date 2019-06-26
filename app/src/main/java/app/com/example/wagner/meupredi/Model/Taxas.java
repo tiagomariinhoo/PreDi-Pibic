@@ -3,9 +3,7 @@ package app.com.example.wagner.meupredi.Model;
 import com.google.firebase.Timestamp;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -15,7 +13,7 @@ import java.util.Locale;
 public class Taxas implements Serializable {
 
     private String id;
-    private String emailPaciente;
+    private String uidPaciente;
     private double glicose75g;
     private double glicoseJejum;
     private double colesterol;
@@ -23,9 +21,9 @@ public class Taxas implements Serializable {
     private Timestamp dateTaxas;
     private boolean deleted = false;
 
-    public Taxas(String emailPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
+    public Taxas(String uidPaciente, double glicose75g, double glicoseJejum, double colesterol, double hemoglobinaGlico){
         this.dateTaxas = Timestamp.now();
-        this.emailPaciente = emailPaciente;
+        this.uidPaciente = uidPaciente;
         this.glicose75g = glicose75g;
         this.glicoseJejum = glicoseJejum;
         this.colesterol = colesterol;
@@ -40,14 +38,6 @@ public class Taxas implements Serializable {
 
     public void setHemoglobinaGlico(double hemoglobinaGlico) {
         this.hemoglobinaGlico = hemoglobinaGlico;
-    }
-
-    public String getEmailPaciente() {
-        return emailPaciente;
-    }
-
-    public void setEmailPaciente(String emailPaciente) {
-        this.emailPaciente = emailPaciente;
     }
 
     public double getGlicose75g() {
@@ -106,5 +96,13 @@ public class Taxas implements Serializable {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getUidPaciente() {
+        return uidPaciente;
+    }
+
+    public void setUidPaciente(String uidPaciente) {
+        this.uidPaciente = uidPaciente;
     }
 }

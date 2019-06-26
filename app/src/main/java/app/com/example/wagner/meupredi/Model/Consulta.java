@@ -1,14 +1,9 @@
 package app.com.example.wagner.meupredi.Model;
 
-import android.util.Log;
-
 import com.google.firebase.Timestamp;
 
-import java.sql.Time;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by LeandroDias1 on 05/03/2018.
@@ -16,7 +11,7 @@ import java.util.Locale;
 public class Consulta {
 
     private String id;
-    private String emailPaciente;
+    private String uidPaciente;
     private String titulo;
     private String local;
     private Timestamp date;
@@ -24,9 +19,9 @@ public class Consulta {
 
     public Consulta(){}
 
-    public Consulta(String emailPaciente, String titulo, String local, Date date) {
+    public Consulta(String uidPaciente, String titulo, String local, Date date) {
         this.date = new Timestamp(date);
-        this.emailPaciente = emailPaciente;
+        this.uidPaciente = uidPaciente;
         this.titulo = titulo;
         this.local = local;
     }
@@ -79,11 +74,11 @@ public class Consulta {
         this.id = id;
     }
 
-    public String getEmailPaciente() {
-        return emailPaciente;
+    public String getUidPaciente() {
+        return uidPaciente;
     }
 
-    public void setEmailPaciente(String emailPaciente) {
-        this.emailPaciente = emailPaciente;
+    public void setUidPaciente(String uidPaciente) {
+        this.uidPaciente = uidPaciente;
     }
 }

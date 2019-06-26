@@ -41,7 +41,7 @@ public class TelaLoginSplash extends AppCompatActivity{
 
         if(user != null && autoLogin){
             //checa se o usuário já está logado
-            PacienteController.getPaciente(user.getEmail()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            PacienteController.getPaciente(user.getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if(documentSnapshot.exists()) {

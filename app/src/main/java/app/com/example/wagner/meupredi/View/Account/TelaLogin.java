@@ -116,7 +116,7 @@ public class TelaLogin extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = task.getResult().getUser();
                                     if(user.isEmailVerified()) {
-                                        PacienteController.getPaciente(user.getEmail()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        PacienteController.getPaciente(user.getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                 if (documentSnapshot.exists()) {

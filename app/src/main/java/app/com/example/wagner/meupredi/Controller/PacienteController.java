@@ -8,9 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import app.com.example.wagner.meupredi.Model.Medida;
 import app.com.example.wagner.meupredi.Model.Paciente;
-import app.com.example.wagner.meupredi.Model.Taxas;
 
 /**
  * Created by tico_ on 31/01/2018.
@@ -21,29 +19,30 @@ public abstract class PacienteController {
     private static CollectionReference myRef = FirebaseFirestore.getInstance().collection("pacientes");
 
     public static Task<Void> addPaciente(Paciente paciente){
-
-        return myRef.document(paciente.getEmail())
+        MedidaController.addMedida(paciente);
+        TaxasController.addTaxas(paciente);
+        return myRef.document(paciente.getUid())
                     .set(paciente);
 
     }
 
     public static Task<Void> atualizarPaciente(Paciente paciente){
 
-        return myRef.document(paciente.getEmail())
+        return myRef.document(paciente.getUid())
                     .set(paciente, SetOptions.merge());
 
     }
 
     public static DocumentReference getPacienteListener(Paciente paciente){
-        return myRef.document(paciente.getEmail());
+        return myRef.document(paciente.getUid());
     }
 
     public static Task<QuerySnapshot> getAllPacientes(){
         return myRef.get();
     }
 
-    public static Task<DocumentSnapshot> getPaciente(String email){
-        return myRef.document(email).get();
+    public static Task<DocumentSnapshot> getPaciente(String uid){
+        return myRef.document(uid).get();
     }
 
 }

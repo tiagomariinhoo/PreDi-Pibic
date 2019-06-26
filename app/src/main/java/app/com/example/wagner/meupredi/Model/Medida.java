@@ -9,17 +9,17 @@ import java.util.Locale;
 public class Medida implements Serializable {
 
     private String id;
-    private String emailPaciente;
+    private String uidPaciente;
     private double peso;
     private double circunferencia;
     private Timestamp dateMedida;
     private boolean deleted = false;
 
-    public Medida(String emailPaciente, double peso, double circunferencia) {
+    public Medida(String uidPaciente, double peso, double circunferencia) {
         this.dateMedida = Timestamp.now();
         this.peso = peso;
         this.circunferencia = circunferencia;
-        this.emailPaciente = emailPaciente;
+        this.uidPaciente = uidPaciente;
     }
 
     public Medida(){}
@@ -57,14 +57,6 @@ public class Medida implements Serializable {
         return printDateFormat.format(dateMedida.toDate());
     }
 
-    public String getEmailPaciente() {
-        return emailPaciente;
-    }
-
-    public void setEmailPaciente(String emailPaciente) {
-        this.emailPaciente = emailPaciente;
-    }
-
     public String printPeso(){
         return String.format("%.2f kg", peso);
     }
@@ -85,5 +77,13 @@ public class Medida implements Serializable {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getUidPaciente() {
+        return uidPaciente;
+    }
+
+    public void setUidPaciente(String uidPaciente) {
+        this.uidPaciente = uidPaciente;
     }
 }
