@@ -63,19 +63,19 @@ public class Parse {
 	public Exams examsParse(Paciente pacienteApp){
 		Exams exams = new Exams();
 		ArrayList<String> content = new ArrayList<String>();		
-		if(pacienteApp.getCircunferencia() != -1)
+		if(!Double.isNaN(pacienteApp.getCircunferencia()))
 		{
 			content.add("Circunferencia: " + Double.toString(pacienteApp.getCircunferencia()) + " cm\n");			 
 		}
-		if(pacienteApp.getPeso() != -1)
+		if(!Double.isNaN(pacienteApp.getPeso()))
 		{
 			content.add("Peso: " + Double.toString(pacienteApp.getPeso()) + " Kg\n");			 
 		}
-		if(pacienteApp.getAltura() != -1)
+		if(!Double.isNaN(pacienteApp.getAltura()))
 		{
 			content.add("Altura: " + Double.toString(pacienteApp.getAltura()) + " m\n");			 
 		}
-		if(pacienteApp.getImc() != -1)
+		if(!Double.isNaN(pacienteApp.getImc()))
 		{
 			content.add("IMC: " + Double.toString(pacienteApp.getImc()) + "\n");
 		}			
@@ -86,19 +86,19 @@ public class Parse {
 	public LaboratoryExams laboratoryExamsParse(Paciente pacienteApp){
 		LaboratoryExams labExams = new LaboratoryExams();
 		ArrayList<String> content = new ArrayList<String>();
-		if(pacienteApp.getGlicoseJejum() != -1)
+		if(!Double.isNaN(pacienteApp.getGlicoseJejum()))
 		{
 			content.add("Glicose em jejum: " + Double.toString(pacienteApp.getGlicoseJejum()) + " mg/dL\n");
 		}
-		if(pacienteApp.getHemoglobinaGlicolisada() != -1)
+		if(!Double.isNaN(pacienteApp.getHemoglobinaGlicolisada()))
 		{
 			content.add("Hemoglobina glicolisada: " + Double.toString(pacienteApp.getHemoglobinaGlicolisada()) + " %\n");			 
 		}
-		if(pacienteApp.getGlicose75g() != -1)
+		if(!Double.isNaN(pacienteApp.getGlicose75g()))
 		{
 			content.add("Glicose depois de 75g: " + Double.toString(pacienteApp.getGlicose75g()) + " mg/dL\n");			 
 		}
-		if(pacienteApp.getColesterol() != -1)
+		if(!Double.isNaN(pacienteApp.getColesterol()))
 		{
 			content.add("Colesterol: "+ Double.toString(pacienteApp.getColesterol()) + " mg/dL\n");		 
 		}

@@ -5,6 +5,7 @@ import com.google.firebase.Timestamp;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by wagne on 31/03/2017.
@@ -33,14 +34,14 @@ public class Paciente implements Serializable {
         this.nome = nome;
         this.sexo = sexo;
         this.nascimento = nascimento;
-        this.circunferencia = 0;
-        this.peso = 0;
-        this.altura = 0;
-        this.imc = 0;
-        this.glicose75g = 0;
-        this.glicoseJejum = 0;
-        this.colesterol = 0;
-        this.hemoglobinaGlicolisada = 0;
+        this.circunferencia = Double.NaN;
+        this.peso = Double.NaN;
+        this.altura = Double.NaN;
+        this.imc = Double.NaN;
+        this.glicose75g = Double.NaN;
+        this.glicoseJejum = Double.NaN;
+        this.colesterol = Double.NaN;
+        this.hemoglobinaGlicolisada = Double.NaN;
     }
 
     public String getUid() {
@@ -115,6 +116,14 @@ public class Paciente implements Serializable {
         return altura;
     }
 
+    public String stringAltura(){
+        if(Double.isNaN(altura)) {
+            return "--";
+        } else {
+            return String.format(Locale.getDefault(), "%.2f", altura);
+        }
+    }
+
     public void setAltura(double altura) {
         this.altura = altura;
         updateImc();
@@ -122,6 +131,14 @@ public class Paciente implements Serializable {
 
     public double getImc() {
         return imc;
+    }
+
+    public String stringImc(){
+        if(Double.isNaN(imc)) {
+            return "--";
+        } else {
+            return String.format(Locale.getDefault(), "%.2f", imc);
+        }
     }
 
     public void setImc(double imc) {
@@ -173,7 +190,7 @@ public class Paciente implements Serializable {
     }
 
     private void updateImc(){
-        if(altura != 0) this.imc = peso/(altura*altura);
+        if(altura != 0 || !Double.isNaN(altura)) this.imc = peso/(altura*altura);
         else this.imc = peso; //assume altura como 1, caso seja 0
     }
 

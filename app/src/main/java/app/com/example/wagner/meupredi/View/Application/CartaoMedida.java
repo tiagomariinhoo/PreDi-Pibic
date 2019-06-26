@@ -49,8 +49,8 @@ public class CartaoMedida extends Activity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Medida medida = documentSnapshot.toObject(Medida.class);
 
-                editPeso.setHint(""+medida.getPeso());
-                editCirc.setHint(""+medida.getCircunferencia());
+                editPeso.setHint(""+medida.stringPeso());
+                editCirc.setHint(""+medida.stringCircunferencia());
 
                 btnEditar.setOnClickListener(new View.OnClickListener() {
                     @Override

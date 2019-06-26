@@ -74,7 +74,7 @@ public class PosLogin extends AppCompatActivity {
         Log.d("Colesterol : ", String.valueOf(paciente.getColesterol()));
 
         //se o usuario ja fez o cadastro dos dados, pula esta tela
-        if(paciente.getPeso() > 0 && paciente.getAltura() > 0 && paciente.getCircunferencia() > 0) {
+        if(!Double.isNaN(paciente.getPeso()) && !Double.isNaN(paciente.getAltura()) && !Double.isNaN(paciente.getCircunferencia())) {
 
             Intent intent = new Intent(PosLogin.this, Perfil.class);
             finish();
@@ -147,17 +147,6 @@ public class PosLogin extends AppCompatActivity {
 
                     //atualiza circunferencia no objeto
                     paciente.setCircunferencia(circunferenciaDoPaciente);
-                }
-
-                //calculo de IMC
-                if(paciente.getPeso() > 0 && paciente.getAltura() > 0) {
-
-                    double imc = (paciente.getPeso()/(paciente.getAltura()*paciente.getAltura()));
-                    String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
-                    imc = Double.parseDouble(imcFormatado);
-                    paciente.setImc(imc);
-                } else {
-                    paciente.setImc(0);
                 }
 
                 //se o usuario nao preencheu algum dos dados, avisa que ele pode preencher depois

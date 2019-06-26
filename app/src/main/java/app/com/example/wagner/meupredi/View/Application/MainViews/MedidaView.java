@@ -549,8 +549,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
     @Override
     public void onChangeMedida(Medida medida) {
-        novoPeso.setHint(String.format("%.2f", medida.getPeso()));
-        novoCirc.setHint(String.format("%.2f", medida.getCircunferencia()));
+        novoPeso.setHint(medida.stringPeso());
+        novoCirc.setHint(medida.stringCircunferencia());
         String novaData = medida.printDate();
         String aux[] = novaData.split("/");
         //TODO: definir o fotmato correto dessa data

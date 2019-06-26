@@ -104,6 +104,7 @@ public class InfoRelatorio extends AppCompatActivity {
         estados.add(first);
 
         double glicoseAtual = paciente.getGlicoseJejum();
+        if(Double.isNaN(glicoseAtual)) glicoseAtual = 0.0;
         String valorAtual = "Glicemia atual: " + String.valueOf(glicoseAtual).replace(".", ",") + " mg/dL";
         lista.add(valorAtual);
         if(glicoseAtual < 100){
@@ -151,6 +152,7 @@ public class InfoRelatorio extends AppCompatActivity {
         estados.add(first);
 
         double glicoseAtual = paciente.getGlicose75g();
+        if(Double.isNaN(glicoseAtual)) glicoseAtual = 0.0;
         String valorAtual = "Glicose atual: " + String.valueOf(glicoseAtual).replace(".", ",") + " mg/dL";
         lista.add(valorAtual);
         if(glicoseAtual < 140){
@@ -197,6 +199,7 @@ public class InfoRelatorio extends AppCompatActivity {
         estados.add(first);
 
         double hemoglobinaAtual = paciente.getHemoglobinaGlicolisada();
+        if(Double.isNaN(hemoglobinaAtual)) hemoglobinaAtual = 0.0;
         String valorAtual = "HbA1c atual: " + String.valueOf(hemoglobinaAtual).replace(".", ",") + "%";
         lista.add(valorAtual);
         if(hemoglobinaAtual < 5.7){

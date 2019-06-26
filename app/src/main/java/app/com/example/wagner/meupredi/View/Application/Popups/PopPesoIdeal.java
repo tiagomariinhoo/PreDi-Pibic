@@ -22,7 +22,7 @@ public class PopPesoIdeal extends Activity  {
     Paciente paciente;
     private TextView msg, fechar, status;
 
-    String condicao_imc(double imc){
+    String condicaoImc(double imc){
 
         String condicao = "";
 
@@ -62,12 +62,12 @@ public class PopPesoIdeal extends Activity  {
         int height = dm.heightPixels;
 
         paciente = PacienteUpdater.getPaciente();
-        String imc = String.format(Locale.getDefault(), "%.2f", paciente.getImc());
+        String imc = paciente.stringImc();
         msg = findViewById(R.id.txt_imc);
         fechar = findViewById(R.id.txt_fechar_imc);
         status = findViewById(R.id.txt_status_imc);
 
-        String condicao = condicao_imc(paciente.getImc());
+        String condicao = condicaoImc(paciente.getImc());
         status.setText(condicao);
         String pesoIdealMax = String.format(Locale.getDefault(), "%.2f", 18.5 * paciente.getAltura() * paciente.getAltura());
         String pesoIdealMin = String.format(Locale.getDefault(), "%.2f", 24.9 * paciente.getAltura() * paciente.getAltura());

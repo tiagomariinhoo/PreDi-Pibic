@@ -28,12 +28,28 @@ public class Medida implements Serializable {
         return peso;
     }
 
+    public String stringPeso(){
+        if(Double.isNaN(peso)) {
+            return "--";
+        } else {
+            return String.format(Locale.getDefault(), "%.2f", peso);
+        }
+    }
+
     public void setPeso(double peso) {
         this.peso = peso;
     }
 
     public double getCircunferencia() {
         return circunferencia;
+    }
+
+    public String stringCircunferencia(){
+        if(Double.isNaN(circunferencia)) {
+            return "--";
+        } else {
+            return String.format(Locale.getDefault(), "%.2f", circunferencia);
+        }
     }
 
     public void setCircunferencia(double circunferencia) {

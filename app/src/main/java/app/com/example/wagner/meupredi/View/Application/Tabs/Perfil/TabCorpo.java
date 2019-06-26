@@ -54,9 +54,9 @@ public class TabCorpo extends Fragment implements PacienteListener, MedidaListen
         PacienteUpdater.addListener((PacienteListener) this);
         PacienteUpdater.addListener((MedidaListener) this);
 
-        pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getPeso()));
-        circAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getCircunferencia()));
-        imcAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getImc()));
+//        pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getPeso()));
+//        circAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getCircunferencia()));
+//        imcAtual.setText(String.format(Locale.getDefault(), "%.2f", paciente.getImc()));
 
         pesoAtual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +112,14 @@ public class TabCorpo extends Fragment implements PacienteListener, MedidaListen
     @Override
     public void onChangeMedida(Medida medida) {
         if(medida != null) {
+            double novoImc;
+            if(paciente.getAltura() != 0.0 && !Double.isNaN(paciente.getAltura())){
+                novoImc = medida.getPeso()/(paciente.getAltura()*paciente.getAltura());
+            } else novoImc = medida.getPeso();
+
             pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", medida.getPeso()));
+            circAtual.setText(String.format(Locale.getDefault(), "%.2f", medida.getCircunferencia()));
+            imcAtual.setText(String.format(Locale.getDefault(), "%.2f", novoImc));
             ultimaMedicao.setText("Última medição: " + medida.printDate());
             ultimaMedicao.setVisibility(View.VISIBLE);
         }

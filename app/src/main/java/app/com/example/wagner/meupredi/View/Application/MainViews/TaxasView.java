@@ -83,11 +83,11 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
         listarTaxas = findViewById(R.id.btn_chamada_listar_taxas);
 
         glicoseJejum = findViewById(R.id.text_glicoseJejumAtual_taxas);
-        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicoseJejum()));
-        glicose75 = findViewById(R.id.text_glicose75gAtual_taxas);
-        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicose75g()));
-        hemoglobinaGlicolisada = findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
-        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", paciente.getHemoglobinaGlicolisada()));
+//        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicoseJejum()));
+//        glicose75 = findViewById(R.id.text_glicose75gAtual_taxas);
+//        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicose75g()));
+//        hemoglobinaGlicolisada = findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
+//        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", paciente.getHemoglobinaGlicolisada()));
 
         chamadaInformativo = findViewById(R.id.image_informativo_glicoses);
 

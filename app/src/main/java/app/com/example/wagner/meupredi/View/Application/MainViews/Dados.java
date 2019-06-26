@@ -167,16 +167,6 @@ public class Dados extends AppCompatActivity {
                     //atualiza valor na tela
                     altura.setHint(String.valueOf(paciente.getAltura()) + " m");
                     altura.setText("");
-
-                    //recalcula imc
-                    if(paciente.getPeso() > 0 && paciente.getAltura() > 0) {
-                        double imc = (paciente.getPeso()/(paciente.getAltura()*paciente.getAltura()));
-                        String imcFormatado = String.format(Locale.ENGLISH, "%.2f", imc);
-                        imc = Double.parseDouble(imcFormatado);
-                        paciente.setImc(imc);
-                    } else {
-                        paciente.setImc(0);
-                    }
                 }
 
                 //atualiza a idade, altura e o imc do paciente no banco

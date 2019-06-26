@@ -36,12 +36,28 @@ public class Taxas implements Serializable {
         return hemoglobinaGlico;
     }
 
+    public String stringHemoglobinaGlico(){
+        if(Double.isNaN(hemoglobinaGlico)) {
+            return "--";
+        } else {
+            return String.format(Locale.getDefault(), "%.2f", hemoglobinaGlico);
+        }
+    }
+
     public void setHemoglobinaGlico(double hemoglobinaGlico) {
         this.hemoglobinaGlico = hemoglobinaGlico;
     }
 
     public double getGlicose75g() {
         return glicose75g;
+    }
+
+    public String stringGlicose75g(){
+        if(Double.isNaN(glicose75g)) {
+            return "--";
+        } else {
+            return String.format(Locale.getDefault(), "%.2f", glicose75g);
+        }
     }
 
     public void setGlicose75g(double glicose75g) {
@@ -52,12 +68,28 @@ public class Taxas implements Serializable {
         return glicoseJejum;
     }
 
+    public String stringGlicoseJejum(){
+        if(Double.isNaN(glicoseJejum)) {
+            return "--";
+        } else {
+            return String.format(Locale.getDefault(), "%.2f", glicoseJejum);
+        }
+    }
+
     public void setGlicoseJejum(double glicoseJejum) {
         this.glicoseJejum = glicoseJejum;
     }
 
     public double getColesterol() {
         return colesterol;
+    }
+
+    public String stringColesterol(){
+        if(Double.isNaN(colesterol)) {
+            return "--";
+        } else {
+            return String.format(Locale.getDefault(), "%.2f", colesterol);
+        }
     }
 
     public void setColesterol(double colesterol) {
