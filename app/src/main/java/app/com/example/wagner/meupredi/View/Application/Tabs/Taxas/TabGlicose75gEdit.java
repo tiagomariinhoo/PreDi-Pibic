@@ -15,12 +15,14 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Model.Paciente;
+import app.com.example.wagner.meupredi.Model.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
+import app.com.example.wagner.meupredi.View.Application.TaxasListener;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_glicose_apos75g_taxas;
 
-public class TabGlicose75gEdit extends Activity {
+public class TabGlicose75gEdit extends Activity implements TaxasListener {
 
     private Paciente paciente;
     private TextView glicose75;
@@ -35,8 +37,9 @@ public class TabGlicose75gEdit extends Activity {
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
+        PacienteUpdater.addListener(this);
+
         glicose75 = findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
-        glicose75.setText(String.valueOf(paciente.getGlicose75g()) + " mg/dL");
 
         novaGlicose75 = findViewById(R.id.edit_hemoglobina_glicolisada_taxas);
         novaGlicose75.setRawInputType(Configuration.KEYBOARD_QWERTY);
@@ -74,9 +77,21 @@ public class TabGlicose75gEdit extends Activity {
 
             paciente.setGlicose75g(g75DoPaciente);
 
-        } else {
-            paciente.setGlicose75g(0);
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        if(isFinishing()){
+            Log.d("Listener ", "Removido");
+            PacienteUpdater.removeListener(this);
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onChangeTaxas(Taxas taxas) {
+        glicose75.setText(taxas.stringGlicose75g()+" mg/dL");
     }
 }

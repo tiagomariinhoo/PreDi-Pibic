@@ -50,9 +50,9 @@ public class CartaoTaxas extends Activity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Taxas taxa = documentSnapshot.toObject(Taxas.class);
 
-                editJejum.setHint(""+taxa.getGlicoseJejum());
-                edit75g.setHint(""+taxa.getGlicose75g());
-                editGlicada.setHint(""+taxa.getHemoglobinaGlico());
+                editJejum.setHint(""+taxa.stringGlicoseJejum());
+                edit75g.setHint(""+taxa.stringGlicose75g());
+                editGlicada.setHint(""+taxa.stringHemoglobinaGlico());
 
                 btnExcluir.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -64,7 +64,7 @@ public class ListaAdapter<T> extends ArrayAdapter {
                     valueViewItem.setText(aux.get(position).printGlicose75g());
                     break;
                 case "Hemoglobina Glicada":
-                    valueViewItem.setText(aux.get(position).printHemoglobinaGlicada());
+                    valueViewItem.setText(aux.get(position).printHemoglobinaGlico());
                     break;
             }
         }else if(parameterClass == Medida.class){

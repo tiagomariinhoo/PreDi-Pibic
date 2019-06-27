@@ -103,8 +103,8 @@ public class Dados extends AppCompatActivity {
             }
         };
 
-        if(paciente.getAltura() != 0) {
-            altura.setHint(String.valueOf(paciente.getAltura()) + " m");
+        if(!Double.isNaN(paciente.getAltura())) {
+            altura.setHint(paciente.stringAltura() + " m");
         } else {
             altura.setHint("altura não cadastrada");
         }
@@ -165,7 +165,7 @@ public class Dados extends AppCompatActivity {
                     paciente.setAltura(alturaDoPaciente);
 
                     //atualiza valor na tela
-                    altura.setHint(String.valueOf(paciente.getAltura()) + " m");
+                    altura.setHint(paciente.stringAltura() + " m");
                     altura.setText("");
                 }
 

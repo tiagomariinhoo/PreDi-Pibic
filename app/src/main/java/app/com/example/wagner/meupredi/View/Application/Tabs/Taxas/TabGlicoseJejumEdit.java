@@ -15,12 +15,14 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import app.com.example.wagner.meupredi.Model.Paciente;
+import app.com.example.wagner.meupredi.Model.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
+import app.com.example.wagner.meupredi.View.Application.TaxasListener;
 
 import static app.com.example.wagner.meupredi.R.layout.tab_glicose_jejum_taxas;
 
-public class TabGlicoseJejumEdit extends Activity {
+public class TabGlicoseJejumEdit extends Activity implements TaxasListener {
 
     private Paciente paciente;
     private TextView glicoseJejum;
@@ -35,10 +37,11 @@ public class TabGlicoseJejumEdit extends Activity {
 
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
+        PacienteUpdater.addListener(this);
+
         atualizar = findViewById(R.id.btn_atualizar_taxas_jejum);
 
         glicoseJejum = findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
-        glicoseJejum.setText(String.valueOf(paciente.getGlicoseJejum()) + " mg/dL");
 
         novaGlicoseJejum = findViewById(R.id.edit_hemoglobina_glicolisada_taxas);
         novaGlicoseJejum.setRawInputType(Configuration.KEYBOARD_QWERTY);
@@ -79,5 +82,19 @@ public class TabGlicoseJejumEdit extends Activity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        if(isFinishing()){
+            Log.d("Listener ", "Removido");
+            PacienteUpdater.removeListener(this);
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onChangeTaxas(Taxas taxas) {
+        glicoseJejum.setText(taxas.stringGlicoseJejum()+" mg/dL");
     }
 }

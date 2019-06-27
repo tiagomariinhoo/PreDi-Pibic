@@ -59,9 +59,9 @@ public class TabTaxas extends Fragment implements TaxasListener {
     @Override
     public void onChangeTaxas(Taxas taxas) {
         if (taxas != null){
-            valor_hemoglobina_glicolisada.setText(String.format(Locale.getDefault(), "%.2f", taxas.getHemoglobinaGlico()));
-            valor_glicose75g.setText(String.format(Locale.getDefault(), "%.2f", taxas.getGlicose75g()));
-            valor_glicoseJejum.setText(String.format(Locale.getDefault(), "%.2f", taxas.getGlicoseJejum()));
+            valor_hemoglobina_glicolisada.setText(taxas.stringHemoglobinaGlico());
+            valor_glicose75g.setText(taxas.stringGlicose75g());
+            valor_glicoseJejum.setText(taxas.stringGlicoseJejum());
         }
     }
 }

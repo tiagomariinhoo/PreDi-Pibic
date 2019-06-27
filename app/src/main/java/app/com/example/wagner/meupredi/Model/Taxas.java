@@ -105,14 +105,14 @@ public class Taxas implements Serializable {
     }
 
     public String printGlicoseJejum(){
-        return String.format("%.2f mg/dL", glicoseJejum);
+        return stringGlicoseJejum()+" mg/dL";
     }
     public String printGlicose75g(){
-        return String.format("%.2f mg/dL", glicose75g);
+        return stringGlicose75g()+" mg/dL";
     }
 
-    public String printHemoglobinaGlicada(){
-        return String.format("%.2f %%", hemoglobinaGlico);
+    public String printHemoglobinaGlico(){
+        return stringHemoglobinaGlico()+" %";
     }
 
 

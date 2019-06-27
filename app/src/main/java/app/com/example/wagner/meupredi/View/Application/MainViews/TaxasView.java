@@ -456,9 +456,9 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
     @Override
     public void onChangeTaxas(Taxas taxas) {
-        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", taxas.getGlicoseJejum()));
-        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", taxas.getGlicose75g()));
-        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", taxas.getHemoglobinaGlico()));
+        glicoseJejum.setText(taxas.printGlicoseJejum());
+        glicose75.setText(taxas.printGlicose75g());
+        hemoglobinaGlicolisada.setText(taxas.printHemoglobinaGlico());
     }
 
     @Override

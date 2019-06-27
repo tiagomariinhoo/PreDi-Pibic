@@ -117,8 +117,8 @@ public class TabCorpo extends Fragment implements PacienteListener, MedidaListen
                 novoImc = medida.getPeso()/(paciente.getAltura()*paciente.getAltura());
             } else novoImc = medida.getPeso();
 
-            pesoAtual.setText(String.format(Locale.getDefault(), "%.2f", medida.getPeso()));
-            circAtual.setText(String.format(Locale.getDefault(), "%.2f", medida.getCircunferencia()));
+            pesoAtual.setText(medida.stringPeso());
+            circAtual.setText(medida.stringCircunferencia());
             imcAtual.setText(String.format(Locale.getDefault(), "%.2f", novoImc));
             ultimaMedicao.setText("Última medição: " + medida.printDate());
             ultimaMedicao.setVisibility(View.VISIBLE);
