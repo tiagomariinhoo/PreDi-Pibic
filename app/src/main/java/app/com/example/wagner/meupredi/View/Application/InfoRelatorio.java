@@ -77,6 +77,7 @@ public class InfoRelatorio extends AppCompatActivity {
     private void carregarEstados(){
         if(Double.isNaN(paciente.getGlicoseJejum())){
             carregarInfoFaltando("Glicose em Jejum");
+            btnContinuar.setVisibility(View.INVISIBLE);
         } else carregarGlicoseJejum();
         if(testarGlicose75g) carregarGlicose75g();
         if(testarHemoglobina) carregarHemoglobina();
@@ -231,7 +232,7 @@ public class InfoRelatorio extends AppCompatActivity {
 
     private void carregarInfoFaltando(String variavelFaltando){
         String mensagem = "É necessário que você cadastre a sua taxa de "+variavelFaltando+" para que possamos fazer um diagnóstico mais completo";
-        String titulo = "Taxas ainda não preenchidas";
+        String titulo = "Taxas não cadastradas";
         msgBalao.setText(mensagem);
         List<String> lista = new ArrayList<>();
         if(Double.isNaN(paciente.getGlicoseJejum())){

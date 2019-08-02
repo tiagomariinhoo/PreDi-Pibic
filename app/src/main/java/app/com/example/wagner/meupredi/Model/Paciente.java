@@ -195,10 +195,11 @@ public class Paciente implements Serializable {
     }
 
     public StatusPaciente calculoStatus() {
+        StatusPaciente status = StatusPaciente.SEM_DADOS;
 
         if(getGlicoseJejum() < 100){
 
-            return StatusPaciente.GLICOSE_JEJUM_BOA;
+            status = StatusPaciente.GLICOSE_JEJUM_BOA;
 
         } else if(getGlicoseJejum() >= 100 && getGlicoseJejum() <= 125){
 
@@ -206,44 +207,38 @@ public class Paciente implements Serializable {
 
                 if(getHemoglobinaGlicolisada() < 5.7){
 
-                    return StatusPaciente.GLICOSE_JEJUM_ALTERADA;
+                    status = StatusPaciente.GLICOSE_JEJUM_ALTERADA;
 
                 } else if(getHemoglobinaGlicolisada() >= 5.7 && getHemoglobinaGlicolisada() <= 6.4){
 
-                    return StatusPaciente.PRE_DIABETES;
+                    status = StatusPaciente.PRE_DIABETES;
 
-                } else{
+                } else if(!Double.isNaN(getHemoglobinaGlicolisada())){
 
-                    return StatusPaciente.DIABETES;
+                    status = StatusPaciente.DIABETES;
 
                 }
 
-            } else{
+            } else if(!Double.isNaN(getGlicose75g())){
 
-                return StatusPaciente.GLICOSE_75G_ALTA;
+                status = StatusPaciente.GLICOSE_75G_ALTA;
 
             }
 
-        } else{
+        } else if(!Double.isNaN(getGlicoseJejum())){
 
-            return StatusPaciente.GLICOSE_JEJUM_ALTA;
-
-        }
-
-    }
-
-    public void checkStatus(){
-        switch(this.calculoStatus()){
-            case DIABETES:
-
-                break;
-        }
-        if(this.calculoStatus() == StatusPaciente.DIABETES){
+            status = StatusPaciente.GLICOSE_JEJUM_ALTA;
 
         }
+
+        return status;
+
     }
 
     public enum StatusPaciente {
+        SEM_DADOS("Você precisa cadastrar taxas para que possamos fazer o diagnóstico, " +
+                "isso pode ser feito na tela de taxas"),
+
         GLICOSE_JEJUM_BOA("Sua glicemia de jejum atual está boa, mas devem ser feitas " +
                             "novas avaliações a cada 3 anos ou conforme o risco."),
 

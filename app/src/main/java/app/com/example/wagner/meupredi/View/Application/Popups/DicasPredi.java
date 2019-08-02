@@ -41,6 +41,11 @@ public class DicasPredi extends Activity {
                         " perfil glicêmico, situação essa que decorre da não utilização da automonitorização glicêmica. \n",
                 "Na verdade, a necessidade de uma frequência maior ou menor" +
                         " de testes glicêmicos é a recomendação mais inteligente para a prática desse importante recurso. \n"};
+        String[] dicaSemDados = {
+                "Não pudemos fazer um diagnóstico com os dados disponíveis\n",
+                "A ausência de dados pode estar mascarando problemas com a sua saúde\n",
+                "Isso pode ter acontecido por conta da ausência de taxas cadastradas no seu perfil\n"
+        };
 
         if(state == Paciente.StatusPaciente.DIABETES){
             image.setImageAlpha(R.mipmap.ic_diabete_status);
@@ -57,6 +62,14 @@ public class DicasPredi extends Activity {
             status.setText("Pré-Diabetes");
             tituloDica.setText("Atenção!");
             return dicaPreDiabetes;
+        }
+        else if(state == Paciente.StatusPaciente.SEM_DADOS){
+            image.setImageAlpha(R.mipmap.ic_dica_sem_dados);
+            image.setBackgroundResource(R.mipmap.ic_dica_sem_dados);
+            back.setBackgroundResource(R.drawable.borda_curvada_cima_cinza);
+            status.setText("Sem Dados");
+            tituloDica.setText("Atenção!");
+            return dicaSemDados;
         }
         else{
             //image.setImageAlpha(R.mipmap.green_alert);
