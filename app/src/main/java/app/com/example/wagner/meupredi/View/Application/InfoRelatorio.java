@@ -75,7 +75,9 @@ public class InfoRelatorio extends AppCompatActivity {
     }
 
     private void carregarEstados(){
-        carregarGlicoseJejum();
+        if(Double.isNaN(paciente.getGlicoseJejum())){
+            carregarInfoFaltando("Glicose em Jejum");
+        } else carregarGlicoseJejum();
         if(testarGlicose75g) carregarGlicose75g();
         if(testarHemoglobina) carregarHemoglobina();
     }
@@ -116,7 +118,10 @@ public class InfoRelatorio extends AppCompatActivity {
             mensagem = "Seu valor de glicemia em jejum apresenta possibilidade de diabetes, então " +
                     "iremos avaliar os dados do seu ultimo Teste de Tolerância a Glicose (TTG) " +
                     "cadastrado.";
-            testarGlicose75g = true;
+
+            if(Double.isNaN(paciente.getGlicose75g())){
+                carregarInfoFaltando("Glicose Após 75g");
+            } else testarGlicose75g = true;
         } else{
             //TODO: ver se essa mensagem ficou boa
             mensagem = "Sua glicemia em jejum está muito alta, você deve procurar um médico.";
@@ -159,12 +164,18 @@ public class InfoRelatorio extends AppCompatActivity {
             //TODO: ver se essa mensagem ficou boa
             mensagem = "Há chance de Glicemia de Jejum Alterada, você deve procurar um médico.\n" +
                     "No próximo passo, avaliaremos sua ultima taxa de Hemoglobina Glicada cadastrada.";
-            testarHemoglobina = true;
+
+            if(Double.isNaN(paciente.getHemoglobinaGlicolisada())){
+                carregarInfoFaltando("Hemoglobina Glicada");
+            } else testarHemoglobina = true;
         } else if(glicoseAtual >= 140 && glicoseAtual <= 199){
             //TODO: ver se essa mensagem ficou boa
             mensagem = "Há chance de Tolerância Diminuída à Glicose, você deve procurar um médico.\n" +
                     "No próximo passo, avaliaremos sua ultima taxa de Hemoglobina Glicada cadastrada.";
-            testarHemoglobina = true;
+
+            if(Double.isNaN(paciente.getHemoglobinaGlicolisada())){
+                carregarInfoFaltando("Hemoglobina Glicada");
+            } else testarHemoglobina = true;
         } else{
             //TODO: ver se essa mensagem ficou boa
             mensagem = "Sua glicose após 75g está muito alta, você deve procurar um médico.";
@@ -216,6 +227,26 @@ public class InfoRelatorio extends AppCompatActivity {
         CardFace second = new CardFace(mensagem, variavel, lista);
 
         estados.add(second);
+    }
+
+    private void carregarInfoFaltando(String variavelFaltando){
+        String mensagem = "É necessário que você cadastre a sua taxa de "+variavelFaltando+" para que possamos fazer o diagnóstico completo";
+        String titulo = "Taxas ainda não preenchidas";
+        msgBalao.setText(mensagem);
+        List<String> lista = new ArrayList<>();
+        if(Double.isNaN(paciente.getGlicoseJejum())){
+            lista.add("Glicose em Jejum");
+        }
+        if(Double.isNaN(paciente.getGlicose75g())){
+            lista.add("Glicose Após 75g");
+        }
+        if(Double.isNaN(paciente.getHemoglobinaGlicolisada())){
+            lista.add("Hemoglobina Glicada");
+        }
+
+        CardFace first = new CardFace(mensagem, titulo, lista);
+
+        estados.add(first);
     }
 
     private void flipCard(boolean forward) {
