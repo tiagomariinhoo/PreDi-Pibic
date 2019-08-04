@@ -83,11 +83,22 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
         listarTaxas = findViewById(R.id.btn_chamada_listar_taxas);
 
         glicoseJejum = findViewById(R.id.text_glicoseJejumAtual_taxas);
-        glicoseJejum.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicoseJejum()));
+
+        if(!Double.isNaN(paciente.getGlicose75g())) {
+            glicoseJejum.setText(String.format(Locale.getDefault(), "%.2f  mg/dL", paciente.getGlicoseJejum()));
+        } else glicoseJejum.setText("-- mg/dL");
+
         glicose75 = findViewById(R.id.text_glicose75gAtual_taxas);
-        glicose75.setText(String.format(Locale.ENGLISH, "%.2f  mg/dL", paciente.getGlicose75g()));
+
+        if(!Double.isNaN(paciente.getGlicose75g())) {
+            glicose75.setText(String.format(Locale.getDefault(), "%.2f  mg/dL", paciente.getGlicose75g()));
+        } else glicose75.setText("-- mg/dL");
+
         hemoglobinaGlicolisada = findViewById(R.id.text_hemoglobina_glicolisadaAtual_taxas);
-        hemoglobinaGlicolisada.setText(String.format(Locale.ENGLISH, "%.2f  %%", paciente.getHemoglobinaGlicolisada()));
+
+        if(!Double.isNaN(paciente.getHemoglobinaGlicolisada())) {
+            hemoglobinaGlicolisada.setText(String.format(Locale.getDefault(), "%.2f  %%", paciente.getHemoglobinaGlicolisada()));
+        } else hemoglobinaGlicolisada.setText("-- %");
 
         chamadaInformativo = findViewById(R.id.image_informativo_glicoses);
 
