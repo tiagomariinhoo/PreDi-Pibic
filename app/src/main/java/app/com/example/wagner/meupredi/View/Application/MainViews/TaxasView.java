@@ -434,7 +434,7 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
             break;
         }
 
-        set1.setFillAlpha(90);
+        set1.setFillAlpha(80);
         //set1.setFillColor(Color.RED);
 
         // set the line to be drawn like this "- - - - - -"
