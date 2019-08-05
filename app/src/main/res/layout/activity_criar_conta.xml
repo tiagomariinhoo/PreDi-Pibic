@@ -109,13 +109,30 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:nextFocusDown="@+id/edit_novamente_senha"
         android:textColor="@color/colorBranco"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_senha" />
+
+    <CheckBox
+        android:id="@+id/checkBox_mostrar_senha"
+        android:layout_width="47dp"
+        android:layout_height="37dp"
+        android:button="@mipmap/visible"
+        android:gravity="top"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/edit_senha_cadastro"
+        app:layout_constraintTop_toTopOf="@+id/edit_senha_cadastro"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_senha_cadastro"
+        android:layout_marginBottom="16dp" />
 
     <TextView
         android:id="@+id/text_novamente_senha"
@@ -125,7 +142,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="Digite novamente a senha:"
+        android:text="Digite novamente a senha"
         android:textColor="@color/colorBranco"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -142,7 +159,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textColor="@color/colorBranco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -152,16 +169,22 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
-        android:id="@+id/checkedConSenha"
-        android:layout_width="32dp"
-        android:layout_height="45dp"
+        android:id="@+id/checkBox_mostrar_conf_senha"
+        android:layout_width="47dp"
+        android:layout_height="37dp"
+        android:button="@mipmap/visible"
+        android:gravity="top"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:checked="false"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_novamente_senha"
-        app:layout_constraintTop_toTopOf="@+id/edit_novamente_senha"
-        app:layout_constraintVertical_bias="0.0"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/edit_novamente_senha" />
+        app:layout_constraintRight_toRightOf="@+id/edit_novamente_senha"
+        app:layout_constraintTop_toTopOf="@+id/edit_novamente_senha"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_novamente_senha"
+        android:layout_marginBottom="16dp" />
+
 
     <TextView
         android:id="@+id/text_faca_todo_criar"

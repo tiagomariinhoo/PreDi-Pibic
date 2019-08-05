@@ -3,10 +3,12 @@ package app.com.example.wagner.meupredi.View.Application.MainViews;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -38,12 +40,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import app.com.example.wagner.meupredi.Controller.MedidaController;
 import app.com.example.wagner.meupredi.Controller.TaxasController;
 import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.Model.Taxas;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.ListaTaxas;
 import app.com.example.wagner.meupredi.View.Application.PopGlicoses;
+import app.com.example.wagner.meupredi.View.Application.Popups.PopConquista;
 import app.com.example.wagner.meupredi.View.Application.TaxasListener;
 
 /**
@@ -63,6 +67,7 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
     private LineChart mChart;
     private ListenerRegistration graphListener;
     private List<Taxas> taxas = new ArrayList<>();
+    private AlertDialog.Builder alertaNovaMedicao;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -189,6 +194,9 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
             @Override
             public void onClick(View v) {
 
+                Taxas taxa = new Taxas();
+                taxa.initDate();
+
                 if(novaGlicoseJejum.getText().toString().length() != 0) {
 
                     String novaGJ = novaGlicoseJejum.getText().toString();
@@ -208,8 +216,10 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
                     //glicoseJejum.setText(String.valueOf(gJDoPaciente) + " mg/dL");
                     Log.d("GJejum : ", glicoseJejum.getText().toString());
 
-                    paciente.setGlicoseJejum(gJDoPaciente);
+                    taxa.setGlicoseJejum(gJDoPaciente);
 
+                } else{
+                    taxa.setGlicoseJejum(paciente.getGlicoseJejum());
                 }
 
                 if(novaGlicose75.getText().toString().length() != 0) {
@@ -233,8 +243,10 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
                     Log.d("Gli75 : ", glicose75.getText().toString());
 
-                    paciente.setGlicose75g(g75DoPaciente);
+                    taxa.setGlicose75g(g75DoPaciente);
 
+                } else{
+                    taxa.setGlicose75g(paciente.getGlicose75g());
                 }
 
                 if(novaHemoglobinaGlicolisada.getText().toString().length() != 0) {
@@ -257,17 +269,62 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
 
                     Log.d("HG : ", hemoglobinaGlicolisada.getText().toString());
 
-                    paciente.setHemoglobinaGlicolisada(hgDoPaciente);
+                    taxa.setHemoglobinaGlico(hgDoPaciente);
 
+                } else{
+                    taxa.setHemoglobinaGlico(paciente.getHemoglobinaGlicolisada());
                 }
 
-                //atualiza dados no banco de taxas e nos dados do paciente
-                TaxasController.addTaxas(paciente);
+                alertaNovaMedicao = new AlertDialog.Builder(TaxasView.this);
+                alertaNovaMedicao.setTitle("Atenção!");
+                alertaNovaMedicao.setMessage("Verifique se as informações de suas taaxs estão corretas e confirme.\n" +
+                        "Glicose em Jejum: " + taxa.printGlicoseJejum() + "\n" +
+                        "Glicose Após 75g: " + taxa.printGlicose75g() + "\n" +
+                        "Hemoglobina Glicada: " + taxa.printHemoglobinaGlico() + "\n" +
+                        "Data: " + taxa.printDate());
 
-                Toast.makeText(getApplicationContext(),"Taxas atualizadas com sucesso!",Toast.LENGTH_SHORT).show();
-                novaGlicoseJejum.setText("");
-                novaGlicose75.setText("");
-                novaHemoglobinaGlicolisada.setText("");
+                // Caso Não
+                alertaNovaMedicao.setNegativeButton("CANCELAR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(TaxasView.this, "Nova medicao cancelada", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                // Caso Sim
+                alertaNovaMedicao.setPositiveButton("CONFIRMAR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                if(!Double.isNaN(taxa.getGlicoseJejum())
+                                        || !Double.isNaN(taxa.getGlicose75g())
+                                        || !Double.isNaN(taxa.getHemoglobinaGlico())) {
+
+                                    paciente.setTaxas(taxa);
+
+                                    //atualiza dados no banco de taxas e nos dados do paciente
+                                    TaxasController.addTaxas(paciente);
+
+                                    Toast.makeText(getApplicationContext(),"Taxas atualizadas com sucesso!",Toast.LENGTH_SHORT).show();
+                                } else{
+                                    Toast.makeText(getApplicationContext(), "Taxas inválidas!", Toast.LENGTH_SHORT).show();
+                                }
+
+                                novaGlicoseJejum.setText("");
+                                novaGlicose75.setText("");
+                                novaHemoglobinaGlicolisada.setText("");
+
+                                try {
+                                    InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                } catch (NullPointerException e) {
+                                    //caso o teclado ja esteja escondido
+                                }
+                            }
+                        });
+                alertaNovaMedicao.create().show();
 
                 //finish();
 
@@ -397,24 +454,26 @@ public class TaxasView extends AppCompatActivity implements OnChartGestureListen
         List<Entry> yVals = new ArrayList<>();
         List<String> xVals = new ArrayList<>();
 
-        for (int i = 0; i < taxas.size(); ++i) {
-            float valor;
+        for (int i = 0, n = 0; i < taxas.size(); ++i) {
+            double valor;
             switch (radioGroupGraficoTaxas.getCheckedRadioButtonId()){
                 case R.id.radioApos75g_grafico_taxas:
-                    valor = (float) taxas.get(i).getGlicose75g();
+                    valor = taxas.get(i).getGlicose75g();
                 break;
 
                 case R.id.radioGlicada_grafico_taxas:
-                    valor = (float) taxas.get(i).getHemoglobinaGlico();
+                    valor = taxas.get(i).getHemoglobinaGlico();
                 break;
 
                 default:
-                    valor = (float) taxas.get(i).getGlicoseJejum();
+                    valor = taxas.get(i).getGlicoseJejum();
                 break;
             }
-
-            yVals.add(new Entry(valor, i));
-            xVals.add("");
+            if(!Double.isNaN(valor)) {
+                yVals.add(new Entry((float) valor, n));
+                xVals.add("");
+                ++n;
+            }
         }
 
         LineDataSet set1;

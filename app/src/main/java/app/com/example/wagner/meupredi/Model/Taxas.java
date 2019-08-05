@@ -115,6 +115,9 @@ public class Taxas implements Serializable {
         return stringHemoglobinaGlico()+" %";
     }
 
+    public void initDate(){
+        this.dateTaxas = Timestamp.now();
+    }
 
     public String printDate(){
         SimpleDateFormat printFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

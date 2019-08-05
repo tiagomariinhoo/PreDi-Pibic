@@ -73,12 +73,16 @@ public class Medida implements Serializable {
         return printDateFormat.format(dateMedida.toDate());
     }
 
+    public void initDate(){
+        this.dateMedida = Timestamp.now();
+    }
+
     public String printPeso(){
-        return String.format("%.2f kg", peso);
+        return stringPeso() + " kg";
     }
 
     public String printCircunferencia(){
-        return String.format("%.2f cm", circunferencia);
+        return stringCircunferencia() + " cm";
     }
 
     @Override

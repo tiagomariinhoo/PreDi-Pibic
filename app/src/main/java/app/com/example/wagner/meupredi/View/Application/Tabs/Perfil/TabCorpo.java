@@ -119,7 +119,11 @@ public class TabCorpo extends Fragment implements PacienteListener, MedidaListen
 
             pesoAtual.setText(medida.stringPeso());
             circAtual.setText(medida.stringCircunferencia());
-            imcAtual.setText(String.format(Locale.getDefault(), "%.2f", novoImc));
+            if(!Double.isNaN(novoImc)) {
+                imcAtual.setText(String.format(Locale.getDefault(), "%.2f", novoImc));
+            } else{
+                imcAtual.setText("--");
+            }
             ultimaMedicao.setText("Última medição: " + medida.printDate());
             ultimaMedicao.setVisibility(View.VISIBLE);
         }

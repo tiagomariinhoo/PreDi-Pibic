@@ -279,8 +279,8 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
 
                 Log.d("CircAtual : ", circAtual);
                 Log.d("Peso Atual : ", pesoAtual);
-                double pesoAtualizado = 0.0;
-                double circAtualizado = 0.0;
+                double pesoAtualizado = Double.NaN;
+                double circAtualizado = Double.NaN;
                 try{
                     pesoAtualizado = Double.parseDouble(pesoAtual);
                     circAtualizado = Double.parseDouble(circAtual);
@@ -290,28 +290,35 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                     finish();
                 }
 
-                String pesoFormatado = String.format(Locale.ENGLISH, "%.2f", pesoAtualizado);
-                double pesoDoPaciente = Double.parseDouble(pesoFormatado);
+                Medida medida = new Medida();
 
-                String circFormatado = String.format(Locale.ENGLISH, "%.2f", circAtualizado);
-                double circDoPaciente = Double.parseDouble(circFormatado);
+                medida.initDate();
 
-                String dia = String.format("%02d", dataRegistro.get(GregorianCalendar.DAY_OF_MONTH));
-                String mes = String.format("%02d", dataRegistro.get(GregorianCalendar.MONTH)+1);
-                int ano = dataRegistro.get(GregorianCalendar.YEAR);
+                if(!Double.isNaN(pesoAtualizado)) {
+                    medida.setPeso(pesoAtualizado);
+                } else{
+                    medida.setPeso(paciente.getPeso());
+                }
+
+                if(!Double.isNaN(circAtualizado)) {
+                    medida.setCircunferencia(circAtualizado);
+                } else{
+                    medida.setCircunferencia(paciente.getCircunferencia());
+                }
 
                 alertaNovaMedicao = new AlertDialog.Builder(MedidaView.this);
                 alertaNovaMedicao.setTitle("Atenção!");
-                alertaNovaMedicao.setMessage("Verifique se as informações de sua medição estão corretas e confirme." +
-                        "\n" + "Peso: " + pesoAtual + "kg\nCircunferência: " + circAtual + "cm\nData: " + dia +
-                        "/" + mes + "/" + ano);
+                alertaNovaMedicao.setMessage("Verifique se as informações de sua medição estão corretas e confirme.\n" +
+                        "Peso: " + medida.printPeso() + "\n" +
+                        "Circunferência: " + medida.printCircunferencia() + "\n" +
+                        "Data: " + medida.printDate());
 
                 // Caso Não
                 alertaNovaMedicao.setNegativeButton("CANCELAR",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MedidaView.this, "Nova medicao cancelada", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MedidaView.this, "Nova medição cancelada", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -321,17 +328,15 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            if (pesoDoPaciente > 0 || circDoPaciente > 0) {
+                            if(!Double.isNaN(medida.getPeso()) || !Double.isNaN(medida.getCircunferencia())) {
 
-                                //atualiza peso no objeto
-                                paciente.setPeso(pesoDoPaciente);
-                                paciente.setCircunferencia(circDoPaciente);
+                                paciente.setMedida(medida);
 
                                 //atualiza o peso e a circ do paciente no banco
                                 MedidaController.addMedida(paciente);
 
                             } else {
-                                Toast.makeText(getApplicationContext(), "Peso inválido!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Medidas inválidas!", Toast.LENGTH_SHORT).show();
                             }
 
                             novoPeso.setText("");
@@ -394,16 +399,19 @@ public class MedidaView extends AppCompatActivity implements OnChartGestureListe
         List<Entry> yVals = new ArrayList<>();
         List<String> xVals = new ArrayList<>();
 
-        for (int i = 0; i < medidas.size(); ++i) {
-            float valor;
+        for (int i = 0, n = 0; i < medidas.size(); ++i) {
+            double valor;
             if (checkPeso.isChecked()) {
-                valor = (float) medidas.get(i).getPeso();
+                valor = medidas.get(i).getPeso();
             } else {
-                valor = (float) medidas.get(i).getCircunferencia();
+                valor = medidas.get(i).getCircunferencia();
             }
             Log.d("MEDIDAS: ", medidas.get(i).toString());
-            yVals.add(new Entry(valor, i));
-            xVals.add("");
+            if(!Double.isNaN(valor)) {
+                yVals.add(new Entry((float) valor, n));
+                xVals.add("");
+                ++n;
+            }
         }
 
         LineDataSet set1;

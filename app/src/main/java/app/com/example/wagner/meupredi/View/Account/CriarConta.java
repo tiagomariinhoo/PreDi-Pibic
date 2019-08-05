@@ -8,6 +8,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -46,8 +49,8 @@ import app.com.example.wagner.meupredi.R;
 
 public class CriarConta extends AppCompatActivity {
 
-    private CheckBox boxSenha;
     private EditText nome, email, senha, conSenha;
+    private CheckBox mostrarSenha, mostrarConSenha;
     private Spinner sexo;
     private TextView data;
     private DatePickerDialog.OnDateSetListener dataNascimento;
@@ -67,14 +70,15 @@ public class CriarConta extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        boxSenha = (CheckBox) findViewById(R.id.checkedConSenha);
         nome = (EditText) findViewById(R.id.edit_nome_completo);
         email = (EditText) findViewById(R.id.edit_endereco_email);
         sexo = (Spinner) findViewById(R.id.spinner_sexo_postlogin);
         data = (TextView) findViewById(R.id.edit_nascimento_criar);
         data.setRawInputType(Configuration.KEYBOARD_QWERTY);
         senha = (EditText) findViewById(R.id.edit_senha_cadastro);
+        mostrarSenha = (CheckBox) findViewById(R.id.checkBox_mostrar_senha);
         conSenha = (EditText) findViewById(R.id.edit_novamente_senha);
+        mostrarConSenha = (CheckBox) findViewById(R.id.checkBox_mostrar_conf_senha);
 
         Button criarConta = (Button) findViewById(R.id.btn_criar_conta);
         cancelar = (TextView) findViewById(R.id.btn_cancelar);
@@ -107,7 +111,27 @@ public class CriarConta extends AppCompatActivity {
 
         sexo.setAdapter(adapter);
 
-        boxSenha.setChecked(false);
+        mostrarSenha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked) {
+                    senha.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                } else {
+                    senha.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });
+
+        mostrarConSenha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked) {
+                    conSenha.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                } else {
+                    conSenha.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });
 
         // ABRIR DIALOG DE INSERIR DATA DE NASCIMENTO
         data.setOnClickListener(new View.OnClickListener() {
@@ -143,38 +167,6 @@ public class CriarConta extends AppCompatActivity {
                 data.setText(dataNasc);
             }
         };
-
-        conSenha.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                String senhaCadastro = senha.getText().toString();
-                String conSenhaCadastro = conSenha.getText().toString();
-
-                //verifica se as senhas sao iguais nos dois campos de cadastro
-                if(senhaCadastro.length()==0){
-                    Toast.makeText(getApplicationContext(),"Insira uma senha válida!", Toast.LENGTH_SHORT).show();
-                    boxSenha.setChecked(false);
-                    return false;
-                }
-
-                if(senhaCadastro.equals(conSenhaCadastro)){
-                    boxSenha.setChecked(true);
-
-                    //esconde teclado
-                    try {
-                        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                    } catch(NullPointerException e) {
-                        //caso o teclado ja esteja escondido
-                    }
-                    return true;
-                } else {
-                    Toast.makeText(getApplicationContext(),"Insira senhas iguais!", Toast.LENGTH_SHORT).show();
-                    boxSenha.setChecked(false);
-                    return false;
-                }
-            }
-        });
 
         criarConta.setOnClickListener(new View.OnClickListener() {
             @Override
