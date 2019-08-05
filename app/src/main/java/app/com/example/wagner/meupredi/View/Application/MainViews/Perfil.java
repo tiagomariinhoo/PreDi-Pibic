@@ -32,7 +32,7 @@ import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Account.TelaLogin;
 import app.com.example.wagner.meupredi.View.Application.PacienteListener;
-import app.com.example.wagner.meupredi.View.Application.PopNotific;
+import app.com.example.wagner.meupredi.View.Application.Relatorio;
 import app.com.example.wagner.meupredi.View.Application.Popups.DicasPredi;
 import app.com.example.wagner.meupredi.View.Application.Sair;
 import app.com.example.wagner.meupredi.View.Application.Tabs.TabAdapter;
@@ -114,7 +114,7 @@ public class Perfil extends FragmentActivity implements PacienteListener {
         coracao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Perfil.this, PopNotific.class);
+                Intent intent = new Intent(Perfil.this, Relatorio.class);
                 startActivity(intent);
             }
         });

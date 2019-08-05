@@ -10,14 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
 import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
-public class PopNotific extends Activity {
+public class Relatorio extends Activity {
 
     private TextView relatorio, titulo, fechar;
     private ImageView chamadaExplicativoDiagnostico;
@@ -45,16 +42,25 @@ public class PopNotific extends Activity {
 
         getWindow().setLayout((int) ( width*.8), (int) (height*.60));
 
-        relatorio = (TextView) findViewById(R.id.text_pop_notific_relatorio);
+        relatorio = findViewById(R.id.text_pop_notific_relatorio);
 
         Paciente.StatusPaciente status = paciente.calculoStatus();
 
         switch(status){
             case DIABETES:
-                titulo.setText("Diabetes");
+                titulo.setText("Diabetes!");
                 break;
             case PRE_DIABETES:
-                titulo.setText("Pré-Diabetes");
+                titulo.setText("Pré-Diabetes!");
+                break;
+            case GLICOSE_JEJUM_ALTA:
+                titulo.setText("Situação de Risco!");
+                break;
+            case GLICOSE_75G_ALTA:
+                titulo.setText("Situação de Risco!");
+                break;
+            case GLICOSE_JEJUM_ALTERADA:
+                titulo.setText("Situação de Risco!");
                 break;
             default:
                 titulo.setText("Regular");
@@ -66,7 +72,7 @@ public class PopNotific extends Activity {
         chamadaExplicativoDiagnostico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PopNotific.this, StartRelatorio.class);
+                Intent intent = new Intent(Relatorio.this, StartRelatorio.class);
                 startActivity(intent);
             }
         });

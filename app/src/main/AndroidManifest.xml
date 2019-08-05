@@ -64,7 +64,7 @@
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.Dicas"
             android:screenOrientation="portrait"/>
-        <activity android:name=".View.Application.PopNotific"
+        <activity android:name=".View.Application.Relatorio"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".View.Application.Sair"
