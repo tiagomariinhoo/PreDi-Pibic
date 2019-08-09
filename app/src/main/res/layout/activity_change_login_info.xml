@@ -194,7 +194,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/edit_conf_senha_dados" />
 
     <Button
-        android:id="@+id/btn_atualizar_dado"
+        android:id="@+id/btn_enviar_email_senha"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -202,7 +202,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/borda_curvada_verde"
-        android:text="ATUALIZAR"
+        android:text="Login"
         android:textColor="@color/colorBranco"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -58,7 +58,7 @@ public class RefreshLogin extends Activity {
         confSenhaLabel = (TextView) findViewById(R.id.text_conf_senha_dados);
         confSenhaImage = (ImageView) findViewById(R.id.image_conf_senha);
         title = (TextView) findViewById(R.id.background_dados_header);
-        atualizar = (Button) findViewById(R.id.btn_criar_conta);
+        atualizar = (Button) findViewById(R.id.btn_enviar_email_senha);
 
         findViewById(R.id.tela_editar_email_senha).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +120,7 @@ public class RefreshLogin extends Activity {
                         confSenhaImage.setVisibility(View.VISIBLE);
                         confSenhaLabel.setVisibility(View.VISIBLE);
                         confSenha.setVisibility(View.VISIBLE);
-
+                        atualizar.setText("Atualizar");
                         atualizar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
