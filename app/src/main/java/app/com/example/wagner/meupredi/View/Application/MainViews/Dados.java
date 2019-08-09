@@ -64,7 +64,7 @@ public class Dados extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        
+
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         //se o usuario ja preencheu algum dado, preenche como hint

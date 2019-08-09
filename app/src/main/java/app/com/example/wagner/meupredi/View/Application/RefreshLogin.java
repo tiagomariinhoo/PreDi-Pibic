@@ -60,7 +60,7 @@ public class RefreshLogin extends Activity {
         title = (TextView) findViewById(R.id.background_dados_header);
         atualizar = (Button) findViewById(R.id.btn_criar_conta);
 
-        findViewById(R.id.tela_criar_conta).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.tela_editar_email_senha).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(getCurrentFocus()!=null && getCurrentFocus() instanceof EditText){
@@ -121,8 +121,6 @@ public class RefreshLogin extends Activity {
                         confSenhaLabel.setVisibility(View.VISIBLE);
                         confSenha.setVisibility(View.VISIBLE);
 
-                        enableLogin();
-
                         atualizar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -163,6 +161,8 @@ public class RefreshLogin extends Activity {
                                 }
                             }
                         });
+
+                        enableLogin();
                     }
                 });
 
