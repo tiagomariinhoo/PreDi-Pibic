@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/borda_curvada_fundo_gradiente">
+
+    <TextView
+        android:id="@+id/background_dados_header"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:background="@drawable/borda_curvada_cima_transparente"
+        android:text="Por favor faça login\nantes de editar credenciais"
+        android:textColor="@color/colorBranco"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_email2"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:tint="@color/colorBranco"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_endereco_email_dados"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_endereco_email_dados"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_endereco_email_dados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="Endereço de email"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/background_dados_header"
+        app:layout_constraintHorizontal_bias="0.497" />
+
+    <EditText
+        android:id="@+id/edit_endereco_email_dados"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:nextFocusDown="@+id/edit_nascimento_criar"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintLeft_toRightOf="@+id/image_email"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_endereco_email_dados" />
+
+
+    <ImageView
+        android:id="@+id/image_senha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_senha"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:tint="@color/colorBranco"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_senha_dados"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_senha_dados"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_senha_dados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="Senha"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_endereco_email_dados"
+        app:layout_constraintHorizontal_bias="0.497" />
+
+    <EditText
+        android:id="@+id/edit_senha_dados"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:nextFocusDown="@+id/edit_nascimento_criar"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintLeft_toRightOf="@+id/image_senha"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_senha_dados" />
+
+    <CheckBox
+        android:id="@+id/checkBox_mostrar_senha_dados"
+        android:layout_width="47dp"
+        android:layout_height="37dp"
+        android:button="@mipmap/visible"
+        android:gravity="top"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintRight_toRightOf="@+id/edit_senha_dados"
+        app:layout_constraintTop_toTopOf="@+id/edit_senha_dados"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_senha_dados" />
+
+    <ImageView
+        android:id="@+id/image_conf_senha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_senha"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:tint="@color/colorBranco"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_conf_senha_dados"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_conf_senha_dados"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_conf_senha_dados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="Digite novamente a senha"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_senha_dados"
+        app:layout_constraintHorizontal_bias="0.497" />
+
+    <EditText
+        android:id="@+id/edit_conf_senha_dados"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:nextFocusDown="@+id/edit_nascimento_criar"
+        android:textColor="@color/colorBranco"
+        app:layout_constraintLeft_toRightOf="@+id/image_conf_senha"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_conf_senha_dados" />
+
+    <CheckBox
+        android:id="@+id/checkBox_mostrar_conf_senha_dados"
+        android:layout_width="47dp"
+        android:layout_height="37dp"
+        android:button="@mipmap/visible"
+        android:gravity="top"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintRight_toRightOf="@+id/edit_conf_senha_dados"
+        app:layout_constraintTop_toTopOf="@+id/edit_conf_senha_dados"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_conf_senha_dados" />
+
+    <Button
+        android:id="@+id/btn_atualizar_dado"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/borda_curvada_verde"
+        android:text="ATUALIZAR"
+        android:textColor="@color/colorBranco"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_conf_senha_dados"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+</android.support.constraint.ConstraintLayout>

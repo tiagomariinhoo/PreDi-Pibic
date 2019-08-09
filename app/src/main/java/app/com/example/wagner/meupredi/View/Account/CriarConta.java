@@ -58,9 +58,6 @@ public class CriarConta extends AppCompatActivity {
     private TextView cancelar;
     private FirebaseAuth auth;
 
-    //TODO: senha não ta aparecendo escondida por padrão e checkbox de esconder não está funcionando
-    //TODO: talvez fazer cadastro que não seja só email e senha após o primeiro login seja melhor
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -171,8 +168,6 @@ public class CriarConta extends AppCompatActivity {
         criarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //TODO: verificar email ao cadastrar (enviar email de confirmacao)?
 
                 String nomeCompleto = nome.getText().toString();
                 String emailCadastro = email.getText().toString().toLowerCase();

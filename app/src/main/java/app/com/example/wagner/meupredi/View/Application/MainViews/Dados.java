@@ -2,6 +2,7 @@ package app.com.example.wagner.meupredi.View.Application.MainViews;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -28,13 +29,14 @@ import java.util.Locale;
 import app.com.example.wagner.meupredi.Controller.PacienteController;
 import app.com.example.wagner.meupredi.Model.Paciente;
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Application.RefreshLogin;
 
 public class Dados extends AppCompatActivity {
 
     private EditText nome;
     private TextView data;
     private EditText altura;
-    private Button atualizar;
+    private Button atualizar, atualizar_email_senha;
     private Paciente paciente;
     private Timestamp timestampNasc;
     private DatePickerDialog.OnDateSetListener dataNascimento;
@@ -54,6 +56,15 @@ public class Dados extends AppCompatActivity {
         altura = (EditText) findViewById(R.id.edit_altura_dados);
         altura.setRawInputType(Configuration.KEYBOARD_QWERTY);
 
+        atualizar_email_senha = (Button) findViewById(R.id.btn_atualizar_email_senha);
+        atualizar_email_senha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Dados.this, RefreshLogin.class);
+                startActivity(intent);
+            }
+        });
+        
         paciente = PacienteUpdater.getPaciente();//(Paciente) getIntent().getExtras().get("Paciente");
 
         //se o usuario ja preencheu algum dado, preenche como hint
