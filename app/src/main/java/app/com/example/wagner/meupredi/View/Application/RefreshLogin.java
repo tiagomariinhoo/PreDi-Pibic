@@ -102,6 +102,8 @@ public class RefreshLogin extends Activity {
             }
         });
 
+        FirebaseUser user = auth.getCurrentUser();
+
         atualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,29 +114,23 @@ public class RefreshLogin extends Activity {
                 if(!emailLogin.isEmpty() && !senhaLogin.isEmpty()) {
                     disableLogin();
 
-                    FirebaseUser user = auth.getCurrentUser();
+                    AuthCredential credential = EmailAuthProvider.getCredential(emailLogin, senhaLogin);
 
-                    if(user != null) {
-                        AuthCredential credential = EmailAuthProvider.getCredential(emailLogin, senhaLogin);
-
-                        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                enableLogin();
-                                if (task.isSuccessful()) {
-                                    changeToUpdateScreen(user);
-                                } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                    //email digitado inválido
-                                    Toast.makeText(RefreshLogin.this, "Credenciais inválidas", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Log.e("ERROR", task.getException().getClass().getName());
-                                    Toast.makeText(RefreshLogin.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                }
+                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            enableLogin();
+                            if (task.isSuccessful()) {
+                                changeToUpdateScreen(user);
+                            } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                //email digitado inválido
+                                Toast.makeText(RefreshLogin.this, "Credenciais inválidas", Toast.LENGTH_LONG).show();
+                            } else {
+                                Log.e("ERROR", task.getException().getClass().getName());
+                                Toast.makeText(RefreshLogin.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
-                        });
-                    } else{
-                        logout();
-                    }
+                        }
+                    });
                 } else {
                     Toast.makeText(RefreshLogin.this, "Por favor, preencha os campos", Toast.LENGTH_LONG).show();
                 }
@@ -151,19 +147,6 @@ public class RefreshLogin extends Activity {
     private void disableLogin(){
         atualizar.setBackground(ContextCompat.getDrawable(this, R.drawable.borda_curvada_cinza));
         atualizar.setEnabled(false);
-    }
-
-    private void logout(){
-        Toast.makeText(RefreshLogin.this, "Um erro ocorreu, usuário deslogado", Toast.LENGTH_LONG).show();
-        SharedPreferences prefs = getSharedPreferences("Preferences", 0);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.apply();
-        PacienteUpdater.onEnd();
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(RefreshLogin.this, TelaLogin.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     private void changeToUpdateScreen(FirebaseUser user){
