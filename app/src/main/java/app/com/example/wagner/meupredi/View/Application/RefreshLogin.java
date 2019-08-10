@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
@@ -105,6 +107,8 @@ public class RefreshLogin extends Activity {
                 String emailLogin = email.getText().toString().toLowerCase();
                 String senhaLogin = senha.getText().toString();
 
+                senha.setText("");
+
                 FirebaseUser user = auth.getCurrentUser();
 
                 AuthCredential credential = EmailAuthProvider.getCredential(emailLogin, senhaLogin);
@@ -128,6 +132,10 @@ public class RefreshLogin extends Activity {
                                 String novaSenha = senha.getText().toString();
                                 String novaConfSenha = confSenha.getText().toString();
 
+                                email.setText("");
+                                senha.setText("");
+                                confSenha.setText("");
+
                                 if(novoEmail.length() != 0){
                                     user.updateEmail(novoEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -136,9 +144,11 @@ public class RefreshLogin extends Activity {
                                                 if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                                     //email já faz parte de uma conta
                                                     Toast.makeText(RefreshLogin.this, "Email já possui uma conta associada", Toast.LENGTH_LONG).show();
-                                                } else {
+                                                } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                                     //email digitado inválido
                                                     Toast.makeText(RefreshLogin.this, "Email inválido", Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    Log.e("ERROR", task.getException().getMessage());
                                                 }
                                             }
                                         }
