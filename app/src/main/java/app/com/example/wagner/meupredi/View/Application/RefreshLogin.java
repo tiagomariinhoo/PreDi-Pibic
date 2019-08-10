@@ -2,6 +2,8 @@ package app.com.example.wagner.meupredi.View.Application;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +32,8 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
 import app.com.example.wagner.meupredi.R;
+import app.com.example.wagner.meupredi.View.Account.TelaLogin;
+import app.com.example.wagner.meupredi.View.Application.MainViews.PacienteUpdater;
 
 public class RefreshLogin extends Activity {
 
@@ -102,80 +106,38 @@ public class RefreshLogin extends Activity {
             @Override
             public void onClick(View v) {
 
-                disableLogin();
-
                 String emailLogin = email.getText().toString().toLowerCase();
                 String senhaLogin = senha.getText().toString();
 
-                senha.setText("");
+                if(!emailLogin.isEmpty() && !senhaLogin.isEmpty()) {
+                    disableLogin();
 
-                FirebaseUser user = auth.getCurrentUser();
+                    FirebaseUser user = auth.getCurrentUser();
 
-                AuthCredential credential = EmailAuthProvider.getCredential(emailLogin, senhaLogin);
+                    if(user != null) {
+                        AuthCredential credential = EmailAuthProvider.getCredential(emailLogin, senhaLogin);
 
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        title.setText("Informe os novos dados");
-                        emailLabel.setText("Novo " + emailLabel.getText());
-                        senhaLabel.setText("Nova " + senhaLabel.getText());
-                        email.setText("");
-                        senha.setText("");
-                        confSenhaImage.setVisibility(View.VISIBLE);
-                        confSenhaLabel.setVisibility(View.VISIBLE);
-                        confSenha.setVisibility(View.VISIBLE);
-                        atualizar.setText("Atualizar");
-                        atualizar.setOnClickListener(new View.OnClickListener() {
+                        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onClick(View view) {
-                                String novoEmail = email.getText().toString().toLowerCase();
-                                String novaSenha = senha.getText().toString();
-                                String novaConfSenha = confSenha.getText().toString();
-
-                                email.setText("");
-                                senha.setText("");
-                                confSenha.setText("");
-
-                                if(novoEmail.length() != 0){
-                                    user.updateEmail(novoEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (!task.isSuccessful()) {
-                                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                                    //email já faz parte de uma conta
-                                                    Toast.makeText(RefreshLogin.this, "Email já possui uma conta associada", Toast.LENGTH_LONG).show();
-                                                } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                                    //email digitado inválido
-                                                    Toast.makeText(RefreshLogin.this, "Email inválido", Toast.LENGTH_LONG).show();
-                                                } else {
-                                                    Log.e("ERROR", task.getException().getMessage());
-                                                }
-                                            }
-                                        }
-                                    });
-                                }
-
-                                if(novaSenha.length() != 0 && novaSenha.equals(novaConfSenha)){
-                                    user.updatePassword(novaSenha).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (!task.isSuccessful()) {
-                                                if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
-                                                    //senha fraca (menos de 6 digitos)
-                                                    String reason = ((FirebaseAuthWeakPasswordException) task.getException()).getReason();
-                                                    Toast.makeText(RefreshLogin.this, reason, Toast.LENGTH_LONG).show();
-                                                }
-                                            }
-                                        }
-                                    });
+                            public void onComplete(@NonNull Task<Void> task) {
+                                enableLogin();
+                                if (task.isSuccessful()) {
+                                    changeToUpdateScreen(user);
+                                } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                    //email digitado inválido
+                                    Toast.makeText(RefreshLogin.this, "Credenciais inválidas", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Log.e("ERROR", task.getException().getClass().getName());
+                                    Toast.makeText(RefreshLogin.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
-
-                        enableLogin();
+                    } else{
+                        logout();
                     }
-                });
-
+                } else {
+                    Toast.makeText(RefreshLogin.this, "Por favor, preencha os campos", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -189,5 +151,118 @@ public class RefreshLogin extends Activity {
     private void disableLogin(){
         atualizar.setBackground(ContextCompat.getDrawable(this, R.drawable.borda_curvada_cinza));
         atualizar.setEnabled(false);
+    }
+
+    private void logout(){
+        Toast.makeText(RefreshLogin.this, "Um erro ocorreu, usuário deslogado", Toast.LENGTH_LONG).show();
+        SharedPreferences prefs = getSharedPreferences("Preferences", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
+        PacienteUpdater.onEnd();
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(RefreshLogin.this, TelaLogin.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void changeToUpdateScreen(FirebaseUser user){
+        title.setText("Informe os novos dados");
+        emailLabel.setText("Novo " + emailLabel.getText());
+        senhaLabel.setText("Nova " + senhaLabel.getText());
+        email.setText("");
+        senha.setText("");
+        senha.setNextFocusDownId(R.id.edit_conf_senha_dados);
+        confSenhaImage.setVisibility(View.VISIBLE);
+        confSenhaLabel.setVisibility(View.VISIBLE);
+        confSenha.setVisibility(View.VISIBLE);
+        mostrarConfSenha.setVisibility(View.VISIBLE);
+        atualizar.setText("Atualizar");
+        atualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                disableLogin();
+
+                String novoEmail = email.getText().toString().toLowerCase();
+                String novaSenha = senha.getText().toString();
+                String novaConfSenha = confSenha.getText().toString();
+
+                email.setText("");
+                senha.setText("");
+                confSenha.setText("");
+
+                if(!novaSenha.isEmpty() && novaSenha.equals(novaConfSenha)){
+                    updatePassword(user, novaSenha).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            FirebaseUser user = auth.getCurrentUser();
+
+                            AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), novaSenha);
+
+                            user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(!novoEmail.isEmpty()){
+                                        updateEmail(user, novoEmail);
+                                        enableLogin();
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                } else if(!novoEmail.isEmpty()){
+                    updateEmail(user, novoEmail);
+                    enableLogin();
+                    finish();
+                }
+
+                if(!novaSenha.equals(novaConfSenha)){
+                    Toast.makeText(getApplicationContext(), "Insira senhas iguais", Toast.LENGTH_SHORT).show();
+                    enableLogin();
+                }
+
+
+            }
+        });
+    }
+
+    private Task<Void> updateEmail(FirebaseUser user, String novoEmail){
+        return user.updateEmail(novoEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (!task.isSuccessful()) {
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                        //email já faz parte de uma conta
+                        Toast.makeText(RefreshLogin.this, "Email já possui uma conta associada", Toast.LENGTH_LONG).show();
+                    } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                        //email digitado inválido
+                        Toast.makeText(RefreshLogin.this, "Email inválido", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(RefreshLogin.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                } else{
+                    user.sendEmailVerification();
+                    Toast.makeText(RefreshLogin.this, "Confirmação de email enviada, verifique sua caixa de entrada", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private Task<Void> updatePassword(FirebaseUser user, String novaSenha){
+        return user.updatePassword(novaSenha).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (!task.isSuccessful()) {
+                    if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
+                        //senha fraca (menos de 6 digitos)
+                        String reason = ((FirebaseAuthWeakPasswordException) task.getException()).getReason();
+                        Toast.makeText(RefreshLogin.this, reason, Toast.LENGTH_LONG).show();
+                    }
+                } else{
+                    Toast.makeText(RefreshLogin.this, "Senha alterada com sucesso", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

@@ -55,8 +55,8 @@ public class Sair extends Activity {
                 PacienteUpdater.onEnd();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(Sair.this, TelaLogin.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
             }
         });
 
